@@ -1,7 +1,14 @@
 import React from 'react';
+import { Route, Switch } from 'react-router';
+
+import FrontPage from './pages/frontPage/FrontPage';
 
 function App() {
-  return <div>Welcome</div>;
+  return (
+    <Switch>
+      <Route exact path={`/`} component={FrontPage} />
+    </Switch>
+  );
 }
 
 export default App;
