@@ -1,0 +1,30 @@
+{
+  "page": {
+    "front": {
+      "title": "Hei Kaisa!"
+    }
+  },
+  "pageLayout": {
+    "footer": {
+      "accessibility": "Saavutettavuus",
+      "contactInformation": "Yhteystiedot",
+      "copyright": "Kaikki oikeudet pidätetään",
+      "feedback": "Palaute",
+      "privacy": "Tietosuoja",
+      "processingPersonalData": "Henkilötietojen käsittel",
+      "registryDescription": "Rekisteriseloste",
+      "support": "Tuki",
+      "title": "Kaupunkiympäristön pysäköintiluvat-palvelu"
+    },
+    "navbar": {
+      "frontPage": "Etusivu",
+      "menuLabel": "Valikko",
+      "messages": "Viestit",
+      "ownProfile": "Omat tiedot",
+      "signIn": "Kirjaudu sisään",
+      "singOut": "Kirjaudu ulos",
+      "skipToContent": "Siirry sisältöön"
+    },
+    "title": "Pysäköintiluvat"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "page": {
+    "front": {
+      "title": "Hey Kaisa!"
+    }
+  },
+  "pageLayout": {
+    "footer": {
+      "accessibility": "Accessibility",
+      "contactInformation": "Contact information",
+      "copyright": "All rights reserved",
+      "feedback": "Feedback",
+      "privacy": "Privacy",
+      "processingPersonalData": "Processing of personal data",
+      "registryDescription": "Registry description",
+      "support": "Support",
+      "title": "Urban parking permits service"
+    },
+    "navbar": {
+      "frontPage": "Front page",
+      "menuLabel": "Menu",
+      "messages": "Messages",
+      "ownProfile": "Own information",
+      "signIn": "Sign in",
+      "singOut": "Sign out",
+      "skipToContent": "Skip to content"
+    },
+    "title": "Parking permits"
+  }
+}
