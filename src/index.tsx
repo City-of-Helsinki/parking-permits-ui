@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createBrowserHistory } from 'history';
-import { Route, Router, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { init } from '@sentry/browser';
 
 import './i18n/i18n';
 import './styles/main.scss';
@@ -9,14 +9,22 @@ import './styles/main.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const history = createBrowserHistory();
+const ENVS_WITH_SENTRY = ['staging', 'production'];
+
+if (
+  process.env.REACT_APP_ENVIRONMENT &&
+  ENVS_WITH_SENTRY.includes(process.env.REACT_APP_ENVIRONMENT)
+) {
+  init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    environment: process.env.REACT_APP_ENVIRONMENT,
+  });
+}
 
 ReactDOM.render(
-  <Router history={history}>
-    <Switch>
-      <Route path="/" component={App} />
-    </Switch>
-  </Router>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
