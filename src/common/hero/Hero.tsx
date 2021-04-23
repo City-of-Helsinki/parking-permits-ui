@@ -8,7 +8,7 @@ interface Props {
   title: string;
 }
 
-const Hero = ({ title }: Props) => {
+const Hero = ({ title }: Props): React.ReactElement => {
   const { t } = useTranslation();
 
   return (
