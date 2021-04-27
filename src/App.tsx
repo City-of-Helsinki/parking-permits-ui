@@ -1,13 +1,50 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Redirect, Switch, useRouteMatch } from 'react-router';
+import StoreProvider from './redux/StoreProvider';
+import { ClientProvider } from './client/ClientProvider';
+import { setClientConfig } from './client';
 
+import clientConfig from './client/config';
 import FrontPage from './pages/frontPage/FrontPage';
+import OidcCallback from './client/OidcCallback';
+import { ApiAccessTokenProvider } from './common/ApiAccessTokenProvider';
+import Navbar from './common/navbar/Navbar';
+import Footer from './common/footer/Footer';
+import './App.scss';
+import ProfilePage from './pages/profilePage/ProfilePage';
+import { useClient } from './client/hooks';
 
-function App() {
+setClientConfig(clientConfig);
+
+function App(): React.ReactElement {
+  const client = useClient();
+  const { callbackPath } = clientConfig;
+  const isCallbackUrl = useRouteMatch(callbackPath);
+  if (callbackPath && isCallbackUrl) {
+    return <OidcCallback successRedirect="/" failureRedirect="/authError" />;
+  }
+
   return (
-    <Switch>
-      <Route exact path={`/`} component={FrontPage} />
-    </Switch>
+    <ClientProvider>
+      <StoreProvider>
+        <ApiAccessTokenProvider>
+          <div className="page-layout">
+            <Navbar />
+            <main>
+              <Switch>
+                <Route exact path="/" component={FrontPage} />
+                {client.isAuthenticated() ? (
+                  <Route exact path="/profile" component={ProfilePage} />
+                ) : (
+                  <Redirect to="/" />
+                )}
+              </Switch>
+            </main>
+            <Footer />
+          </div>
+        </ApiAccessTokenProvider>
+      </StoreProvider>
+    </ClientProvider>
   );
 }
 
