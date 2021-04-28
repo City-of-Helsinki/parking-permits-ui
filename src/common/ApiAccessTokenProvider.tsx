@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
 
-import { useApiAccessTokens, ApiAccessTokenActions } from '../client/hooks';
-
-export interface ApiAccessTokenContextProps {
-  readonly actions: ApiAccessTokenActions;
-}
+import { useApiAccessTokens } from '../client/hooks';
+import { ApiAccessTokenActions } from '../client/types';
 
 export const ApiAccessTokenContext = React.createContext<ApiAccessTokenActions | null>(
   null
