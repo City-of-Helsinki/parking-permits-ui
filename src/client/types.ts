@@ -168,3 +168,20 @@ export type ClientFactory = {
   addApiTokens: Client['addApiTokens'];
   removeApiToken: Client['removeApiToken'];
 } & EventHandlers;
+
+export type FetchStatus =
+  | 'unauthorized'
+  | 'ready'
+  | 'loading'
+  | 'error'
+  | 'loaded'
+  | 'waiting';
+
+export type ApiFetchError = FetchError | string | undefined;
+
+export type ApiAccessTokenActions = {
+  fetch: (options: FetchApiTokenOptions) => Promise<JWTPayload | FetchError>;
+  getStatus: () => FetchStatus;
+  getErrorMessage: () => string | undefined;
+  getTokens: () => JWTPayload | undefined;
+};
