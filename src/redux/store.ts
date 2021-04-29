@@ -1,22 +1,46 @@
-import { createStore } from 'redux';
-
 import {
-  Client,
-  ClientErrorObject,
-  ClientEvent,
-  ClientStatus,
-  User,
-} from '../client/types';
-import reducer from './reducer';
-import { authorized, unauthorized, errorThrown } from './actions';
+  Action,
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore,
+} from 'redux';
+import thunk, { ThunkMiddleware } from 'redux-thunk';
 
-export const store = createStore(reducer, {
-  user: undefined,
-  status: ClientStatus.NONE,
-  authenticated: false,
-  initialized: false,
-  error: undefined,
+import { StoreState } from './types';
+import userReducer from './reducers/user';
+import zonesReducer from './reducers/zone';
+import coordinatesReducer from './reducers/coordinates';
+import helsinkiProfileReducer from './reducers/helsinkiProfile';
+import { authorized, errorThrown, unauthorized } from './actions/user';
+import { Client, ClientErrorObject, ClientEvent, User } from '../client/types';
+
+// Ignore: The __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ doesn't seem to have types available.
+interface CustomWindow extends Window {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+}
+const composeEnhancers =
+  (process.env.NODE_ENV === 'development' &&
+    window &&
+    // eslint-disable-next-line no-underscore-dangle
+    ((window as unknown) as CustomWindow)
+      .__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+
+const reducers = combineReducers({
+  userState: userReducer,
+  zonesState: zonesReducer,
+  coordinatesState: coordinatesReducer,
+  helsinkiProfileState: helsinkiProfileReducer,
 });
+
+export const store = createStore(
+  reducers,
+  composeEnhancers(
+    applyMiddleware(thunk as ThunkMiddleware<StoreState, Action>)
+  )
+);
 
 export const connectClient = (client: Client): void => {
   client.addListener(ClientEvent.AUTHORIZED, payload => {
