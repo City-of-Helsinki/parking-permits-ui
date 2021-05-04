@@ -12,9 +12,10 @@ import {
   ClientStatus,
   ClientStatusId,
   ClientError,
-  FetchApiTokenOptions,
-  FetchError,
   JWTPayload,
+  ApiAccessTokenActions,
+  FetchStatus,
+  ApiFetchError,
 } from './types';
 import { getClient } from './oidc-react';
 
@@ -121,23 +122,6 @@ export function useClientCallback(): Client {
   }, [clientFromRef]);
   return clientFromRef;
 }
-
-export type FetchStatus =
-  | 'unauthorized'
-  | 'ready'
-  | 'loading'
-  | 'error'
-  | 'loaded'
-  | 'waiting';
-
-type ApiFetchError = FetchError | string | undefined;
-
-export type ApiAccessTokenActions = {
-  fetch: (options: FetchApiTokenOptions) => Promise<JWTPayload | FetchError>;
-  getStatus: () => FetchStatus;
-  getErrorMessage: () => string | undefined;
-  getTokens: () => JWTPayload | undefined;
-};
 
 export const ApiAccessTokenActionsContext = createContext<ApiAccessTokenActions | null>(
   null

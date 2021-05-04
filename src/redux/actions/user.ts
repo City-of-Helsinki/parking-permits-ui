@@ -1,13 +1,16 @@
 import {
-  User,
-  ClientEvent,
   Client,
   ClientErrorObject,
+  ClientEvent,
   EventPayload,
-} from '../client/types';
+  User,
+} from '../../client/types';
+import { CONNECTED_ACTION } from '../types';
 
-type Action = { type: string; payload?: EventPayload };
-export const CONNECTED_ACTION = 'CONNECTED_ACTION';
+type Action = {
+  type: string;
+  payload?: EventPayload;
+};
 
 export const connected = (client: Client): Action => ({
   type: CONNECTED_ACTION,

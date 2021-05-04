@@ -1,9 +1,19 @@
 import { Reducer } from 'redux';
-import { ClientEvent, ClientStatus, Client } from '../client/types';
-import { CONNECTED_ACTION } from './actions';
-import { StoreState } from './types';
+import { CONNECTED_ACTION, UserState } from '../types';
+import { Client, ClientEvent, ClientStatus } from '../../client/types';
 
-const reducer: Reducer = (state, action): StoreState => {
+const initialState: UserState = {
+  user: undefined,
+  status: ClientStatus.NONE,
+  authenticated: false,
+  initialized: false,
+  error: undefined,
+};
+
+const userReducer: Reducer = (
+  state: UserState = initialState,
+  action
+): UserState => {
   switch (action.type) {
     case CONNECTED_ACTION:
       const client: Client = action.payload;
@@ -51,4 +61,5 @@ const reducer: Reducer = (state, action): StoreState => {
       return state;
   }
 };
-export default reducer;
+
+export default userReducer;

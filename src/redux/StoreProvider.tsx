@@ -2,7 +2,7 @@ import React, { useEffect, FC } from 'react';
 import { Provider } from 'react-redux';
 
 import { store, connectClient } from './store';
-import { connected } from './actions';
+import { connected } from './actions/user';
 import { useClient } from '../client/hooks';
 
 const StoreProvider: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
