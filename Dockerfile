@@ -20,6 +20,7 @@ RUN apt-install.sh build-essential
 
 # Install the actual app dependencies
 USER appuser
+RUN npm config set unsafe-perm true
 RUN yarn install && yarn cache clean --force
 
 USER root
