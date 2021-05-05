@@ -74,13 +74,13 @@ const Navbar = (): React.ReactElement => {
         {initialized && (
           <Navigation.User
             authenticated={authenticated}
-            label="Kirjaudu sisään"
+            label={t('pageLayout.navbar.signIn')}
             onSignIn={(): void => client.login()}
             userName={userName}>
             <Navigation.Item
               onClick={(): void => client.logout()}
               variant="secondary"
-              label="Kirjaudu ulos"
+              label={t('pageLayout.navbar.signOut')}
             />
           </Navigation.User>
         )}
