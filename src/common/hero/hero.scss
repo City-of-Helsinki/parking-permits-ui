@@ -1,6 +1,8 @@
 @import '~open-city-design/src/scss/helsinki/colors';
 
 .parking-permit-hero {
+  margin-bottom: 16px;
+  background: $hel-white;
   &__title {
     color: $hel-fog;
   }
