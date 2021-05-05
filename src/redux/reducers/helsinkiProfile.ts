@@ -18,8 +18,9 @@ const helsinkiProfileReducer = reducerWithInitialState<HelsinkiUserProfileState>
     fetchingStatus: ProcessingStatus.SUCCESS,
     profile: action.result,
   }))
-  .case(fetchHelsinkiProfileAction.failed, state => ({
+  .case(fetchHelsinkiProfileAction.failed, (state, action) => ({
     ...state,
+    error: action.error,
     fetchingStatus: ProcessingStatus.FAILURE,
   }));
 

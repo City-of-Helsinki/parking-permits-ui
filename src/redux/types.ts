@@ -1,4 +1,4 @@
-import { FeatureCollection, MultiPolygon, Position } from 'geojson';
+import { FeatureCollection, MultiPolygon, Point } from 'geojson';
 import {
   ClientErrorObject,
   ClientStatusId,
@@ -85,23 +85,13 @@ export interface HelsinkiUserProfileState {
   error?: Error;
 }
 
-export interface Coordinates {
-  [id: string]: Position;
+export interface Features {
+  [id: string]: FeatureCollection<MultiPolygon | Point>;
 }
 
-export interface Zones {
-  [id: string]: FeatureCollection<MultiPolygon>;
-}
-
-export interface CoordinatesState {
+export interface FeaturesState {
   fetchingStatus?: ProcessingStatus;
-  coordinates: Coordinates;
-  error?: Error;
-}
-
-export interface ZonesState {
-  fetchingStatus?: ProcessingStatus;
-  zones: Zones;
+  features: Features;
   error?: Error;
 }
 
@@ -115,7 +105,7 @@ export type UserState = {
 };
 
 export type StoreState = {
-  user: UserState;
-  helsinkiProfile: UserProfile;
-  coordinates: Coordinates;
+  userState: UserState;
+  featuresState: FeaturesState;
+  helsinkiProfileState: HelsinkiUserProfileState;
 };
