@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { init } from '@sentry/browser';
 
 import './i18n/i18n';
-import './styles/main.scss';
+import './assets/styles/main.scss';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
