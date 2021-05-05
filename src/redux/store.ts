@@ -9,8 +9,7 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { StoreState } from './types';
 import userReducer from './reducers/user';
-import zonesReducer from './reducers/zone';
-import coordinatesReducer from './reducers/coordinates';
+import featuresReducer from './reducers/features';
 import helsinkiProfileReducer from './reducers/helsinkiProfile';
 import { authorized, errorThrown, unauthorized } from './actions/user';
 import { Client, ClientErrorObject, ClientEvent, User } from '../client/types';
@@ -30,8 +29,7 @@ const composeEnhancers =
 
 const reducers = combineReducers({
   userState: userReducer,
-  zonesState: zonesReducer,
-  coordinatesState: coordinatesReducer,
+  featuresState: featuresReducer,
   helsinkiProfileState: helsinkiProfileReducer,
 });
 
