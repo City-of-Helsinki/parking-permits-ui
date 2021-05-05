@@ -1,4 +1,11 @@
-import { Footer as HDSFooter } from 'hds-react';
+import {
+  Footer as HDSFooter,
+  IconFacebook,
+  IconTwitter,
+  IconInstagram,
+  IconYoutube,
+  IconTiktok,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,10 +22,20 @@ const Footer = (): React.ReactElement => {
         '--footer-focus-outline-color': FOOTER_COLOR,
       }}>
       <HDSFooter.Navigation>
+        <HDSFooter.Item label={t('pageLayout.footer.termsOfParkingCode')} />
         <HDSFooter.Item label={t('pageLayout.footer.support')} />
         <HDSFooter.Item label={t('pageLayout.footer.feedback')} />
         <HDSFooter.Item label={t('pageLayout.footer.contactInformation')} />
       </HDSFooter.Navigation>
+      <HDSFooter.Utilities backToTopLabel={t('pageLayout.footer.backToTop')}>
+        <HDSFooter.SoMe>
+          <HDSFooter.Item icon={<IconFacebook />} />
+          <HDSFooter.Item icon={<IconTwitter />} />
+          <HDSFooter.Item icon={<IconInstagram />} />
+          <HDSFooter.Item icon={<IconYoutube />} />
+          <HDSFooter.Item icon={<IconTiktok />} />
+        </HDSFooter.SoMe>
+      </HDSFooter.Utilities>
       <HDSFooter.Base
         copyrightHolder="Copyright"
         copyrightText={t('pageLayout.footer.copyright')}>
