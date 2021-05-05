@@ -32,7 +32,9 @@ function App(): React.ReactElement {
             <Navbar />
             <main>
               <Switch>
-                <Route exact path="/" component={FrontPage} />
+                {client.isAuthenticated() && (
+                  <Route exact path="/" component={FrontPage} />
+                )}
                 {client.isAuthenticated() ? (
                   <Route exact path="/profile" component={ProfilePage} />
                 ) : (
