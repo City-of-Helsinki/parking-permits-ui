@@ -39,6 +39,18 @@ const getOnlyZones = (
   return copyOfCollection;
 };
 
+const getMarkerText = (
+  featureCollection: FeatureCollection<MultiPolygon>
+): string => {
+  const { properties } = featureCollection.features[0];
+  const { asukaspysakointitunnus: code, alueen_nimi: name } = properties as {
+    asukaspysakointitunnus: string;
+    // eslint-disable-next-line camelcase
+    alueen_nimi: string;
+  };
+  return `${name} ( ${code} )`;
+};
+
 export default function ParkingZonesMap(props: Props): React.ReactElement {
   const center = getMapCenter(props.featureCollection);
   const osmAttribution =
@@ -50,11 +62,7 @@ export default function ParkingZonesMap(props: Props): React.ReactElement {
         url="//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={center} icon={icon}>
-        <Popup>
-          <span>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </span>
-        </Popup>
+        <Popup>{getMarkerText(getOnlyZones(props.featureCollection))}</Popup>
       </Marker>
       <GeoJSON key="id" data={getOnlyZones(props.featureCollection)} />
     </MapContainer>
