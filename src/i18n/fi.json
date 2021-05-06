@@ -1,7 +1,22 @@
 {
   "page": {
-    "front": {
-      "title": "Hei Kaisa!"
+    "frontPage": {
+      "title": "Hei {{firstName}}!",
+      "notification": {
+        "info": {
+          "label": "Sinulla ei ole voimassa olevia pysäköintitunnuksia",
+          "message": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella voit ostaa pysäköintitunnuksen oheisille vyöhykkeille."
+        }
+      },
+      "selectAddress": "Valitse osoite",
+      "buyParkingId": "Osta pysäkointitunnus"
+    }
+  },
+  "common": {
+    "address": {
+      "residentParkingZone": "Asukaspysäköintialue",
+      "permanentAddress": "Pysyvä osoite",
+      "temporaryAddress": "Tilapäinen osoite"
     }
   },
   "pageLayout": {
@@ -14,7 +29,9 @@
       "processingPersonalData": "Henkilötietojen käsittel",
       "registryDescription": "Rekisteriseloste",
       "support": "Tuki",
-      "title": "Kaupunkiympäristön pysäköintiluvat-palvelu"
+      "title": "Kaupunkiympäristön pysäköintiluvat",
+      "termsOfParkingCode": "Pysäköintitunnuksen ehdot",
+      "backToTop": "Takaisin ylös"
     },
     "navbar": {
       "frontPage": "Etusivu",
@@ -22,7 +39,7 @@
       "messages": "Viestit",
       "ownProfile": "Omat tiedot",
       "signIn": "Kirjaudu sisään",
-      "singOut": "Kirjaudu ulos",
+      "signOut": "Kirjaudu ulos",
       "skipToContent": "Siirry sisältöön"
     },
     "title": "Pysäköintiluvat"

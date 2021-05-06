@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useClient } from '../../client/hooks';
 
 type Page = '/' | 'apiAccessTokens' | 'userTokens' | 'profile';
+type Languages = 'fi' | 'en' | 'sv';
 
 export const makeNavigationItemProps = (
   url: string,
@@ -23,21 +24,27 @@ export const makeNavigationItemProps = (
 
 const Navbar = (): React.ReactElement => {
   const client = useClient();
+  const history = useHistory();
+  const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const [lang, setLang] = useState<Languages>('fi');
+  const setLanguage = (code: Languages) => {
+    i18n.changeLanguage(code);
+    setLang(code);
+  };
+
   const authenticated = client.isAuthenticated();
   const initialized = client.isInitialized();
   const user = client.getUser();
-  const history = useHistory();
   const userName = user ? `${user.given_name} ${user.family_name}` : '';
 
-  const location = useLocation();
   const currentPageFromPath: Page =
     location.pathname && location.pathname.length > 1
       ? (location.pathname.substr(1) as Page)
       : '/';
-
   const [active, setActive] = useState<Page>(currentPageFromPath);
 
-  const { t } = useTranslation();
   const links = [
     {
       url: '/',
@@ -71,16 +78,30 @@ const Navbar = (): React.ReactElement => {
         ))}
       </Navigation.Row>
       <Navigation.Actions>
+        <Navigation.LanguageSelector label={lang.toUpperCase()}>
+          <Navigation.Item
+            label="Suomeksi"
+            onClick={(): void => setLanguage('fi')}
+          />
+          <Navigation.Item
+            label="På svenska"
+            onClick={(): void => setLanguage('sv')}
+          />
+          <Navigation.Item
+            label="In English"
+            onClick={(): void => setLanguage('en')}
+          />
+        </Navigation.LanguageSelector>
         {initialized && (
           <Navigation.User
             authenticated={authenticated}
-            label="Kirjaudu sisään"
+            label={t('pageLayout.navbar.signIn')}
             onSignIn={(): void => client.login()}
             userName={userName}>
             <Navigation.Item
               onClick={(): void => client.logout()}
               variant="secondary"
-              label="Kirjaudu ulos"
+              label={t('pageLayout.navbar.signOut')}
             />
           </Navigation.User>
         )}

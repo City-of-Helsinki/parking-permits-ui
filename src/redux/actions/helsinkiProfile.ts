@@ -6,7 +6,7 @@ import { ApolloQueryResult } from '@apollo/client/core/types';
 
 import { ProfileQueryResult, UserProfile } from '../types';
 import { convertQueryToData, getProfileGqlClient } from '../utils';
-import { fetchCoordinates } from './coordinates';
+import { fetchFeatures } from './features';
 
 const creator = actionCreatorFactory('helsinkiProfile');
 export const fetchHelsinkiProfileAction = creator.async<
@@ -44,7 +44,7 @@ export const fetchUserProfile = () => async (
     const data = convertQueryToData(result);
     if (data) {
       Object.values(data.addresses).forEach(address =>
-        dispatch(fetchCoordinates(address))
+        dispatch(fetchFeatures(address))
       );
       dispatch(
         fetchHelsinkiProfileAction.done({

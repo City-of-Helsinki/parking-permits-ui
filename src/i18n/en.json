@@ -1,7 +1,22 @@
 {
   "page": {
-    "front": {
-      "title": "Hey Kaisa!"
+    "frontPage": {
+      "title": "Hey {{firstName}}!",
+      "notification": {
+        "info": {
+          "label": "You do not have valid parking IDs",
+          "message": "Based on your personal information obtained from the Population Register Center, you can purchase a parking permit for the adjacent zones."
+        }
+      },
+      "selectAddress": "Select address",
+      "buyParkingId": "Buy a parking ID"
+    }
+  },
+  "common": {
+    "address": {
+      "residentParkingZone": "Resident parking zone",
+      "permanentAddress": "Permanent address",
+      "temporaryAddress": "Temporary address"
     }
   },
   "pageLayout": {
@@ -14,7 +29,9 @@
       "processingPersonalData": "Processing of personal data",
       "registryDescription": "Registry description",
       "support": "Support",
-      "title": "Urban parking permits service"
+      "title": "Urban parking permits",
+      "termsOfParkingCode": "Terms of parking permit",
+      "backToTop": "Back to top"
     },
     "navbar": {
       "frontPage": "Front page",
@@ -22,7 +39,7 @@
       "messages": "Messages",
       "ownProfile": "Own information",
       "signIn": "Sign in",
-      "singOut": "Sign out",
+      "signOut": "Sign out",
       "skipToContent": "Skip to content"
     },
     "title": "Parking permits"
