@@ -7,10 +7,10 @@ import { setClientConfig } from './client';
 import clientConfig from './client/config';
 import FrontPage from './pages/frontPage/FrontPage';
 import OidcCallback from './client/OidcCallback';
-import { ApiAccessTokenProvider } from './common/ApiAccessTokenProvider';
+import { ApiAccessTokenProvider } from './common/apiAccessTokenProvider';
 import Navbar from './common/navbar/Navbar';
 import Footer from './common/footer/Footer';
-import './App.scss';
+import './app.scss';
 import ProfilePage from './pages/profilePage/ProfilePage';
 import { useClient } from './client/hooks';
 

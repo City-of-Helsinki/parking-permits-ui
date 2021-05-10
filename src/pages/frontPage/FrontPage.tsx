@@ -5,14 +5,14 @@ import { Container } from 'reactstrap';
 import { Button, IconArrowRight, Notification } from 'hds-react';
 
 import Hero from '../../common/hero/Hero';
-import { ApiAccessTokenContext } from '../../common/ApiAccessTokenProvider';
+import { ApiAccessTokenContext } from '../../common/apiAccessTokenProvider';
 import { ApiAccessTokenActions } from '../../client/types';
 import { StoreState } from '../../redux';
 import { fetchUserProfile } from '../../redux/actions/helsinkiProfile';
-import ParkingZonesMap from '../../common/parking-zone-map/ParkingZonesMap';
-import Address from '../../common/address/address';
+import ParkingZonesMap from '../../common/parkingZoneMap/ParkingZonesMap';
+import Address from '../../common/address/Address';
 
-import './FrontPage.scss';
+import './frontPage.scss';
 import Stepper from '../../common/stepper/Stepper';
 import { setCurrentStepper } from '../../redux/actions/permitCart';
 

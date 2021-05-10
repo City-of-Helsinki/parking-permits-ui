@@ -5,7 +5,7 @@ import L, { LatLngExpression } from 'leaflet';
 
 import marker from '../../assets/images/icon_poi_talo-sininen.svg';
 
-import './ParkingZonesMap.css';
+import './parkingZonesMap.css';
 
 const icon = new L.Icon({
   iconUrl: marker,
