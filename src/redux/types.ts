@@ -89,6 +89,13 @@ export interface Features {
   [id: string]: FeatureCollection<MultiPolygon | Point>;
 }
 
+export interface PermitCartState {
+  processingStatus?: ProcessingStatus;
+  selectedZone?: string;
+  registrationNumber?: string;
+  currentStep: number;
+}
+
 export interface FeaturesState {
   fetchingStatus?: ProcessingStatus;
   features: Features;
@@ -105,6 +112,7 @@ export type UserState = {
 };
 
 export type StoreState = {
+  permitCartState: PermitCartState;
   userState: UserState;
   featuresState: FeaturesState;
   helsinkiProfileState: HelsinkiUserProfileState;
