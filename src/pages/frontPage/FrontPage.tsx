@@ -13,16 +13,19 @@ import ParkingZonesMap from '../../common/parking-zone-map/ParkingZonesMap';
 import Address from '../../common/address/address';
 
 import './FrontPage.scss';
+import Stepper from '../../common/stepper/Stepper';
+import { setCurrentStepper } from '../../redux/actions/permitCart';
 
 const FrontPage = (): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   useLayoutEffect(() => window.scrollTo(0, 0), []);
   const [selectedItem, setSelectedItem] = React.useState('');
-  const { featuresState, helsinkiProfileState } = useSelector(
+  const { featuresState, helsinkiProfileState, permitCartState } = useSelector(
     (state: StoreState) => state
   );
 
+  const { currentStep } = permitCartState;
   const addresses = Object.values(
     helsinkiProfileState?.profile?.addresses || {}
   );
@@ -43,14 +46,24 @@ const FrontPage = (): React.ReactElement => {
   const onChange = (event: { target: { value: string } }) => {
     setSelectedItem(event.target.value);
   };
+
+  const gotoNext = () => {
+    dispatch(setCurrentStepper(currentStep + 1));
+  };
   return (
-    <>
+    <div className="front-page">
       <Hero
+        currentStep={currentStep}
         title={t('page.frontPage.title', {
           firstName: helsinkiProfileState.profile?.firstName,
         })}
       />
       <Container>
+        <Stepper
+          currentStep={currentStep}
+          className="only-for-mobile"
+          style={{ marginBottom: 'var(--spacing-s)' }}
+        />
         <Notification
           className="notification"
           label={t('page.frontPage.notification.info.label')}>
@@ -76,12 +89,12 @@ const FrontPage = (): React.ReactElement => {
               </Address>
             ))}
         </div>
-        <Button className="action-btn">
+        <Button className="action-btn" onClick={gotoNext}>
           <span>{t('page.frontPage.buyParkingId')}</span>
           <IconArrowRight />
         </Button>
       </Container>
-    </>
+    </div>
   );
 };
 
