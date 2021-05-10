@@ -1,36 +1,43 @@
 @import '~open-city-design/src/scss/helsinki/colors';
 @import '../../assets/styles/mixin';
 
-.notification {
-  margin-bottom: var(--spacing-xs);
-  z-index: 1;
-}
-.select-address-title {
-  font-weight: bolder;
-  margin-bottom: var(--spacing-xs);
-}
-.action-btn {
-  margin-bottom: var(--spacing-4-xl);
-  span {
-    margin-right: var(--spacing-s);
+.front-page {
+  .notification {
+    margin-bottom: var(--spacing-xs);
+    z-index: 1;
   }
-  @include for-phone {
-    width: 100%;
+  .select-address-title {
+    font-weight: bolder;
+    margin-bottom: var(--spacing-xs);
   }
-}
-.addresses {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  .card {
-    flex: 1 1 auto;
-    margin-right: var(--spacing-s);
-    &:last-child {
-      margin-right: 0;
+  .action-btn {
+    margin-bottom: var(--spacing-4-xl);
+    span {
+      margin-right: var(--spacing-s);
     }
     @include for-phone {
-      margin-right: 0;
+      width: 100%;
+    }
+  }
+  .addresses {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .card {
+      flex: 1 1 auto;
+      margin-right: var(--spacing-s);
+      &:last-child {
+        margin-right: 0;
+      }
+      @include for-phone {
+        margin-right: 0;
+      }
+    }
+  }
+  .only-for-mobile {
+    @include for-desktop {
+      display: none;
     }
   }
 }
