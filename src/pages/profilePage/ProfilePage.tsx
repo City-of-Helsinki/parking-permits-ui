@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Card, Container } from 'reactstrap';
 import { ApiAccessTokenActions } from '../../client/types';
-import { ApiAccessTokenContext } from '../../common/ApiAccessTokenProvider';
+import { ApiAccessTokenContext } from '../../common/apiAccessTokenProvider';
 import { StoreState, UserAddress } from '../../redux';
 
 const ProfilePage = (): React.ReactElement => {

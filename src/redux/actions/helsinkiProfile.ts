@@ -36,7 +36,7 @@ export const fetchUserProfile = () => async (
     return;
   }
   try {
-    const MY_PROFILE_QUERY = loader('../../graphql/MyProfileQuery.graphql');
+    const MY_PROFILE_QUERY = loader('../../graphql/myProfileQuery.graphql');
     const result: ApolloQueryResult<ProfileQueryResult> = await client.query({
       errorPolicy: 'all',
       query: MY_PROFILE_QUERY,
