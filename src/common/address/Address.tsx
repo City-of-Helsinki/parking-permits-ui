@@ -9,7 +9,7 @@ import './address.scss';
 
 interface Props {
   address: UserAddress;
-  selectedItem: string;
+  selectedAddressId: string;
   onChange: (event: { target: { value: string } }) => void;
 }
 
@@ -17,7 +17,7 @@ const Address: FC<Props> = ({
   address,
   children,
   onChange,
-  selectedItem,
+  selectedAddressId,
 }): React.ReactElement => {
   const [openState, setOpenState] = useState(true);
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ const Address: FC<Props> = ({
     <Card>
       <div
         className={classNames('address', {
-          selected: address.id === selectedItem,
+          selected: address.id === selectedAddressId,
         })}>
         <div className="address__type">
           <RadioButton
@@ -33,7 +33,7 @@ const Address: FC<Props> = ({
             name={address.id}
             value={address.id}
             label={t('common.address.residentParkingZone')}
-            checked={selectedItem === address.id}
+            checked={selectedAddressId === address.id}
             onChange={onChange}
           />
           <div className="address__type__symbol">
