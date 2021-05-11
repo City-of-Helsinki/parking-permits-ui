@@ -13,6 +13,7 @@ import './frontPage.scss';
 import Stepper from '../../common/stepper/Stepper';
 import AddressSelector from '../../common/addressSelector/AddressSelector';
 import { setSelectedAddressId } from '../../redux/actions/permitCart';
+import VehicleSelector from '../../common/vehicleSelector/VehicleSelector';
 
 const FrontPage = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -26,7 +27,11 @@ const FrontPage = (): React.ReactElement => {
     helsinkiProfileState.profile?.addresses || {}
   );
 
-  const { currentStep, selectedAddressId } = permitCartState;
+  const {
+    currentStep,
+    selectedAddressId,
+    registrationNumber,
+  } = permitCartState;
   const actions = useContext(ApiAccessTokenContext) as ApiAccessTokenActions;
   const { getStatus: getApiAccessTokenStatus } = actions;
 
@@ -54,11 +59,17 @@ const FrontPage = (): React.ReactElement => {
           className="only-for-mobile"
           style={{ marginBottom: 'var(--spacing-s)' }}
         />
-        {selectedAddressId && (
+        {selectedAddressId && currentStep === 1 && (
           <AddressSelector
             selectedAddressId={selectedAddressId}
             addresses={addresses}
             features={featuresState.features}
+          />
+        )}
+        {selectedAddressId && currentStep === 2 && (
+          <VehicleSelector
+            registrationNumber={registrationNumber}
+            address={helsinkiProfileState.profile.addresses[selectedAddressId]}
           />
         )}
       </Container>
