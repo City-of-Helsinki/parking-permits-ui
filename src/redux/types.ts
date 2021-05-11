@@ -117,3 +117,15 @@ export type StoreState = {
   featuresState: FeaturesState;
   helsinkiProfileState: HelsinkiUserProfileState;
 };
+
+export type Vehicle = {
+  id: string;
+  type: string;
+  manufacturer: string;
+  model: string;
+  productionYear: number;
+  registrationNumber: string;
+  emission: number;
+  owner: string;
+  holder: string;
+};
