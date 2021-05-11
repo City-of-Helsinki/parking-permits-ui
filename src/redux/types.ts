@@ -91,7 +91,7 @@ export interface Features {
 
 export interface PermitCartState {
   processingStatus?: ProcessingStatus;
-  selectedZone?: string;
+  selectedAddressId?: string;
   registrationNumber?: string;
   currentStep: number;
 }
