@@ -33,7 +33,7 @@ const AddressSelector = ({
     dispatch(setCurrentStepper(2));
   };
   return (
-    <>
+    <div className="address-selector-component">
       <Notification
         className="notification"
         label={t('page.frontPage.notification.info.label')}>
@@ -63,7 +63,7 @@ const AddressSelector = ({
         <span>{t('page.frontPage.buyParkingId')}</span>
         <IconArrowRight />
       </Button>
-    </>
+    </div>
   );
 };
 

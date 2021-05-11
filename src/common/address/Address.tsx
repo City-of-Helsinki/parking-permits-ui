@@ -22,11 +22,11 @@ const Address: FC<Props> = ({
   const [openState, setOpenState] = useState(true);
   const { t } = useTranslation();
   return (
-    <Card>
-      <div
-        className={classNames('address', {
-          selected: address.id === selectedAddressId,
-        })}>
+    <Card
+      className={classNames('address-component', {
+        selected: address.id === selectedAddressId,
+      })}>
+      <div className={classNames('address')}>
         <div className="address__type">
           <RadioButton
             id={address.id}
