@@ -10,6 +10,18 @@
       },
       "selectAddress": "Valitse osoite",
       "buyParkingId": "Osta pysäkointitunnus"
+    },
+    "vehicleSelector": {
+      "notification": {
+        "success": {
+          "label": "Ajoneuvosi tiedot ovat ajantasalla",
+          "message": "Ajoneuvorekisteritietojen (Traficom) perusteella ajokorttisi on voimassa ja voit ostaa pysäköintitunnuksen oheiselle ajoneuvolle. Vähäpäästöinen ajoneuvo puoleen hintaan."
+        }
+      },
+      "emission": "Vähäpäästöinen ajoneuvo, päästöt alle {{emission}} CO₂",
+      "enterVehicleRegistrationNumber": "Syötå ajoneuvon rekisteritunnus",
+      "returnToSelectAnAddress": "Palaa valitsemaan osoite",
+      "continue": "Jatka"
     }
   },
   "common": {

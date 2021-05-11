@@ -10,6 +10,18 @@
       },
       "selectAddress": "Select address",
       "buyParkingId": "Buy a parking ID"
+    },
+    "vehicleSelector": {
+      "notification": {
+        "success": {
+          "label": "Your vehicle information is up to date",
+          "message": "Based on the vehicle registration information (Traficom), your driving license is valid and you can purchase a parking permit for the attached vehicle. Low-emission vehicle for half price."
+        }
+      },
+      "emission": "Low emission vehicle, emissions below {{emission}} CO₂",
+      "enterVehicleRegistrationNumber": "Enter the vehicle registration number",
+      "returnToSelectAnAddress": "Return to select an address",
+      "continue": "Continue"
     }
   },
   "common": {
