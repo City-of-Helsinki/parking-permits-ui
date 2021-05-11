@@ -4,6 +4,7 @@ import { PermitCartState } from '../types';
 import {
   setCurrentStepperAction,
   setSelectedAddressIdAction,
+  setRegistrationNumberAction,
 } from '../actions/permitCart';
 
 const initialState: PermitCartState = {
@@ -18,6 +19,10 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
   .case(setSelectedAddressIdAction, (state, action) => ({
     ...state,
     selectedAddressId: action,
+  }))
+  .case(setRegistrationNumberAction, (state, action) => ({
+    ...state,
+    registrationNumber: action,
   }));
 
 export default cartReducer;
