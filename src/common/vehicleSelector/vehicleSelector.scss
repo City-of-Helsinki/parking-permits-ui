@@ -1,0 +1,62 @@
+@import '~open-city-design/src/scss/helsinki/colors';
+
+.vehicle-selector-component {
+  .notification {
+    margin-top: var(--spacing-s);
+  }
+  .card {
+    margin-top: var(--spacing-s);
+    margin-bottom: var(--spacing-l);
+    padding: var(--spacing-s);
+    .car-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .registration-number,
+      .price .offer {
+        font-size: var(--fontsize-heading-s);
+        font-weight: bold;
+      }
+      .car-model {
+        font-size: var(--fontsize-heading-s);
+      }
+      .emission-level {
+        background: $hel-fog;
+        padding: 4px 16px;
+        border-radius: 16px;
+        margin-top: var(--spacing-xs);
+        margin-bottom: var(--spacing-xs);
+      }
+      .price {
+        display: flex;
+        align-items: center;
+        .original {
+          margin-right: var(--spacing-s);
+          text-decoration: line-through;
+        }
+      }
+    }
+  }
+  .address {
+    display: flex;
+    align-items: center;
+    font-size: var(--fontsize-heading-s);
+    .address__symbol {
+      width: 30px;
+      height: 30px;
+      background: $hel-coat;
+      text-align: center;
+      color: $hel-white;
+      border-radius: 50%;
+      line-height: 30px;
+      margin-right: var(--spacing-3-xs);
+    }
+  }
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    & > * {
+      margin-bottom: var(--spacing-s);
+    }
+  }
+}
