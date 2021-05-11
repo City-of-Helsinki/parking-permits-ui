@@ -10,6 +10,9 @@ export const setCurrentStepperAction = actionCreator<number>(
 export const setSelectedAddressIdAction = actionCreator<string>(
   'set-selected-address-id'
 );
+export const setRegistrationNumberAction = actionCreator<string>(
+  'set-registration-number'
+);
 export const setCurrentStepper = (id: number) => (dispatch: Dispatch): void => {
   dispatch(setCurrentStepperAction(id));
 };
@@ -18,4 +21,10 @@ export const setSelectedAddressId = (id: string) => (
   dispatch: Dispatch
 ): void => {
   dispatch(setSelectedAddressIdAction(id));
+};
+
+export const setRegistrationNumber = (reg: string) => (
+  dispatch: Dispatch
+): void => {
+  dispatch(setRegistrationNumberAction(reg));
 };
