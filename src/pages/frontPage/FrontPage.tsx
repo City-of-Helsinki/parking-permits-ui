@@ -54,11 +54,7 @@ const FrontPage = (): React.ReactElement => {
         })}
       />
       <Container>
-        <Stepper
-          currentStep={currentStep}
-          className="only-for-mobile"
-          style={{ marginBottom: 'var(--spacing-s)' }}
-        />
+        <Stepper currentStep={currentStep} className="only-for-mobile" />
         {selectedAddressId && currentStep === 1 && (
           <AddressSelector
             selectedAddressId={selectedAddressId}

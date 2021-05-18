@@ -1,9 +1,12 @@
 @import '~open-city-design/src/scss/helsinki/colors';
+@import '../../assets/styles/mixin';
 
 .stepper-container {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: var(--spacing-s);
+  margin-top: var(--spacing-s);
   .steps {
     flex: 1 1 auto;
     display: flex;
@@ -33,6 +36,11 @@
         border: 2px solid $hel-coat;
         color: $hel-coat;
       }
+    }
+  }
+  @include for-phone {
+    &.hideInMobile {
+      display: none;
     }
   }
 }
