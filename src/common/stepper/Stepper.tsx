@@ -17,7 +17,11 @@ const Stepper: FC<Props> = ({
 }): React.ReactElement => {
   const stepLength = 4;
   return (
-    <div className={`stepper-container ${className}`} style={{ ...style }}>
+    <div
+      className={classNames(`stepper-container ${className}`, {
+        hideInMobile: currentStep === 1,
+      })}
+      style={{ ...style }}>
       {Array.from({ length: stepLength })
         .map((v, i) => i)
         .map(value => (
