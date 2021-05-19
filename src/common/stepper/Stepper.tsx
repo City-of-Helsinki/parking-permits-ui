@@ -23,23 +23,24 @@ const Stepper: FC<Props> = ({
       })}
       style={{ ...style }}>
       {Array.from({ length: stepLength })
-        .map((v, i) => i)
+        .map((v, i) => i + 1)
         .map(value => (
           <div
             key={uuidv4()}
             className={classNames('steps', {
-              last: value + 1 === stepLength,
+              last: value === stepLength,
             })}>
             <div
               className={classNames('step', {
+                selected: value === currentStep,
                 completed: value < currentStep,
               })}>
-              {value + 1}
+              {value}
             </div>
-            {value + 1 !== stepLength && (
+            {value !== stepLength && (
               <div
                 className={classNames('step-length', {
-                  completed: value + 1 < currentStep,
+                  completed: value < currentStep,
                 })}
               />
             )}
