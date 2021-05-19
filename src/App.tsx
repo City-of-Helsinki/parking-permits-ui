@@ -13,6 +13,7 @@ import Footer from './common/footer/Footer';
 import './app.scss';
 import ProfilePage from './pages/profilePage/ProfilePage';
 import { useClient } from './client/hooks';
+import LandingPage from './pages/landingPage/LandingPage';
 
 setClientConfig(clientConfig);
 
@@ -32,8 +33,10 @@ function App(): React.ReactElement {
             <Navbar />
             <main>
               <Switch>
-                {client.isAuthenticated() && (
+                {client.isAuthenticated() ? (
                   <Route exact path="/" component={FrontPage} />
+                ) : (
+                  <Route exact path="/" component={LandingPage} />
                 )}
                 {client.isAuthenticated() ? (
                   <Route exact path="/profile" component={ProfilePage} />
