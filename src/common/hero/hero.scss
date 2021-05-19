@@ -13,4 +13,9 @@
       display: none;
     }
   }
+  @include for-phone {
+    &.hideInMobile {
+      display: none;
+    }
+  }
 }
