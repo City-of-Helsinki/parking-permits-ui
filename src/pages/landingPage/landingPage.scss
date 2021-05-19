@@ -1,0 +1,10 @@
+@import '~open-city-design/src/scss/helsinki/colors';
+@import '../../assets/styles/mixin';
+
+.landing-page {
+  .login-button {
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-l);
+    width: 100%;
+  }
+}
