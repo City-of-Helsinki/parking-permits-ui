@@ -59,6 +59,6 @@ WORKDIR /usr/share/nginx/html
 
 USER 1001
 
-CMD ["/bin/bash", "nginx -g \"daemon off;\""]
+CMD ["nginx", "-g", "daemon off;"]
 
 EXPOSE 8000
