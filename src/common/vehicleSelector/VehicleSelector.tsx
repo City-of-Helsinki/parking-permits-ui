@@ -9,48 +9,54 @@ import {
   Notification,
 } from 'hds-react';
 import { useTranslation } from 'react-i18next';
-import { isEmpty } from 'lodash';
 
 import './vehicleSelector.scss';
 import {
+  fetchVehicleDetail,
   setCurrentStepper,
-  setRegistrationNumber,
 } from '../../redux/actions/permitCart';
-import { UserAddress, Vehicle } from '../../redux';
-
-const mockData = {
-  id: '1232',
-  type: 'sedan',
-  manufacturer: 'Toyota',
-  model: 'Yaris',
-  productionYear: 2020,
-  registrationNumber: 'ABC-123',
-  emission: 85,
-  owner: '123-asd',
-  holder: '123-asd',
-};
+import { Price, UserAddress, Vehicle } from '../../redux';
 
 export interface Props {
-  registrationNumber: string | undefined;
   address: UserAddress;
+  prices: Price | undefined;
+  vehicleDetail: Vehicle | undefined;
 }
 
 const VehicleSelector = ({
   address,
-  registrationNumber,
+  prices,
+  vehicleDetail,
 }: Props): React.ReactElement => {
-  const [regDetail, setRegDetail] = useState({} as Vehicle);
+  const [regNumber, setRegNumber] = useState(vehicleDetail?.registrationNumber);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const gotoStep = (count: number | null) => {
-    if (count) {
-      dispatch(setCurrentStepper(count));
-    } else {
-      setRegDetail(mockData);
-    }
+
+  const {
+    registrationNumber,
+    model,
+    manufacturer,
+    emission,
+  } = vehicleDetail || {
+    registrationNumber: null,
+    model: null,
+    manufacturer: null,
+    emission: null,
   };
+  const { original, offer, currency } = prices || {
+    original: null,
+    offer: null,
+    currency: null,
+  };
+
+  const gotoStep = (count: number) => dispatch(setCurrentStepper(count));
   const setRegistration = (event: { target: { value: string } }) => {
-    dispatch(setRegistrationNumber(event.target.value));
+    setRegNumber(event.target.value);
+  };
+  const fetchCarDetail = (reg: string | undefined) => {
+    if (reg) {
+      dispatch(fetchVehicleDetail(reg));
+    }
   };
   return (
     <div className="vehicle-selector-component">
@@ -62,7 +68,7 @@ const VehicleSelector = ({
             : t('common.address.temporaryAddress')}
         </div>
       </div>
-      {!isEmpty(regDetail) && (
+      {registrationNumber && (
         <Notification
           type="success"
           className="notification"
@@ -71,26 +77,22 @@ const VehicleSelector = ({
         </Notification>
       )}
       <Card className="card">
-        {!isEmpty(regDetail) && (
+        {vehicleDetail && registrationNumber && (
           <div className="car-details">
-            <div className="registration-number">
-              {regDetail.registrationNumber}
-            </div>
+            <div className="registration-number">{registrationNumber}</div>
             <div className="car-model">
-              {regDetail.manufacturer} {regDetail.model}
+              {manufacturer} {model}
             </div>
             <div className="emission-level">
-              {t('page.vehicleSelector.emission', {
-                emission: regDetail.emission,
-              })}
+              {t('page.vehicleSelector.emission', { emission })}
             </div>
             <div className="price">
-              <div className="original">30€/KK</div>
-              <div className="offer">15€/KK</div>
+              <div className="original">{`${original}${currency}/KK`}</div>
+              <div className="offer">{`${offer}${currency}/KK`}</div>
             </div>
           </div>
         )}
-        {isEmpty(regDetail) && (
+        {!registrationNumber && (
           <TextInput
             id="input-invalid"
             label={t('page.vehicleSelector.enterVehicleRegistrationNumber')}
@@ -102,8 +104,10 @@ const VehicleSelector = ({
       <div className="action-buttons">
         <Button
           className="action-btn"
-          onClick={() => gotoStep(isEmpty(regDetail) ? null : 3)}
-          disabled={!registrationNumber?.length}>
+          onClick={() =>
+            !registrationNumber ? fetchCarDetail(regNumber) : gotoStep(3)
+          }
+          disabled={!regNumber?.length}>
           <span>{t('page.vehicleSelector.continue')}</span>
           <IconArrowRight />
         </Button>
