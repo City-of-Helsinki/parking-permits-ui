@@ -56,14 +56,9 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Env-script and .env file
 WORKDIR /usr/share/nginx/html
-COPY ./scripts/env.sh .
-COPY .env .
-
-# Make script executable
-RUN chmod +x env.sh
 
 USER 1001
 
-CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
+CMD ["/bin/bash", "nginx -g \"daemon off;\""]
 
 EXPOSE 8000
