@@ -22,6 +22,19 @@
       "enterVehicleRegistrationNumber": "Enter the vehicle registration number",
       "returnToSelectAnAddress": "Return to select an address",
       "continue": "Continue"
+    },
+    "shoppingCart": {
+      "datePlaceHolder": "DD.MM.YYYY",
+      "durationOfParkingPermit": "Duration of parking permit",
+      "from": "From",
+      "immediately": "Immediately",
+      "monthSelectionHelpText": "Up to 12 months",
+      "parkingPermitStartDate": "Parking permit start date",
+      "price": "Price",
+      "subTitle": "Car detail",
+      "fixedPeriod": "Fixed period",
+      "openEnded": "Open ended",
+      "title": "Select duration and start date"
     }
   },
   "common": {
