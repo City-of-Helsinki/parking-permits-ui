@@ -1,0 +1,80 @@
+@import '~open-city-design/src/scss/helsinki/colors';
+
+.shopping-cart-component {
+  .card {
+    border-top: 4px solid $hel-coat;
+    margin-top: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+    padding: var(--spacing-s);
+    .car-info {
+      padding-top: var(--spacing-s);
+      padding-bottom: var(--spacing-s);
+      border-bottom: 2px solid $hel-gray;
+      .title {
+        padding-bottom: var(--spacing-3-xs);
+      }
+      .details {
+        font-weight: bolder;
+      }
+    }
+  }
+  .time-period {
+    padding-top: var(--spacing-l);
+    padding-bottom: var(--spacing-s);
+    .month-selection,
+    .date-selection {
+      padding-top: var(--spacing-l);
+      padding-left: var(--spacing-l);
+      padding-right: var(--spacing-3-xl);
+    }
+    &.with-bottom-border {
+      border-bottom: 2px solid $hel-gray;
+    }
+  }
+  .price-info {
+    display: flex;
+    justify-content: space-between;
+    padding-left: var(--spacing-s);
+    padding-right: var(--spacing-s);
+    .price {
+      display: flex;
+      .original {
+        margin-right: var(--spacing-s);
+        text-decoration: line-through;
+      }
+      .offer {
+        font-weight: bold;
+      }
+    }
+  }
+  .address {
+    display: flex;
+    align-items: center;
+    font-size: var(--fontsize-heading-s);
+    .address__symbol {
+      width: 30px;
+      height: 30px;
+      background: $hel-coat;
+      text-align: center;
+      color: $hel-white;
+      border-radius: 50%;
+      line-height: 30px;
+      margin-right: var(--spacing-3-xs);
+    }
+  }
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    & > * {
+      margin: var(--spacing-xs) var(--spacing-s);
+    }
+  }
+  .time-period-selection,
+  .address {
+    padding-left: var(--spacing-s);
+    padding-right: var(--spacing-s);
+  }
+  .time-period-selection {
+    margin-top: var(--spacing-s);
+  }
+}
