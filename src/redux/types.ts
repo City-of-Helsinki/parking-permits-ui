@@ -89,11 +89,32 @@ export interface Features {
   [id: string]: FeatureCollection<MultiPolygon | Point>;
 }
 
+export interface Price {
+  original: number;
+  offer: number;
+  currency: string;
+}
+
+export enum ParkingDurationType {
+  FIXED_PERIOD = 'fixedPeriod',
+  OPEN_END = 'openEnd',
+}
+
+export enum ParkingStartType {
+  IMMEDIATELY = 'immediately',
+  FROM = 'from',
+}
+
 export interface PermitCartState {
   processingStatus?: ProcessingStatus;
   selectedAddressId?: string;
-  registrationNumber?: string;
   currentStep: number;
+  vehicleDetail?: Vehicle;
+  prices?: Price;
+  parkingDurationType?: ParkingDurationType;
+  parkingStartType?: ParkingStartType;
+  parkingDuration?: number;
+  parkingStartFrom?: Date;
 }
 
 export interface FeaturesState {
