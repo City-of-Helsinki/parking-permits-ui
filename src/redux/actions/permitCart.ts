@@ -1,5 +1,6 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { Dispatch } from 'redux';
+import { ParkingDurationType, ParkingStartType } from '../types';
 
 const actionCreator = actionCreatorFactory('permitCart');
 
@@ -10,11 +11,47 @@ export const setCurrentStepperAction = actionCreator<number>(
 export const setSelectedAddressIdAction = actionCreator<string>(
   'set-selected-address-id'
 );
-export const setRegistrationNumberAction = actionCreator<string>(
-  'set-registration-number'
+export const setParkingStartTypeAction = actionCreator<ParkingStartType>(
+  'parking-start-type'
+);
+export const setParkingStartDateAction = actionCreator<Date>(
+  'parking-start-date'
+);
+export const setParkingDurationTypeAction = actionCreator<ParkingDurationType>(
+  'parking-duration-type'
+);
+export const fetchVehicleDetailAction = actionCreator<string>(
+  'fetch-vehicle-detail'
+);
+export const setParkingDurationPeriodAction = actionCreator<number>(
+  'parking-duration-period'
 );
 export const setCurrentStepper = (id: number) => (dispatch: Dispatch): void => {
   dispatch(setCurrentStepperAction(id));
+};
+
+export const setParkingStartType = (type: ParkingStartType) => (
+  dispatch: Dispatch
+): void => {
+  dispatch(setParkingStartTypeAction(type));
+};
+
+export const setParkingStartDate = (date: Date) => (
+  dispatch: Dispatch
+): void => {
+  dispatch(setParkingStartDateAction(date));
+};
+
+export const setParkingDurationType = (type: ParkingDurationType) => (
+  dispatch: Dispatch
+): void => {
+  dispatch(setParkingDurationTypeAction(type));
+};
+
+export const setParkingDurationPeriod = (duration: number) => (
+  dispatch: Dispatch
+): void => {
+  dispatch(setParkingDurationPeriodAction(duration));
 };
 
 export const setSelectedAddressId = (id: string) => (
@@ -23,8 +60,8 @@ export const setSelectedAddressId = (id: string) => (
   dispatch(setSelectedAddressIdAction(id));
 };
 
-export const setRegistrationNumber = (reg: string) => (
+export const fetchVehicleDetail = (reg: string) => (
   dispatch: Dispatch
 ): void => {
-  dispatch(setRegistrationNumberAction(reg));
+  dispatch(fetchVehicleDetailAction(reg));
 };
