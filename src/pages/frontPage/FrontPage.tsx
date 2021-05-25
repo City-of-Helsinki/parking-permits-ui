@@ -15,6 +15,7 @@ import AddressSelector from '../../common/addressSelector/AddressSelector';
 import { setSelectedAddressId } from '../../redux/actions/permitCart';
 import VehicleSelector from '../../common/vehicleSelector/VehicleSelector';
 import ShoppingCart from '../../common/shoppingCart/ShoppingCart';
+import PurchasedOverview from '../../common/purchasedOverview/PurchasedOverview';
 
 const FrontPage = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -73,17 +74,25 @@ const FrontPage = (): React.ReactElement => {
             address={helsinkiProfileState.profile.addresses[selectedAddressId]}
           />
         )}
+        {selectedAddressId && currentStep === 3 && vehicleDetail && (
+          <ShoppingCart
+            prices={prices}
+            parkingDurationType={parkingDurationType}
+            parkingStartType={parkingStartType}
+            vehicleDetail={vehicleDetail}
+            address={helsinkiProfileState.profile.addresses[selectedAddressId]}
+          />
+        )}
+        {selectedAddressId && currentStep === 4 && vehicleDetail && (
+          <PurchasedOverview
+            prices={prices}
+            parkingDurationType={parkingDurationType}
+            parkingStartType={parkingStartType}
+            vehicleDetail={vehicleDetail}
+            address={helsinkiProfileState.profile.addresses[selectedAddressId]}
+          />
+        )}
       </Container>
-
-      {selectedAddressId && currentStep === 3 && vehicleDetail && (
-        <ShoppingCart
-          prices={prices}
-          parkingDurationType={parkingDurationType}
-          parkingStartType={parkingStartType}
-          vehicleDetail={vehicleDetail}
-          address={helsinkiProfileState.profile.addresses[selectedAddressId]}
-        />
-      )}
     </div>
   );
 };
