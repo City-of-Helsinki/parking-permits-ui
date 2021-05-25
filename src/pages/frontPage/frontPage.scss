@@ -8,3 +8,22 @@
     }
   }
 }
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-xl);
+  .action-btn {
+    margin-top: var(--spacing-xl);
+    & > span > * {
+      margin-right: var(--spacing-s);
+    }
+    @include for-phone {
+      width: 100%;
+    }
+  }
+  @include for-desktop {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+}
