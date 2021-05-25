@@ -14,6 +14,7 @@ import Stepper from '../../common/stepper/Stepper';
 import AddressSelector from '../../common/addressSelector/AddressSelector';
 import { setSelectedAddressId } from '../../redux/actions/permitCart';
 import VehicleSelector from '../../common/vehicleSelector/VehicleSelector';
+import ShoppingCart from '../../common/shoppingCart/ShoppingCart';
 
 const FrontPage = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -30,7 +31,10 @@ const FrontPage = (): React.ReactElement => {
   const {
     currentStep,
     selectedAddressId,
-    registrationNumber,
+    vehicleDetail,
+    prices,
+    parkingDurationType,
+    parkingStartType,
   } = permitCartState;
   const actions = useContext(ApiAccessTokenContext) as ApiAccessTokenActions;
   const { getStatus: getApiAccessTokenStatus } = actions;
@@ -64,11 +68,22 @@ const FrontPage = (): React.ReactElement => {
         )}
         {selectedAddressId && currentStep === 2 && (
           <VehicleSelector
-            registrationNumber={registrationNumber}
+            prices={prices}
+            vehicleDetail={vehicleDetail}
             address={helsinkiProfileState.profile.addresses[selectedAddressId]}
           />
         )}
       </Container>
+
+      {selectedAddressId && currentStep === 3 && vehicleDetail && (
+        <ShoppingCart
+          prices={prices}
+          parkingDurationType={parkingDurationType}
+          parkingStartType={parkingStartType}
+          vehicleDetail={vehicleDetail}
+          address={helsinkiProfileState.profile.addresses[selectedAddressId]}
+        />
+      )}
     </div>
   );
 };

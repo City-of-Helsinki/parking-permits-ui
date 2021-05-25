@@ -4,11 +4,33 @@ import { PermitCartState } from '../types';
 import {
   setCurrentStepperAction,
   setSelectedAddressIdAction,
-  setRegistrationNumberAction,
+  fetchVehicleDetailAction,
+  setParkingStartTypeAction,
+  setParkingDurationTypeAction,
+  setParkingDurationPeriodAction,
+  setParkingStartDateAction,
 } from '../actions/permitCart';
+
+const mockDataCarDetail = {
+  id: '1232',
+  type: 'sedan',
+  manufacturer: 'Toyota',
+  model: 'Yaris',
+  productionYear: 2020,
+  emission: 85,
+  owner: '123-asd',
+  holder: '123-asd',
+  registrationNumber: '',
+};
 
 const initialState: PermitCartState = {
   currentStep: 1,
+  vehicleDetail: mockDataCarDetail,
+  prices: {
+    original: 30,
+    offer: 15,
+    currency: '€',
+  },
 };
 
 const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
@@ -20,9 +42,25 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
     ...state,
     selectedAddressId: action,
   }))
-  .case(setRegistrationNumberAction, (state, action) => ({
+  .case(setParkingStartTypeAction, (state, action) => ({
     ...state,
-    registrationNumber: action,
+    parkingStartType: action,
+  }))
+  .case(setParkingDurationTypeAction, (state, action) => ({
+    ...state,
+    parkingDurationType: action,
+  }))
+  .case(setParkingDurationPeriodAction, (state, action) => ({
+    ...state,
+    parkingDuration: action,
+  }))
+  .case(setParkingStartDateAction, (state, action) => ({
+    ...state,
+    parkingStartFrom: action,
+  }))
+  .case(fetchVehicleDetailAction, (state, action) => ({
+    ...state,
+    vehicleDetail: { ...mockDataCarDetail, registrationNumber: action },
   }));
 
 export default cartReducer;

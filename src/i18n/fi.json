@@ -19,9 +19,22 @@
         }
       },
       "emission": "Vähäpäästöinen ajoneuvo, päästöt alle {{emission}} CO₂",
-      "enterVehicleRegistrationNumber": "Syötå ajoneuvon rekisteritunnus",
+      "enterVehicleRegistrationNumber": "Syötä ajoneuvon rekisteritunnus",
       "returnToSelectAnAddress": "Palaa valitsemaan osoite",
       "continue": "Jatka"
+    },
+    "shoppingCart": {
+      "datePlaceHolder": "PP.KK.VVVV",
+      "durationOfParkingPermit": "Pysäköintitunnuksen kesto",
+      "from": "Alkaen",
+      "immediately": "Alkaa heti",
+      "monthSelectionHelpText": "Enintään 12 kk",
+      "parkingPermitStartDate": "Pysäköintitunnuksen alkamispäivä",
+      "price": "Hinta",
+      "subTitle": "Ajoneuvosi",
+      "fixedPeriod": "Määräaikainen",
+      "openEnded": "Toistaiseksi voimassaoleva",
+      "title": "Valitse kesto ja alkamispäivä"
     }
   },
   "common": {
