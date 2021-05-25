@@ -44,7 +44,7 @@ const ShoppingCart = ({
   vehicleDetail,
   parkingDurationType = ParkingDurationType.FIXED_PERIOD,
   parkingStartType = ParkingStartType.IMMEDIATELY,
-  parkingDuration = 5,
+  parkingDuration = 1,
   parkingStartFrom = new Date(),
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
@@ -57,7 +57,9 @@ const ShoppingCart = ({
     currency: null,
   };
 
-  const gotoStep = (count: number) => dispatch(setCurrentStepper(count));
+  const gotoStep = (count: number) => {
+    dispatch(setCurrentStepper(count));
+  };
 
   const onChangeDurationType = (type: ParkingDurationType) => {
     dispatch(setParkingDurationType(type));
@@ -81,7 +83,7 @@ const ShoppingCart = ({
         <div className="address__symbol">{address.primary ? 'K' : 'O'}</div>
         <div className="address__type">
           {address.primary
-            ? t('common.address.residentParkingZone')
+            ? t('common.address.permanentAddress')
             : t('common.address.temporaryAddress')}
         </div>
       </div>
@@ -120,7 +122,9 @@ const ShoppingCart = ({
             id="time-period-selection"
             helperText={t('page.shoppingCart.monthSelectionHelpText')}
             label=""
+            min={1}
             step={1}
+            max={12}
             defaultValue={parkingDuration}
             disabled={parkingDurationType !== ParkingDurationType.FIXED_PERIOD}
             onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
@@ -178,7 +182,7 @@ const ShoppingCart = ({
           variant="secondary"
           onClick={() => gotoStep(2)}>
           <IconArrowLeft />
-          <span>{t('page.vehicleSelector.returnToSelectAnAddress')}</span>
+          <span>{t('page.vehicleSelector.returnToSelectRegistration')}</span>
         </Button>
       </div>
     </div>

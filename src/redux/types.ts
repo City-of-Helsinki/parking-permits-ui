@@ -145,7 +145,7 @@ export type Vehicle = {
   manufacturer: string;
   model: string;
   productionYear: number;
-  registrationNumber: string;
+  registrationNumber: string | undefined;
   emission: number;
   owner: string;
   holder: string;
