@@ -20,7 +20,7 @@ export const setParkingStartDateAction = actionCreator<Date>(
 export const setParkingDurationTypeAction = actionCreator<ParkingDurationType>(
   'parking-duration-type'
 );
-export const fetchVehicleDetailAction = actionCreator<string>(
+export const fetchVehicleDetailAction = actionCreator<string | undefined>(
   'fetch-vehicle-detail'
 );
 export const setParkingDurationPeriodAction = actionCreator<number>(
@@ -60,7 +60,7 @@ export const setSelectedAddressId = (id: string) => (
   dispatch(setSelectedAddressIdAction(id));
 };
 
-export const fetchVehicleDetail = (reg: string) => (
+export const fetchVehicleDetail = (reg: string | undefined) => (
   dispatch: Dispatch
 ): void => {
   dispatch(fetchVehicleDetailAction(reg));

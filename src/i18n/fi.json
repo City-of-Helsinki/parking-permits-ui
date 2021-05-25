@@ -21,6 +21,7 @@
       "emission": "Vähäpäästöinen ajoneuvo, päästöt alle {{emission}} CO₂",
       "enterVehicleRegistrationNumber": "Syötä ajoneuvon rekisteritunnus",
       "returnToSelectAnAddress": "Palaa valitsemaan osoite",
+      "returnToSelectRegistration": "Palaa valitsemaan ajoneuvo",
       "continue": "Jatka"
     },
     "shoppingCart": {

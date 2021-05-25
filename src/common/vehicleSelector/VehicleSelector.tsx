@@ -49,7 +49,14 @@ const VehicleSelector = ({
     currency: null,
   };
 
-  const gotoStep = (count: number) => dispatch(setCurrentStepper(count));
+  const gotoStep = (count: number) => {
+    if (count === 1 && regNumber) {
+      dispatch(fetchVehicleDetail(undefined));
+      setRegNumber(undefined);
+    } else {
+      dispatch(setCurrentStepper(count));
+    }
+  };
   const setRegistration = (event: { target: { value: string } }) => {
     setRegNumber(event.target.value);
   };
@@ -64,7 +71,7 @@ const VehicleSelector = ({
         <div className="address__symbol">{address.primary ? 'K' : 'O'}</div>
         <div className="address__type">
           {address.primary
-            ? t('common.address.residentParkingZone')
+            ? t('common.address.permanentAddress')
             : t('common.address.temporaryAddress')}
         </div>
       </div>
@@ -118,7 +125,15 @@ const VehicleSelector = ({
           variant="secondary"
           onClick={() => gotoStep(1)}>
           <IconArrowLeft />
-          <span>{t('page.vehicleSelector.returnToSelectAnAddress')}</span>
+          <span>
+            {t(
+              `page.vehicleSelector.${
+                !registrationNumber?.length
+                  ? 'returnToSelectAnAddress'
+                  : 'returnToSelectRegistration'
+              }`
+            )}
+          </span>
         </Button>
       </div>
     </div>
