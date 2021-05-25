@@ -21,6 +21,7 @@
       "emission": "Low emission vehicle, emissions below {{emission}} CO₂",
       "enterVehicleRegistrationNumber": "Enter the vehicle registration number",
       "returnToSelectAnAddress": "Return to select an address",
+      "returnToSelectRegistration": "Return to select registration number",
       "continue": "Continue"
     },
     "shoppingCart": {

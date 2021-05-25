@@ -44,7 +44,7 @@ const Address: FC<Props> = ({
           <div className="accordion__headers">
             <span className="accordion__headers__sub_header">
               {address.primary
-                ? t('common.address.residentParkingZone')
+                ? t('common.address.permanentAddress')
                 : t('common.address.temporaryAddress')}
             </span>
             <span>{`${address.address}, ${address.postalCode} ${address.city}`}</span>
