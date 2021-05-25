@@ -35,6 +35,14 @@
       "fixedPeriod": "Määräaikainen",
       "openEnded": "Toistaiseksi voimassaoleva",
       "title": "Valitse kesto ja alkamispäivä"
+    },
+    "paymentOverview": {
+      "notificationTitle": "Tilaus onnistui",
+      "notificationMessage": "Pysäköintilupa on sähköinen ja pysäköintivalvonta tunnistaa voimassaolevan tunnuksen ajoneuvosi rekisterinumeron perusteella.",
+      "parkingPermit": "Pysäköintitunnuksesi",
+      "parkingZone": "Asukaspysäköintivyöhyke",
+      "discountMessage": "Olet oikeutettu alennettuun kadunvarsipysäköintiin mobiilisovelluksilla maksaessasi.",
+      "frontPageNavigation": "Palaa etusivulle"
     }
   },
   "common": {
