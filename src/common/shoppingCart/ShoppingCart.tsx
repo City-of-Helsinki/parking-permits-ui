@@ -166,7 +166,7 @@ const ShoppingCart = ({
       <div className="action-buttons">
         <Button
           className="action-btn"
-          onClick={() => gotoStep(3)}
+          onClick={() => gotoStep(4)}
           disabled={!registrationNumber?.length}>
           <span>{t('page.vehicleSelector.continue')}</span>
           <IconArrowRight />
