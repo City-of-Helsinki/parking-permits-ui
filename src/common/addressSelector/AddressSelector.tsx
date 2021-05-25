@@ -59,10 +59,12 @@ const AddressSelector = ({
             </Address>
           ))}
       </div>
-      <Button className="action-btn" onClick={gotoNext}>
-        <span>{t('page.frontPage.buyParkingId')}</span>
-        <IconArrowRight />
-      </Button>
+      <div className="action-buttons">
+        <Button className="action-btn" onClick={gotoNext}>
+          <span>{t('page.frontPage.buyParkingId')}</span>
+          <IconArrowRight />
+        </Button>
+      </div>
     </div>
   );
 };
