@@ -1,8 +1,14 @@
 @import '~open-city-design/src/scss/helsinki/colors';
+@import '../../assets/styles/mixin';
+
 .address-component {
   border-top: 6px solid $hel-gray;
-  margin-bottom: var(--spacing-l);
   padding: var(--spacing-s);
+  @include for-phone {
+    &:not(:last-of-type) {
+      margin-bottom: var(--spacing-l);
+    }
+  }
   &.selected {
     border-top: 6px solid $hel-coat;
   }
