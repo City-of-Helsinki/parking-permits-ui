@@ -35,6 +35,14 @@
       "fixedPeriod": "Fixed period",
       "openEnded": "Open ended",
       "title": "Select duration and start date"
+    },
+    "paymentOverview": {
+      "notificationTitle": "Order successful",
+      "notificationMessage": "The parking permit is electronic and the parking control identifies a valid ID based on the registration number of your vehicle.",
+      "parkingPermit": "Parking permit",
+      "parkingZone": "Resident parking zone",
+      "discountMessage": "You are eligible for reduced street parking with mobile apps when you pay.",
+      "frontPageNavigation": "Return to frontPage"
     }
   },
   "common": {
