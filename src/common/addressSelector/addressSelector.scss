@@ -10,15 +10,6 @@
     font-weight: bolder;
     margin-bottom: var(--spacing-3-xs);
   }
-  .action-btn {
-    margin-bottom: var(--spacing-4-xl);
-    span {
-      margin-right: var(--spacing-s);
-    }
-    @include for-phone {
-      width: 100%;
-    }
-  }
   .addresses {
     display: flex;
     flex-direction: row;
