@@ -48,7 +48,7 @@
   },
   "common": {
     "address": {
-      "residentParkingZone": "Asukaspysäköintialue",
+      "residentParkingZone": "Asukaspysäköintivyöhyke",
       "permanentAddress": "Pysyvä osoite",
       "temporaryAddress": "Tilapäinen osoite"
     }
