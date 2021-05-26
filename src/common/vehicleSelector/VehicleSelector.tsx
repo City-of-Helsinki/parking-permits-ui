@@ -7,6 +7,7 @@ import {
   IconArrowRight,
   TextInput,
   Notification,
+  Checkbox,
 } from 'hds-react';
 import { useTranslation } from 'react-i18next';
 
@@ -48,7 +49,7 @@ const VehicleSelector = ({
     offer: null,
     currency: null,
   };
-
+  const [useDiscount, setDiscount] = React.useState(false);
   const gotoStep = (count: number) => {
     if (count === 1 && regNumber) {
       dispatch(fetchVehicleDetail(undefined));
@@ -56,6 +57,9 @@ const VehicleSelector = ({
     } else {
       dispatch(setCurrentStepper(count));
     }
+  };
+  const onChange = (event: { target: { checked: boolean } }) => {
+    setDiscount(event.target.checked);
   };
   const setRegistration = (event: { target: { value: string } }) => {
     setRegNumber(event.target.value);
@@ -106,6 +110,17 @@ const VehicleSelector = ({
           />
         )}
       </Card>
+
+      {vehicleDetail && registrationNumber && (
+        <Checkbox
+          id="discount"
+          className="discount"
+          checked={useDiscount}
+          onChange={onChange}
+          label={t('page.vehicleSelector.discount')}
+        />
+      )}
+
       <div className="action-buttons">
         <Button
           className="action-btn"
