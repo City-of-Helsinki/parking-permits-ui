@@ -18,6 +18,7 @@
           "message": "Based on the vehicle registration information (Traficom), your driving license is valid and you can purchase a parking permit for the attached vehicle. Low-emission vehicle for half price."
         }
       },
+      "discount": "I also want to get a 50% discount on other street parking when paying with parking apps. Read more.",
       "emission": "Low emission vehicle, emissions below {{emission}} CO₂",
       "enterVehicleRegistrationNumber": "Enter the vehicle registration number",
       "returnToSelectAnAddress": "Return to select an address",
@@ -39,6 +40,7 @@
     },
     "paymentOverview": {
       "notificationTitle": "Order successful",
+      "receipt": "Receipt",
       "notificationMessage": "The parking permit is electronic and the parking control identifies a valid ID based on the registration number of your vehicle.",
       "parkingPermit": "Parking permit",
       "parkingZone": "Resident parking zone",
