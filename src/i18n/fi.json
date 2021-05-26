@@ -18,6 +18,7 @@
           "message": "Ajoneuvorekisteritietojen (Traficom) perusteella ajokorttisi on voimassa ja voit ostaa pysäköintitunnuksen oheiselle ajoneuvolle. Vähäpäästöinen ajoneuvo puoleen hintaan."
         }
       },
+      "discount": "Haluan saada 50% alennuksen myös muusta kadunvarsipysäköinnistä pysäköintisovelluksilla maksaessa. Lue lisää.",
       "emission": "Vähäpäästöinen ajoneuvo, päästöt alle {{emission}} CO₂",
       "enterVehicleRegistrationNumber": "Syötä ajoneuvon rekisteritunnus",
       "returnToSelectAnAddress": "Palaa valitsemaan osoite",
@@ -39,6 +40,7 @@
     },
     "paymentOverview": {
       "notificationTitle": "Tilaus onnistui",
+      "receipt": "Näytä kuitti",
       "notificationMessage": "Pysäköintilupa on sähköinen ja pysäköintivalvonta tunnistaa voimassaolevan tunnuksen ajoneuvosi rekisterinumeron perusteella.",
       "parkingPermit": "Pysäköintitunnuksesi",
       "parkingZone": "Asukaspysäköintivyöhyke",

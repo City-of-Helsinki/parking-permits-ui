@@ -48,6 +48,13 @@ const PurchasedOverview = ({
         label={t('page.paymentOverview.notificationTitle')}>
         {t('page.paymentOverview.notificationMessage')}
       </Notification>
+      <Button
+        theme="black"
+        variant="secondary"
+        style={{ width: '100%', marginTop: '16px', background: 'white' }}>
+        <IconDocument />
+        <span>{t('page.paymentOverview.receipt')}</span>
+      </Button>
       <h4 className="parking-title">
         {t('page.paymentOverview.parkingPermit')}
       </h4>
