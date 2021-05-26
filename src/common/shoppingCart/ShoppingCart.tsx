@@ -82,9 +82,7 @@ const ShoppingCart = ({
       <div className="address">
         <div className="address__symbol">{address.primary ? 'K' : 'O'}</div>
         <div className="address__type">
-          {address.primary
-            ? t('common.address.permanentAddress')
-            : t('common.address.temporaryAddress')}
+          {t('common.address.residentParkingZone')}
         </div>
       </div>
       <div className="time-period-selection">
