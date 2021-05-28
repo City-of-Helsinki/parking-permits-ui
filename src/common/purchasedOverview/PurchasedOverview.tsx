@@ -1,13 +1,6 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  Button,
-  Card,
-  IconCheckCircle,
-  IconDocument,
-  IconSignout,
-  Notification,
-} from 'hds-react';
+import { useDispatch } from 'react-redux';
+import { Button, IconDocument, IconSignout, Notification } from 'hds-react';
 import { useTranslation } from 'react-i18next';
 
 import './purchasedOverview.scss';
@@ -16,14 +9,18 @@ import {
   ParkingStartType,
   Price,
   UserAddress,
+  ValidityPeriod,
   Vehicle,
 } from '../../redux';
 import { useClient } from '../../client/hooks';
+import { setCurrentStepper } from '../../redux/actions/permitCart';
+import Permit from '../permit/Permit';
 
 export interface Props {
   address: UserAddress;
   vehicleDetail: Vehicle;
   prices: Price | undefined;
+  validityPeriod: ValidityPeriod | undefined;
   parkingDurationType?: ParkingDurationType;
   parkingStartType?: ParkingStartType;
   parkingDuration?: number;
@@ -31,15 +28,16 @@ export interface Props {
 }
 
 const PurchasedOverview = ({
-  address: userAddress,
+  address,
+  validityPeriod,
   vehicleDetail,
 }: Props): React.ReactElement => {
   const client = useClient();
-  const history = useHistory();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { registrationNumber, manufacturer, model } = vehicleDetail;
-  const { address, postalCode, primary } = userAddress;
-
+  const gotoStep = (count: number) => {
+    dispatch(setCurrentStepper(count));
+  };
   return (
     <div className="purchased-overview-component">
       <Notification
@@ -55,33 +53,13 @@ const PurchasedOverview = ({
         <IconDocument />
         <span>{t('page.paymentOverview.receipt')}</span>
       </Button>
-      <h4 className="parking-title">
-        {t('page.paymentOverview.parkingPermit')}
-      </h4>
-      <Card className="card">
-        <div className="address__symbol">{primary ? 'K' : 'O'}</div>
-        <div>
-          <h5 style={{ fontSize: 'var(--fontsize-heading-xs)' }}>
-            {t('page.paymentOverview.parkingZone')}
-          </h5>
-          <div>{`${address}, ${postalCode} Helsinki`}</div>
-        </div>
-        <div className="document-icon">
-          <IconDocument color="var(--color-white)" />
-        </div>
-        <div>
-          <h5 style={{ fontSize: 'var(--fontsize-heading-xs) ' }}>
-            {`${registrationNumber} ${manufacturer} ${model}`}
-          </h5>
-          <div>Alkaa: 25.6.2021 klo 00:00</div>
-          <div>Päättyy: 25.2.2022 klo 00:00</div>
-        </div>
-        <div className="divider" />
-        <IconCheckCircle />
-        <div>{t('page.paymentOverview.discountMessage')}</div>
-      </Card>
+      <Permit
+        address={address}
+        vehicleDetail={vehicleDetail}
+        validityPeriod={validityPeriod}
+      />
       <div className="action-buttons">
-        <Button className="action-btn" onClick={(): void => history.push('/')}>
+        <Button className="action-btn" onClick={() => gotoStep(1)}>
           <span>{t('page.paymentOverview.frontPageNavigation')}</span>
         </Button>
 
