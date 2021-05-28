@@ -9,6 +9,8 @@ import {
   setParkingDurationTypeAction,
   setParkingDurationPeriodAction,
   setParkingStartDateAction,
+  setValidityPeriodAction,
+  setPurchasedAction,
 } from '../actions/permitCart';
 
 const mockDataCarDetail = {
@@ -61,6 +63,14 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
   .case(fetchVehicleDetailAction, (state, action) => ({
     ...state,
     vehicleDetail: { ...mockDataCarDetail, registrationNumber: action },
+  }))
+  .case(setValidityPeriodAction, (state, action) => ({
+    ...state,
+    validityPeriod: action,
+  }))
+  .case(setPurchasedAction, (state, action) => ({
+    ...state,
+    purchased: action,
   }));
 
 export default cartReducer;
