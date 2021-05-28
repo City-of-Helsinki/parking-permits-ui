@@ -1,0 +1,42 @@
+@import '~open-city-design/src/scss/helsinki/colors';
+
+.permit-component {
+  .permit-title {
+    text-align: center;
+    font-size: var(--fontsize-heading-s);
+    margin: var(--spacing-l) 0;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: var(--spacing-s);
+    & > * {
+      margin-bottom: var(--spacing-s);
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: $hel-gray;
+    }
+    .address__symbol {
+      width: 30px;
+      height: 30px;
+      background: $hel-coat;
+      text-align: center;
+      color: $hel-white;
+      border-radius: 50%;
+      line-height: 30px;
+      margin-right: var(--spacing-3-xs);
+    }
+    .document-icon {
+      width: 35px;
+      height: 35px;
+      background: var(--color-success);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 33px;
+    }
+  }
+}
