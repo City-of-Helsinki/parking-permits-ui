@@ -1,6 +1,10 @@
 import actionCreatorFactory from 'typescript-fsa';
 import { Dispatch } from 'redux';
-import { ParkingDurationType, ParkingStartType } from '../types';
+import {
+  ParkingDurationType,
+  ParkingStartType,
+  ValidityPeriod,
+} from '../types';
 
 const actionCreator = actionCreatorFactory('permitCart');
 
@@ -26,6 +30,10 @@ export const fetchVehicleDetailAction = actionCreator<string | undefined>(
 export const setParkingDurationPeriodAction = actionCreator<number>(
   'parking-duration-period'
 );
+export const setValidityPeriodAction = actionCreator<ValidityPeriod>(
+  'validity-period'
+);
+export const setPurchasedAction = actionCreator<boolean>('is-purchased');
 export const setCurrentStepper = (id: number) => (dispatch: Dispatch): void => {
   dispatch(setCurrentStepperAction(id));
 };
@@ -64,4 +72,16 @@ export const fetchVehicleDetail = (reg: string | undefined) => (
   dispatch: Dispatch
 ): void => {
   dispatch(fetchVehicleDetailAction(reg));
+};
+
+export const setValidityPeriod = (period: ValidityPeriod) => (
+  dispatch: Dispatch
+): void => {
+  dispatch(setValidityPeriodAction(period));
+};
+
+export const setPurchased = (purchased: boolean) => (
+  dispatch: Dispatch
+): void => {
+  dispatch(setPurchasedAction(purchased));
 };
