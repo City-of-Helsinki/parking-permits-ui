@@ -1,0 +1,83 @@
+{
+  "page": {
+    "frontPage": {
+      "title": "Hej {{firstName}}!",
+      "notification": {
+        "info": {
+          "label": "Du har inga parkeringstecken i kraft",
+          "message": "Enligt befolkningsregistret kan du köpa parkerkingstecknet till följande zoner"
+        }
+      },
+      "selectAddress": "Välj addressen",
+      "buyParkingId": "Köp parkeringstecknet"
+    },
+    "vehicleSelector": {
+      "notification": {
+        "success": {
+          "label": "Fordonets information är giltigt",
+          "message": "Enligt transport- och kommunikationsverket (Traficom) har du körkortet i kraft och du kan köpa parkerkingstecknet för detta fordon. Lågmission fordon till hälften pris."
+        }
+      },
+      "discount": "Jag vill ha 50% rabatt också för gatuparkeringen när jag betalar parkeringen med en parkeringsapp. Läs mera.",
+      "emission": "Lågmissions fordon, utsläpp under {{emission}} CO2",
+      "enterVehicleRegistrationNumber": "Anje fordonets registreringstecknet",
+      "returnToSelectAnAddress": "Gå tillbaka och ändra addressen",
+      "returnToSelectRegistration": "Gå tillbaka och välja fordonet",
+      "continue": "Jatka"
+    },
+    "shoppingCart": {
+      "datePlaceHolder": "DD.MM.VVVV",
+      "durationOfParkingPermit": "Parkeringstecknets längd",
+      "from": "Från och med",
+      "immediately": "Börjar genast",
+      "monthSelectionHelpText": "Högst 12 mån",
+      "parkingPermitStartDate": "Parkeringstecknets begynnelsedag",
+      "price": "Pris",
+      "subTitle": "Ditt fordon",
+      "fixedPeriod": "Tidsbegränsad",
+      "openEnded": "Tills vidare i kraft",
+      "title": "Välj längd och begynnelsedag"
+    },
+    "paymentOverview": {
+      "notificationTitle": "Beställningen lyckades",
+      "receipt": "Visa kvitto",
+      "notificationMessage": "Parkeringstillståndet är elektroniskt och parkeringsövervakningen känner ditt tecken som är i kraft med fordonets registreringsnummer.",
+      "parkingPermit": "Ditt parkeringsteckne",
+      "parkingZone": "Boendeparkeringszon",
+      "discountMessage": "Du har rättighet till rabatt gällande gatuparkeringen när du betalar med en mobilapp.",
+      "frontPageNavigation": "Gå tillbaka till framsidan"
+    }
+  },
+  "common": {
+    "address": {
+      "residentParkingZone": "Boendeparkeringszon",
+      "permanentAddress": "Stadigvarande adress",
+      "temporaryAddress": "Tillfällig adress"
+    }
+  },
+  "pageLayout": {
+    "footer": {
+      "accessibility": "Tillgänglighet",
+      "contactInformation": "Kontaktuppgifter",
+      "copyright": "Alla rättigheter annhålls",
+      "feedback": "Respons",
+      "privacy": "Integritetsskydd",
+      "processingPersonalData": "Behandling av personuppgifter",
+      "registryDescription": "Registerbeskrivning",
+      "support": "Stöd",
+      "title": "Stadsmiljös parkeringstillstånd",
+      "termsOfParkingCode": "Parkeringtecknets förutsättningar",
+      "backToTop": "Tillbaka upp"
+    },
+    "navbar": {
+      "frontPage": "Till Hemsidan",
+      "menuLabel": "Meny",
+      "messages": "Meddelanden",
+      "ownProfile": "Egna uppgifter",
+      "signIn": "Logga in",
+      "signOut": "Logga ut",
+      "skipToContent": "Flytta till innehållet"
+    },
+    "title": "Parkeringstillstånd"
+  }
+}
