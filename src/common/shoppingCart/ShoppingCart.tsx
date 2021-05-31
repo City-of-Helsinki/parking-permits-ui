@@ -19,6 +19,8 @@ import {
   setParkingDurationType,
   setParkingStartDate,
   setParkingStartType,
+  setPurchased,
+  setValidityPeriod,
 } from '../../redux/actions/permitCart';
 import {
   ParkingDurationType,
@@ -58,6 +60,13 @@ const ShoppingCart = ({
   };
 
   const gotoStep = (count: number) => {
+    dispatch(
+      setValidityPeriod({
+        start: 'Alkaa: 25.6.2021 klo 00:00',
+        end: 'Päättyy: 25.2.2022 klo 00:00',
+      })
+    );
+    dispatch(setPurchased(true));
     dispatch(setCurrentStepper(count));
   };
 

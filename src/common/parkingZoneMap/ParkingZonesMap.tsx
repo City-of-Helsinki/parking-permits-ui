@@ -42,7 +42,10 @@ const getOnlyZones = (
 const getMarkerText = (
   featureCollection: FeatureCollection<MultiPolygon>
 ): string => {
-  const { properties } = featureCollection.features[0];
+  if (!featureCollection?.features?.length) {
+    return '';
+  }
+  const { properties } = featureCollection?.features[0];
   const { asukaspysakointitunnus: code, alueen_nimi: name } = properties as {
     asukaspysakointitunnus: string;
     // eslint-disable-next-line camelcase

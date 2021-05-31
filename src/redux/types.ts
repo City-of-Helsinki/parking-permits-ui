@@ -110,6 +110,8 @@ export interface PermitCartState {
   selectedAddressId?: string;
   currentStep: number;
   vehicleDetail?: Vehicle;
+  validityPeriod?: ValidityPeriod;
+  purchased?: boolean;
   prices?: Price;
   parkingDurationType?: ParkingDurationType;
   parkingStartType?: ParkingStartType;
@@ -130,6 +132,11 @@ export type UserState = {
   initialized?: boolean;
   loading?: boolean;
   error?: ClientErrorObject | undefined;
+};
+
+export type ValidityPeriod = {
+  start: string | undefined;
+  end: string | undefined;
 };
 
 export type StoreState = {

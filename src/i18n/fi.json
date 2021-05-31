@@ -9,7 +9,9 @@
         }
       },
       "selectAddress": "Valitse osoite",
-      "buyParkingId": "Osta pysäkointitunnus"
+      "buyParkingId": "Osta pysäkointitunnus",
+      "editPermit": "Muokkaa tilausta",
+      "deletePermit": "Päätä tilaus"
     },
     "vehicleSelector": {
       "notification": {
