@@ -25,6 +25,7 @@
       "enterVehicleRegistrationNumber": "Syötä ajoneuvon rekisteritunnus",
       "returnToSelectAnAddress": "Palaa valitsemaan osoite",
       "returnToSelectRegistration": "Palaa valitsemaan ajoneuvo",
+      "invalidRegNumMessage": "Anna kelvollinen rekisteröintinumero.",
       "continue": "Jatka"
     },
     "shoppingCart": {
