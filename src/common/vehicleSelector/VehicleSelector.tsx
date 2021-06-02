@@ -17,6 +17,7 @@ import {
   setCurrentStepper,
 } from '../../redux/actions/permitCart';
 import { Price, UserAddress, Vehicle } from '../../redux';
+import Validate from './validate';
 
 export interface Props {
   address: UserAddress;
@@ -30,6 +31,7 @@ const VehicleSelector = ({
   vehicleDetail,
 }: Props): React.ReactElement => {
   const [regNumber, setRegNumber] = useState(vehicleDetail?.registrationNumber);
+  const [valid, setValid] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -62,7 +64,12 @@ const VehicleSelector = ({
     setDiscount(event.target.checked);
   };
   const setRegistration = (event: { target: { value: string } }) => {
-    setRegNumber(event.target.value);
+    const { value } = event.target;
+    const isValid = new Validate().carLicensePlate(value.toUpperCase());
+    setValid(isValid);
+    if (isValid) {
+      setRegNumber(event.target.value);
+    }
   };
   const fetchCarDetail = (reg: string | undefined) => {
     if (reg) {
@@ -104,6 +111,10 @@ const VehicleSelector = ({
         {!registrationNumber && (
           <TextInput
             id="input-invalid"
+            maxLength={7}
+            errorText={
+              valid ? '' : t('page.vehicleSelector.invalidRegNumMessage')
+            }
             label={t('page.vehicleSelector.enterVehicleRegistrationNumber')}
             onChange={setRegistration}
             style={{ marginTop: 'var(--spacing-s)' }}
@@ -127,7 +138,7 @@ const VehicleSelector = ({
           onClick={() =>
             !registrationNumber ? fetchCarDetail(regNumber) : gotoStep(3)
           }
-          disabled={!regNumber?.length}>
+          disabled={!valid}>
           <span>{t('page.vehicleSelector.continue')}</span>
           <IconArrowRight />
         </Button>

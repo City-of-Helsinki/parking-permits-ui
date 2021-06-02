@@ -23,6 +23,7 @@
       "enterVehicleRegistrationNumber": "Enter the vehicle registration number",
       "returnToSelectAnAddress": "Return to select an address",
       "returnToSelectRegistration": "Return to select registration number",
+      "invalidRegNumMessage": "Enter a valid registration number.",
       "continue": "Continue"
     },
     "shoppingCart": {
