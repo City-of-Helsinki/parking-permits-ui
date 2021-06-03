@@ -59,7 +59,10 @@ const PurchasedOverview = ({
         validityPeriod={validityPeriod}
       />
       <div className="action-buttons">
-        <Button className="action-btn" onClick={() => gotoStep(1)}>
+        <Button
+          className="action-btn"
+          theme="black"
+          onClick={() => gotoStep(1)}>
           <span>{t('page.paymentOverview.frontPageNavigation')}</span>
         </Button>
 
