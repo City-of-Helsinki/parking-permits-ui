@@ -44,7 +44,7 @@ const ShoppingCart = ({
   address,
   prices,
   vehicleDetail,
-  parkingDurationType = ParkingDurationType.FIXED_PERIOD,
+  parkingDurationType = ParkingDurationType.OPEN_END,
   parkingStartType = ParkingStartType.IMMEDIATELY,
   parkingDuration = 1,
   parkingStartFrom = new Date(),
@@ -105,24 +105,36 @@ const ShoppingCart = ({
         <div className="time-period with-bottom-border">
           <SelectionGroup
             label={t('page.shoppingCart.durationOfParkingPermit')}>
-            <RadioButton
-              id="v-radio-time-being"
-              value={ParkingDurationType.OPEN_END}
-              label={t('page.shoppingCart.openEnded')}
-              checked={parkingDurationType === ParkingDurationType.OPEN_END}
-              onChange={() =>
-                onChangeDurationType(ParkingDurationType.OPEN_END)
-              }
-            />
-            <RadioButton
-              id="v-radio-fixedPeriod"
-              value={ParkingDurationType.FIXED_PERIOD}
-              label={t('page.shoppingCart.fixedPeriod')}
-              checked={parkingDurationType === ParkingDurationType.FIXED_PERIOD}
-              onChange={() =>
-                onChangeDurationType(ParkingDurationType.FIXED_PERIOD)
-              }
-            />
+            <div className="radio-button">
+              <RadioButton
+                id="v-radio-time-being"
+                value={ParkingDurationType.OPEN_END}
+                label={t('page.shoppingCart.openEnded')}
+                checked={parkingDurationType === ParkingDurationType.OPEN_END}
+                onChange={() =>
+                  onChangeDurationType(ParkingDurationType.OPEN_END)
+                }
+              />
+              <div className="assistive-text">
+                {t('page.shoppingCart.openEndedAssistiveText')}
+              </div>
+            </div>
+            <div className="radio-button">
+              <RadioButton
+                id="v-radio-fixedPeriod"
+                value={ParkingDurationType.FIXED_PERIOD}
+                label={t('page.shoppingCart.fixedPeriod')}
+                checked={
+                  parkingDurationType === ParkingDurationType.FIXED_PERIOD
+                }
+                onChange={() =>
+                  onChangeDurationType(ParkingDurationType.FIXED_PERIOD)
+                }
+              />
+              <div className="assistive-text">
+                {t('page.shoppingCart.fixedPeriodAssistiveText')}
+              </div>
+            </div>
           </SelectionGroup>
           <NumberInput
             className="month-selection"
@@ -141,20 +153,30 @@ const ShoppingCart = ({
         </div>
         <div className="time-period">
           <SelectionGroup label={t('page.shoppingCart.parkingPermitStartDate')}>
-            <RadioButton
-              id="v-radio-immediately"
-              value={ParkingStartType.IMMEDIATELY}
-              label={t('page.shoppingCart.immediately')}
-              checked={parkingStartType === ParkingStartType.IMMEDIATELY}
-              onChange={() => onChangeStartType(ParkingStartType.IMMEDIATELY)}
-            />
-            <RadioButton
-              id="v-radio-from"
-              value={ParkingStartType.FROM}
-              label={t('page.shoppingCart.from')}
-              checked={parkingStartType === ParkingStartType.FROM}
-              onChange={() => onChangeStartType(ParkingStartType.FROM)}
-            />
+            <div className="radio-button">
+              <RadioButton
+                id="v-radio-immediately"
+                value={ParkingStartType.IMMEDIATELY}
+                label={t('page.shoppingCart.immediately')}
+                checked={parkingStartType === ParkingStartType.IMMEDIATELY}
+                onChange={() => onChangeStartType(ParkingStartType.IMMEDIATELY)}
+              />
+              <div className="assistive-text">
+                {t('page.shoppingCart.immediatelyAssistiveText')}
+              </div>
+            </div>
+            <div className="radio-button">
+              <RadioButton
+                id="v-radio-from"
+                value={ParkingStartType.FROM}
+                label={t('page.shoppingCart.from')}
+                checked={parkingStartType === ParkingStartType.FROM}
+                onChange={() => onChangeStartType(ParkingStartType.FROM)}
+              />
+              <div className="assistive-text">
+                {t('page.shoppingCart.fromAssistiveText')}
+              </div>
+            </div>
           </SelectionGroup>
           <DateInput
             className="date-selection"
