@@ -29,16 +29,17 @@
         width: 100%;
         background: $hel-gray;
         &.completed {
-          background: $hel-coat;
+          background: $hel-black;
         }
       }
       &.completed {
-        background: $hel-coat;
+        background: $hel-black;
         color: $hel-white;
+        line-height: 28px;
       }
       &.selected {
-        border: 2px solid $hel-coat;
-        color: $hel-coat;
+        border: 2px solid $hel-black;
+        color: $hel-black;
       }
     }
   }
