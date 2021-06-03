@@ -70,4 +70,9 @@
   .time-period-selection {
     margin-top: var(--spacing-s);
   }
+  .radio-button {
+    .assistive-text {
+      margin-left: 32px;
+    }
+  }
 }
