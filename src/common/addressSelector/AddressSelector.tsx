@@ -60,7 +60,7 @@ const AddressSelector = ({
           ))}
       </div>
       <div className="action-buttons">
-        <Button className="action-btn" onClick={gotoNext}>
+        <Button className="action-btn" onClick={gotoNext} theme="black">
           <span>{t('page.frontPage.buyParkingId')}</span>
           <IconArrowRight />
         </Button>

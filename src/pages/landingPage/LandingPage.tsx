@@ -13,7 +13,11 @@ const LandingPage = (): React.ReactElement => {
   return (
     <div className="landing-page">
       <Container>
-        <Button onClick={client.login} className="login-button" size="small">
+        <Button
+          onClick={client.login}
+          className="login-button"
+          size="small"
+          theme="black">
           {t('Login')}
         </Button>
       </Container>

@@ -176,6 +176,7 @@ const ShoppingCart = ({
       </div>
       <div className="action-buttons">
         <Button
+          theme="black"
           className="action-btn"
           onClick={() => gotoStep(4)}
           disabled={!registrationNumber?.length}>
