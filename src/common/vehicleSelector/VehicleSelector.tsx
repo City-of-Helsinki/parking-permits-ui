@@ -112,13 +112,14 @@ const VehicleSelector = ({
       </Card>
 
       {vehicleDetail && registrationNumber && (
-        <Checkbox
-          id="discount"
-          className="discount"
-          checked={useDiscount}
-          onChange={onChange}
-          label={t('page.vehicleSelector.discount')}
-        />
+        <div className="discount">
+          <Checkbox
+            id="discount"
+            checked={useDiscount}
+            onChange={onChange}
+            label={t('page.vehicleSelector.discount')}
+          />
+        </div>
       )}
 
       <div className="action-buttons">
