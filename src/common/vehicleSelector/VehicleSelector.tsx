@@ -134,6 +134,7 @@ const VehicleSelector = ({
 
       <div className="action-buttons">
         <Button
+          theme="black"
           className="action-btn"
           onClick={() =>
             !registrationNumber ? fetchCarDetail(regNumber) : gotoStep(3)

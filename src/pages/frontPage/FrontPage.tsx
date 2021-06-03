@@ -127,7 +127,7 @@ const FrontPage = (): React.ReactElement => {
         {getStepperComponent(currentStep)}
         {currentStep === 1 && purchased && (
           <div className="action-buttons">
-            <Button className="action-btn" onClick={editPermit}>
+            <Button className="action-btn" onClick={editPermit} theme="black">
               <span>{t('page.frontPage.editPermit')}</span>
               <IconPen />
             </Button>
