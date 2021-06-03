@@ -29,13 +29,17 @@
       "datePlaceHolder": "DD.MM.YYYY",
       "durationOfParkingPermit": "Duration of parking permit",
       "from": "From",
+      "fromAssistiveText": "The permit starts at 00:00 on the selected day.",
       "immediately": "Immediately",
+      "immediatelyAssistiveText": "The permit will be valid as soon as the payment is confirmed.",
       "monthSelectionHelpText": "Up to 12 months",
       "parkingPermitStartDate": "Parking permit start date",
       "price": "Price",
       "subTitle": "Car detail",
       "fixedPeriod": "Fixed period",
+      "fixedPeriodAssistiveText": "The duration of the permit is 1-12 months.",
       "openEnded": "Open ended",
+      "openEndedAssistiveText": "The price of the parking permit and the right to receive the permit are reviewed and charged on a monthly basis. A valid permit and a card payment for an open ended contract requires the storage of card information for continuous charging.",
       "title": "Select duration and start date"
     },
     "paymentOverview": {
@@ -59,7 +63,7 @@
     "footer": {
       "accessibility": "Accessibility",
       "contactInformation": "Contact information",
-      "copyright": "All rights reserved",
+      "copyright": "City of Helsinki",
       "feedback": "Feedback",
       "privacy": "Privacy",
       "processingPersonalData": "Processing of personal data",
