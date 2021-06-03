@@ -32,13 +32,17 @@
       "datePlaceHolder": "PP.KK.VVVV",
       "durationOfParkingPermit": "Pysäköintitunnuksen kesto",
       "from": "Alkaen",
+      "fromAssistiveText": "Tunnuksen voimassaolo alkaa valittuna päivänä klo 00:00.",
       "immediately": "Alkaa heti",
+      "immediatelyAssistiveText": "Tunnuksen voimassaolo alkaa heti siitä kellonajasta kun maksu on vahvistettu.",
       "monthSelectionHelpText": "Enintään 12 kk",
       "parkingPermitStartDate": "Pysäköintitunnuksen alkamispäivä",
       "price": "Hinta",
       "subTitle": "Ajoneuvosi",
       "fixedPeriod": "Määräaikainen",
+      "fixedPeriodAssistiveText": "Tunnuksen kesto 1–12 kuukautta.",
       "openEnded": "Toistaiseksi voimassaoleva",
+      "openEndedAssistiveText": "Pysäköintitunnuksen hinta ja oikeus tunnuksen saamiseen tarkistetaan ja veloitetaan kuukausittain. Toistaiseksi voimassa oleva tunnus edellyttää korttimaksua ja kortin tietojen tallentamista jatkuvaa veloitusta varten.",
       "title": "Valitse kesto ja alkamispäivä"
     },
     "paymentOverview": {
@@ -62,7 +66,7 @@
     "footer": {
       "accessibility": "Saavutettavuus",
       "contactInformation": "Yhteystiedot",
-      "copyright": "Kaikki oikeudet pidätetään",
+      "copyright": "Helsinki kaupunki",
       "feedback": "Palaute",
       "privacy": "Tietosuoja",
       "processingPersonalData": "Henkilötietojen käsittel",
