@@ -1,6 +1,7 @@
 import React, { CSSProperties, FC } from 'react';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
+import { IconCheck } from 'hds-react';
 
 import './stepper.scss';
 
@@ -35,7 +36,7 @@ const Stepper: FC<Props> = ({
                 selected: value === currentStep,
                 completed: value < currentStep,
               })}>
-              {value}
+              {value < currentStep ? <IconCheck /> : value}
             </div>
             {value !== stepLength && (
               <div
