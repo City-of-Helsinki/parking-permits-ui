@@ -44,7 +44,7 @@ const ShoppingCart = ({
   address,
   prices,
   vehicleDetail,
-  parkingDurationType = ParkingDurationType.OPEN_END,
+  parkingDurationType = ParkingDurationType.OPEN_ENDED,
   parkingStartType = ParkingStartType.IMMEDIATELY,
   parkingDuration = 1,
   parkingStartFrom = new Date(),
@@ -108,11 +108,11 @@ const ShoppingCart = ({
             <div className="radio-button">
               <RadioButton
                 id="v-radio-time-being"
-                value={ParkingDurationType.OPEN_END}
+                value={ParkingDurationType.OPEN_ENDED}
                 label={t('page.shoppingCart.openEnded')}
-                checked={parkingDurationType === ParkingDurationType.OPEN_END}
+                checked={parkingDurationType === ParkingDurationType.OPEN_ENDED}
                 onChange={() =>
-                  onChangeDurationType(ParkingDurationType.OPEN_END)
+                  onChangeDurationType(ParkingDurationType.OPEN_ENDED)
                 }
               />
               <div className="assistive-text">
