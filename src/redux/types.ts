@@ -97,7 +97,7 @@ export interface Price {
 
 export enum ParkingDurationType {
   FIXED_PERIOD = 'fixedPeriod',
-  OPEN_END = 'openEnd',
+  OPEN_ENDED = 'openEnded',
 }
 
 export enum ParkingStartType {
