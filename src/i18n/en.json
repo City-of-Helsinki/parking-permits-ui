@@ -6,6 +6,10 @@
         "info": {
           "label": "You do not have valid parking IDs",
           "message": "Based on your personal information obtained from the Population Register Center, you can purchase a parking permit for the adjacent zones."
+        },
+        "addressError": {
+          "label": "Invalid address",
+          "message": "Address must be in Helsinki."
         }
       },
       "selectAddress": "Select address",

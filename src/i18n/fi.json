@@ -6,6 +6,10 @@
         "info": {
           "label": "Sinulla ei ole voimassa olevia pysäköintitunnuksia",
           "message": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella voit ostaa pysäköintitunnuksen oheisille vyöhykkeille."
+        },
+        "addressError": {
+          "label": "Virheellinen osoite",
+          "message": "Osoitteen täytyy sijaita Helsingissä."
         }
       },
       "selectAddress": "Valitse osoite",
