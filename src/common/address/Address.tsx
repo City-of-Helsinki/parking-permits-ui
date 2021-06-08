@@ -9,6 +9,7 @@ import './address.scss';
 
 interface Props {
   address: UserAddress;
+  disabled?: boolean | undefined;
   selectedAddressId: string;
   onChange: (event: { target: { value: string } }) => void;
 }
@@ -17,6 +18,7 @@ const Address: FC<Props> = ({
   address,
   children,
   onChange,
+  disabled = false,
   selectedAddressId,
 }): React.ReactElement => {
   const [openState, setOpenState] = useState(true);
@@ -32,6 +34,7 @@ const Address: FC<Props> = ({
             id={address.id}
             name={address.id}
             value={address.id}
+            disabled={disabled}
             label={t('common.address.residentParkingZone')}
             checked={selectedAddressId === address.id}
             onChange={onChange}
