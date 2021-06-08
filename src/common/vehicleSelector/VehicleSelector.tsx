@@ -32,6 +32,7 @@ const VehicleSelector = ({
 }: Props): React.ReactElement => {
   const [regNumber, setRegNumber] = useState(vehicleDetail?.registrationNumber);
   const [valid, setValid] = useState(false);
+  const [dirty, setDirty] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -67,6 +68,7 @@ const VehicleSelector = ({
     const { value } = event.target;
     const isValid = new Validate().carLicensePlate(value.toUpperCase());
     setValid(isValid);
+    setDirty(true);
     if (isValid) {
       setRegNumber(event.target.value);
     }
@@ -113,7 +115,9 @@ const VehicleSelector = ({
             id="input-invalid"
             maxLength={7}
             errorText={
-              valid ? '' : t('page.vehicleSelector.invalidRegNumMessage')
+              !valid && dirty
+                ? t('page.vehicleSelector.invalidRegNumMessage')
+                : ''
             }
             label={t('page.vehicleSelector.enterVehicleRegistrationNumber')}
             onChange={setRegistration}
