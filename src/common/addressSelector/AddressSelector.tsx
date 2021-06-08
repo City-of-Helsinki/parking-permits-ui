@@ -49,13 +49,24 @@ const AddressSelector = ({
               key={address.id}
               selectedAddressId={selectedAddressId}
               address={address}
+              disabled={features[address.id]?.features?.length <= 0}
               onChange={onChange}>
-              {features[address.id] && (
-                <ParkingZonesMap
-                  featureCollection={features[address.id]}
-                  zoom={13}
-                />
-              )}
+              {features[address.id] &&
+                features[address.id]?.features?.length <= 0 && (
+                  <Notification
+                    className="address-warning"
+                    type="error"
+                    label={t('page.frontPage.notification.addressError.label')}>
+                    {t('page.frontPage.notification.addressError.message')}
+                  </Notification>
+                )}
+              {features[address.id] &&
+                features[address.id]?.features?.length > 0 && (
+                  <ParkingZonesMap
+                    featureCollection={features[address.id]}
+                    zoom={13}
+                  />
+                )}
             </Address>
           ))}
       </div>
