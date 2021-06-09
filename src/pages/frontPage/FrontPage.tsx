@@ -53,7 +53,13 @@ const FrontPage = (): React.ReactElement => {
     dispatch(fetchVehicleDetail(undefined));
   };
   if (addresses.length && !selectedAddressId?.length) {
-    dispatch(setSelectedAddressId(addresses[0].id));
+    const { features } = featuresState;
+    const validAddressId = Object.keys(features).find(
+      key => features[key]?.features?.length > 0
+    );
+    if (validAddressId) {
+      dispatch(setSelectedAddressId(validAddressId));
+    }
   }
 
   if (
