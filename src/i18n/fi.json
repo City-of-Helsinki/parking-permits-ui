@@ -45,7 +45,7 @@
       "subTitle": "Ajoneuvosi",
       "fixedPeriod": "Määräaikainen",
       "fixedPeriodAssistiveText": "Tunnuksen kesto 1–12 kuukautta.",
-      "openEnded": "Toistaiseksi voimassaoleva",
+      "openEnded": "Jatkuvaveloitteinen",
       "openEndedAssistiveText": "Pysäköintitunnuksen hinta ja oikeus tunnuksen saamiseen tarkistetaan ja veloitetaan kuukausittain. Toistaiseksi voimassa oleva tunnus edellyttää korttimaksua ja kortin tietojen tallentamista jatkuvaa veloitusta varten.",
       "title": "Valitse kesto ja alkamispäivä"
     },
