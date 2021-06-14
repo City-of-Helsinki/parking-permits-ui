@@ -179,12 +179,15 @@ const ShoppingCart = ({
             </div>
           </SelectionGroup>
           <DateInput
+            readOnly
+            minDate={new Date()}
             className="date-selection"
             placeholder={t('page.shoppingCart.datePlaceHolder')}
             id="date"
             initialMonth={parkingStartFrom}
             language="fi"
             disabled={parkingStartType !== ParkingStartType.FROM}
+            disableDatePicker={parkingStartType !== ParkingStartType.FROM}
             onChange={onChangeParkingStartDate}
           />
         </div>
