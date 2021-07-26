@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Card, Container } from 'reactstrap';
+import { useTranslation } from 'react-i18next';
+
+import { StoreState, UserAddress } from '../../redux';
 import { ApiAccessTokenActions } from '../../client/types';
 import { ApiAccessTokenContext } from '../../common/apiAccessTokenProvider';
-import { StoreState, UserAddress } from '../../redux';
+
+const T_PATH = 'pages.profilePage.ProfilePage';
 
 const ProfilePage = (): React.ReactElement => {
+  const { t } = useTranslation();
   const actions = useContext(ApiAccessTokenContext) as ApiAccessTokenActions;
   const { helsinkiProfileState } = useSelector((state: StoreState) => state);
   const { firstName, lastName, addresses } = helsinkiProfileState.profile;
   const { getStatus: getApiAccessTokenStatus } = actions;
   const apiAccessTokenStatus = getApiAccessTokenStatus();
   if (apiAccessTokenStatus === 'error') {
-    return <div>Api access tokenin lataus epäonnistui</div>;
+    return <div>{t(`${T_PATH}.apiError`)}</div>;
   }
 
   const getAddresses = (userAddresses: UserAddress[]) =>
