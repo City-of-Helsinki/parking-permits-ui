@@ -1,21 +1,11 @@
-@import '~open-city-design/src/scss/helsinki/colors';
 @import '../../assets/styles/mixin';
 
 .parking-permit-hero {
-  margin-bottom: var(--spacing-s);
-  background: $hel-white;
-  &__title {
-    color: $hel-fog;
-  }
-  .stepper-container {
-    width: 50%;
-    @include for-phone {
-      display: none;
-    }
-  }
-  @include for-phone {
-    &.hideInMobile {
-      display: none;
-    }
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  .parking-permit-hero__title {
+    font-size: 3.25rem;
+    height: 3.25rem;
+    line-height: 3.25rem;
   }
 }
