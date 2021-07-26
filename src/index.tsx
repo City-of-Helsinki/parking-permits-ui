@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { init } from '@sentry/browser';
+import { BrowserRouter } from 'react-router-dom';
 
 import './i18n/i18n';
 import './assets/styles/main.scss';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import StoreProvider from './redux/StoreProvider';
+import { ClientProvider } from './client/ClientProvider';
+import { ApiAccessTokenProvider } from './common/apiAccessTokenProvider';
 
 const ENVS_WITH_SENTRY = ['staging', 'production'];
 
@@ -23,7 +26,13 @@ if (
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ClientProvider>
+      <StoreProvider>
+        <ApiAccessTokenProvider>
+          <App />
+        </ApiAccessTokenProvider>
+      </StoreProvider>
+    </ClientProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
