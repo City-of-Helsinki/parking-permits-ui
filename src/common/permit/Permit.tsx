@@ -1,9 +1,12 @@
 import React from 'react';
-import { Card, IconCheckCircle, IconDocument } from 'hds-react';
 import { useTranslation } from 'react-i18next';
+import { Card, IconCheckCircle, IconDocument } from 'hds-react';
 
 import './permit.scss';
+
 import { UserAddress, ValidityPeriod, Vehicle } from '../../redux';
+
+const T_PATH = 'common.permit.Permit';
 
 export interface Props {
   address: UserAddress;
@@ -18,33 +21,53 @@ const Permit = ({
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { registrationNumber, manufacturer, model } = vehicleDetail;
-  const { address, postalCode, primary } = userAddress;
+  const { address, postalCode, zone } = userAddress;
   return (
     <div className="permit-component">
-      <h4 className="permit-title">
-        {t('page.paymentOverview.parkingPermit')}
-      </h4>
+      <div className="section-label">{t(`${T_PATH}.label`)}</div>
       <Card className="card">
-        <div className="address__symbol">{primary ? 'K' : 'O'}</div>
-        <div>
-          <h5 style={{ fontSize: 'var(--fontsize-heading-xs)' }}>
-            {t('page.paymentOverview.parkingZone')}
-          </h5>
-          <div>{`${address}, ${postalCode} Helsinki`}</div>
+        <div className="pp-list">
+          <span className="pp-list__icon">{zone}</span>
+          <div className="pp-list__titles">
+            <div className="pp-list__title">{t(`${T_PATH}.permitType`)}</div>
+            <div className="pp-list__subtitle">{`${address}, ${postalCode} Helsinki`}</div>
+          </div>
         </div>
-        <div className="document-icon">
-          <IconDocument color="var(--color-white)" />
+
+        <div className="pp-list">
+          <span className="document-icon">
+            <IconDocument className="icon" color="var(--color-white)" />
+          </span>
+          <div className="pp-list__titles">
+            <div className="pp-list__title">
+              {`${registrationNumber} ${manufacturer} ${model}`}
+            </div>
+            <div className="pp-list__subtitle">
+              <span>{validityPeriod?.start}</span>
+              <span>{t(`${T_PATH}.contractType`)}</span>
+            </div>
+          </div>
         </div>
-        <div>
-          <h5 style={{ fontSize: 'var(--fontsize-heading-xs) ' }}>
-            {`${registrationNumber} ${manufacturer} ${model}`}
-          </h5>
-          <div>{validityPeriod?.start}</div>
-          <div>{validityPeriod?.end}</div>
+
+        <div className="pp-list">
+          <span className="document-icon">
+            <IconDocument className="icon" color="var(--color-white)" />
+          </span>
+          <div className="pp-list__titles">
+            <div className="pp-list__title">
+              {`${registrationNumber} ${manufacturer} ${model}`}
+            </div>
+            <div className="pp-list__subtitle">
+              <span>{validityPeriod?.start}</span>
+              <span>{validityPeriod?.end}</span>
+            </div>
+          </div>
         </div>
-        <div className="divider" />
-        <IconCheckCircle />
-        <div>{t('page.paymentOverview.discountMessage')}</div>
+
+        <div className="message">
+          <IconCheckCircle />
+          <div>{t(`${T_PATH}.discount`)}</div>
+        </div>
       </Card>
     </div>
   );
