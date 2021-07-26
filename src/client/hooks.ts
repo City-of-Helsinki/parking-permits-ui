@@ -123,9 +123,8 @@ export function useClientCallback(): Client {
   return clientFromRef;
 }
 
-export const ApiAccessTokenActionsContext = createContext<ApiAccessTokenActions | null>(
-  null
-);
+export const ApiAccessTokenActionsContext =
+  createContext<ApiAccessTokenActions | null>(null);
 
 export function useApiAccessTokens(): ApiAccessTokenActions {
   const client = useClient();
