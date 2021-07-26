@@ -1,171 +1,76 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  Card,
-  Button,
-  IconArrowLeft,
-  IconArrowRight,
-  TextInput,
-  Notification,
-  Checkbox,
-} from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Notification, NotificationType } from 'hds-react';
 
 import './vehicleSelector.scss';
-import {
-  fetchVehicleDetail,
-  setCurrentStepper,
-} from '../../redux/actions/permitCart';
-import { Price, UserAddress, Vehicle } from '../../redux';
-import Validate from './validate';
+
+import { PermitCartState, STEPPER } from '../../redux';
+import PermitPrices from './permitPrices/PermitPrices';
+import RegistrationNumbers from './registrationNumbers/RegistrationNumbers';
+
+const T_PATH = 'common.vehicleSelector.VehicleSelector';
 
 export interface Props {
-  address: UserAddress;
-  prices: Price | undefined;
-  vehicleDetail: Vehicle | undefined;
+  cartState: PermitCartState;
 }
 
-const VehicleSelector = ({
-  address,
-  prices,
-  vehicleDetail,
-}: Props): React.ReactElement => {
-  const [regNumber, setRegNumber] = useState(vehicleDetail?.registrationNumber);
-  const [valid, setValid] = useState(false);
-  const [dirty, setDirty] = useState(false);
+const VehicleSelector = ({ cartState }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
   const {
-    registrationNumber,
-    model,
-    manufacturer,
-    emission,
-  } = vehicleDetail || {
-    registrationNumber: null,
-    model: null,
-    manufacturer: null,
-    emission: null,
-  };
-  const { original, offer, currency } = prices || {
-    original: null,
-    offer: null,
-    currency: null,
-  };
-  const [useDiscount, setDiscount] = React.useState(false);
-  const gotoStep = (count: number) => {
-    if (count === 1 && regNumber) {
-      dispatch(fetchVehicleDetail(undefined));
-      setRegNumber(undefined);
-    } else {
-      dispatch(setCurrentStepper(count));
-    }
-  };
-  const onChange = (event: { target: { checked: boolean } }) => {
-    setDiscount(event.target.checked);
-  };
-  const setRegistration = (event: { target: { value: string } }) => {
-    const { value } = event.target;
-    const isValid = new Validate().carLicensePlate(value.toUpperCase());
-    setValid(isValid);
-    setDirty(true);
-    if (isValid) {
-      setRegNumber(event.target.value);
-    }
-  };
-  const fetchCarDetail = (reg: string | undefined) => {
-    if (reg) {
-      dispatch(fetchVehicleDetail(reg));
-    }
-  };
+    permits,
+    currentStep,
+    registrationNumbers,
+    selectedAddress,
+    fetchingStatus,
+    error,
+  } = cartState;
+
+  const hasPermitsForAllReg = registrationNumbers?.every(
+    reg => permits && permits[reg]
+  );
+
+  // TODO: THIS SHOULD BE REPLACED BY MESSAGE FROM BACKEND
+  const NOTIFICATIONS = [
+    {
+      type: 'success',
+      label: t(`${T_PATH}.notification.success.label`),
+      message: null,
+    },
+    {
+      type: 'info',
+      label: t(`${T_PATH}.notification.info.label`),
+      message: t(`${T_PATH}.notification.info.message`),
+    },
+  ];
   return (
     <div className="vehicle-selector-component">
-      <div className="address">
-        <div className="address__symbol">{address.primary ? 'K' : 'O'}</div>
-        <div className="address__type">
-          {t('common.address.residentParkingZone')}
-        </div>
+      <div className="zone__type">
+        <div className="zone__type__symbol">{selectedAddress?.zone}</div>
+        <div className="zone__type__label">{t(`${T_PATH}.label`)}</div>
       </div>
-      {registrationNumber && (
+      {NOTIFICATIONS.map(notification => (
         <Notification
-          type="success"
+          key={notification.message}
+          type={notification.type as NotificationType}
           className="notification"
-          label={t('page.vehicleSelector.notification.success.label')}>
-          {t('page.vehicleSelector.notification.success.message')}
+          label={notification.label}>
+          {notification.message || ''}
         </Notification>
+      ))}
+      <div className="section-label">{t(`${T_PATH}.primaryVehicle.label`)}</div>
+      {currentStep === STEPPER.VEHICLE_SELECTOR && (
+        <RegistrationNumbers
+          registrationNumbers={registrationNumbers}
+          fetchingStatus={fetchingStatus}
+          error={error}
+        />
       )}
-      <Card className="card">
-        {vehicleDetail && registrationNumber && (
-          <div className="car-details">
-            <div className="registration-number">{registrationNumber}</div>
-            <div className="car-model">
-              {manufacturer} {model}
-            </div>
-            <div className="emission-level">
-              {t('page.vehicleSelector.emission', { emission })}
-            </div>
-            <div className="price">
-              <div className="original">{`${original}${currency}/KK`}</div>
-              <div className="offer">{`${offer}${currency}/KK`}</div>
-            </div>
-          </div>
+      {currentStep === STEPPER.PERMIT_PRICES &&
+        hasPermitsForAllReg &&
+        registrationNumbers &&
+        permits && (
+          <PermitPrices registrations={registrationNumbers} permits={permits} />
         )}
-        {!registrationNumber && (
-          <TextInput
-            id="input-invalid"
-            maxLength={7}
-            errorText={
-              !valid && dirty
-                ? t('page.vehicleSelector.invalidRegNumMessage')
-                : ''
-            }
-            label={t('page.vehicleSelector.enterVehicleRegistrationNumber')}
-            onChange={setRegistration}
-            style={{ marginTop: 'var(--spacing-s)' }}
-          />
-        )}
-      </Card>
-
-      {vehicleDetail && registrationNumber && (
-        <div className="discount">
-          <Checkbox
-            id="discount"
-            checked={useDiscount}
-            onChange={onChange}
-            label={t('page.vehicleSelector.discount')}
-          />
-        </div>
-      )}
-
-      <div className="action-buttons">
-        <Button
-          theme="black"
-          className="action-btn"
-          onClick={() =>
-            !registrationNumber ? fetchCarDetail(regNumber) : gotoStep(3)
-          }
-          disabled={!valid}>
-          <span>{t('page.vehicleSelector.continue')}</span>
-          <IconArrowRight />
-        </Button>
-
-        <Button
-          className="action-btn"
-          theme="black"
-          variant="secondary"
-          onClick={() => gotoStep(1)}>
-          <IconArrowLeft />
-          <span>
-            {t(
-              `page.vehicleSelector.${
-                !registrationNumber?.length
-                  ? 'returnToSelectAnAddress'
-                  : 'returnToSelectRegistration'
-              }`
-            )}
-          </span>
-        </Button>
-      </div>
     </div>
   );
 };
