@@ -1,29 +1,13 @@
-@import '~open-city-design/src/scss/helsinki/colors';
 @import '../../assets/styles/mixin';
 
 .address-selector-component {
-  .notification {
-    margin-bottom: var(--spacing-xs);
-    z-index: 1;
-  }
-  .select-address-title {
-    font-weight: bolder;
-    margin-bottom: var(--spacing-3-xs);
-  }
   .addresses {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    .card {
-      flex: 1 1 auto;
-      margin-right: var(--spacing-s);
-      &:last-child {
-        margin-right: 0;
-      }
-      @include for-phone {
-        margin-right: 0;
-      }
+    & > div {
+      flex-basis: calc(50% - 70px);
     }
   }
 }
