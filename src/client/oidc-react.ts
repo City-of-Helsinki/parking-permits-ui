@@ -30,7 +30,7 @@ import { AnyObject } from '../common/types';
 let client: Client | null = null;
 
 function oidcUserToClientUser(user: User): ClientUser {
-  return (user as unknown) as ClientUser;
+  return user as unknown as ClientUser;
 }
 
 function bindEvents(
@@ -97,13 +97,8 @@ export function createOidcClient(): Client {
     ...clientFunctions
   } = createClient();
 
-  const {
-    isAuthenticated,
-    isInitialized,
-    setStatus,
-    getStatus,
-    setError,
-  } = clientFunctions;
+  const { isAuthenticated, isInitialized, setStatus, getStatus, setError } =
+    clientFunctions;
   if (clientConfig.enableLogging) {
     Oidc.Log.logger = console;
     Oidc.Log.level = Oidc.Log.INFO;
@@ -131,19 +126,19 @@ export function createOidcClient(): Client {
 
   const getUser: Client['getUser'] = () => {
     if (isAuthenticated()) {
-      const user = (getUserData() as unknown) as User;
+      const user = getUserData() as unknown as User;
       const userData = user && user.profile;
       if (
         userData &&
         userData.name &&
         (userData.session_state || userData.amr)
       ) {
-        return ({
+        return {
           name: userData.name,
           given_name: userData.given_name,
           family_name: userData.family_name,
           email: userData.email,
-        } as unknown) as ClientUser;
+        } as unknown as ClientUser;
       }
     }
     return undefined;
