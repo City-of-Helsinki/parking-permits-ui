@@ -1,29 +1,15 @@
-@import '~open-city-design/src/scss/helsinki/colors';
 @import '../../assets/styles/mixin';
 
 .front-page {
+  .loading-spinner {
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .only-for-mobile {
     @include for-desktop {
       display: none !important;
     }
-  }
-}
-
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: var(--spacing-xl);
-  .action-btn {
-    margin-top: var(--spacing-xl);
-    & > span > * {
-      margin-right: var(--spacing-s);
-    }
-    @include for-phone {
-      width: 100%;
-    }
-  }
-  @include for-desktop {
-    flex-direction: row-reverse;
-    justify-content: space-between;
   }
 }
