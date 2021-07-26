@@ -1,11 +1,11 @@
-import { FeatureCollection, MultiPolygon, Point } from 'geojson';
+import { FeatureCollection, MultiPolygon, Position } from 'geojson';
+
 import {
   ClientErrorObject,
   ClientStatusId,
   User,
   FetchStatus,
 } from '../client/types';
-
 import { GraphQLClientError } from '../graphql/graphqlClient';
 
 export enum ProcessingStatus {
@@ -58,6 +58,10 @@ export type UserAddress = {
   city: string;
   countryCode: string;
   addressType: string;
+  zone?: string;
+  zoneFeatureCollection?: FeatureCollection<MultiPolygon>;
+  zoneName?: string;
+  coordinates?: Position;
 };
 
 export type UserProfile = {
@@ -65,9 +69,7 @@ export type UserProfile = {
   firstName: string;
   lastName: string;
   language: string;
-  addresses: {
-    [id: string]: UserAddress;
-  };
+  addresses: UserAddress[];
 };
 
 export type ProfileActions = {
@@ -83,10 +85,6 @@ export interface HelsinkiUserProfileState {
   fetchingStatus?: ProcessingStatus;
   profile: UserProfile;
   error?: Error;
-}
-
-export interface Features {
-  [id: string]: FeatureCollection<MultiPolygon | Point>;
 }
 
 export interface Price {
@@ -106,22 +104,13 @@ export enum ParkingStartType {
 }
 
 export interface PermitCartState {
-  processingStatus?: ProcessingStatus;
-  selectedAddressId?: string;
+  selectedAddress?: UserAddress;
   currentStep: number;
-  vehicleDetail?: Vehicle;
-  validityPeriod?: ValidityPeriod;
-  purchased?: boolean;
-  prices?: Price;
-  parkingDurationType?: ParkingDurationType;
-  parkingStartType?: ParkingStartType;
-  parkingDuration?: number;
-  parkingStartFrom?: Date;
-}
-
-export interface FeaturesState {
+  registrationNumbers?: string[];
+  permits?: {
+    [registrationNumber: string]: Permit;
+  };
   fetchingStatus?: ProcessingStatus;
-  features: Features;
   error?: Error;
 }
 
@@ -142,8 +131,17 @@ export type ValidityPeriod = {
 export type StoreState = {
   permitCartState: PermitCartState;
   userState: UserState;
-  featuresState: FeaturesState;
   helsinkiProfileState: HelsinkiUserProfileState;
+};
+
+export type Permit = {
+  vehicle: Vehicle;
+  prices: Price;
+  validityPeriod?: ValidityPeriod;
+  durationType?: ParkingDurationType;
+  startType?: ParkingStartType;
+  duration?: number;
+  startDate?: Date;
 };
 
 export type Vehicle = {
@@ -154,6 +152,23 @@ export type Vehicle = {
   productionYear: number;
   registrationNumber: string | undefined;
   emission: number;
-  owner: string;
-  holder: string;
+  primary?: boolean;
+  ownerId?: string;
+  holderId?: string;
+  lastInspectionDate?: string;
+};
+
+export enum STEPPER {
+  ADDRESS_SELECTOR = 1,
+  VEHICLE_SELECTOR = 2,
+  // eslint-disable-next-line no-magic-numbers
+  PERMIT_PRICES = 2.2,
+  DURATION_SELECTOR = 3,
+  PURCHASED_VIEW = 4,
+}
+
+export type REG_ACTION = {
+  id: string;
+  key: string;
+  value: ParkingStartType | ParkingDurationType | Date | string | number;
 };
