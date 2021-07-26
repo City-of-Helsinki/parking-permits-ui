@@ -1,38 +1,23 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
-import { PermitCartState } from '../types';
+import { PermitCartState, ProcessingStatus } from '../types';
 import {
+  addRegistrationAction,
+  updateRegistrationAction,
+  setPrimaryVehicleAction,
   setCurrentStepperAction,
-  setSelectedAddressIdAction,
-  fetchVehicleDetailAction,
+  setValidityPeriodAction,
+  setSelectedAddressAction,
   setParkingStartTypeAction,
+  setParkingStartDateAction,
   setParkingDurationTypeAction,
   setParkingDurationPeriodAction,
-  setParkingStartDateAction,
-  setValidityPeriodAction,
-  setPurchasedAction,
+  fetchVehicleAndPermitPricesAction,
+  deleteRegistrationAction,
 } from '../actions/permitCart';
-
-const mockDataCarDetail = {
-  id: '1232',
-  type: 'sedan',
-  manufacturer: 'Toyota',
-  model: 'Yaris',
-  productionYear: 2020,
-  emission: 85,
-  owner: '123-asd',
-  holder: '123-asd',
-  registrationNumber: '',
-};
 
 const initialState: PermitCartState = {
   currentStep: 1,
-  vehicleDetail: mockDataCarDetail,
-  prices: {
-    original: 30,
-    offer: 15,
-    currency: '€',
-  },
 };
 
 const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
@@ -40,37 +25,87 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
     ...state,
     currentStep: action,
   }))
-  .case(setSelectedAddressIdAction, (state, action) => ({
+  .case(setSelectedAddressAction, (state, action) => ({
     ...state,
-    selectedAddressId: action,
+    selectedAddress: action,
   }))
-  .case(setParkingStartTypeAction, (state, action) => ({
+  .case(setParkingStartTypeAction, (state, action) => {
+    const { permits } = state;
+    if (permits) {
+      permits[action.registration].startType = action.type;
+    }
+    return { ...state, permits };
+  })
+  .case(setParkingDurationTypeAction, (state, action) => {
+    const { permits } = state;
+    if (permits) {
+      permits[action.registration].durationType = action.type;
+    }
+    return { ...state, permits };
+  })
+  .case(setParkingDurationPeriodAction, (state, action) => {
+    const { permits } = state;
+    if (permits) {
+      permits[action.registration].duration = action.duration;
+    }
+    return { ...state, permits };
+  })
+  .case(setParkingStartDateAction, (state, action) => {
+    const { permits } = state;
+    if (permits) {
+      permits[action.registration].startDate = action.date;
+    }
+    return { ...state, permits };
+  })
+  .case(setValidityPeriodAction, (state, action) => {
+    const { permits } = state;
+    if (permits) {
+      permits[action.registration].validityPeriod = action.period;
+    }
+    return { ...state, permits };
+  })
+  .case(addRegistrationAction, (state, action) => ({
     ...state,
-    parkingStartType: action,
+    registrationNumbers: [...(state?.registrationNumbers || []), action],
   }))
-  .case(setParkingDurationTypeAction, (state, action) => ({
+  .case(updateRegistrationAction, (state, action) => {
+    const registrations = state.registrationNumbers;
+    if (registrations) {
+      registrations[action.index] = action.registration;
+    }
+    return { ...state, registrationNumbers: registrations };
+  })
+  .case(deleteRegistrationAction, (state, action) => ({
     ...state,
-    parkingDurationType: action,
+    registrationNumbers: (state?.registrationNumbers || []).filter(
+      reg => reg === action
+    ),
   }))
-  .case(setParkingDurationPeriodAction, (state, action) => ({
+  .case(setPrimaryVehicleAction, (state, action) => {
+    const { permits } = state;
+    if (permits) {
+      permits[action.registration].vehicle.primary = action.primary;
+      Object.keys(permits).forEach(reg => {
+        if (reg !== action.registration) {
+          permits[reg].vehicle.primary = false;
+        }
+      });
+    }
+    return { ...state, permits };
+  })
+  .case(fetchVehicleAndPermitPricesAction.started, state => ({
     ...state,
-    parkingDuration: action,
+    fetchingStatus: ProcessingStatus.PROCESSING,
   }))
-  .case(setParkingStartDateAction, (state, action) => ({
+  .case(fetchVehicleAndPermitPricesAction.done, (state, action) => ({
     ...state,
-    parkingStartFrom: action,
+    fetchingStatus: ProcessingStatus.SUCCESS,
+    permits: { ...state.permits, ...action.result },
   }))
-  .case(fetchVehicleDetailAction, (state, action) => ({
+  .case(fetchVehicleAndPermitPricesAction.failed, (state, action) => ({
     ...state,
-    vehicleDetail: { ...mockDataCarDetail, registrationNumber: action },
-  }))
-  .case(setValidityPeriodAction, (state, action) => ({
-    ...state,
-    validityPeriod: action,
-  }))
-  .case(setPurchasedAction, (state, action) => ({
-    ...state,
-    purchased: action,
+    error: action.error,
+    fetchingStatus: ProcessingStatus.FAILURE,
   }));
 
 export default cartReducer;
