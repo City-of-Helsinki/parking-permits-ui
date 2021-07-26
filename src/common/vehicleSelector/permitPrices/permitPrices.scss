@@ -1,0 +1,55 @@
+@import '../../../assets/styles/mixin';
+.permit-prices-component {
+  .offer-container{
+    display: flex;
+    justify-content: space-between;
+    .offer {
+      flex-basis: calc(50% - 8px);
+      & > .card {
+        display: flex;
+        border-top: 6px solid var(--color-black-20);
+        .car-details {
+          display: flex;
+          flex-direction: column;
+          margin-left: var(--spacing-xs);
+          align-items: normal;
+        }
+        .registration-number {
+          margin-bottom: var(--spacing-2-xs);
+        }
+        .registration-number,
+        .price .offer {
+          font-size: var(--fontsize-heading-s);
+          font-weight: bold;
+        }
+        .emission-level {
+          font-size: 0.75rem;
+          margin: var(--spacing-2-xs) 0;
+          background: var(--color-black-20);
+          padding: 6px 6px 4px;;
+          border-radius: 16px;
+        }
+        &.selected {
+          border-top: 6px solid var(--color-coat-of-arms);
+          .emission-level {
+            background: var(--color-fog);
+          }
+        }
+        .price {
+          display: flex;
+          align-items: center;
+          .original {
+            margin-right: var(--spacing-s);
+            text-decoration: line-through;
+          }
+        }
+      }
+      .action-delete{
+        display: flex;
+        justify-content: center;
+        background: var(--color-white);
+        border-top: 1px solid var(--color-black-20);
+      }
+    }
+  }
+}
