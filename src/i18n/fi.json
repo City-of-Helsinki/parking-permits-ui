@@ -1,94 +1,83 @@
 {
-  "page": {
-    "frontPage": {
-      "title": "Hei {{firstName}}!",
-      "notification": {
-        "info": {
-          "label": "Sinulla ei ole voimassa olevia pysäköintitunnuksia",
-          "message": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella voit ostaa pysäköintitunnuksen oheisille vyöhykkeille."
-        },
-        "addressError": {
-          "label": "Virheellinen osoite",
-          "message": "Osoitteen täytyy sijaita Helsingissä."
-        }
-      },
-      "selectAddress": "Valitse osoite",
-      "buyParkingId": "Osta pysäkointitunnus",
-      "editPermit": "Muokkaa tilausta",
-      "deletePermit": "Päätä tilaus"
-    },
-    "vehicleSelector": {
-      "notification": {
-        "success": {
-          "label": "Ajoneuvosi tiedot ovat ajantasalla",
-          "message": "Ajoneuvorekisteritietojen (Traficom) perusteella ajokorttisi on voimassa ja voit ostaa pysäköintitunnuksen oheiselle ajoneuvolle. Vähäpäästöinen ajoneuvo puoleen hintaan."
-        }
-      },
-      "discount": "Haluan saada 50% alennuksen myös muusta kadunvarsipysäköinnistä pysäköintisovelluksilla maksaessa. Lue lisää.",
-      "emission": "Vähäpäästöinen ajoneuvo, päästöt alle {{emission}} CO₂",
-      "enterVehicleRegistrationNumber": "Syötä ajoneuvon rekisteritunnus",
-      "returnToSelectAnAddress": "Palaa valitsemaan osoite",
-      "returnToSelectRegistration": "Palaa valitsemaan ajoneuvo",
-      "invalidRegNumMessage": "Anna kelvollinen rekisteritunnus.",
-      "continue": "Jatka"
-    },
-    "shoppingCart": {
-      "datePlaceHolder": "PP.KK.VVVV",
-      "durationOfParkingPermit": "Pysäköintitunnuksen kesto",
-      "from": "Alkaen",
-      "fromAssistiveText": "Tunnuksen voimassaolo alkaa valittuna päivänä klo 00:00.",
-      "immediately": "Alkaa heti",
-      "immediatelyAssistiveText": "Tunnuksen voimassaolo alkaa heti siitä kellonajasta kun maksu on vahvistettu.",
-      "monthSelectionHelpText": "Enintään 12 kk",
-      "parkingPermitStartDate": "Pysäköintitunnuksen alkamispäivä",
-      "price": "Hinta",
-      "subTitle": "Ajoneuvosi",
-      "fixedPeriod": "Määräaikainen",
-      "fixedPeriodAssistiveText": "Tunnuksen kesto 1–12 kuukautta.",
-      "openEnded": "Jatkuvaveloitteinen",
-      "openEndedAssistiveText": "Pysäköintitunnuksen hinta ja oikeus tunnuksen saamiseen tarkistetaan ja veloitetaan kuukausittain. Toistaiseksi voimassa oleva tunnus edellyttää korttimaksua ja kortin tietojen tallentamista jatkuvaa veloitusta varten.",
-      "title": "Valitse kesto ja alkamispäivä"
-    },
-    "paymentOverview": {
-      "notificationTitle": "Tilaus onnistui",
-      "receipt": "Näytä kuitti",
-      "notificationMessage": "Pysäköintilupa on sähköinen ja pysäköintivalvonta tunnistaa voimassaolevan tunnuksen ajoneuvosi rekisterinumeron perusteella.",
-      "parkingPermit": "Pysäköintitunnuksesi",
-      "parkingZone": "Asukaspysäköintivyöhyke",
-      "discountMessage": "Olet oikeutettu alennettuun kadunvarsipysäköintiin mobiilisovelluksilla maksaessasi.",
-      "frontPageNavigation": "Palaa etusivulle"
-    }
-  },
-  "common": {
-    "address": {
-      "residentParkingZone": "Asukaspysäköintivyöhyke",
-      "permanentAddress": "Pysyvä osoite",
-      "temporaryAddress": "Tilapäinen osoite"
-    }
-  },
-  "pageLayout": {
-    "footer": {
-      "accessibility": "Saavutettavuus",
-      "contactInformation": "Yhteystiedot",
-      "copyright": "Helsinki kaupunki",
-      "feedback": "Palaute",
-      "privacy": "Tietosuoja",
-      "processingPersonalData": "Henkilötietojen käsittel",
-      "registryDescription": "Rekisteriseloste",
-      "support": "Tuki",
-      "title": "Kaupunkiympäristön pysäköintiluvat",
-      "termsOfParkingCode": "Pysäköintitunnuksen ehdot",
-      "backToTop": "Takaisin ylös"
-    },
-    "navbar": {
-      "frontPage": "Etusivu",
-      "menuLabel": "Valikko",
-      "messages": "Viestit",
-      "ownProfile": "Omat tiedot",
-      "signIn": "Kirjaudu sisään",
-      "signOut": "Kirjaudu ulos",
-      "skipToContent": "Siirry sisältöön"
-    },
-    "title": "Pysäköintiluvat"
-  }
+  "common.addressSelector.AddressSelector.actionBtn.buyPermit": "Osta pysäkointitunnus",
+  "common.addressSelector.AddressSelector.notification.info.label": "Sinulla ei ole voimassa olevia pysäköintitunnuksia",
+  "common.addressSelector.AddressSelector.notification.info.message": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella voit ostaa pysäköintitunnuksen oheisille vyöhykkeille.",
+  "common.addressSelector.AddressSelector.sectionLabel": "Valitse osoite",
+  "common.addressSelector.address.Address.notification.error.label": "Virheellinen osoite",
+  "common.addressSelector.address.Address.notification.error.message": "Osoitteen täytyy sijaita Helsingissä.",
+  "common.addressSelector.address.Address.permanentAddress": "Pysyvä osoite",
+  "common.addressSelector.address.Address.residentParkingZone": "Asukaspysäköintivyöhyke",
+  "common.addressSelector.address.Address.temporaryAddress": "Tilapäinen osoite",
+  "common.durationSelector.DurationSelector.actionBtn.continue": "Jatka",
+  "common.durationSelector.DurationSelector.actionBtn.selectRegistration": "Osta pysäköintitunnus",
+  "common.durationSelector.DurationSelector.datePlaceHolder": "PP.KK.VVVV",
+  "common.durationSelector.DurationSelector.fixedPeriod": "Määräaikainen",
+  "common.durationSelector.DurationSelector.fixedPeriodAssistiveText": "Tunnuksen kesto 1–12 kuukautta.",
+  "common.durationSelector.DurationSelector.immediately": "Alkaa heti",
+  "common.durationSelector.DurationSelector.immediatelyAssistiveText": "Tunnuksen voimassaolo alkaa heti siitä kellonajasta kun maksu on vahvistettu.",
+  "common.durationSelector.DurationSelector.monthSelectionHelpText": "Enintään 12 kk",
+  "common.durationSelector.DurationSelector.openEnded": "Jatkuvaveloitteinen",
+  "common.durationSelector.DurationSelector.openEndedAssistiveText": "Pysäköintitunnuksen hinta ja oikeus tunnuksen saamiseen tarkistetaan ja veloitetaan kuukausittain. Toistaiseksi voimassa oleva tunnus edellyttää korttimaksua ja kortin tietojen tallentamista jatkuvaa veloitusta varten.",
+  "common.durationSelector.DurationSelector.parkingDurationType.label": "Pysäköintitunnuksen kesto",
+  "common.durationSelector.DurationSelector.permitCount": "{{count}}. tunnus",
+  "common.durationSelector.DurationSelector.permitPrice": "Hinta",
+  "common.durationSelector.DurationSelector.residentParkingZone": "Asukaspysäköintivyöhyke",
+  "common.durationSelector.DurationSelector.sectionLabel": "Valitse kesto ja alkamispäivä",
+  "common.durationSelector.DurationSelector.startDate": "Alkaen",
+  "common.durationSelector.DurationSelector.startDateAssistiveText": "Tunnuksen voimassaolo alkaa valittuna päivänä klo 00:00.",
+  "common.durationSelector.DurationSelector.startType.label": "Pysäköintitunnuksen alkamisaika",
+  "common.footer.Footer.accessibility": "Saavutettavuus",
+  "common.footer.Footer.backToTop": "Takaisin ylös",
+  "common.footer.Footer.contactInformation": "Yhteystiedot",
+  "common.footer.Footer.copyright": "Helsinki kaupunki",
+  "common.footer.Footer.feedback": "Palaute",
+  "common.footer.Footer.icon.facebook.label": "Facebook",
+  "common.footer.Footer.icon.instagram.label": "Instagram",
+  "common.footer.Footer.icon.twitter.label": "Twitter",
+  "common.footer.Footer.privacy": "Tietosuoja",
+  "common.footer.Footer.registryDescription": "Rekisteriseloste",
+  "common.footer.Footer.support": "Tuki",
+  "common.footer.Footer.termsOfParkingCode": "Pysäköintitunnuksen ehdot",
+  "common.navbar.Navbar.action.login": "Kirjaudu sisään",
+  "common.navbar.Navbar.action.logout": "Kirjaudu ulos",
+  "common.navbar.Navbar.frontPage": "Etusivu",
+  "common.navbar.Navbar.lang.en": "In English",
+  "common.navbar.Navbar.lang.fi": "Suomeksi",
+  "common.navbar.Navbar.lang.sv": "På svenska",
+  "common.navbar.Navbar.messages": "Viestit",
+  "common.navbar.Navbar.ownProfile": "Omat tiedot",
+  "common.navbar.Navbar.receipts": "Kuitit",
+  "common.navbar.Navbar.skipToContent": "Siirry sisältöön",
+  "common.navbar.Navbar.title": "Pysäköintiluvat",
+  "common.permit.Permit.contractType": "Jatkuvaveloitteinen",
+  "common.permit.Permit.discount": "Olet oikeutettu alennettuun kadunvarsipysäköintiin mobiilisovelluksilla maksaessasi.",
+  "common.permit.Permit.label": "Ajoneuvosi",
+  "common.permit.Permit.permitType": "Asukaspysäköintivyöhyke",
+  "common.purchasedOverview.PurchasedOverview.actionBtn.frontPage": "Palaa etusivulle",
+  "common.purchasedOverview.PurchasedOverview.actionBtn.logout": "Kirjaudu ulos",
+  "common.purchasedOverview.PurchasedOverview.btn.receipt": "Näytä kuitti",
+  "common.purchasedOverview.PurchasedOverview.notification.success.label": "Tilaus onnistui",
+  "common.purchasedOverview.PurchasedOverview.notification.success.message": "Pysäköintilupa on sähköinen ja pysäköintivalvonta tunnistaa voimassaolevan tunnuksen ajoneuvosi rekisterinumeron perusteella.",
+  "common.stepper.Stepper.label": "Asukaspysäköintitunnus",
+  "common.vehicleSelector.VehicleSelector.label": "Syötä ajoneuvon rekisterinumero",
+  "common.vehicleSelector.VehicleSelector.notification.info.label": "Tunnusten hinnat",
+  "common.vehicleSelector.VehicleSelector.notification.info.message": "1. tunnus on normaalihintainen, 2. tunnuksen hinta 1,5-kertainen. Vähäpäästöinen ajoneuvo puoleen hintaan.",
+  "common.vehicleSelector.VehicleSelector.notification.success.label": "Ajoneuvosi tiedot ovat ajantasalla",
+  "common.vehicleSelector.VehicleSelector.notification.success.message": "",
+  "common.vehicleSelector.VehicleSelector.primaryVehicle.label": "Valitse 1. tunnuksen ajoneuvo",
+  "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.continue": "Jatka",
+  "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Palaa valitsemaan ajoneuvo",
+  "common.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Poista",
+  "common.vehicleSelector.permitPrices.PermitPrices.discount": "Haluan saada 50% alennuksen myös muusta kadunvarsipysäköinnistä pysäköintisovelluksilla maksaessa. Lue lisää.",
+  "common.vehicleSelector.permitPrices.PermitPrices.emission": "Vähäpäästöinen ajoneuvo, päästöt alle {{emission}} CO₂",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.errorText": "Anna kelvollinen rekisteritunnus.",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.label.first": "Rekisterinumero",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.label.rest": "Toisen ajoneuvon rekisterinumero",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.actionBtn.continue": "Jatka",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.actionBtn.gotoAddressSelection": "Palaa valitsemaan osoite",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.btn.addMore": "Lisää toinen ajoneuvo",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.error.label": "",
+  "pages.frontPage.FrontPage.title": "Hei {{firstName}}!",
+  "pages.landingPage.LandingPage.login": "Kirjaudu sisään",
+  "pages.profilePage.ProfilePage.apiError": "Api access tokenin lataus epäonnistui"
 }
