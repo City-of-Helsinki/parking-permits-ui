@@ -2,79 +2,59 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button, IconArrowRight, Notification } from 'hds-react';
-import { Features, UserAddress } from '../../redux';
-import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
-import Address from '../address/Address';
 
 import './addressSelector.scss';
+
 import {
   setCurrentStepper,
-  setSelectedAddressId,
+  setSelectedAddress,
 } from '../../redux/actions/permitCart';
+import Address from './address/Address';
+import { STEPPER, UserAddress } from '../../redux';
+
+const T_PATH = 'common.addressSelector.AddressSelector';
 
 export interface Props {
-  selectedAddressId: string;
-  features: Features;
   addresses: UserAddress[];
+  selectedAddress: UserAddress | undefined;
 }
 
 const AddressSelector = ({
-  features,
   addresses,
-  selectedAddressId,
+  selectedAddress,
 }: Props): React.ReactElement => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
-  const onChange = (event: { target: { value: string } }) => {
-    dispatch(setSelectedAddressId(event.target.value));
-  };
+  const { t } = useTranslation();
 
-  const gotoNext = () => {
-    dispatch(setCurrentStepper(2));
-  };
+  if (!selectedAddress) {
+    setTimeout(() => {
+      dispatch(setSelectedAddress(addresses[0]));
+    });
+  }
   return (
     <div className="address-selector-component">
-      <Notification
-        className="notification"
-        label={t('page.frontPage.notification.info.label')}>
-        {t('page.frontPage.notification.info.message')}
+      <Notification label={t(`${T_PATH}.notification.info.label`)}>
+        {t(`${T_PATH}.notification.info.message`)}
       </Notification>
-      <div className="select-address-title">
-        {t('page.frontPage.selectAddress')}
-      </div>
+      <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       <div className="addresses">
-        {addresses?.length &&
-          addresses.map(address => (
-            <Address
-              key={address.id}
-              selectedAddressId={selectedAddressId}
-              address={address}
-              disabled={features[address.id]?.features?.length <= 0}
-              onChange={onChange}>
-              {features[address.id] &&
-                features[address.id]?.features?.length <= 0 && (
-                  <Notification
-                    className="address-warning"
-                    type="error"
-                    label={t('page.frontPage.notification.addressError.label')}>
-                    {t('page.frontPage.notification.addressError.message')}
-                  </Notification>
-                )}
-              {features[address.id] &&
-                features[address.id]?.features?.length > 0 && (
-                  <ParkingZonesMap
-                    featureCollection={features[address.id]}
-                    zoom={13}
-                  />
-                )}
-            </Address>
-          ))}
+        {addresses.map(address => (
+          <Address
+            key={address.id}
+            address={address}
+            selectedAddress={selectedAddress}
+          />
+        ))}
       </div>
       <div className="action-buttons">
-        <Button className="action-btn" onClick={gotoNext} theme="black">
-          <span>{t('page.frontPage.buyParkingId')}</span>
+        <Button
+          className="action-btn"
+          onClick={() => dispatch(setCurrentStepper(STEPPER.VEHICLE_SELECTOR))}
+          theme="black">
+          <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
           <IconArrowRight />
         </Button>
+        <div />
       </div>
     </div>
   );
