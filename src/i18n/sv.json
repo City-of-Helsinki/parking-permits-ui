@@ -1,83 +1,83 @@
 {
-  "page": {
-    "frontPage": {
-      "title": "Hej {{firstName}}!",
-      "notification": {
-        "info": {
-          "label": "Du har inga parkeringstecken i kraft",
-          "message": "Enligt befolkningsregistret kan du köpa parkerkingstecknet till följande zoner"
-        }
-      },
-      "selectAddress": "Välj addressen",
-      "buyParkingId": "Köp parkeringstecknet"
-    },
-    "vehicleSelector": {
-      "notification": {
-        "success": {
-          "label": "Fordonets information är giltigt",
-          "message": "Enligt transport- och kommunikationsverket (Traficom) har du körkortet i kraft och du kan köpa parkerkingstecknet för detta fordon. Lågmission fordon till hälften pris."
-        }
-      },
-      "discount": "Jag vill ha 50% rabatt också för gatuparkeringen när jag betalar parkeringen med en parkeringsapp. Läs mera.",
-      "emission": "Lågmissions fordon, utsläpp under {{emission}} CO2",
-      "enterVehicleRegistrationNumber": "Anje fordonets registreringstecknet",
-      "returnToSelectAnAddress": "Gå tillbaka och ändra addressen",
-      "returnToSelectRegistration": "Gå tillbaka och välja fordonet",
-      "continue": "Jatka"
-    },
-    "shoppingCart": {
-      "datePlaceHolder": "DD.MM.VVVV",
-      "durationOfParkingPermit": "Parkeringstecknets längd",
-      "from": "Från och med",
-      "immediately": "Börjar genast",
-      "monthSelectionHelpText": "Högst 12 mån",
-      "parkingPermitStartDate": "Parkeringstecknets begynnelsedag",
-      "price": "Pris",
-      "subTitle": "Ditt fordon",
-      "fixedPeriod": "Tidsbegränsad",
-      "openEnded": "Tills vidare i kraft",
-      "title": "Välj längd och begynnelsedag"
-    },
-    "paymentOverview": {
-      "notificationTitle": "Beställningen lyckades",
-      "receipt": "Visa kvitto",
-      "notificationMessage": "Parkeringstillståndet är elektroniskt och parkeringsövervakningen känner ditt tecken som är i kraft med fordonets registreringsnummer.",
-      "parkingPermit": "Ditt parkeringsteckne",
-      "parkingZone": "Boendeparkeringszon",
-      "discountMessage": "Du har rättighet till rabatt gällande gatuparkeringen när du betalar med en mobilapp.",
-      "frontPageNavigation": "Gå tillbaka till framsidan"
-    }
-  },
-  "common": {
-    "address": {
-      "residentParkingZone": "Boendeparkeringszon",
-      "permanentAddress": "Stadigvarande adress",
-      "temporaryAddress": "Tillfällig adress"
-    }
-  },
-  "pageLayout": {
-    "footer": {
-      "accessibility": "Tillgänglighet",
-      "contactInformation": "Kontaktuppgifter",
-      "copyright": "Alla rättigheter annhålls",
-      "feedback": "Respons",
-      "privacy": "Integritetsskydd",
-      "processingPersonalData": "Behandling av personuppgifter",
-      "registryDescription": "Registerbeskrivning",
-      "support": "Stöd",
-      "title": "Stadsmiljös parkeringstillstånd",
-      "termsOfParkingCode": "Parkeringtecknets förutsättningar",
-      "backToTop": "Tillbaka upp"
-    },
-    "navbar": {
-      "frontPage": "Till Hemsidan",
-      "menuLabel": "Meny",
-      "messages": "Meddelanden",
-      "ownProfile": "Egna uppgifter",
-      "signIn": "Logga in",
-      "signOut": "Logga ut",
-      "skipToContent": "Flytta till innehållet"
-    },
-    "title": "Parkeringstillstånd"
-  }
+  "common.addressSelector.AddressSelector.actionBtn.buyPermit": "Köp parkeringstillstånd",
+  "common.addressSelector.AddressSelector.notification.info.label": "Du har inte ett giltigt parkeringstillstånd",
+  "common.addressSelector.AddressSelector.notification.info.message": "Baserat på din personliga information från befolkningsregistercentret kan du köpa ett parkeringstillstånd för angränsande zoner.",
+  "common.addressSelector.AddressSelector.sectionLabel": "Välj adress",
+  "common.addressSelector.address.Address.notification.error.label": "Ogiltig adress",
+  "common.addressSelector.address.Address.notification.error.message": "Adressen måste vara i Helsingfors.",
+  "common.addressSelector.address.Address.permanentAddress": "Permanent adress",
+  "common.addressSelector.address.Address.residentParkingZone": "Resident Parking Zone",
+  "common.addressSelector.address.Address.temporaryAddress": "Tillfällig adress",
+  "common.durationSelector.DurationSelector.actionBtn.continue": "Fortsätt",
+  "common.durationSelector.DurationSelector.actionBtn.selectRegistration": "Köp parkeringstillstånd",
+  "common.durationSelector.DurationSelector.datePlaceHolder": "PP.KK.VVVV",
+  "common.durationSelector.DurationSelector.fixedPeriod": "Tillfällig",
+  "common.durationSelector.DurationSelector.fixedPeriodAssistiveText": "Tillåten varaktighet 1-12 månader.",
+  "common.durationSelector.DurationSelector.immediately": "Börja omedelbart",
+  "common.durationSelector.DurationSelector.immediatelyAssistiveText": "Kontot träder i kraft så snart betalningen har bekräftats.",
+  "common.durationSelector.DurationSelector.monthSelectionHelpText": "Upp till 12 månader",
+  "common.durationSelector.DurationSelector.openEnded": "Kontinuerlig laddning",
+  "common.durationSelector.DurationSelector.openEndedAssistiveText": "Priset på parkeringsbiljetten och rätten att ta emot koden granskas och debiteras varje månad. Ett giltigt tillstånd för tillfället kräver kortbetalning och lagring av kortinformation för kontinuerlig laddning . ",
+  "common.durationSelector.DurationSelector.parkingDurationType.label": "Parkeringslängd",
+  "common.durationSelector.DurationSelector.permitCount": "{{count}}. tillstånd",
+  "common.durationSelector.DurationSelector.permitPrice": "Pris",
+  "common.durationSelector.DurationSelector.residentParkingZone": "Resident Parking Zone",
+  "common.durationSelector.DurationSelector.sectionLabel": "Välj varaktighet och startdatum",
+  "common.durationSelector.DurationSelector.startDate": "Från",
+  "common.durationSelector.DurationSelector.startDateAssistiveText": "Kontot startar den valda dagen kl. 00:00.",
+  "common.durationSelector.DurationSelector.startType.label": "Starttid för parkeringstid",
+  "common.footer.Footer.accessibility": "Tillgänglighet",
+  "common.footer.Footer.backToTop": "Tillbaka till början",
+  "common.footer.Footer.contactInformation": "Kontaktinformation",
+  "common.footer.Footer.copyright": "Helsingfors stad",
+  "common.footer.Footer.feedback": "Feedback",
+  "common.footer.Footer.icon.facebook.label": "Facebook",
+  "common.footer.Footer.icon.instagram.label": "Instagram",
+  "common.footer.Footer.icon.twitter.label": "Twitter",
+  "common.footer.Footer.privacy": "Sekretess",
+  "common.footer.Footer.registryDescription": "Registerbeskrivning",
+  "common.footer.Footer.support": "Support",
+  "common.footer.Footer.termsOfParkingCode": "Villkor för parkeringsplatser",
+  "common.navbar.Navbar.action.login": "Logga in",
+  "common.navbar.Navbar.action.logout": "Logga ut",
+  "common.navbar.Navbar.frontPage": "Hem",
+  "common.navbar.Navbar.lang.en": "In English",
+  "common.navbar.Navbar.lang.fi": "Suomen kielellä",
+  "common.navbar.Navbar.lang.sv": "På svenska",
+  "common.navbar.Navbar.messages": "Meddelanden",
+  "common.navbar.Navbar.ownProfile": "Min information",
+  "common.navbar.Navbar.receipts": "Kvitton",
+  "common.navbar.Navbar.skipToContent": "Hoppa till innehåll",
+  "common.navbar.Navbar.title": "Parkeringstillstånd",
+  "common.permit.Permit.contractType": "Kontinuerlig laddning",
+  "common.permit.Permit.discount": "Du har rätt till minskad gatuparkering med mobilappar när du betalar.",
+  "common.permit.Permit.label": "Ditt fordon",
+  "common.permit.Permit.permitType": "Resident Parking Zone",
+  "common.purchasedOverview.PurchasedOverview.actionBtn.frontPage": "Återgå till hemsidan",
+  "common.purchasedOverview.PurchasedOverview.actionBtn.logout": "Logga ut",
+  "common.purchasedOverview.PurchasedOverview.btn.receipt": "Visa kvitto",
+  "common.purchasedOverview.PurchasedOverview.notification.success.label": "Beställning lyckades",
+  "common.purchasedOverview.PurchasedOverview.notification.success.message": "Parkeringstillståndet är elektroniskt och parkeringskontrollen identifierar ett giltigt tillstånd baserat på ditt fordons registreringsnummer.",
+  "common.stepper.Stepper.label": "Parkeringstillstånd för bosatt",
+  "common.vehicleSelector.VehicleSelector.label": "Ange fordonsregistreringsnummer",
+  "common.vehicleSelector.VehicleSelector.notification.info.label": "Tillåt priser",
+  "common.vehicleSelector.VehicleSelector.notification.info.message": "Den första koden är det normala priset, den andra koden är 1,5 gånger priset. Fordonet med lågt utsläpp till halva priset.",
+  "common.vehicleSelector.VehicleSelector.notification.success.label": "Din fordonsinformation är uppdaterad",
+  "common.vehicleSelector.VehicleSelector.notification.success.message": "",
+  "common.vehicleSelector.VehicleSelector.primaryVehicle.label": "Välj första fordonet",
+  "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.continue": "Fortsätt",
+  "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Gå tillbaka för att välja fordon",
+  "common.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Ta bort",
+  "common.vehicleSelector.permitPrices.PermitPrices.discount": "Jag skulle också vilja få 50% rabatt på annan parkering utanför gatan när jag betalar med parkeringsappar. Läs mer.",
+  "common.vehicleSelector.permitPrices.PermitPrices.emission": "Fordon med låga utsläpp med mindre utsläpp än {{emission}} CO₂",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.errorText": "Ange ett giltigt registreringsnummer.",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.label.first": "Registreringsnummer",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.label.rest": "Registreringsnummer för ett annat fordon",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.actionBtn.continue": "Fortsätt",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.actionBtn.gotoAddressSelection": "Gå tillbaka för att välja adress",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.btn.addMore": "Lägg till ett annat fordon",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.error.label": "",
+  "pages.frontPage.FrontPage.title": "Hej {{firstName}}!",
+  "pages.landingPage.LandingPage.login": "Logga in",
+  "pages.profilePage.ProfilePage.apiError": "Api-åtkomsttoken kunde inte laddas"
 }
