@@ -1,13 +1,20 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Navigation } from 'hds-react';
 import { History } from 'history';
-
+import { Navigation } from 'hds-react';
+import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+
 import { useClient } from '../../client/hooks';
 
 type Page = '/' | 'apiAccessTokens' | 'userTokens' | 'profile';
 type Languages = 'fi' | 'en' | 'sv';
+
+const T_PATH = 'common.navbar.Navbar';
+
+export interface Props {
+  authenticated: boolean;
+  currentStep: number;
+}
 
 export const makeNavigationItemProps = (
   url: string,
@@ -22,7 +29,7 @@ export const makeNavigationItemProps = (
   },
 });
 
-const Navbar = (): React.ReactElement => {
+const Navbar = ({ authenticated, currentStep }: Props): React.ReactElement => {
   const client = useClient();
   const history = useHistory();
   const location = useLocation();
@@ -34,7 +41,6 @@ const Navbar = (): React.ReactElement => {
     setLang(code);
   };
 
-  const authenticated = client.isAuthenticated();
   const initialized = client.isInitialized();
   const user = client.getUser();
   const userName = user ? `${user.given_name} ${user.family_name}` : '';
@@ -48,60 +54,66 @@ const Navbar = (): React.ReactElement => {
   const links = [
     {
       url: '/',
-      label: t('pageLayout.navbar.frontPage'),
+      label: t(`${T_PATH}.frontPage`),
+    },
+    {
+      url: '/receipts',
+      label: t(`${T_PATH}.receipts`),
     },
     {
       url: '/messages',
-      label: t('pageLayout.navbar.messages'),
+      label: t(`${T_PATH}.messages`),
     },
   ];
   if (authenticated) {
     links.push({
       url: '/profile',
-      label: t('pageLayout.navbar.ownProfile'),
+      label: t(`${T_PATH}.ownProfile`),
     });
   }
   return (
     <Navigation
-      title={t('pageLayout.title')}
+      title={t(`${T_PATH}.title`)}
       menuToggleAriaLabel="menu"
       skipTo="#content"
-      skipToContentLabel={t('pageLayout.navbar.skipToContent')}>
-      <Navigation.Row variant="inline">
-        {links.map(({ label, url }) => (
-          <Navigation.Item
-            key={url}
-            active={active === url}
-            {...makeNavigationItemProps(url, history, setActive)}
-            label={label}
-          />
-        ))}
-      </Navigation.Row>
+      skipToContentLabel={t(`${T_PATH}.skipToContent`)}>
+      {currentStep === 1 && authenticated && (
+        <Navigation.Row>
+          {links.map(({ label, url }) => (
+            <Navigation.Item
+              key={url}
+              active={active === url}
+              {...makeNavigationItemProps(url, history, setActive)}
+              label={label}
+            />
+          ))}
+        </Navigation.Row>
+      )}
       <Navigation.Actions>
         <Navigation.LanguageSelector label={lang.toUpperCase()}>
           <Navigation.Item
-            label="Suomeksi"
+            label={t(`${T_PATH}.lang.fi`)}
             onClick={(): void => setLanguage('fi')}
           />
           <Navigation.Item
-            label="På svenska"
+            label={t(`${T_PATH}.lang.sv`)}
             onClick={(): void => setLanguage('sv')}
           />
           <Navigation.Item
-            label="In English"
+            label={t(`${T_PATH}.lang.en`)}
             onClick={(): void => setLanguage('en')}
           />
         </Navigation.LanguageSelector>
         {initialized && (
           <Navigation.User
             authenticated={authenticated}
-            label={t('pageLayout.navbar.signIn')}
+            label={t(`${T_PATH}.action.login`)}
             onSignIn={(): void => client.login()}
             userName={userName}>
             <Navigation.Item
               onClick={(): void => client.logout()}
               variant="secondary"
-              label={t('pageLayout.navbar.signOut')}
+              label={t(`${T_PATH}.action.logout`)}
             />
           </Navigation.User>
         )}

@@ -1,45 +1,49 @@
-@import '~open-city-design/src/scss/helsinki/colors';
 @import '../../assets/styles/mixin';
+$step-width: 24px;
 
 .stepper-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: var(--spacing-s);
-  margin-top: var(--spacing-s);
+  padding: var(--spacing-s) 0;
+  .stepper__label {
+    font-size: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    flex-basis: 60%;
+  }
   .steps {
     flex: 1 1 auto;
     display: flex;
     align-items: center;
     &.last {
-      max-width: 32px;
-      min-width: 32px;
+      max-width: $step-width;
+      min-width: $step-width;
     }
     .step {
-      min-width: 32px;
-      max-width: 32px;
-      height: 32px;
-      line-height: 30px;
+      min-width: $step-width;
+      max-width: $step-width;
+      height: $step-width;
+      line-height: $step-width;
       text-align: center;
       border-radius: 50%;
-      border: 2px solid $hel-gray;
-      color: $hel-gray;
+      border: 2px solid var(--color-black-20);
+      color: var(--color-black-20);
       & + .step-length {
         height: 2px;
         width: 100%;
-        background: $hel-gray;
+        background: var(--color-black-20);
         &.completed {
-          background: $hel-black;
+          background: var(--color-black);
         }
       }
       &.completed {
-        background: $hel-black;
-        color: $hel-white;
-        line-height: 28px;
+        background: var(--color-black);
+        color: var(--color-white);
       }
       &.selected {
-        border: 2px solid $hel-black;
-        color: $hel-black;
+        border: 2px solid var(--color-black);
+        color: var(--color-black);
       }
     }
   }

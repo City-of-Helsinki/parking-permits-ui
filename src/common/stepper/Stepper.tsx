@@ -1,9 +1,12 @@
-import React, { CSSProperties, FC } from 'react';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { IconCheck } from 'hds-react';
+import { useTranslation } from 'react-i18next';
+import React, { CSSProperties, FC } from 'react';
 
 import './stepper.scss';
+
+const T_PATH = 'common.stepper.Stepper';
 
 interface Props {
   currentStep: number;
@@ -16,13 +19,16 @@ const Stepper: FC<Props> = ({
   className,
   currentStep,
 }): React.ReactElement => {
+  const { t } = useTranslation();
+  const absoluteStep = +currentStep.toPrecision(1);
   const stepLength = 4;
   return (
     <div
       className={classNames(`stepper-container ${className}`, {
-        hideInMobile: currentStep === 1,
+        hideInMobile: absoluteStep === 1,
       })}
       style={{ ...style }}>
+      <div className="stepper__label">{t(`${T_PATH}.label`)}</div>
       {Array.from({ length: stepLength })
         .map((v, i) => i + 1)
         .map(value => (
@@ -33,15 +39,15 @@ const Stepper: FC<Props> = ({
             })}>
             <div
               className={classNames('step', {
-                selected: value === currentStep,
-                completed: value < currentStep,
+                selected: value === absoluteStep,
+                completed: value < absoluteStep,
               })}>
-              {value < currentStep ? <IconCheck /> : value}
+              {value < absoluteStep ? <IconCheck /> : value}
             </div>
             {value !== stepLength && (
               <div
                 className={classNames('step-length', {
-                  completed: value < currentStep,
+                  completed: value < absoluteStep,
                 })}
               />
             )}

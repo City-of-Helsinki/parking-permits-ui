@@ -1,13 +1,18 @@
-.page-layout {
+.app-page {
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
-  background: var(--color-black-5);
-  > main {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    height: 100%;
+  &__container, footer {
     width: 100%;
+  }
+  .stepper-component{
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    & > div {
+      width: 100%;
+    }
   }
 }

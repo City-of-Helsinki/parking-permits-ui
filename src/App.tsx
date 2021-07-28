@@ -1,55 +1,89 @@
-import React from 'react';
+import { Container } from 'hds-react';
+import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Redirect, Switch, useRouteMatch } from 'react-router';
-import StoreProvider from './redux/StoreProvider';
-import { ClientProvider } from './client/ClientProvider';
-import { setClientConfig } from './client';
 
+import './app.scss';
+
+import { StoreState } from './redux';
+import { setClientConfig } from './client';
 import clientConfig from './client/config';
-import FrontPage from './pages/frontPage/FrontPage';
-import OidcCallback from './client/OidcCallback';
-import { ApiAccessTokenProvider } from './common/apiAccessTokenProvider';
+import { useClient } from './client/hooks';
 import Navbar from './common/navbar/Navbar';
 import Footer from './common/footer/Footer';
-import './app.scss';
+import Stepper from './common/stepper/Stepper';
+import OidcCallback from './client/OidcCallback';
+import FrontPage from './pages/frontPage/FrontPage';
+import { ApiAccessTokenActions } from './client/types';
 import ProfilePage from './pages/profilePage/ProfilePage';
-import { useClient } from './client/hooks';
 import LandingPage from './pages/landingPage/LandingPage';
+import { fetchUserProfile } from './redux/actions/helsinkiProfile';
+import { ApiAccessTokenContext } from './common/apiAccessTokenProvider';
 
 setClientConfig(clientConfig);
 
 function App(): React.ReactElement {
   const client = useClient();
+  const dispatch = useDispatch();
   const { callbackPath } = clientConfig;
   const isCallbackUrl = useRouteMatch(callbackPath);
+  const { permitCartState, helsinkiProfileState } = useSelector(
+    (state: StoreState) => state
+  );
+
+  const actions = useContext(ApiAccessTokenContext) as ApiAccessTokenActions;
+  const { getStatus: getAPITokenStatus } = actions;
+
   if (callbackPath && isCallbackUrl) {
     return <OidcCallback successRedirect="/" failureRedirect="/authError" />;
   }
 
+  if (
+    getAPITokenStatus() === 'loaded' &&
+    !helsinkiProfileState?.fetchingStatus
+  ) {
+    dispatch(fetchUserProfile());
+  }
+
   return (
-    <ClientProvider>
-      <StoreProvider>
-        <ApiAccessTokenProvider>
-          <div className="page-layout">
-            <Navbar />
-            <main>
-              <Switch>
-                {client.isAuthenticated() ? (
-                  <Route exact path="/" component={FrontPage} />
-                ) : (
-                  <Route exact path="/" component={LandingPage} />
-                )}
-                {client.isAuthenticated() ? (
-                  <Route exact path="/profile" component={ProfilePage} />
-                ) : (
-                  <Redirect to="/" />
-                )}
-              </Switch>
-            </main>
-            <Footer />
-          </div>
-        </ApiAccessTokenProvider>
-      </StoreProvider>
-    </ClientProvider>
+    <div className="app-page">
+      <Navbar
+        currentStep={permitCartState.currentStep}
+        authenticated={client.isAuthenticated()}
+      />
+      {permitCartState.currentStep > 1 && (
+        <div className="stepper-component">
+          <Container>
+            <Stepper currentStep={permitCartState.currentStep} />
+          </Container>
+        </div>
+      )}
+      <Container className="app-page__container">
+        <Switch>
+          {client.isAuthenticated() ? (
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <FrontPage
+                  permitCartState={permitCartState}
+                  profile={helsinkiProfileState.profile}
+                  currentStep={permitCartState.currentStep}
+                />
+              )}
+            />
+          ) : (
+            <Route exact path="/" component={LandingPage} />
+          )}
+          {client.isAuthenticated() ? (
+            <Route exact path="/profile" component={ProfilePage} />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Switch>
+      </Container>
+      <Footer />
+    </div>
   );
 }
 

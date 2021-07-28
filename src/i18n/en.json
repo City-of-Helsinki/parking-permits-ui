@@ -1,92 +1,83 @@
 {
-  "page": {
-    "frontPage": {
-      "title": "Hey {{firstName}}!",
-      "notification": {
-        "info": {
-          "label": "You do not have valid parking IDs",
-          "message": "Based on your personal information obtained from the Population Register Center, you can purchase a parking permit for the adjacent zones."
-        },
-        "addressError": {
-          "label": "Invalid address",
-          "message": "Address must be in Helsinki."
-        }
-      },
-      "selectAddress": "Select address",
-      "buyParkingId": "Buy a parking ID"
-    },
-    "vehicleSelector": {
-      "notification": {
-        "success": {
-          "label": "Your vehicle information is up to date",
-          "message": "Based on the vehicle registration information (Traficom), your driving license is valid and you can purchase a parking permit for the attached vehicle. Low-emission vehicle for half price."
-        }
-      },
-      "discount": "I also want to get a 50% discount on other street parking when paying with parking apps. Read more.",
-      "emission": "Low emission vehicle, emissions below {{emission}} CO₂",
-      "enterVehicleRegistrationNumber": "Enter the vehicle registration number",
-      "returnToSelectAnAddress": "Return to select an address",
-      "returnToSelectRegistration": "Return to select registration number",
-      "invalidRegNumMessage": "Enter a valid registration number.",
-      "continue": "Continue"
-    },
-    "shoppingCart": {
-      "datePlaceHolder": "DD.MM.YYYY",
-      "durationOfParkingPermit": "Duration of parking permit",
-      "from": "From",
-      "fromAssistiveText": "The permit starts at 00:00 on the selected day.",
-      "immediately": "Immediately",
-      "immediatelyAssistiveText": "The permit will be valid as soon as the payment is confirmed.",
-      "monthSelectionHelpText": "Up to 12 months",
-      "parkingPermitStartDate": "Parking permit start date",
-      "price": "Price",
-      "subTitle": "Car detail",
-      "fixedPeriod": "Fixed period",
-      "fixedPeriodAssistiveText": "The duration of the permit is 1-12 months.",
-      "openEnded": "Open ended",
-      "openEndedAssistiveText": "The price of the parking permit and the right to receive the permit are reviewed and charged on a monthly basis. A valid permit and a card payment for an open ended contract requires the storage of card information for continuous charging.",
-      "title": "Select duration and start date"
-    },
-    "paymentOverview": {
-      "notificationTitle": "Order successful",
-      "receipt": "Receipt",
-      "notificationMessage": "The parking permit is electronic and the parking control identifies a valid ID based on the registration number of your vehicle.",
-      "parkingPermit": "Parking permit",
-      "parkingZone": "Resident parking zone",
-      "discountMessage": "You are eligible for reduced street parking with mobile apps when you pay.",
-      "frontPageNavigation": "Return to frontPage"
-    }
-  },
-  "common": {
-    "address": {
-      "residentParkingZone": "Resident parking zone",
-      "permanentAddress": "Permanent address",
-      "temporaryAddress": "Temporary address"
-    }
-  },
-  "pageLayout": {
-    "footer": {
-      "accessibility": "Accessibility",
-      "contactInformation": "Contact information",
-      "copyright": "City of Helsinki",
-      "feedback": "Feedback",
-      "privacy": "Privacy",
-      "processingPersonalData": "Processing of personal data",
-      "registryDescription": "Registry description",
-      "support": "Support",
-      "title": "Urban parking permits",
-      "termsOfParkingCode": "Terms of parking permit",
-      "backToTop": "Back to top"
-    },
-    "navbar": {
-      "frontPage": "Front page",
-      "menuLabel": "Menu",
-      "messages": "Messages",
-      "ownProfile": "Own information",
-      "signIn": "Sign in",
-      "signOut": "Sign out",
-      "skipToContent": "Skip to content"
-    },
-    "title": "Parking permits"
-  }
+  "common.addressSelector.AddressSelector.actionBtn.buyPermit": "Buy parking permit",
+  "common.addressSelector.AddressSelector.notification.info.label": "You do not have a valid parking permit",
+  "common.addressSelector.AddressSelector.notification.info.message": "Based on your personal information from the Population Register Center, you can purchase a parking permit for the adjacent zones.",
+  "common.addressSelector.AddressSelector.sectionLabel": "Select Address",
+  "common.addressSelector.address.Address.notification.error.label": "Invalid address",
+  "common.addressSelector.address.Address.notification.error.message": "The address must be in Helsinki.",
+  "common.addressSelector.address.Address.permanentAddress": "Permanent Address",
+  "common.addressSelector.address.Address.residentParkingZone": "Resident Parking Zone",
+  "common.addressSelector.address.Address.temporaryAddress": "Temporary Address",
+  "common.durationSelector.DurationSelector.actionBtn.continue": "Continue",
+  "common.durationSelector.DurationSelector.actionBtn.selectRegistration": "Buy parking permit",
+  "common.durationSelector.DurationSelector.datePlaceHolder": "PP.KK.VVVV",
+  "common.durationSelector.DurationSelector.fixedPeriod": "Temporary",
+  "common.durationSelector.DurationSelector.fixedPeriodAssistiveText": "Permit duration 1-12 months.",
+  "common.durationSelector.DurationSelector.immediately": "Start immediately",
+  "common.durationSelector.DurationSelector.immediatelyAssistiveText": "The account will take effect as soon as the payment is confirmed.",
+  "common.durationSelector.DurationSelector.monthSelectionHelpText": "Up to 12 months",
+  "common.durationSelector.DurationSelector.openEnded": "Continuous charge",
+  "common.durationSelector.DurationSelector.openEndedAssistiveText": "The price of the parking ticket and the right to receive the code are reviewed and charged monthly. A valid permit for the time being requires a card payment and the storage of card information for continuous charging.",
+  "common.durationSelector.DurationSelector.parkingDurationType.label": "Parking Lot Duration",
+  "common.durationSelector.DurationSelector.permitCount": "{{count}}. permit",
+  "common.durationSelector.DurationSelector.permitPrice": "Price",
+  "common.durationSelector.DurationSelector.residentParkingZone": "Resident Parking Zone",
+  "common.durationSelector.DurationSelector.sectionLabel": "Select duration and start date",
+  "common.durationSelector.DurationSelector.startDate": "From",
+  "common.durationSelector.DurationSelector.startDateAssistiveText": "The account will start on the selected day at 00:00.",
+  "common.durationSelector.DurationSelector.startType.label": "Parking time start time",
+  "common.footer.Footer.accessibility": "Accessibility",
+  "common.footer.Footer.backToTop": "Back to top",
+  "common.footer.Footer.contactInformation": "Contact Information",
+  "common.footer.Footer.copyright": "Helsinki city",
+  "common.footer.Footer.feedback": "Feedback",
+  "common.footer.Footer.icon.facebook.label": "Facebook",
+  "common.footer.Footer.icon.instagram.label": "Instagram",
+  "common.footer.Footer.icon.twitter.label": "Twitter",
+  "common.footer.Footer.privacy": "Privacy",
+  "common.footer.Footer.registryDescription": "Registry Description",
+  "common.footer.Footer.support": "Support",
+  "common.footer.Footer.termsOfParkingCode": "Parking Lot Terms",
+  "common.navbar.Navbar.action.login": "Login",
+  "common.navbar.Navbar.action.logout": "Log Out",
+  "common.navbar.Navbar.frontPage": "Home",
+  "common.navbar.Navbar.lang.en": "Suomen kielellä",
+  "common.navbar.Navbar.lang.fi": "In English",
+  "common.navbar.Navbar.lang.sv": "På svenska",
+  "common.navbar.Navbar.messages": "Messages",
+  "common.navbar.Navbar.ownProfile": "My Information",
+  "common.navbar.Navbar.receipts": "Receipts",
+  "common.navbar.Navbar.skipToContent": "Skip to content",
+  "common.navbar.Navbar.title": "Parking Permits",
+  "common.permit.Permit.contractType": "Continuous charge",
+  "common.permit.Permit.discount": "You are entitled to reduced street parking with mobile apps when you pay.",
+  "common.permit.Permit.label": "Your Vehicle",
+  "common.permit.Permit.permitType": "Resident Parking Zone",
+  "common.purchasedOverview.PurchasedOverview.actionBtn.frontPage": "Return to Home Page",
+  "common.purchasedOverview.PurchasedOverview.actionBtn.logout": "Log Out",
+  "common.purchasedOverview.PurchasedOverview.btn.receipt": "Show Receipt",
+  "common.purchasedOverview.PurchasedOverview.notification.success.label": "Order Successful",
+  "common.purchasedOverview.PurchasedOverview.notification.success.message": "The parking permit is electronic and the parking control identifies a valid permit based on your vehicle's registration number.",
+  "common.stepper.Stepper.label": "Resident parking permit",
+  "common.vehicleSelector.VehicleSelector.label": "Enter vehicle registration number",
+  "common.vehicleSelector.VehicleSelector.notification.info.label": "Permit prices",
+  "common.vehicleSelector.VehicleSelector.notification.info.message": "The 1st code is the normal price, the 2nd code is 1.5 times the price. A low-emission vehicle at half price.",
+  "common.vehicleSelector.VehicleSelector.notification.success.label": "Your vehicle information is up to date",
+  "common.vehicleSelector.VehicleSelector.notification.success.message": "",
+  "common.vehicleSelector.VehicleSelector.primaryVehicle.label": "Select 1st vehicle",
+  "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.continue": "Continue",
+  "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Return to select vehicle",
+  "common.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Remove",
+  "common.vehicleSelector.permitPrices.PermitPrices.discount": "I would also like to receive a 50% discount on other off-street parking when paying with parking apps. Read more.",
+  "common.vehicleSelector.permitPrices.PermitPrices.emission": "Low emission vehicle with emissions of less than {{emission}} CO₂",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.errorText": "Please enter a valid registration number.",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.label.first": "Registration number",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumber.label.rest": "Registration number of another vehicle",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.actionBtn.continue": "Continue",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.actionBtn.gotoAddressSelection": "Return to select address",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.btn.addMore": "Add another vehicle",
+  "common.vehicleSelector.registrationNumbers.RegistrationNumbers.error.label": "",
+  "pages.frontPage.FrontPage.title": "Hey {{firstName}}!",
+  "pages.landingPage.LandingPage.login": "Login",
+  "pages.profilePage.ProfilePage.apiError": "Api access token failed to load"
 }

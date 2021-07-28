@@ -1,12 +1,10 @@
 import { AnyAction } from 'redux';
-import { loader } from 'graphql.macro';
-import actionCreatorFactory from 'typescript-fsa';
 import { ThunkDispatch } from 'redux-thunk';
-import { ApolloQueryResult } from '@apollo/client/core/types';
+import actionCreatorFactory from 'typescript-fsa';
 
-import { ProfileQueryResult, UserProfile } from '../types';
-import { convertQueryToData, getProfileGqlClient } from '../utils';
-import { fetchFeatures } from './features';
+import { getProfileGqlClient } from '../utils';
+import { UserProfile } from '../types';
+import { getUserProfile } from './testHTTPResponse';
 
 const creator = actionCreatorFactory('helsinkiProfile');
 export const fetchHelsinkiProfileAction = creator.async<
@@ -15,41 +13,34 @@ export const fetchHelsinkiProfileAction = creator.async<
   Error
 >('fetch');
 
-export const fetchUserProfile = () => async (
-  dispatch: ThunkDispatch<
-    Record<string, unknown>,
-    Record<string, unknown>,
-    AnyAction
-  >
-): Promise<void> => {
-  dispatch(fetchHelsinkiProfileAction.started({}));
-  const client = getProfileGqlClient();
-  if (!client) {
-    dispatch(
-      fetchHelsinkiProfileAction.failed({
-        error: new Error(
-          'getProfileGqlClient returned undefined. Missing ApiToken for env.REACT_APP_PROFILE_AUDIENCE or missing env.REACT_APP_PROFILE_BACKEND_URL '
-        ),
-        params: {},
-      })
-    );
-    return;
-  }
-  try {
-    const MY_PROFILE_QUERY = loader('../../graphql/myProfileQuery.graphql');
-    const result: ApolloQueryResult<ProfileQueryResult> = await client.query({
-      errorPolicy: 'all',
-      query: MY_PROFILE_QUERY,
-    });
-    const data = convertQueryToData(result);
-    if (data) {
-      Object.values(data.addresses).forEach(address =>
-        dispatch(fetchFeatures(address))
+export const fetchUserProfile =
+  () =>
+  async (
+    dispatch: ThunkDispatch<
+      Record<string, unknown>,
+      Record<string, unknown>,
+      AnyAction
+    >
+  ): Promise<void> => {
+    dispatch(fetchHelsinkiProfileAction.started({}));
+    const client = getProfileGqlClient();
+    if (!client) {
+      dispatch(
+        fetchHelsinkiProfileAction.failed({
+          error: new Error(
+            'getProfileGqlClient returned undefined. Missing ApiToken for env.REACT_APP_PROFILE_AUDIENCE or missing env.REACT_APP_PROFILE_BACKEND_URL '
+          ),
+          params: {},
+        })
       );
+      return;
+    }
+    const userProfile = await getUserProfile(client);
+    if (userProfile) {
       dispatch(
         fetchHelsinkiProfileAction.done({
           params: {},
-          result: data,
+          result: userProfile,
         })
       );
     } else {
@@ -60,12 +51,4 @@ export const fetchUserProfile = () => async (
         })
       );
     }
-  } catch (error) {
-    dispatch(
-      fetchHelsinkiProfileAction.failed({
-        error,
-        params: {},
-      })
-    );
-  }
-};
+  };

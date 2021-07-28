@@ -1,30 +1,21 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, IconDocument, IconSignout, Notification } from 'hds-react';
 import { useTranslation } from 'react-i18next';
+import { Button, IconDocument, IconSignout, Notification } from 'hds-react';
 
 import './purchasedOverview.scss';
-import {
-  ParkingDurationType,
-  ParkingStartType,
-  Price,
-  UserAddress,
-  ValidityPeriod,
-  Vehicle,
-} from '../../redux';
+
+import Permit from '../permit/Permit';
 import { useClient } from '../../client/hooks';
 import { setCurrentStepper } from '../../redux/actions/permitCart';
-import Permit from '../permit/Permit';
+import { STEPPER, UserAddress, ValidityPeriod, Vehicle } from '../../redux';
+
+const T_PATH = 'common.purchasedOverview.PurchasedOverview';
 
 export interface Props {
   address: UserAddress;
   vehicleDetail: Vehicle;
-  prices: Price | undefined;
   validityPeriod: ValidityPeriod | undefined;
-  parkingDurationType?: ParkingDurationType;
-  parkingStartType?: ParkingStartType;
-  parkingDuration?: number;
-  parkingStartFrom?: Date;
 }
 
 const PurchasedOverview = ({
@@ -35,23 +26,20 @@ const PurchasedOverview = ({
   const client = useClient();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const gotoStep = (count: number) => {
-    dispatch(setCurrentStepper(count));
-  };
   return (
     <div className="purchased-overview-component">
       <Notification
         type="success"
         className="notification"
-        label={t('page.paymentOverview.notificationTitle')}>
-        {t('page.paymentOverview.notificationMessage')}
+        label={t(`${T_PATH}.notification.success.label`)}>
+        {t(`${T_PATH}.notification.success.message`)}
       </Notification>
       <Button
         theme="black"
         variant="secondary"
-        style={{ width: '100%', marginTop: '16px', background: 'white' }}>
+        style={{ marginTop: '16px', background: 'white' }}>
         <IconDocument />
-        <span>{t('page.paymentOverview.receipt')}</span>
+        <span>{t(`${T_PATH}.btn.receipt`)}</span>
       </Button>
       <Permit
         address={address}
@@ -62,8 +50,8 @@ const PurchasedOverview = ({
         <Button
           className="action-btn"
           theme="black"
-          onClick={() => gotoStep(1)}>
-          <span>{t('page.paymentOverview.frontPageNavigation')}</span>
+          onClick={() => dispatch(setCurrentStepper(STEPPER.ADDRESS_SELECTOR))}>
+          <span>{t(`${T_PATH}.actionBtn.frontPage`)}</span>
         </Button>
 
         <Button
@@ -72,7 +60,7 @@ const PurchasedOverview = ({
           variant="secondary"
           onClick={(): void => client.logout()}>
           <IconSignout />
-          <span>{t('pageLayout.navbar.signOut')}</span>
+          <span>{t(`${T_PATH}.actionBtn.logout`)}</span>
         </Button>
       </div>
     </div>

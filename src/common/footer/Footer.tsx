@@ -7,6 +7,8 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+const T_PATH = 'common.footer.Footer';
+
 const Footer = (): React.ReactElement => {
   const { t } = useTranslation();
   const FOOTER_COLOR = 'var(--color-white)';
@@ -19,23 +21,32 @@ const Footer = (): React.ReactElement => {
         '--footer-focus-outline-color': FOOTER_COLOR,
       }}>
       <HDSFooter.Navigation>
-        <HDSFooter.Item label={t('pageLayout.footer.termsOfParkingCode')} />
-        <HDSFooter.Item label={t('pageLayout.footer.support')} />
-        <HDSFooter.Item label={t('pageLayout.footer.feedback')} />
-        <HDSFooter.Item label={t('pageLayout.footer.contactInformation')} />
+        <HDSFooter.Item label={t(`${T_PATH}.termsOfParkingCode`)} />
+        <HDSFooter.Item label={t(`${T_PATH}.support`)} />
+        <HDSFooter.Item label={t(`${T_PATH}.feedback`)} />
+        <HDSFooter.Item label={t(`${T_PATH}.contactInformation`)} />
       </HDSFooter.Navigation>
-      <HDSFooter.Utilities backToTopLabel={t('pageLayout.footer.backToTop')}>
+      <HDSFooter.Utilities backToTopLabel={t(`${T_PATH}.backToTop`)}>
         <HDSFooter.SoMe>
-          <HDSFooter.Item icon={<IconInstagram />} label="Instagram" />
-          <HDSFooter.Item icon={<IconTwitter />} label="Twitter" />
-          <HDSFooter.Item icon={<IconFacebook />} label="Facebook" />
+          <HDSFooter.Item
+            icon={<IconInstagram />}
+            label={t(`${T_PATH}.icon.instagram.label`)}
+          />
+          <HDSFooter.Item
+            icon={<IconTwitter />}
+            label={t(`${T_PATH}.icon.facebook.label`)}
+          />
+          <HDSFooter.Item
+            icon={<IconFacebook />}
+            label={t(`${T_PATH}.icon.twitter.label`)}
+          />
         </HDSFooter.SoMe>
       </HDSFooter.Utilities>
-      <HDSFooter.Base copyrightHolder={t('pageLayout.footer.copyright')}>
+      <HDSFooter.Base copyrightHolder={t(`${T_PATH}.copyright`)}>
         <HDSFooter.Item label={t('www.hel.fi')} />
-        <HDSFooter.Item label={t('pageLayout.footer.registryDescription')} />
-        <HDSFooter.Item label={t('pageLayout.footer.privacy')} />
-        <HDSFooter.Item label={t('pageLayout.footer.accessibility')} />
+        <HDSFooter.Item label={t(`${T_PATH}.registryDescription`)} />
+        <HDSFooter.Item label={t(`${T_PATH}.privacy`)} />
+        <HDSFooter.Item label={t(`${T_PATH}.accessibility`)} />
       </HDSFooter.Base>
     </HDSFooter>
   );

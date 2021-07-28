@@ -1,10 +1,13 @@
 import React from 'react';
 import { Button } from 'hds-react';
-import { useTranslation } from 'react-i18next';
 import { Container } from 'reactstrap';
+import { useTranslation } from 'react-i18next';
+
+import './landingPage.scss';
 
 import { useClient } from '../../client/hooks';
-import './landingPage.scss';
+
+const T_PATH = 'pages.landingPage.LandingPage';
 
 const LandingPage = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -18,7 +21,7 @@ const LandingPage = (): React.ReactElement => {
           className="login-button"
           size="small"
           theme="black">
-          {t('Login')}
+          {t(`${T_PATH}.login`)}
         </Button>
       </Container>
     </div>

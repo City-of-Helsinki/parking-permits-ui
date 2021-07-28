@@ -9,7 +9,6 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { StoreState } from './types';
 import userReducer from './reducers/user';
-import featuresReducer from './reducers/features';
 import permitCartReducer from './reducers/permitCart';
 import helsinkiProfileReducer from './reducers/helsinkiProfile';
 import { authorized, errorThrown, unauthorized } from './actions/user';
@@ -24,13 +23,11 @@ const composeEnhancers =
   (process.env.NODE_ENV === 'development' &&
     window &&
     // eslint-disable-next-line no-underscore-dangle
-    ((window as unknown) as CustomWindow)
-      .__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+    (window as unknown as CustomWindow).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
 const reducers = combineReducers({
   userState: userReducer,
-  featuresState: featuresReducer,
   permitCartState: permitCartReducer,
   helsinkiProfileState: helsinkiProfileReducer,
 });

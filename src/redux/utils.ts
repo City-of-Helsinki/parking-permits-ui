@@ -1,8 +1,7 @@
-import { keyBy } from 'lodash';
 import { ApolloQueryResult } from '@apollo/client/core/types';
 
 import { getClient } from '../client/oidc-react';
-import { ProfileQueryResult, UserProfile } from './types';
+import { ProfileQueryResult, UserAddress, UserProfile } from './types';
 import { GraphQLClient, createGraphQLClient } from '../graphql/graphqlClient';
 
 let profileGqlClient: GraphQLClient;
@@ -37,9 +36,9 @@ export function convertQueryToData(
     return undefined;
   }
   const { id: userId, firstName, lastName, language, addresses } = profile;
-  let profileAddress = {};
+  let profileAddress: UserAddress[] = [];
   if (addresses?.edges?.length) {
-    profileAddress = keyBy(
+    profileAddress =
       addresses.edges.map(edge => ({
         id: edge.node.id,
         address: edge.node.address,
@@ -48,9 +47,7 @@ export function convertQueryToData(
         countryCode: edge.node.countryCode,
         postalCode: edge.node.postalCode,
         primary: edge.node.primary,
-      })),
-      'id'
-    );
+      })) || [];
   }
   addresses.edges.forEach(edge => edge.node);
   return {
