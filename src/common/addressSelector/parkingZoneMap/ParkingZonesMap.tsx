@@ -2,6 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { GeoJsonObject } from 'geojson';
 import L, { LatLngExpression } from 'leaflet';
+import { useTranslation } from 'react-i18next';
 import { TileLayer, MapContainer, GeoJSON, Marker, Popup } from 'react-leaflet';
 
 import './parkingZonesMap.css';
@@ -26,15 +27,21 @@ export default function ParkingZonesMap({
   userAddress,
   zoom,
 }: Props): React.ReactElement {
+  const { t, i18n } = useTranslation();
   const center = userAddress.coordinates as LatLngExpression;
-  const osmAttribution =
-    '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
+  const attribution = 'map.attribution.helsinki';
+  const getURL = (lang: string) => {
+    const suffix = lang === 'sv' ? '@sv' : '';
+    return `https://tiles.hel.ninja/styles/hel-osm-bright/{z}/{x}/{y}${suffix}.png`;
+  };
   return (
-    <MapContainer center={center} zoom={zoom}>
-      <TileLayer
-        attribution={osmAttribution}
-        url="//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <MapContainer center={center} zoom={zoom} attributionControl>
+      {i18n.language === 'sv' && (
+        <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
+      )}
+      {i18n.language !== 'sv' && (
+        <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
+      )}
       <Marker position={center} icon={icon}>
         <Popup>{`${userAddress.zoneName} ( ${userAddress.zone} )`}</Popup>
       </Marker>
