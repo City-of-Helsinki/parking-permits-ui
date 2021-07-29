@@ -79,5 +79,6 @@
   "common.vehicleSelector.registrationNumbers.RegistrationNumbers.error.label": "",
   "pages.frontPage.FrontPage.title": "Hei {{firstName}}!",
   "pages.landingPage.LandingPage.login": "Kirjaudu sisään",
-  "pages.profilePage.ProfilePage.apiError": "Api access tokenin lataus epäonnistui"
+  "pages.profilePage.ProfilePage.apiError": "Api access tokenin lataus epäonnistui",
+  "map.attribution.helsinki": "&copy; Helsingin, Espoon, Vantaan ja Kauniaisen kaupungit"
 }
