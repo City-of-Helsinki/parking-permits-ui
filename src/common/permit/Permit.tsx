@@ -21,7 +21,7 @@ const Permit = ({
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { registrationNumber, manufacturer, model } = vehicleDetail;
-  const { address, postalCode, zone } = userAddress;
+  const { address, postalCode, zone, city } = userAddress;
   return (
     <div className="permit-component">
       <div className="section-label">{t(`${T_PATH}.label`)}</div>
@@ -30,7 +30,7 @@ const Permit = ({
           <span className="pp-list__icon">{zone}</span>
           <div className="pp-list__titles">
             <div className="pp-list__title">{t(`${T_PATH}.permitType`)}</div>
-            <div className="pp-list__subtitle">{`${address}, ${postalCode} Helsinki`}</div>
+            <div className="pp-list__subtitle">{`${address}, ${postalCode} ${city}`}</div>
           </div>
         </div>
 
