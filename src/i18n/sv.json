@@ -79,5 +79,6 @@
   "common.vehicleSelector.registrationNumbers.RegistrationNumbers.error.label": "",
   "pages.frontPage.FrontPage.title": "Hej {{firstName}}!",
   "pages.landingPage.LandingPage.login": "Logga in",
-  "pages.profilePage.ProfilePage.apiError": "Api-åtkomsttoken kunde inte laddas"
+  "pages.profilePage.ProfilePage.apiError": "Api-åtkomsttoken kunde inte laddas",
+  "map.attribution.helsinki": "&copy; Helsingfors, Esbo, Vanda och Grankulla städer"
 }

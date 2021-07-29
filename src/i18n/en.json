@@ -79,5 +79,6 @@
   "common.vehicleSelector.registrationNumbers.RegistrationNumbers.error.label": "",
   "pages.frontPage.FrontPage.title": "Hey {{firstName}}!",
   "pages.landingPage.LandingPage.login": "Login",
-  "pages.profilePage.ProfilePage.apiError": "Api access token failed to load"
+  "pages.profilePage.ProfilePage.apiError": "Api access token failed to load",
+  "map.attribution.helsinki": "&copy; Cities of Helsinki, Espoo, Vantaa ja Kauniainen"
 }
