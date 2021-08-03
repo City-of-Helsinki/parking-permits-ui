@@ -37,11 +37,18 @@ export type GraphQLAddress = {
   __typename: 'AddressNodeConnection';
 };
 
+export type GraphQLEmail = {
+  primary?: boolean;
+  email: string;
+  verified?: boolean;
+};
+
 export type GraphQLProfile = {
   id: string;
   firstName: string;
   lastName: string;
   language: string;
+  primaryEmail: GraphQLEmail;
   addresses: GraphQLAddress;
   __typename: 'ProfileNode';
 };
@@ -66,6 +73,7 @@ export type UserAddress = {
 
 export type UserProfile = {
   id: string;
+  email: string;
   firstName: string;
   lastName: string;
   language: string;
