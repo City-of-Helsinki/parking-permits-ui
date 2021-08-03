@@ -27,24 +27,31 @@ import {
   UserAddress,
   ParkingStartType,
   ParkingDurationType,
+  UserProfile,
 } from '../../redux';
+import { purchasePermit } from '../../redux/actions/talpa';
 
 const T_PATH = 'common.durationSelector.DurationSelector';
 
 export interface Props {
+  userProfile: UserProfile;
   permits: { [reg: string]: Permit };
   registrationNumbers: string[];
   address: UserAddress;
 }
 
 const DurationSelector = ({
+  userProfile,
   registrationNumbers,
   address,
   permits,
 }: Props): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-
+  const sendPurchaseOrderRequest = () => {
+    dispatch(purchasePermit(userProfile, Object.values(permits)));
+    dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
+  };
   return (
     <div className="duration-selector-component">
       <div className="zone__type">
@@ -211,7 +218,7 @@ const DurationSelector = ({
         <Button
           theme="black"
           className="action-btn"
-          onClick={() => dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW))}
+          onClick={() => sendPurchaseOrderRequest()}
           disabled={!registrationNumbers?.length}>
           <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
           <IconArrowRight />
