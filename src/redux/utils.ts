@@ -35,7 +35,14 @@ export function convertQueryToData(
   if (!profile) {
     return undefined;
   }
-  const { id: userId, firstName, lastName, language, addresses } = profile;
+  const {
+    id: userId,
+    firstName,
+    lastName,
+    language,
+    addresses,
+    primaryEmail,
+  } = profile;
   let profileAddress: UserAddress[] = [];
   if (addresses?.edges?.length) {
     profileAddress =
@@ -55,6 +62,7 @@ export function convertQueryToData(
     firstName,
     lastName,
     language,
+    email: primaryEmail.email,
     addresses: profileAddress,
   };
 }
