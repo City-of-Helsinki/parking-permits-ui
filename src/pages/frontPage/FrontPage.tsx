@@ -3,7 +3,13 @@ import { LoadingSpinner } from 'hds-react';
 import { useTranslation } from 'react-i18next';
 
 import Hero from '../../common/hero/Hero';
-import { PermitCartState, STEPPER, UserProfile } from '../../redux';
+import {
+  PermitCartState,
+  ProcessingStatus,
+  STEPPER,
+  TalpaState,
+  UserProfile,
+} from '../../redux';
 
 import './frontPage.scss';
 
@@ -16,6 +22,7 @@ const T_PATH = 'pages.frontPage.FrontPage';
 
 export interface Props {
   permitCartState: PermitCartState;
+  talpaState?: TalpaState;
   profile: UserProfile;
   currentStep: number;
 }
@@ -23,6 +30,7 @@ export interface Props {
 const FrontPage = ({
   profile,
   currentStep,
+  talpaState,
   permitCartState,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
@@ -53,6 +61,7 @@ const FrontPage = ({
     ) {
       return (
         <DurationSelector
+          userProfile={profile}
           address={selectedAddress}
           permits={permits}
           registrationNumbers={registrationNumbers}
@@ -68,14 +77,31 @@ const FrontPage = ({
     ) {
       const reg = registrationNumbers[0];
       return (
-        <PurchasedOverview
-          address={selectedAddress}
-          vehicleDetail={permits[reg].vehicle}
-          validityPeriod={{
-            start: 'Alkaa: 25.6.2021 klo 00:00',
-            end: 'Päättyy: 25.2.2022 klo 00:00',
-          }}
-        />
+        <>
+          {talpaState?.fetchingStatus === ProcessingStatus.PROCESSING && (
+            <div
+              className="loading-spinner"
+              style={{ flexDirection: 'column' }}>
+              <LoadingSpinner small />
+              <div
+                style={{
+                  marginTop: 'var(--spacing-s)',
+                }}>
+                Sending request to talpa....
+              </div>
+            </div>
+          )}
+          {talpaState?.fetchingStatus !== ProcessingStatus.PROCESSING && (
+            <PurchasedOverview
+              address={selectedAddress}
+              vehicleDetail={permits[reg].vehicle}
+              validityPeriod={{
+                start: 'Alkaa: 25.6.2021 klo 00:00',
+                end: 'Päättyy: 25.2.2022 klo 00:00',
+              }}
+            />
+          )}
+        </>
       );
     }
     return component;
