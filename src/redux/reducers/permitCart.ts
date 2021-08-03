@@ -78,7 +78,7 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
   .case(deleteRegistrationAction, (state, action) => ({
     ...state,
     registrationNumbers: (state?.registrationNumbers || []).filter(
-      reg => reg === action
+      reg => reg !== action
     ),
   }))
   .case(setPrimaryVehicleAction, (state, action) => {
