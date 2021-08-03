@@ -93,9 +93,9 @@ export const getPermit = (reg: string, toyota?: boolean): Permit => ({
   },
   prices: {
     // eslint-disable-next-line no-magic-numbers
-    original: toyota ? 15 : 30,
+    original: 30,
     // eslint-disable-next-line no-magic-numbers
-    offer: toyota ? 15 : 30,
+    offer: 15,
     currency: '€',
   },
   durationType: ParkingDurationType.OPEN_ENDED,
