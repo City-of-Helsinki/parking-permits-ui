@@ -2,6 +2,10 @@
 @import "typography";
 @import "mixin";
 
+body {
+  font-family: var(--font-default);
+}
+
 #hds-mobile-menu {
   z-index: 9999;
 }
