@@ -27,7 +27,7 @@ function App(): React.ReactElement {
   const dispatch = useDispatch();
   const { callbackPath } = clientConfig;
   const isCallbackUrl = useRouteMatch(callbackPath);
-  const { permitCartState, helsinkiProfileState } = useSelector(
+  const { permitCartState, helsinkiProfileState, talpaState } = useSelector(
     (state: StoreState) => state
   );
 
@@ -66,6 +66,7 @@ function App(): React.ReactElement {
               path="/"
               component={() => (
                 <FrontPage
+                  talpaState={talpaState}
                   permitCartState={permitCartState}
                   profile={helsinkiProfileState.profile}
                   currentStep={permitCartState.currentStep}
