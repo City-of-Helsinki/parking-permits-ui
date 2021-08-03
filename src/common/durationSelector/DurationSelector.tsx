@@ -52,6 +52,8 @@ const DurationSelector = ({
     dispatch(purchasePermit(userProfile, Object.values(permits)));
     dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
   };
+  // eslint-disable-next-line no-magic-numbers
+  const getMaxDate = new Date(Date.now() + 12096e5);
   return (
     <div className="duration-selector-component">
       <div className="zone__type">
@@ -189,6 +191,7 @@ const DurationSelector = ({
                 readOnly
                 style={{ maxWidth: '250px' }}
                 minDate={new Date()}
+                maxDate={getMaxDate}
                 className="date-selection"
                 placeholder={t(`${T_PATH}.datePlaceHolder`)}
                 id={uuidv4()}
