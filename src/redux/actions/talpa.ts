@@ -12,6 +12,11 @@ export const talpaAction = creator.async<
   Error
 >('fetch');
 
+const CONFIG = {
+  cartURL: String(process.env.REACT_APP_TALPA_CART_EXPERIENCE_API),
+  orderURL: String(process.env.REACT_APP_TALPA_ORDER_EXPERIENCE_API),
+};
+
 export const purchasePermit =
   (user: UserProfile, permits: Permit[]) =>
   async (
@@ -22,10 +27,7 @@ export const purchasePermit =
     >
   ): Promise<void> => {
     dispatch(talpaAction.started({}));
-    // eslint-disable-next-line no-magic-numbers
-    await new Promise(res => setTimeout(res, 5000));
-    const cartURL = process.env.TALPA_CART_EXPERIENCE_API;
-    const orderURL = process.env.TALPA_ORODER_EXPERIENCE_API;
+    const { cartURL, orderURL } = CONFIG;
     if (!cartURL?.length || !orderURL?.length) {
       dispatch(
         talpaAction.failed({
