@@ -95,6 +95,12 @@ export interface HelsinkiUserProfileState {
   error?: Error;
 }
 
+export interface TalpaState {
+  fetchingStatus?: ProcessingStatus;
+  order?: TalpaCart;
+  error?: Error;
+}
+
 export interface Price {
   original: number;
   offer: number;
@@ -139,6 +145,7 @@ export type ValidityPeriod = {
 export type StoreState = {
   permitCartState: PermitCartState;
   userState: UserState;
+  talpaState: TalpaState;
   helsinkiProfileState: HelsinkiUserProfileState;
 };
 
@@ -179,4 +186,20 @@ export type REG_ACTION = {
   id: string;
   key: string;
   value: ParkingStartType | ParkingDurationType | Date | string | number;
+};
+
+export type TalpaItem = {
+  productId: string;
+  quantity: number;
+  cartId?: string;
+  cartItemId?: string;
+  unit?: string;
+};
+
+export type TalpaCart = {
+  namespace: string;
+  user: string;
+  items?: TalpaItem[];
+  createdAt?: string;
+  cartId?: string;
 };
