@@ -9,6 +9,7 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { StoreState } from './types';
 import userReducer from './reducers/user';
+import talpaReducer from './reducers/talpa';
 import permitCartReducer from './reducers/permitCart';
 import helsinkiProfileReducer from './reducers/helsinkiProfile';
 import { authorized, errorThrown, unauthorized } from './actions/user';
@@ -28,6 +29,7 @@ const composeEnhancers =
 
 const reducers = combineReducers({
   userState: userReducer,
+  talpaState: talpaReducer,
   permitCartState: permitCartReducer,
   helsinkiProfileState: helsinkiProfileReducer,
 });
