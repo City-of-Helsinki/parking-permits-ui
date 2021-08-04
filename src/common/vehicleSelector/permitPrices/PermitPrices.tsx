@@ -44,6 +44,11 @@ const PermitPrices = ({
   ) => {
     dispatch(setPrimaryVehicle(reg, event.target.checked));
   };
+  const getOfferPrice = (permit: Permit) => {
+    const { primary } = permit.vehicle;
+    // eslint-disable-next-line no-magic-numbers
+    return primary ? permit.prices.offer : permit.prices.offer * 1.5;
+  };
   return (
     <div className="permit-prices-component">
       <div className="offer-container">
@@ -73,7 +78,9 @@ const PermitPrices = ({
                 </div>
                 <div className="price">
                   <div className="original">{`${permits[registration].prices.original}${permits[registration].prices.currency}/KK`}</div>
-                  <div className="offer">{`${permits[registration].prices.offer}${permits[registration].prices.currency}/KK`}</div>
+                  <div className="offer">{`${getOfferPrice(
+                    permits[registration]
+                  )}${permits[registration].prices.currency}/KK`}</div>
                 </div>
               </div>
             </Card>
