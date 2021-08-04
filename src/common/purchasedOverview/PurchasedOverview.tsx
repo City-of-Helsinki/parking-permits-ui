@@ -8,21 +8,16 @@ import './purchasedOverview.scss';
 import Permit from '../permit/Permit';
 import { useClient } from '../../client/hooks';
 import { setCurrentStepper } from '../../redux/actions/permitCart';
-import { STEPPER, UserAddress, ValidityPeriod, Vehicle } from '../../redux';
+import { STEPPER, UserAddress, Permit as PermitModel } from '../../redux';
 
 const T_PATH = 'common.purchasedOverview.PurchasedOverview';
 
 export interface Props {
   address: UserAddress;
-  vehicleDetail: Vehicle;
-  validityPeriod: ValidityPeriod | undefined;
+  permits: PermitModel[];
 }
 
-const PurchasedOverview = ({
-  address,
-  validityPeriod,
-  vehicleDetail,
-}: Props): React.ReactElement => {
+const PurchasedOverview = ({ address, permits }: Props): React.ReactElement => {
   const client = useClient();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -41,11 +36,7 @@ const PurchasedOverview = ({
         <IconDocument />
         <span>{t(`${T_PATH}.btn.receipt`)}</span>
       </Button>
-      <Permit
-        address={address}
-        vehicleDetail={vehicleDetail}
-        validityPeriod={validityPeriod}
-      />
+      <Permit address={address} permits={permits} />
       <div className="action-buttons">
         <Button
           className="action-btn"

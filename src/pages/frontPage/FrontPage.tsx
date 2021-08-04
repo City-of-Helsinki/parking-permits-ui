@@ -75,7 +75,7 @@ const FrontPage = ({
       permits &&
       registrationNumbers?.length
     ) {
-      const reg = registrationNumbers[0];
+      const validPermits = registrationNumbers.map(reg => permits[reg]);
       return (
         <>
           {talpaState?.fetchingStatus === ProcessingStatus.PROCESSING && (
@@ -94,11 +94,7 @@ const FrontPage = ({
           {talpaState?.fetchingStatus !== ProcessingStatus.PROCESSING && (
             <PurchasedOverview
               address={selectedAddress}
-              vehicleDetail={permits[reg].vehicle}
-              validityPeriod={{
-                start: 'Alkaa: 25.6.2021 klo 00:00',
-                end: 'Päättyy: 25.2.2022 klo 00:00',
-              }}
+              permits={validPermits}
             />
           )}
         </>
