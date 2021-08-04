@@ -4,24 +4,58 @@ import { Card, IconCheckCircle, IconDocument } from 'hds-react';
 
 import './permit.scss';
 
-import { UserAddress, ValidityPeriod, Vehicle } from '../../redux';
+import {
+  ParkingDurationType,
+  Permit as PermitModel,
+  UserAddress,
+} from '../../redux';
 
 const T_PATH = 'common.permit.Permit';
 
 export interface Props {
   address: UserAddress;
-  vehicleDetail: Vehicle;
-  validityPeriod: ValidityPeriod | undefined;
+  permits: PermitModel[];
 }
 
 const Permit = ({
   address: userAddress,
-  validityPeriod,
-  vehicleDetail,
+  permits,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const { registrationNumber, manufacturer, model } = vehicleDetail;
   const { address, postalCode, zone, city } = userAddress;
+
+  const getEndTime = (permit: PermitModel) =>
+    permit.startDate
+      ? new Date(
+          // eslint-disable-next-line no-magic-numbers
+          permit.startDate.valueOf() + (permit?.duration || 0) * 24 * 3600
+        ).toLocaleString()
+      : '';
+
+  const getPermit = (permit: PermitModel) => {
+    const { registrationNumber, manufacturer, model } = permit.vehicle;
+    return (
+      <div className="pp-list" key={permit.vehicle.registrationNumber}>
+        <span className="document-icon">
+          <IconDocument className="icon" color="var(--color-white)" />
+        </span>
+        <div className="pp-list__titles">
+          <div className="pp-list__title">
+            {`${registrationNumber} ${manufacturer} ${model}`}
+          </div>
+          <div className="pp-list__subtitle">
+            <span>{permit.startDate?.toLocaleString()}</span>
+            {permit.durationType === ParkingDurationType.OPEN_ENDED && (
+              <span>{t(`${T_PATH}.contractType`)}</span>
+            )}
+            {permit.durationType !== ParkingDurationType.OPEN_ENDED && (
+              <span>{getEndTime(permit)}</span>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
   return (
     <div className="permit-component">
       <div className="section-label">{t(`${T_PATH}.label`)}</div>
@@ -33,37 +67,7 @@ const Permit = ({
             <div className="pp-list__subtitle">{`${address}, ${postalCode} ${city}`}</div>
           </div>
         </div>
-
-        <div className="pp-list">
-          <span className="document-icon">
-            <IconDocument className="icon" color="var(--color-white)" />
-          </span>
-          <div className="pp-list__titles">
-            <div className="pp-list__title">
-              {`${registrationNumber} ${manufacturer} ${model}`}
-            </div>
-            <div className="pp-list__subtitle">
-              <span>{validityPeriod?.start}</span>
-              <span>{t(`${T_PATH}.contractType`)}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="pp-list">
-          <span className="document-icon">
-            <IconDocument className="icon" color="var(--color-white)" />
-          </span>
-          <div className="pp-list__titles">
-            <div className="pp-list__title">
-              {`${registrationNumber} ${manufacturer} ${model}`}
-            </div>
-            <div className="pp-list__subtitle">
-              <span>{validityPeriod?.start}</span>
-              <span>{validityPeriod?.end}</span>
-            </div>
-          </div>
-        </div>
-
+        {permits.map(permit => getPermit(permit))}
         <div className="message">
           <IconCheckCircle />
           <div>{t(`${T_PATH}.discount`)}</div>
