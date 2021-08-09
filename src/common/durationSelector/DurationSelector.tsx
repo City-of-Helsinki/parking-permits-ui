@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import {
@@ -204,7 +205,7 @@ const DurationSelector = ({
                 id={uuidv4()}
                 initialMonth={permits[reg].startDate}
                 language={(i18n?.language || 'fi') as 'fi' | 'sv' | 'en'}
-                value={permits[reg]?.startDate?.toLocaleDateString()}
+                value={format(permits[reg]?.startDate as Date, 'd.M.yyyy')}
                 disabled={permits[reg].startType !== ParkingStartType.FROM}
                 disableDatePicker={
                   permits[reg].startType !== ParkingStartType.FROM
