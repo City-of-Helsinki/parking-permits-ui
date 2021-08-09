@@ -77,10 +77,10 @@ const PermitPrices = ({
                   })}
                 </div>
                 <div className="price">
-                  <div className="original">{`${permits[registration].prices.original}${permits[registration].prices.currency}/KK`}</div>
+                  <div className="original">{`${permits[registration].prices.original} ${permits[registration].prices.currency}/KK`}</div>
                   <div className="offer">{`${getOfferPrice(
                     permits[registration]
-                  )}${permits[registration].prices.currency}/KK`}</div>
+                  )} ${permits[registration].prices.currency}/KK`}</div>
                 </div>
               </div>
             </Card>
