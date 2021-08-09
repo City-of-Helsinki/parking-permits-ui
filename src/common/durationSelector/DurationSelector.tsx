@@ -83,8 +83,8 @@ const DurationSelector = ({
               </div>
 
               <div className="price hide-in-mobile">
-                <div className="original">{`${permits[reg].prices.original}${permits[reg].prices.currency}/KK`}</div>
-                <div className="offer">{`${getOfferPrice(permits[reg])}${
+                <div className="original">{`${permits[reg].prices.original} ${permits[reg].prices.currency}/KK`}</div>
+                <div className="offer">{`${getOfferPrice(permits[reg])} ${
                   permits[reg].prices.currency
                 }/KK`}</div>
               </div>
@@ -218,8 +218,8 @@ const DurationSelector = ({
           <div className="price-info hide-in-desktop">
             <div>{t(`${T_PATH}.datePlaceHolder.permitPrice`)}</div>
             <div className="price">
-              <div className="original">{`${permits[reg].prices.original}${permits[reg].prices.currency}/KK`}</div>
-              <div className="offer">{`${getOfferPrice(permits[reg])}${
+              <div className="original">{`${permits[reg].prices.original} ${permits[reg].prices.currency}/KK`}</div>
+              <div className="offer">{`${getOfferPrice(permits[reg])} ${
                 permits[reg].prices.currency
               }/KK`}</div>
             </div>
