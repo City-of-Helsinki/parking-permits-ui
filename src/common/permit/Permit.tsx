@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { Card, IconCheckCircle, IconDocument } from 'hds-react';
 
@@ -21,15 +22,19 @@ const Permit = ({
   address: userAddress,
   permits,
 }: Props): React.ReactElement => {
+  const dateFormat = 'd.M.yyyy';
   const { t } = useTranslation();
   const { address, postalCode, zone, city } = userAddress;
 
   const getEndTime = (permit: PermitModel) =>
     permit.startDate
-      ? new Date(
-          // eslint-disable-next-line no-magic-numbers
-          permit.startDate.valueOf() + (permit?.duration || 0) * 24 * 3600
-        ).toLocaleString()
+      ? format(
+          new Date(
+            // eslint-disable-next-line no-magic-numbers
+            permit.startDate.valueOf() + (permit?.duration || 0) * 24 * 3600
+          ),
+          dateFormat
+        )
       : '';
 
   const getPermit = (permit: PermitModel) => {
@@ -44,7 +49,7 @@ const Permit = ({
             {`${registrationNumber} ${manufacturer} ${model}`}
           </div>
           <div className="pp-list__subtitle">
-            <span>{permit.startDate?.toLocaleString()}</span>
+            <span>{format(permit.startDate as Date, dateFormat)}</span>
             {permit.durationType === ParkingDurationType.OPEN_ENDED && (
               <span>{t(`${T_PATH}.contractType`)}</span>
             )}
