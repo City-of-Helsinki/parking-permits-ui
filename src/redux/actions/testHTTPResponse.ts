@@ -73,7 +73,9 @@ export const getUserProfile = async (
   const data = convertQueryToData(result);
   if (!data) return null;
   data.addresses = await Promise.all(
-    (data.addresses || []).map(async address => getFeatures(address))
+    (data.addresses || [])
+      .sort((a, b) => Number(b.primary) - Number(a.primary))
+      .map(async address => getFeatures(address))
   );
   return data;
 };
