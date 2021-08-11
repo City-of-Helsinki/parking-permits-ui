@@ -1,9 +1,9 @@
 @import '~leaflet/dist/leaflet.css';
 @import "typography";
 @import "mixin";
-
+@import url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css");
 body {
-  font-family: var(--font-default);
+  font-family: HelsinkiGrotesk;
 }
 
 #hds-mobile-menu {
