@@ -47,7 +47,7 @@ const RegistrationNumber = ({
       label={t(index === 0 ? `${T_PATH}.label.first` : `${T_PATH}.label.rest`)}
       onChange={inputRegistration}
       onBlur={setRegistrationNumber}
-      style={{ width: '330px', marginTop: 'var(--spacing-s)' }}
+      className="registration-input"
     />
   );
 };

@@ -29,10 +29,7 @@ const PurchasedOverview = ({ address, permits }: Props): React.ReactElement => {
         label={t(`${T_PATH}.notification.success.label`)}>
         {t(`${T_PATH}.notification.success.message`)}
       </Notification>
-      <Button
-        theme="black"
-        variant="secondary"
-        style={{ marginTop: '16px', background: 'white' }}>
+      <Button theme="black" variant="secondary" className="download-receipt">
         <IconDocument />
         <span>{t(`${T_PATH}.btn.receipt`)}</span>
       </Button>

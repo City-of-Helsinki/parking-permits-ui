@@ -71,7 +71,9 @@ const DurationSelector = ({
 
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       {registrationNumbers.map((reg, index) => (
-        <div key={reg}>
+        <div
+          key={reg}
+          style={{ marginTop: index > 0 ? 'var(--spacing-l)' : 0 }}>
           <Card className="card">
             <div className="header">
               <div className="car-info">
@@ -217,7 +219,7 @@ const DurationSelector = ({
             </div>
           </Card>
           <div className="price-info hide-in-desktop">
-            <div>{t(`${T_PATH}.datePlaceHolder.permitPrice`)}</div>
+            <div>{t(`${T_PATH}.permitPrice`)}</div>
             <div className="price">
               <div className="original">{`${permits[reg].prices.original} ${permits[reg].prices.currency}/KK`}</div>
               <div className="offer">{`${getOfferPrice(permits[reg])} ${

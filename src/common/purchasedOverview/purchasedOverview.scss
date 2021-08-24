@@ -1,5 +1,13 @@
+@import '../../assets/styles/mixin';
 .purchased-overview-component {
   .notification {
     margin-top: var(--spacing-l);
+  }
+  .download-receipt {
+    margin-top: var(--spacing-l);
+    background: white;
+    @include for-phone {
+      width: 100%;
+    }
   }
 }
