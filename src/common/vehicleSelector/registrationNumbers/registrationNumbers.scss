@@ -2,6 +2,9 @@
 .registration-numbers-selector-component {
   .card {
     .registration-input{
+     @include for-desktop {
+       width: 330px;
+     }
       margin-top: var(--spacing-s);
     }
     .car-details {

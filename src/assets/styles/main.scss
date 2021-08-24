@@ -21,7 +21,9 @@ body {
   }
 }
 [class^='Card-module_card'] {
-  padding: 0;
+  @include for-phone {
+    padding: 16px !important;
+  }
 }
 
 .zone {
@@ -50,10 +52,17 @@ body {
 .action-buttons {
   display: flex;
   margin: var(--spacing-xl) 0;
+  @include for-phone {
+    flex-direction: column;
+    margin: var(--spacing-l) 0;
+  }
   .action-btn {
     margin-right: var(--spacing-l);
     &:last-of-type {
       margin-right: 0;
+      @include for-phone {
+        margin-top: var(--spacing-s);
+      }
     }
     @include for-phone {
       width: 100%;
