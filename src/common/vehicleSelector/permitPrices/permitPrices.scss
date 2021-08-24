@@ -4,18 +4,33 @@
     display: flex;
     justify-content: space-between;
     .offer {
-      flex-basis: calc(50% - 8px);
+      @include for-desktop {
+        flex-basis: calc(50% - 8px);
+      }
+      &:last-of-type {
+        margin-left: var(--spacing-3-xs);
+      }
       & > .card {
         display: flex;
         border-top: 6px solid var(--color-black-20);
+        @include for-phone{
+          flex-direction: column;
+          align-items: center;
+        }
         .car-details {
           display: flex;
           flex-direction: column;
           margin-left: var(--spacing-xs);
+          @include for-phone{
+            margin-left: 0;
+          }
           align-items: normal;
         }
         .registration-number {
           margin-bottom: var(--spacing-2-xs);
+          @include for-phone {
+            margin-top: var(--spacing-2-xs);
+          }
         }
         .registration-number,
         .price .offer {
@@ -38,6 +53,9 @@
         .price {
           display: flex;
           align-items: center;
+          @include for-phone{
+            flex-direction: column;
+          }
           .original {
             margin-right: var(--spacing-s);
             text-decoration: line-through;
@@ -49,6 +67,11 @@
         justify-content: center;
         background: var(--color-white);
         border-top: 1px solid var(--color-black-20);
+      }
+      .registration-number, .car-model{
+        @include for-phone {
+          text-align: center;
+        }
       }
     }
   }
