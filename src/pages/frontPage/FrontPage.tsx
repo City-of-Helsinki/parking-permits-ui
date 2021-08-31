@@ -35,15 +35,16 @@ const FrontPage = ({
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { selectedAddress, registrationNumbers, permits } = permitCartState;
-  const addresses = Object.values(profile?.addresses || {});
+  const { primaryAddress, otherAddress } = profile;
 
   const getStepperComponent = (step: number) => {
     const component = <div />;
-    if (step === STEPPER.ADDRESS_SELECTOR && addresses.length) {
+    if (step === STEPPER.ADDRESS_SELECTOR && primaryAddress) {
       return (
         <AddressSelector
           selectedAddress={selectedAddress}
-          addresses={addresses}
+          primaryAddress={primaryAddress}
+          otherAddress={otherAddress}
         />
       );
     }
@@ -104,12 +105,12 @@ const FrontPage = ({
   };
   return (
     <div className="front-page">
-      {addresses?.length === 0 && (
+      {!primaryAddress && (
         <div className="loading-spinner">
           <LoadingSpinner />
         </div>
       )}
-      {addresses.length > 0 && (
+      {primaryAddress && (
         <>
           {currentStep === 1 && (
             <Hero
