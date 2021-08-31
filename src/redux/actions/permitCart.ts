@@ -10,7 +10,7 @@ import {
   UserAddress,
   ValidityPeriod,
 } from '../types';
-import { getPermit } from './testHTTPResponse';
+import getPermit from './testHTTPResponse';
 
 const actionCreator = actionCreatorFactory('permitCart');
 
