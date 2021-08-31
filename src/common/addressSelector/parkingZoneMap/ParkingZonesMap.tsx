@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { GeoJsonObject } from 'geojson';
+import { FeatureCollection, GeoJsonObject, MultiPolygon } from 'geojson';
 import L, { LatLngExpression } from 'leaflet';
 import { useTranslation } from 'react-i18next';
 import { TileLayer, MapContainer, GeoJSON, Marker, Popup } from 'react-leaflet';
@@ -23,31 +23,48 @@ export interface Props {
   userAddress: UserAddress;
 }
 
+const flipLocation = (location: number[]): LatLngExpression => ({
+  lat: location[1],
+  lng: location[0],
+});
+
+const getMultiPolygon = (location: FeatureCollection<MultiPolygon>) => ({
+  type: 'MultiPolygon',
+  coordinates: location,
+});
+
 export default function ParkingZonesMap({
   userAddress,
   zoom,
 }: Props): React.ReactElement {
   const { t, i18n } = useTranslation();
-  const center = userAddress.coordinates as LatLngExpression;
+  const center = userAddress.location as LatLngExpression;
   const attribution = 'map.attribution.helsinki';
   const getURL = (lang: string) => {
     const suffix = lang === 'sv' ? '@sv' : '';
     return `https://tiles.hel.ninja/styles/hel-osm-bright/{z}/{x}/{y}${suffix}.png`;
   };
   return (
-    <MapContainer center={center} zoom={zoom} attributionControl>
+    <MapContainer
+      center={flipLocation(center as number[])}
+      zoom={zoom}
+      attributionControl>
       {i18n.language === 'sv' && (
         <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
       )}
       {i18n.language !== 'sv' && (
         <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
       )}
-      <Marker position={center} icon={icon}>
-        <Popup>{`${userAddress.zoneName} ( ${userAddress.zone} )`}</Popup>
+      <Marker position={flipLocation(center as number[])} icon={icon}>
+        <Popup>{`${userAddress.zone?.name} ( ${userAddress.zone?.description} )`}</Popup>
       </Marker>
       <GeoJSON
         key={uuidv4()}
-        data={userAddress.zoneFeatureCollection as GeoJsonObject}
+        data={
+          getMultiPolygon(
+            userAddress.zone?.location as FeatureCollection<MultiPolygon>
+          ) as GeoJsonObject
+        }
         pathOptions={{ fillColor: '#fd9a99', fillOpacity: 0.6 }}
       />
     </MapContainer>
