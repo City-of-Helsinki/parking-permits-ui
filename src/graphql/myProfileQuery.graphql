@@ -1,23 +1,41 @@
-query MyProfileQuery {
-  myProfile {
+query {
+  profile {
     id
     firstName
     lastName
     language
-    primaryEmail {
-        email
+    email
+    phoneNumber
+    primaryAddress {
+      id
+      streetName
+      streetNumber
+      streetNameSv
+      city
+      citySv
+      postalCode
+      location
+      zone {
+        id
+        name
+        description
+        location
+      }
     }
-    addresses {
-      edges {
-        node {
-          primary
-          id
-          address
-          postalCode
-          city
-          countryCode
-          addressType
-        }
+    otherAddress {
+      id
+      streetName
+      streetNumber
+      streetNameSv
+      city
+      citySv
+      postalCode
+      location
+      zone {
+        id
+        name
+        description
+        location
       }
     }
   }
