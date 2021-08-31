@@ -63,7 +63,7 @@ const DurationSelector = ({
   return (
     <div className="duration-selector-component">
       <div className="zone__type">
-        <div className="zone__type__symbol">{address.zone}</div>
+        <div className="zone__type__symbol">{address.zone?.name}</div>
         <div className="zone__type__label">
           {t(`${T_PATH}.residentParkingZone`)}
         </div>
