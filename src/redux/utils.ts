@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core/types';
 
 import { getClient } from '../client/oidc-react';
-import { ProfileQueryResult, UserAddress, UserProfile } from './types';
+import { ProfileQueryResult, UserProfile } from './types';
 import { GraphQLClient, createGraphQLClient } from '../graphql/graphqlClient';
 
 let profileGqlClient: GraphQLClient;
@@ -31,38 +31,9 @@ export function getProfileGqlClient(): GraphQLClient | undefined {
 export function convertQueryToData(
   queryResult: ApolloQueryResult<ProfileQueryResult>
 ): UserProfile | undefined {
-  const profile = queryResult && queryResult.data && queryResult.data.myProfile;
+  const profile = queryResult && queryResult.data && queryResult.data.profile;
   if (!profile) {
     return undefined;
   }
-  const {
-    id: userId,
-    firstName,
-    lastName,
-    language,
-    addresses,
-    primaryEmail,
-  } = profile;
-  let profileAddress: UserAddress[] = [];
-  if (addresses?.edges?.length) {
-    profileAddress =
-      addresses.edges.map(edge => ({
-        id: edge.node.id,
-        address: edge.node.address,
-        addressType: edge.node.addressType,
-        city: edge.node.city,
-        countryCode: edge.node.countryCode,
-        postalCode: edge.node.postalCode,
-        primary: edge.node.primary,
-      })) || [];
-  }
-  addresses.edges.forEach(edge => edge.node);
-  return {
-    id: userId,
-    firstName,
-    lastName,
-    language,
-    email: primaryEmail.email,
-    addresses: profileAddress,
-  };
+  return profile;
 }
