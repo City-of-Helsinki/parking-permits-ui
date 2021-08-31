@@ -16,59 +16,39 @@ export enum ProcessingStatus {
 
 export const CONNECTED_ACTION = 'CONNECTED_ACTION';
 
-export type GraphQLNode = {
-  id: string;
-  primary: boolean;
-  address: string;
-  postalCode: string;
-  city: string;
-  countryCode: string;
-  addressType: string;
+export type GraphQLZone = Zone & {
+  __typename: 'ZoneNode';
+};
+
+export type GraphQLAddress = UserAddress & {
   __typename: 'AddressNode';
 };
 
-export type GraphQLEdge = {
-  node: GraphQLNode;
-  __typename: 'AddressNodeEdge';
-};
-
-export type GraphQLAddress = {
-  edges: GraphQLEdge[];
-  __typename: 'AddressNodeConnection';
-};
-
-export type GraphQLEmail = {
-  primary?: boolean;
-  email: string;
-  verified?: boolean;
-};
-
-export type GraphQLProfile = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  language: string;
-  primaryEmail: GraphQLEmail;
-  addresses: GraphQLAddress;
-  __typename: 'ProfileNode';
+export type GraphQLProfile = UserProfile & {
+  __typename: 'CustomerNode';
 };
 
 export type ProfileQueryResult = {
-  myProfile: GraphQLProfile;
+  profile: GraphQLProfile;
+};
+
+export type Zone = {
+  id: string;
+  name: string;
+  description: string;
+  location: FeatureCollection<MultiPolygon>;
 };
 
 export type UserAddress = {
   id: string;
-  primary: boolean;
-  address: string;
-  postalCode: string;
+  streetName: string;
+  streetNameSv: string;
+  streetNumber: number;
   city: string;
-  countryCode: string;
-  addressType: string;
-  zone?: string;
-  zoneFeatureCollection?: FeatureCollection<MultiPolygon>;
-  zoneName?: string;
-  coordinates?: Position;
+  citySv: string;
+  postalCode: string;
+  location?: Position;
+  zone?: Zone;
 };
 
 export type UserProfile = {
@@ -77,7 +57,9 @@ export type UserProfile = {
   firstName: string;
   lastName: string;
   language: string;
-  addresses: UserAddress[];
+  phoneNumber: string;
+  primaryAddress: GraphQLAddress;
+  otherAddress: GraphQLAddress;
 };
 
 export type ProfileActions = {
