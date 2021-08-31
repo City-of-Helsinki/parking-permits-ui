@@ -45,7 +45,7 @@ const VehicleSelector = ({ cartState }: Props): React.ReactElement => {
   return (
     <div className="vehicle-selector-component">
       <div className="zone__type">
-        <div className="zone__type__symbol">{selectedAddress?.zone}</div>
+        <div className="zone__type__symbol">{selectedAddress?.zone?.name}</div>
         <div className="zone__type__label">{t(`${T_PATH}.label`)}</div>
       </div>
       {NOTIFICATIONS.map(notification => (
