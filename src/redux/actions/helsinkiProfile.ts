@@ -1,10 +1,11 @@
 import { AnyAction } from 'redux';
+import { loader } from 'graphql.macro';
 import { ThunkDispatch } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
+import { ApolloQueryResult } from '@apollo/client/core/types';
 
-import { getProfileGqlClient } from '../utils';
-import { UserProfile } from '../types';
-import { getUserProfile } from './testHTTPResponse';
+import { convertQueryToData, getProfileGqlClient } from '../utils';
+import { ProfileQueryResult, UserProfile } from '../types';
 
 const creator = actionCreatorFactory('helsinkiProfile');
 export const fetchHelsinkiProfileAction = creator.async<
@@ -35,7 +36,12 @@ export const fetchUserProfile =
       );
       return;
     }
-    const userProfile = await getUserProfile(client);
+    const MY_PROFILE_QUERY = loader('../../graphql/myProfileQuery.graphql');
+    const result: ApolloQueryResult<ProfileQueryResult> = await client.query({
+      errorPolicy: 'all',
+      query: MY_PROFILE_QUERY,
+    });
+    const userProfile = convertQueryToData(result);
     if (userProfile) {
       dispatch(
         fetchHelsinkiProfileAction.done({
@@ -46,7 +52,7 @@ export const fetchUserProfile =
     } else {
       dispatch(
         fetchHelsinkiProfileAction.failed({
-          error: new Error('Query result is missing data.myProfile'),
+          error: new Error('Query result is missing data.profile'),
           params: {},
         })
       );
