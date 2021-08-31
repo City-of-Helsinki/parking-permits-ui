@@ -23,8 +23,8 @@ const Permit = ({
   permits,
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy';
-  const { t } = useTranslation();
-  const { address, postalCode, zone, city } = userAddress;
+  const { t, i18n } = useTranslation();
+  const { streetName, streetNameSv, postalCode, zone, city } = userAddress;
 
   const getEndTime = (permit: PermitModel) =>
     permit.startDate
@@ -66,10 +66,12 @@ const Permit = ({
       <div className="section-label">{t(`${T_PATH}.label`)}</div>
       <Card className="card">
         <div className="pp-list">
-          <span className="pp-list__icon">{zone}</span>
+          <span className="pp-list__icon">{zone?.name}</span>
           <div className="pp-list__titles">
             <div className="pp-list__title">{t(`${T_PATH}.permitType`)}</div>
-            <div className="pp-list__subtitle">{`${address}, ${postalCode} ${city}`}</div>
+            <div className="pp-list__subtitle">{`${
+              i18n.language === 'sv' ? streetNameSv : streetName
+            }, ${postalCode} ${city}`}</div>
           </div>
         </div>
         {permits.map(permit => getPermit(permit))}
