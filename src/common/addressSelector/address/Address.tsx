@@ -19,18 +19,20 @@ import { setSelectedAddress } from '../../../redux/actions/permitCart';
 const T_PATH = 'common.addressSelector.address.Address';
 
 interface Props {
+  isPrimary: boolean;
   address: UserAddress;
   selectedAddress: UserAddress | undefined;
 }
 
 const Address: FC<Props> = ({
+  isPrimary,
   address,
   selectedAddress,
 }): React.ReactElement => {
   const dispatch = useDispatch();
 
   const [openState, setOpenState] = useState(true);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <Card
       className={classNames('address-component', {
@@ -46,16 +48,20 @@ const Address: FC<Props> = ({
           checked={selectedAddress?.id === address.id}
           onClick={() => dispatch(setSelectedAddress(address))}
         />
-        <div className="zone__type__symbol">{address.zone}</div>
+        <div className="zone__type__symbol">{address.zone?.name}</div>
       </div>
       <div className="accordion">
         <div className="accordion__headers">
           <span className="accordion__headers__sub_header">
-            {address.primary
+            {isPrimary
               ? t(`${T_PATH}.permanentAddress`)
               : t(`${T_PATH}.temporaryAddress`)}
           </span>
-          <span>{`${address.address}, ${address.postalCode} ${address.city}`}</span>
+          <span>{`${
+            i18n.language === 'sv' ? address.streetNameSv : address.streetName
+          }, ${address.postalCode} ${
+            i18n.language === 'sv' ? address.citySv : address.city
+          }`}</span>
         </div>
         {!openState ? (
           <IconAngleDown onClick={() => setOpenState(!openState)} />
