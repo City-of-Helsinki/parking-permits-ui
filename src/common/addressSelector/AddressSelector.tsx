@@ -15,12 +15,14 @@ import { STEPPER, UserAddress } from '../../redux';
 const T_PATH = 'common.addressSelector.AddressSelector';
 
 export interface Props {
-  addresses: UserAddress[];
+  primaryAddress: UserAddress;
+  otherAddress: UserAddress;
   selectedAddress: UserAddress | undefined;
 }
 
 const AddressSelector = ({
-  addresses,
+  primaryAddress,
+  otherAddress,
   selectedAddress,
 }: Props): React.ReactElement => {
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ const AddressSelector = ({
 
   if (!selectedAddress) {
     setTimeout(() => {
-      dispatch(setSelectedAddress(addresses[0]));
+      dispatch(setSelectedAddress(primaryAddress));
     });
   }
   return (
@@ -38,13 +40,16 @@ const AddressSelector = ({
       </Notification>
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       <div className="addresses">
-        {addresses.map(address => (
-          <Address
-            key={address.id}
-            address={address}
-            selectedAddress={selectedAddress}
-          />
-        ))}
+        <Address
+          isPrimary
+          address={primaryAddress}
+          selectedAddress={selectedAddress}
+        />
+        <Address
+          isPrimary={false}
+          address={otherAddress}
+          selectedAddress={selectedAddress}
+        />
       </div>
       <div className="action-buttons">
         <Button
