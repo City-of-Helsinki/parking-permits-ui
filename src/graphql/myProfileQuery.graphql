@@ -17,6 +17,7 @@ query {
       location
       zone {
         id
+        sharedProductId
         name
         description
         location
@@ -33,6 +34,7 @@ query {
       location
       zone {
         id
+        sharedProductId
         name
         description
         location
