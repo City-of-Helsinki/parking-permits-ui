@@ -50,7 +50,7 @@ const DurationSelector = ({
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const sendPurchaseOrderRequest = () => {
-    dispatch(purchasePermit(userProfile, Object.values(permits)));
+    dispatch(purchasePermit(userProfile, address, Object.values(permits)));
     dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
   };
   const getOfferPrice = (permit: Permit) => {
