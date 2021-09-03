@@ -58,6 +58,7 @@ export const purchasePermit =
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
+            phone: '1234532244',
           },
         }
       );
