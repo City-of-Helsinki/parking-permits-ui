@@ -3,7 +3,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import axios, { AxiosResponse } from 'axios';
 import actionCreatorFactory from 'typescript-fsa';
 
-import { Permit, TalpaCart, UserProfile } from '../types';
+import { Permit, TalpaCart, UserAddress, UserProfile } from '../types';
 
 const creator = actionCreatorFactory('talpa');
 export const talpaAction = creator.async<
@@ -18,7 +18,7 @@ const CONFIG = {
 };
 
 export const purchasePermit =
-  (user: UserProfile, permits: Permit[]) =>
+  (user: UserProfile, address: UserAddress, permits: Permit[]) =>
   async (
     dispatch: ThunkDispatch<
       Record<string, unknown>,
@@ -44,7 +44,8 @@ export const purchasePermit =
       user: user.id,
       items: permits.map(permit => ({
         quantity: permit.duration as number,
-        productId: permit.vehicle.id,
+        productId: address.zone?.sharedProductId,
+        meta: [{ permitId: permit.id }],
       })),
     };
     try {
