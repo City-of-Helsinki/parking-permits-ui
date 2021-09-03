@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ParkingDurationType, ParkingStartType, Permit } from '../types';
 
 const getPermit = (reg: string, toyota?: boolean): Permit => ({
+  id: '12342-ABC',
   vehicle: {
     id: uuidv4(),
     type: 'B1',
