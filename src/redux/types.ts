@@ -35,6 +35,7 @@ export type ProfileQueryResult = {
 export type Zone = {
   id: string;
   name: string;
+  sharedProductId: string;
   description: string;
   location: FeatureCollection<MultiPolygon>;
 };
@@ -171,7 +172,7 @@ export type REG_ACTION = {
 };
 
 export type TalpaItem = {
-  productId: string;
+  productId?: string;
   quantity: number;
   cartId?: string;
   cartItemId?: string;
