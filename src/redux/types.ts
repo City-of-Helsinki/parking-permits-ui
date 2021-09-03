@@ -133,6 +133,7 @@ export type StoreState = {
 };
 
 export type Permit = {
+  id: string;
   vehicle: Vehicle;
   prices: Price;
   validityPeriod?: ValidityPeriod;
