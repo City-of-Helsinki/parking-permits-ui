@@ -32,6 +32,12 @@ export type ProfileQueryResult = {
   profile: GraphQLProfile;
 };
 
+export type PermitQueryResult = {
+  getPermits: {
+    permits: Permit[];
+  };
+};
+
 export type Zone = {
   id: string;
   name: string;
