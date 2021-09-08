@@ -15,9 +15,9 @@ import {
 import './permitPrices.scss';
 
 import {
+  deleteRegistration,
   setCurrentStepper,
   setPrimaryVehicle,
-  deleteRegistration,
 } from '../../../redux/actions/permitCart';
 import { Permit, STEPPER } from '../../../redux';
 
@@ -44,61 +44,57 @@ const PermitPrices = ({
   ) => {
     dispatch(setPrimaryVehicle(reg, event.target.checked));
   };
-  const getOfferPrice = (permit: Permit) => {
-    const { primary } = permit.vehicle;
-    // eslint-disable-next-line no-magic-numbers
-    return primary ? permit.prices.offer : permit.prices.offer * 1.5;
-  };
+
   return (
     <div className="permit-prices-component">
       <div className="offer-container">
-        {registrations.map(registration => (
-          <div className="offer" key={registration}>
-            <Card
-              className={classNames('card', {
-                selected: permits[registration].vehicle.primary,
-              })}>
+        {registrations
+          .filter(reg => !!permits[reg])
+          .map(registration => (
+            <div className="offer" key={registration}>
+              <Card
+                className={classNames('card', {
+                  selected: permits[registration].primaryVehicle,
+                })}>
+                {registrations.length > 1 && (
+                  <RadioButton
+                    id={uuidv4()}
+                    checked={permits[registration].primaryVehicle}
+                    onChange={evt => changePrimaryVehicle(registration, evt)}
+                  />
+                )}
+                <div className="car-details">
+                  <div className="registration-number">{registration}</div>
+                  <div className="car-model">
+                    {permits[registration].vehicle.manufacturer}{' '}
+                    {permits[registration].vehicle.model}
+                  </div>
+                  <div className="emission-level">
+                    {t(`${T_PATH}.emission`, {
+                      emission: permits[registration].vehicle.emission,
+                    })}
+                  </div>
+                  <div className="price">
+                    <div className="original">{`${permits[registration].price.original} ${permits[registration].price.currency}/KK`}</div>
+                    <div className="offer">{`${permits[registration].price.offer} ${permits[registration].price.currency}/KK`}</div>
+                  </div>
+                </div>
+              </Card>
               {registrations.length > 1 && (
-                <RadioButton
-                  id={uuidv4()}
-                  checked={permits[registration].vehicle.primary}
-                  onChange={evt => changePrimaryVehicle(registration, evt)}
-                />
+                <div className="action-delete">
+                  <Button
+                    variant="supplementary"
+                    style={{
+                      color: 'var(--color-coat-of-arms)',
+                    }}
+                    onClick={() => dispatch(deleteRegistration(registration))}
+                    iconLeft={<IconMinusCircle />}>
+                    {t(`${T_PATH}.btn.delete`)}
+                  </Button>
+                </div>
               )}
-              <div className="car-details">
-                <div className="registration-number">{registration}</div>
-                <div className="car-model">
-                  {permits[registration].vehicle.manufacturer}{' '}
-                  {permits[registration].vehicle.model}
-                </div>
-                <div className="emission-level">
-                  {t(`${T_PATH}.emission`, {
-                    emission: permits[registration].vehicle.emission,
-                  })}
-                </div>
-                <div className="price">
-                  <div className="original">{`${permits[registration].prices.original} ${permits[registration].prices.currency}/KK`}</div>
-                  <div className="offer">{`${getOfferPrice(
-                    permits[registration]
-                  )} ${permits[registration].prices.currency}/KK`}</div>
-                </div>
-              </div>
-            </Card>
-            {registrations.length > 1 && (
-              <div className="action-delete">
-                <Button
-                  variant="supplementary"
-                  style={{
-                    color: 'var(--color-coat-of-arms)',
-                  }}
-                  onClick={() => dispatch(deleteRegistration(registration))}
-                  iconLeft={<IconMinusCircle />}>
-                  {t(`${T_PATH}.btn.delete`)}
-                </Button>
-              </div>
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
       </div>
       <div className="discount">
         <Checkbox
