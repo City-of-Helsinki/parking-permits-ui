@@ -20,6 +20,7 @@ query {
         sharedProductId
         name
         description
+        descriptionSv
         location
       }
     }
@@ -37,6 +38,7 @@ query {
         sharedProductId
         name
         description
+        descriptionSv
         location
       }
     }
