@@ -11,7 +11,7 @@ $step-width: 24px;
     height: 2rem;
     line-height: 2rem;
     flex-basis: 60%;
-    @include for-phone{
+    @include for-phone {
       display: none;
     }
   }
