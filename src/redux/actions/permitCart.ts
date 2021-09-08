@@ -1,16 +1,19 @@
 import { ThunkDispatch } from 'redux-thunk';
+import { keyBy } from 'lodash';
 import { AnyAction, Dispatch } from 'redux';
 import actionCreatorFactory from 'typescript-fsa';
 
+import { loader } from 'graphql.macro';
+import { ApolloQueryResult } from '@apollo/client/core/types';
 import {
   ParkingDurationType,
   ParkingStartType,
   Permit,
-  STEPPER,
+  PermitQueryResult,
   UserAddress,
-  ValidityPeriod,
+  UserProfile,
 } from '../types';
-import getPermit from './testHTTPResponse';
+import { getProfileGqlClient } from '../utils';
 
 const actionCreator = actionCreatorFactory('permitCart');
 
@@ -55,21 +58,16 @@ export const updateRegistrationAction = actionCreator<{
   index: number;
 }>('set-registration-action');
 
-export const setValidityPeriodAction = actionCreator<{
-  registration: string;
-  period: ValidityPeriod;
-}>('validity-period');
-
 export const setPrimaryVehicleAction = actionCreator<{
   registration: string;
   primary: boolean;
 }>('set-primary-vehicle');
 
-export const fetchVehicleAndPermitPricesAction = actionCreator.async<
+export const fetchPermitAction = actionCreator.async<
   Record<string, unknown>,
   { [reg: string]: Permit },
   Error
->('fetch');
+>('fetch-permits');
 
 export const setCurrentStepper =
   (id: number) =>
@@ -99,12 +97,6 @@ export const setParkingDurationPeriod =
   (registration: string, duration: number) =>
   (dispatch: Dispatch): void => {
     dispatch(setParkingDurationPeriodAction({ registration, duration }));
-  };
-
-export const setValidityPeriod =
-  (registration: string, period: ValidityPeriod) =>
-  (dispatch: Dispatch): void => {
-    dispatch(setValidityPeriodAction({ registration, period }));
   };
 
 export const setSelectedAddress =
@@ -142,8 +134,8 @@ export const setPrimaryVehicle =
     dispatch(setPrimaryVehicleAction({ registration, primary }));
   };
 
-export const fetchVehicleAndPrices =
-  (registrationNumbers: string[]) =>
+export const fetchUserPermits =
+  (user: UserProfile) =>
   async (
     dispatch: ThunkDispatch<
       Record<string, unknown>,
@@ -151,19 +143,39 @@ export const fetchVehicleAndPrices =
       AnyAction
     >
   ): Promise<void> => {
-    dispatch(fetchVehicleAndPermitPricesAction.started({}));
-    // eslint-disable-next-line no-magic-numbers
-    await new Promise(res => setTimeout(res, 500));
-    const result: { [reg: string]: Permit } = {};
-    registrationNumbers.forEach((reg, i) => {
-      result[reg] = getPermit(reg, i === 0);
+    dispatch(fetchPermitAction.started({}));
+    const client = getProfileGqlClient();
+    if (!client) {
+      dispatch(
+        fetchPermitAction.failed({
+          error: new Error('getProfileGqlClient returned undefined.'),
+          params: {},
+        })
+      );
+      return;
+    }
+    const PERMITS_QUERY = loader('../../graphql/permits.graphql');
+    const result: ApolloQueryResult<PermitQueryResult> = await client.query({
+      errorPolicy: 'all',
+      query: PERMITS_QUERY,
+      variables: { customerId: user.id },
     });
-
-    dispatch(
-      fetchVehicleAndPermitPricesAction.done({
-        params: {},
-        result,
-      })
-    );
-    dispatch(setCurrentStepper(STEPPER.PERMIT_PRICES));
+    const { permits } = result.data.getPermits;
+    if (permits) {
+      const permitsObject = keyBy(permits, 'vehicle.registrationNumber');
+      Object.keys(permitsObject).map(reg => dispatch(addRegistration(reg)));
+      dispatch(
+        fetchPermitAction.done({
+          params: {},
+          result: permitsObject,
+        })
+      );
+    } else {
+      dispatch(
+        fetchPermitAction.failed({
+          error: new Error('Query result is missing data.profile'),
+          params: {},
+        })
+      );
+    }
   };
