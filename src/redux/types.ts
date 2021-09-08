@@ -127,11 +127,6 @@ export type UserState = {
   error?: ClientErrorObject | undefined;
 };
 
-export type ValidityPeriod = {
-  start: string | undefined;
-  end: string | undefined;
-};
-
 export type StoreState = {
   permitCartState: PermitCartState;
   userState: UserState;
@@ -139,29 +134,36 @@ export type StoreState = {
   helsinkiProfileState: HelsinkiUserProfileState;
 };
 
+export type ContractType = {
+  id: string;
+  contractType: ParkingDurationType;
+  monthCount: number;
+};
+
 export type Permit = {
   id: string;
-  vehicle: Vehicle;
-  prices: Price;
-  validityPeriod?: ValidityPeriod;
-  durationType?: ParkingDurationType;
   startType?: ParkingStartType;
-  duration?: number;
-  startDate?: Date;
+  startTime?: Date | string;
+  status: string;
+  primaryVehicle: boolean;
+  vehicle: Vehicle;
+  price: Price;
+  contract: ContractType;
+};
+
+export type VehicleType = {
+  id: string;
+  type: string;
 };
 
 export type Vehicle = {
   id: string;
-  type: string;
+  emission: number;
+  vehicleType: VehicleType;
   manufacturer: string;
   model: string;
   productionYear: number;
-  registrationNumber: string | undefined;
-  emission: number;
-  primary?: boolean;
-  ownerId?: string;
-  holderId?: string;
-  lastInspectionDate?: string;
+  registrationNumber: string;
 };
 
 export enum STEPPER {
