@@ -33,6 +33,15 @@ const getMultiPolygon = (location: FeatureCollection<MultiPolygon>) => ({
   coordinates: location,
 });
 
+const getAddressZoneInfo = (address: UserAddress, lang: string) => {
+  const { zone } = address;
+  if (!zone) {
+    return '';
+  }
+  const description = lang === 'sv' ? zone.descriptionSv : zone.description;
+  return `${zone.name} (${description})`;
+};
+
 export default function ParkingZonesMap({
   userAddress,
   zoom,
@@ -56,7 +65,7 @@ export default function ParkingZonesMap({
         <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
       )}
       <Marker position={flipLocation(center as number[])} icon={icon}>
-        <Popup>{`${userAddress.zone?.name} ( ${userAddress.zone?.description} )`}</Popup>
+        <Popup>{getAddressZoneInfo(userAddress, i18n.language)}</Popup>
       </Marker>
       <GeoJSON
         key={uuidv4()}

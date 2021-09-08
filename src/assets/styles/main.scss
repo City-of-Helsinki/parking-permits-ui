@@ -1,7 +1,7 @@
 @import '~leaflet/dist/leaflet.css';
-@import "typography";
-@import "mixin";
-@import url("https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css");
+@import 'typography';
+@import 'mixin';
+@import url('https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css');
 body {
   font-family: HelsinkiGrotesk;
 }
@@ -9,14 +9,15 @@ body {
 #hds-mobile-menu {
   z-index: 9999;
 }
-#root{
+#root {
   background: var(--color-black-5);
 }
 [class^='Button-module_label'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  span + svg, svg + span {
+  span + svg,
+  svg + span {
     margin-left: var(--spacing-s);
   }
 }

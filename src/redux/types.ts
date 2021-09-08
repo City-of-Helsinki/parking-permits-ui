@@ -37,6 +37,7 @@ export type Zone = {
   name: string;
   sharedProductId: string;
   description: string;
+  descriptionSv: string;
   location: FeatureCollection<MultiPolygon>;
 };
 

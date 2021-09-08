@@ -20,7 +20,7 @@
       padding-right: 0;
     }
   }
-  .header{
+  .header {
     padding-bottom: var(--spacing-s);
     border-bottom: 2px solid var(--color-black-20);
     display: flex;
@@ -28,7 +28,7 @@
     justify-content: space-between;
     .car-info {
       display: flex;
-      @include for-phone{
+      @include for-phone {
         flex-direction: column;
       }
       .permit-count {
