@@ -25,10 +25,6 @@ const VehicleSelector = ({ cartState }: Props): React.ReactElement => {
     error,
   } = cartState;
 
-  const hasPermitsForAllReg = registrationNumbers?.every(
-    reg => permits && permits[reg]
-  );
-
   // TODO: THIS SHOULD BE REPLACED BY MESSAGE FROM BACKEND
   const NOTIFICATIONS = [
     {
@@ -66,7 +62,6 @@ const VehicleSelector = ({ cartState }: Props): React.ReactElement => {
         />
       )}
       {currentStep === STEPPER.PERMIT_PRICES &&
-        hasPermitsForAllReg &&
         registrationNumbers &&
         permits && (
           <PermitPrices registrations={registrationNumbers} permits={permits} />
