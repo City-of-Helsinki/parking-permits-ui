@@ -3,13 +3,13 @@ import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import {
-  Card,
   Button,
+  Card,
+  DateInput,
   IconArrowRight,
   NumberInput,
-  SelectionGroup,
   RadioButton,
-  DateInput,
+  SelectionGroup,
 } from 'hds-react';
 import { useTranslation } from 'react-i18next';
 
@@ -23,11 +23,11 @@ import {
   setParkingStartType,
 } from '../../redux/actions/permitCart';
 import {
+  ParkingDurationType,
+  ParkingStartType,
   Permit,
   STEPPER,
   UserAddress,
-  ParkingStartType,
-  ParkingDurationType,
   UserProfile,
 } from '../../redux';
 import { purchasePermit } from '../../redux/actions/talpa';
@@ -94,7 +94,7 @@ const DurationSelector = ({
                     value={ParkingDurationType.OPEN_ENDED}
                     label={t(`${T_PATH}.openEnded`)}
                     checked={
-                      permits[reg].durationType ===
+                      permits[reg].contract.contractType ===
                       ParkingDurationType.OPEN_ENDED
                     }
                     onChange={() =>
@@ -116,7 +116,7 @@ const DurationSelector = ({
                     value={ParkingDurationType.FIXED_PERIOD}
                     label={t(`${T_PATH}.fixedPeriod`)}
                     checked={
-                      permits[reg].durationType ===
+                      permits[reg].contract.contractType ===
                       ParkingDurationType.FIXED_PERIOD
                     }
                     onChange={() =>
@@ -142,9 +142,10 @@ const DurationSelector = ({
                 min={1}
                 step={1}
                 max={12}
-                defaultValue={permits[reg].duration}
+                defaultValue={permits[reg].contract.monthCount}
                 disabled={
-                  permits[reg].durationType !== ParkingDurationType.FIXED_PERIOD
+                  permits[reg].contract.contractType !==
+                  ParkingDurationType.FIXED_PERIOD
                 }
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                   dispatch(
@@ -199,9 +200,12 @@ const DurationSelector = ({
                 className="date-selection"
                 placeholder={t(`${T_PATH}.datePlaceHolder`)}
                 id={uuidv4()}
-                initialMonth={permits[reg].startDate}
+                initialMonth={new Date(permits[reg].startTime as string)}
                 language={(i18n?.language || 'fi') as 'fi' | 'sv' | 'en'}
-                value={format(permits[reg]?.startDate as Date, 'd.M.yyyy')}
+                value={format(
+                  new Date(permits[reg].startTime as string),
+                  'd.M.yyyy'
+                )}
                 disabled={permits[reg].startType !== ParkingStartType.FROM}
                 disableDatePicker={
                   permits[reg].startType !== ParkingStartType.FROM
@@ -215,10 +219,8 @@ const DurationSelector = ({
           <div className="price-info hide-in-desktop">
             <div>{t(`${T_PATH}.permitPrice`)}</div>
             <div className="price">
-              <div className="original">{`${permits[reg].prices.original} ${permits[reg].prices.currency}/KK`}</div>
-              <div className="offer">{`${getOfferPrice(permits[reg])} ${
-                permits[reg].prices.currency
-              }/KK`}</div>
+              <div className="original">{`${permits[reg].price.original} ${permits[reg].price.currency}/KK`}</div>
+              <div className="offer">{`${permits[reg].price.offer} ${permits[reg].price.currency}/KK`}</div>
             </div>
           </div>
         </div>
