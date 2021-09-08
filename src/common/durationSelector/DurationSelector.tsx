@@ -53,11 +53,7 @@ const DurationSelector = ({
     dispatch(purchasePermit(userProfile, address, Object.values(permits)));
     dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
   };
-  const getOfferPrice = (permit: Permit) => {
-    const { primary } = permit.vehicle;
-    // eslint-disable-next-line no-magic-numbers
-    return primary ? permit.prices.offer : permit.prices.offer * 1.5;
-  };
+
   // eslint-disable-next-line no-magic-numbers
   const getMaxDate = new Date(Date.now() + 12096e5);
   return (
@@ -86,10 +82,8 @@ const DurationSelector = ({
               </div>
 
               <div className="price hide-in-mobile">
-                <div className="original">{`${permits[reg].prices.original} ${permits[reg].prices.currency}/KK`}</div>
-                <div className="offer">{`${getOfferPrice(permits[reg])} ${
-                  permits[reg].prices.currency
-                }/KK`}</div>
+                <div className="original">{`${permits[reg].price.original} ${permits[reg].price.currency}/KK`}</div>
+                <div className="offer">{`${permits[reg].price.offer} ${permits[reg].price.currency}/KK`}</div>
               </div>
             </div>
             <div className="time-period with-bottom-border">
