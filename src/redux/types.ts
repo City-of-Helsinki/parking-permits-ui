@@ -3,8 +3,8 @@ import { FeatureCollection, MultiPolygon, Position } from 'geojson';
 import {
   ClientErrorObject,
   ClientStatusId,
-  User,
   FetchStatus,
+  User,
 } from '../client/types';
 import { GraphQLClientError } from '../graphql/graphqlClient';
 
@@ -87,7 +87,7 @@ export interface HelsinkiUserProfileState {
 
 export interface TalpaState {
   fetchingStatus?: ProcessingStatus;
-  order?: TalpaCart;
+  order?: TalpaOrder;
   error?: Error;
 }
 
@@ -183,16 +183,43 @@ export type REG_ACTION = {
 
 export type TalpaItem = {
   productId?: string;
+  productName: string;
   quantity: number;
-  cartId?: string;
-  cartItemId?: string;
-  unit?: string;
+  unit: string;
+  rowPriceNet: string;
+  rowPriceVat: string;
+  rowPriceTotal: string;
+  startDate?: string;
+  periodFrequency?: string;
+  periodUnit?: string;
+  vatPercentage: string;
+  priceNet: string;
+  priceVat: string;
+  priceGross: string;
+  meta: TalpaMeta[];
 };
 
-export type TalpaCart = {
+export type TalpaCustomer = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
+
+export type TalpaMeta = {
+  key: string;
+  value: string;
+  label?: string;
+  ordinal?: number;
+  visibleInCheckout?: boolean;
+};
+
+export type TalpaOrder = {
   namespace: string;
   user: string;
+  priceNet: string;
+  priceVat: string;
+  priceTotal: string;
   items?: TalpaItem[];
-  createdAt?: string;
-  cartId?: string;
+  customer: TalpaCustomer;
 };
