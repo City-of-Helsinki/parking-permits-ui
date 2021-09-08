@@ -6,6 +6,7 @@ import { ApolloQueryResult } from '@apollo/client/core/types';
 
 import { convertQueryToData, getProfileGqlClient } from '../utils';
 import { ProfileQueryResult, UserProfile } from '../types';
+import { fetchUserPermits } from './permitCart';
 
 const creator = actionCreatorFactory('helsinkiProfile');
 export const fetchHelsinkiProfileAction = creator.async<
@@ -49,6 +50,7 @@ export const fetchUserProfile =
           result: userProfile,
         })
       );
+      await dispatch(fetchUserPermits(userProfile));
     } else {
       dispatch(
         fetchHelsinkiProfileAction.failed({
