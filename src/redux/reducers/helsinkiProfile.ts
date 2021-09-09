@@ -1,7 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-
-import { HelsinkiUserProfileState, ProcessingStatus } from '../types';
 import { fetchHelsinkiProfileAction } from '../actions/helsinkiProfile';
+import { HelsinkiUserProfileState, ProcessingStatus } from '../types';
 
 const initialState: HelsinkiUserProfileState = {
   profile: {},

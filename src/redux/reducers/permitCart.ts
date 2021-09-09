@@ -1,6 +1,4 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-
-import { PermitCartState, ProcessingStatus } from '../types';
 import {
   addRegistrationAction,
   deleteRegistrationAction,
@@ -14,6 +12,7 @@ import {
   setSelectedAddressAction,
   updateRegistrationAction,
 } from '../actions/permitCart';
+import { PermitCartState, ProcessingStatus } from '../types';
 
 const initialState: PermitCartState = {
   currentStep: 1,

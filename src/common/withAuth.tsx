@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { Client } from '../client/types';
 import { useClient } from '../client/hooks';
+import { Client } from '../client/types';
 
 export type WithAuthChildProps = { client: Client };
 

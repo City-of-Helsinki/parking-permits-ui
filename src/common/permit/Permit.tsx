@@ -1,15 +1,13 @@
-import React from 'react';
 import { addMonths, format } from 'date-fns';
-import { useTranslation } from 'react-i18next';
 import { Card, IconCheckCircle, IconDocument } from 'hds-react';
-
-import './permit.scss';
-
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ParkingDurationType,
   Permit as PermitModel,
   UserAddress,
 } from '../../redux';
+import './permit.scss';
 
 const T_PATH = 'common.permit.Permit';
 

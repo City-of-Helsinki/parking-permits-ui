@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
 import { IconCheck } from 'hds-react';
-import { useTranslation } from 'react-i18next';
 import React, { CSSProperties, FC } from 'react';
-
+import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 import './stepper.scss';
 
 const T_PATH = 'common.stepper.Stepper';

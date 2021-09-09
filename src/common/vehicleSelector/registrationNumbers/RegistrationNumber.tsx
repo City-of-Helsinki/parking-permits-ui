@@ -1,11 +1,10 @@
-import { v4 as uuidv4 } from 'uuid';
 import { TextInput } from 'hds-react';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
-import Validate from './validate';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { setRegistration } from '../../../redux/actions/permitCart';
+import Validate from './validate';
 
 const T_PATH = 'common.vehicleSelector.registrationNumbers.RegistrationNumber';
 

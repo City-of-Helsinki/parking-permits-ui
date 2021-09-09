@@ -1,23 +1,23 @@
 import React, {
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
   createContext,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
 } from 'react';
+import { getClient } from './oidc-react';
 import {
+  ApiAccessTokenActions,
+  ApiFetchError,
   Client,
+  ClientError,
   ClientErrorObject,
   ClientEvent,
   ClientStatus,
   ClientStatusId,
-  ClientError,
-  JWTPayload,
-  ApiAccessTokenActions,
   FetchStatus,
-  ApiFetchError,
+  JWTPayload,
 } from './types';
-import { getClient } from './oidc-react';
 
 export function useClient(): Client {
   const clientRef: React.Ref<Client> = useRef(getClient());

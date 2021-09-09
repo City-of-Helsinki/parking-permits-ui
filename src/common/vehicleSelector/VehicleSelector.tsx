@@ -1,12 +1,10 @@
+import { Notification, NotificationType } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Notification, NotificationType } from 'hds-react';
-
-import './vehicleSelector.scss';
-
 import { PermitCartState, STEPPER } from '../../redux';
 import PermitPrices from './permitPrices/PermitPrices';
 import RegistrationNumbers from './registrationNumbers/RegistrationNumbers';
+import './vehicleSelector.scss';
 
 const T_PATH = 'common.vehicleSelector.VehicleSelector';
 

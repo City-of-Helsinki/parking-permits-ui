@@ -1,8 +1,11 @@
-import React from 'react';
 import { LoadingSpinner } from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import AddressSelector from '../../common/addressSelector/AddressSelector';
+import DurationSelector from '../../common/durationSelector/DurationSelector';
 import Hero from '../../common/hero/Hero';
+import PurchasedOverview from '../../common/purchasedOverview/PurchasedOverview';
+import VehicleSelector from '../../common/vehicleSelector/VehicleSelector';
 import {
   PermitCartState,
   ProcessingStatus,
@@ -10,13 +13,7 @@ import {
   TalpaState,
   UserProfile,
 } from '../../redux';
-
 import './frontPage.scss';
-
-import AddressSelector from '../../common/addressSelector/AddressSelector';
-import VehicleSelector from '../../common/vehicleSelector/VehicleSelector';
-import DurationSelector from '../../common/durationSelector/DurationSelector';
-import PurchasedOverview from '../../common/purchasedOverview/PurchasedOverview';
 
 const T_PATH = 'pages.frontPage.FrontPage';
 

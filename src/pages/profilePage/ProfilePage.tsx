@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Card, Container } from 'reactstrap';
-import { useTranslation } from 'react-i18next';
-
-import { StoreState } from '../../redux';
 import { ApiAccessTokenActions } from '../../client/types';
 import { ApiAccessTokenContext } from '../../common/apiAccessTokenProvider';
+import { StoreState } from '../../redux';
 
 const T_PATH = 'pages.profilePage.ProfilePage';
 

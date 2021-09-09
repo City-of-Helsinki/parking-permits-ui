@@ -1,31 +1,29 @@
-import React, { useEffect, useState, useRef } from 'react';
 import Oidc, {
+  User,
   UserManager,
   UserManagerSettings,
   WebStorageStateStore,
-  User,
 } from 'oidc-client';
-
-import {
-  Client,
-  ClientStatus,
-  ClientStatusId,
-  User as ClientUser,
-  ClientEvent,
-  ClientFactory,
-  ClientError,
-  ClientProps,
-} from './types';
-
+import React, { useEffect, useRef, useState } from 'react';
 import {
   createClient,
-  hasValidClientConfig,
+  createClientGetOrLoadUserFunction,
   getClientConfig,
   getLocationBasedUri,
   getTokenUri,
-  createClientGetOrLoadUserFunction,
+  hasValidClientConfig,
 } from '.';
 import { AnyObject } from '../common/types';
+import {
+  Client,
+  ClientError,
+  ClientEvent,
+  ClientFactory,
+  ClientProps,
+  ClientStatus,
+  ClientStatusId,
+  User as ClientUser,
+} from './types';
 
 let client: Client | null = null;
 
