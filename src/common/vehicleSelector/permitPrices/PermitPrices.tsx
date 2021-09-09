@@ -1,25 +1,24 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   Card,
   Checkbox,
+  IconArrowLeft,
   IconArrowRight,
   IconMinusCircle,
   RadioButton,
 } from 'hds-react';
-
-import './permitPrices.scss';
-
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { Permit, STEPPER } from '../../../redux';
 import {
   deleteRegistration,
   setCurrentStepper,
   setPrimaryVehicle,
 } from '../../../redux/actions/permitCart';
-import { Permit, STEPPER } from '../../../redux';
+import './permitPrices.scss';
 
 const T_PATH = 'common.vehicleSelector.permitPrices.PermitPrices';
 
@@ -119,6 +118,7 @@ const PermitPrices = ({
           className="action-btn"
           theme="black"
           variant="secondary"
+          iconLeft={<IconArrowLeft />}
           onClick={() => dispatch(setCurrentStepper(STEPPER.VEHICLE_SELECTOR))}>
           <span>{t(`${T_PATH}.actionBtn.gotoRegistration`)}</span>
         </Button>

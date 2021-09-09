@@ -1,27 +1,18 @@
-import React from 'react';
 import { format } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
 import {
   Button,
   Card,
   DateInput,
+  IconArrowLeft,
   IconArrowRight,
   NumberInput,
   RadioButton,
   SelectionGroup,
 } from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import './durationSelector.scss';
-
-import {
-  setCurrentStepper,
-  setParkingDurationPeriod,
-  setParkingDurationType,
-  setParkingStartDate,
-  setParkingStartType,
-} from '../../redux/actions/permitCart';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import {
   ParkingDurationType,
   ParkingStartType,
@@ -30,7 +21,15 @@ import {
   UserAddress,
   UserProfile,
 } from '../../redux';
+import {
+  setCurrentStepper,
+  setParkingDurationPeriod,
+  setParkingDurationType,
+  setParkingStartDate,
+  setParkingStartType,
+} from '../../redux/actions/permitCart';
 import { purchasePermit } from '../../redux/actions/talpa';
+import './durationSelector.scss';
 
 const T_PATH = 'common.durationSelector.DurationSelector';
 
@@ -239,6 +238,7 @@ const DurationSelector = ({
           className="action-btn"
           theme="black"
           variant="secondary"
+          iconLeft={<IconArrowLeft />}
           onClick={() => dispatch(setCurrentStepper(STEPPER.PERMIT_PRICES))}>
           <span>{t(`${T_PATH}.actionBtn.selectRegistration`)}</span>
         </Button>
