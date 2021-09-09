@@ -3,20 +3,20 @@
 // @ts-ignore
 import to from 'await-handler';
 import {
+  Client,
+  ClientErrorObject,
+  ClientEvent,
   ClientEventId,
+  ClientFactory,
+  ClientProps,
+  ClientStatus,
+  ClientStatusId,
   EventHandlers,
   EventListener,
   EventPayload,
-  Client,
-  ClientFactory,
-  ClientStatusId,
-  ClientStatus,
-  ClientErrorObject,
-  User,
-  JWTPayload,
   FetchError,
-  ClientProps,
-  ClientEvent,
+  JWTPayload,
+  User,
 } from './types';
 
 export function createEventHandling(): EventHandlers {

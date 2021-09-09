@@ -1,10 +1,9 @@
-import { ThunkDispatch } from 'redux-thunk';
+import { ApolloQueryResult } from '@apollo/client/core/types';
+import { loader } from 'graphql.macro';
 import { keyBy } from 'lodash';
 import { AnyAction, Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
-
-import { loader } from 'graphql.macro';
-import { ApolloQueryResult } from '@apollo/client/core/types';
 import {
   ParkingDurationType,
   ParkingStartType,

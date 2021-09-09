@@ -1,11 +1,10 @@
-import { AnyAction } from 'redux';
+import { ApolloQueryResult } from '@apollo/client/core/types';
 import { loader } from 'graphql.macro';
+import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
-import { ApolloQueryResult } from '@apollo/client/core/types';
-
-import { convertQueryToData, getProfileGqlClient } from '../utils';
 import { ProfileQueryResult, UserProfile } from '../types';
+import { convertQueryToData, getProfileGqlClient } from '../utils';
 import { fetchUserPermits } from './permitCart';
 
 const creator = actionCreatorFactory('helsinkiProfile');

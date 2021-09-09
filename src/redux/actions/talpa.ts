@@ -1,8 +1,7 @@
+import axios, { AxiosResponse } from 'axios';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import axios, { AxiosResponse } from 'axios';
 import actionCreatorFactory from 'typescript-fsa';
-
 import { Permit, TalpaOrder, UserAddress, UserProfile } from '../types';
 
 const creator = actionCreatorFactory('talpa');

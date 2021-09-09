@@ -1,14 +1,12 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { Button, IconDocument, IconSignout, Notification } from 'hds-react';
-
-import './purchasedOverview.scss';
-
-import Permit from '../permit/Permit';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { useClient } from '../../client/hooks';
+import { Permit as PermitModel, STEPPER, UserAddress } from '../../redux';
 import { setCurrentStepper } from '../../redux/actions/permitCart';
-import { STEPPER, UserAddress, Permit as PermitModel } from '../../redux';
+import Permit from '../permit/Permit';
+import './purchasedOverview.scss';
 
 const T_PATH = 'common.purchasedOverview.PurchasedOverview';
 

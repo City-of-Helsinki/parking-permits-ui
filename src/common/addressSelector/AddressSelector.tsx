@@ -1,16 +1,14 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { Button, IconArrowRight, Notification } from 'hds-react';
-
-import './addressSelector.scss';
-
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { STEPPER, UserAddress } from '../../redux';
 import {
   setCurrentStepper,
   setSelectedAddress,
 } from '../../redux/actions/permitCart';
 import Address from './address/Address';
-import { STEPPER, UserAddress } from '../../redux';
+import './addressSelector.scss';
 
 const T_PATH = 'common.addressSelector.AddressSelector';
 

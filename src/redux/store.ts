@@ -6,14 +6,13 @@ import {
   createStore,
 } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
-
-import { StoreState } from './types';
-import userReducer from './reducers/user';
-import talpaReducer from './reducers/talpa';
-import permitCartReducer from './reducers/permitCart';
-import helsinkiProfileReducer from './reducers/helsinkiProfile';
-import { authorized, errorThrown, unauthorized } from './actions/user';
 import { Client, ClientErrorObject, ClientEvent, User } from '../client/types';
+import { authorized, errorThrown, unauthorized } from './actions/user';
+import helsinkiProfileReducer from './reducers/helsinkiProfile';
+import permitCartReducer from './reducers/permitCart';
+import talpaReducer from './reducers/talpa';
+import userReducer from './reducers/user';
+import { StoreState } from './types';
 
 // Ignore: The __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ doesn't seem to have types available.
 interface CustomWindow extends Window {

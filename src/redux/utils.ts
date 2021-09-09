@@ -1,8 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core/types';
-
 import { getClient } from '../client/oidc-react';
+import { createGraphQLClient, GraphQLClient } from '../graphql/graphqlClient';
 import { ProfileQueryResult, UserProfile } from './types';
-import { GraphQLClient, createGraphQLClient } from '../graphql/graphqlClient';
 
 let profileGqlClient: GraphQLClient;
 

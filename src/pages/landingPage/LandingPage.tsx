@@ -1,11 +1,9 @@
-import React from 'react';
 import { Button } from 'hds-react';
-import { Container } from 'reactstrap';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import './landingPage.scss';
-
+import { Container } from 'reactstrap';
 import { useClient } from '../../client/hooks';
+import './landingPage.scss';
 
 const T_PATH = 'pages.landingPage.LandingPage';
 
