@@ -1,9 +1,8 @@
-import { History } from 'history';
 import { Navigation } from 'hds-react';
+import { History } from 'history';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-
 import { useClient } from '../../client/hooks';
 
 type Page = '/' | 'apiAccessTokens' | 'userTokens' | 'profile';

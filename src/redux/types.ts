@@ -1,5 +1,4 @@
 import { FeatureCollection, MultiPolygon, Position } from 'geojson';
-
 import {
   ClientErrorObject,
   ClientStatusId,

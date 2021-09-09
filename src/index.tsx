@@ -1,16 +1,14 @@
+import { init } from '@sentry/browser';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { init } from '@sentry/browser';
 import { BrowserRouter } from 'react-router-dom';
-
-import './i18n/i18n';
-import './assets/styles/main.scss';
-
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import StoreProvider from './redux/StoreProvider';
+import './assets/styles/main.scss';
 import { ClientProvider } from './client/ClientProvider';
 import { ApiAccessTokenProvider } from './common/apiAccessTokenProvider';
+import './i18n/i18n';
+import StoreProvider from './redux/StoreProvider';
+import reportWebVitals from './reportWebVitals';
 
 const ENVS_WITH_SENTRY = ['staging', 'production'];
 

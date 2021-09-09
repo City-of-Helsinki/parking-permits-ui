@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import React, { CSSProperties, FC } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import './hero.scss';
 
 interface Props {

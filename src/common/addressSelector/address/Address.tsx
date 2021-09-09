@@ -1,20 +1,18 @@
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
-import React, { FC, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
-  RadioButton,
+  Card,
   IconAngleDown,
   IconAngleUp,
-  Card,
   Notification,
+  RadioButton,
 } from 'hds-react';
-
-import './address.scss';
-
+import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { UserAddress } from '../../../redux';
-import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import { setSelectedAddress } from '../../../redux/actions/permitCart';
+import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
+import './address.scss';
 
 const T_PATH = 'common.addressSelector.address.Address';
 

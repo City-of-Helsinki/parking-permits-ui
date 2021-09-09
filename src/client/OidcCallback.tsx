@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-
 import { useClientCallback } from './hooks';
 
 export type OidcCallbackProps = {

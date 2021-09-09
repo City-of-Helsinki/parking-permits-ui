@@ -1,24 +1,22 @@
 import { Container } from 'hds-react';
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Redirect, Switch, useRouteMatch } from 'react-router';
-
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router';
 import './app.scss';
-
-import { StoreState } from './redux';
 import { setClientConfig } from './client';
 import clientConfig from './client/config';
 import { useClient } from './client/hooks';
-import Navbar from './common/navbar/Navbar';
-import Footer from './common/footer/Footer';
-import Stepper from './common/stepper/Stepper';
 import OidcCallback from './client/OidcCallback';
-import FrontPage from './pages/frontPage/FrontPage';
 import { ApiAccessTokenActions } from './client/types';
-import ProfilePage from './pages/profilePage/ProfilePage';
-import LandingPage from './pages/landingPage/LandingPage';
-import { fetchUserProfile } from './redux/actions/helsinkiProfile';
 import { ApiAccessTokenContext } from './common/apiAccessTokenProvider';
+import Footer from './common/footer/Footer';
+import Navbar from './common/navbar/Navbar';
+import Stepper from './common/stepper/Stepper';
+import FrontPage from './pages/frontPage/FrontPage';
+import LandingPage from './pages/landingPage/LandingPage';
+import ProfilePage from './pages/profilePage/ProfilePage';
+import { StoreState } from './redux';
+import { fetchUserProfile } from './redux/actions/helsinkiProfile';
 
 setClientConfig(clientConfig);
 

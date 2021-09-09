@@ -1,7 +1,6 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-
-import { ProcessingStatus, TalpaState } from '../types';
 import { talpaAction } from '../actions/talpa';
+import { ProcessingStatus, TalpaState } from '../types';
 
 const initialState: TalpaState = {} as TalpaState;
 

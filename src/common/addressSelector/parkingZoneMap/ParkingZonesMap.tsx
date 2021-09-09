@@ -1,14 +1,12 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { FeatureCollection, GeoJsonObject, MultiPolygon } from 'geojson';
 import L, { LatLngExpression } from 'leaflet';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TileLayer, MapContainer, GeoJSON, Marker, Popup } from 'react-leaflet';
-
-import './parkingZonesMap.css';
-
-import { UserAddress } from '../../../redux';
+import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { v4 as uuidv4 } from 'uuid';
 import marker from '../../../assets/images/icon_poi_talo-sininen.svg';
+import { UserAddress } from '../../../redux';
+import './parkingZonesMap.css';
 
 const icon = new L.Icon({
   iconUrl: marker,

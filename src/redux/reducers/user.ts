@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
-import { CONNECTED_ACTION, UserState } from '../types';
 import { Client, ClientEvent, ClientStatus } from '../../client/types';
+import { CONNECTED_ACTION, UserState } from '../types';
 
 const initialState: UserState = {
   user: undefined,
