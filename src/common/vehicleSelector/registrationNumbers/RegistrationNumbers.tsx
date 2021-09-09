@@ -1,25 +1,24 @@
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   Card,
+  IconArrowLeft,
   IconArrowRight,
   IconPlusCircleFill,
   LoadingSpinner,
   Notification,
 } from 'hds-react';
-
-import Validate from './validate';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { ProcessingStatus, STEPPER } from '../../../redux';
-import RegistrationNumber from './RegistrationNumber';
 import {
   addRegistration,
   setCurrentStepper,
 } from '../../../redux/actions/permitCart';
-
+import RegistrationNumber from './RegistrationNumber';
 import './registrationNumbers.scss';
+import Validate from './validate';
 
 const T_PATH = 'common.vehicleSelector.registrationNumbers.RegistrationNumbers';
 
@@ -106,6 +105,7 @@ const RegistrationNumbers = ({
           className="action-btn"
           theme="black"
           variant="secondary"
+          iconLeft={<IconArrowLeft />}
           onClick={() => dispatch(setCurrentStepper(STEPPER.ADDRESS_SELECTOR))}>
           <span>{t(`${T_PATH}.actionBtn.gotoAddressSelection`)}</span>
         </Button>
