@@ -3,8 +3,8 @@ import { FeatureCollection, MultiPolygon, Position } from 'geojson';
 import {
   ClientErrorObject,
   ClientStatusId,
-  User,
   FetchStatus,
+  User,
 } from '../client/types';
 import { GraphQLClientError } from '../graphql/graphqlClient';
 
@@ -30,6 +30,12 @@ export type GraphQLProfile = UserProfile & {
 
 export type ProfileQueryResult = {
   profile: GraphQLProfile;
+};
+
+export type PermitQueryResult = {
+  getPermits: {
+    permits: Permit[];
+  };
 };
 
 export type Zone = {
@@ -81,7 +87,7 @@ export interface HelsinkiUserProfileState {
 
 export interface TalpaState {
   fetchingStatus?: ProcessingStatus;
-  order?: TalpaCart;
+  order?: TalpaOrder;
   error?: Error;
 }
 
@@ -92,8 +98,8 @@ export interface Price {
 }
 
 export enum ParkingDurationType {
-  FIXED_PERIOD = 'fixedPeriod',
-  OPEN_ENDED = 'openEnded',
+  FIXED_PERIOD = 'Fixed period',
+  OPEN_ENDED = 'Open ended',
 }
 
 export enum ParkingStartType {
@@ -121,11 +127,6 @@ export type UserState = {
   error?: ClientErrorObject | undefined;
 };
 
-export type ValidityPeriod = {
-  start: string | undefined;
-  end: string | undefined;
-};
-
 export type StoreState = {
   permitCartState: PermitCartState;
   userState: UserState;
@@ -133,29 +134,36 @@ export type StoreState = {
   helsinkiProfileState: HelsinkiUserProfileState;
 };
 
+export type ContractType = {
+  id: string;
+  contractType: ParkingDurationType;
+  monthCount: number;
+};
+
 export type Permit = {
   id: string;
-  vehicle: Vehicle;
-  prices: Price;
-  validityPeriod?: ValidityPeriod;
-  durationType?: ParkingDurationType;
   startType?: ParkingStartType;
-  duration?: number;
-  startDate?: Date;
+  startTime?: Date | string;
+  status: string;
+  primaryVehicle: boolean;
+  vehicle: Vehicle;
+  price: Price;
+  contract: ContractType;
+};
+
+export type VehicleType = {
+  id: string;
+  type: string;
 };
 
 export type Vehicle = {
   id: string;
-  type: string;
+  emission: number;
+  vehicleType: VehicleType;
   manufacturer: string;
   model: string;
   productionYear: number;
-  registrationNumber: string | undefined;
-  emission: number;
-  primary?: boolean;
-  ownerId?: string;
-  holderId?: string;
-  lastInspectionDate?: string;
+  registrationNumber: string;
 };
 
 export enum STEPPER {
@@ -175,16 +183,43 @@ export type REG_ACTION = {
 
 export type TalpaItem = {
   productId?: string;
+  productName: string;
   quantity: number;
-  cartId?: string;
-  cartItemId?: string;
-  unit?: string;
+  unit: string;
+  rowPriceNet: string;
+  rowPriceVat: string;
+  rowPriceTotal: string;
+  startDate?: string;
+  periodFrequency?: string;
+  periodUnit?: string;
+  vatPercentage: string;
+  priceNet: string;
+  priceVat: string;
+  priceGross: string;
+  meta: TalpaMeta[];
 };
 
-export type TalpaCart = {
+export type TalpaCustomer = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
+
+export type TalpaMeta = {
+  key: string;
+  value: string;
+  label?: string;
+  ordinal?: number;
+  visibleInCheckout?: boolean;
+};
+
+export type TalpaOrder = {
   namespace: string;
   user: string;
+  priceNet: string;
+  priceVat: string;
+  priceTotal: string;
   items?: TalpaItem[];
-  createdAt?: string;
-  cartId?: string;
+  customer: TalpaCustomer;
 };

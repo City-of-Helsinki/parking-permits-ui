@@ -1,5 +1,5 @@
 import React from 'react';
-import { format } from 'date-fns';
+import { addMonths, format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { Card, IconCheckCircle, IconDocument } from 'hds-react';
 
@@ -27,11 +27,11 @@ const Permit = ({
   const { streetName, streetNameSv, postalCode, zone, city } = userAddress;
 
   const getEndTime = (permit: PermitModel) =>
-    permit.startDate
+    permit.startTime
       ? format(
-          new Date(
-            // eslint-disable-next-line no-magic-numbers
-            permit.startDate.valueOf() + (permit?.duration || 0) * 24 * 3600
+          addMonths(
+            new Date(permit.startTime as string),
+            permit?.contract.monthCount || 0
           ),
           dateFormat
         )
@@ -49,11 +49,15 @@ const Permit = ({
             {`${registrationNumber} ${manufacturer} ${model}`}
           </div>
           <div className="pp-list__subtitle">
-            <span>{format(permit.startDate as Date, dateFormat)}</span>
-            {permit.durationType === ParkingDurationType.OPEN_ENDED && (
+            <span>
+              {format(new Date(permit.startTime as string), dateFormat)}
+            </span>
+            {permit.contract.contractType ===
+              ParkingDurationType.OPEN_ENDED && (
               <span>{t(`${T_PATH}.contractType`)}</span>
             )}
-            {permit.durationType !== ParkingDurationType.OPEN_ENDED && (
+            {permit.contract.contractType !==
+              ParkingDurationType.OPEN_ENDED && (
               <span>{getEndTime(permit)}</span>
             )}
           </div>

@@ -1,0 +1,32 @@
+query Query($customerId: ID!) {
+  getPermits(customerId: $customerId) {
+    permits {
+      id
+      startTime
+      primaryVehicle
+      status
+      contract {
+        id
+        contractType
+        monthCount
+      }
+      vehicle {
+        id
+        vehicleType {
+          id
+          type
+        }
+        model
+        emission
+        manufacturer
+        productionYear
+        registrationNumber
+      }
+      price {
+        original
+        offer
+        currency
+      }
+    }
+  }
+}

@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import {
   Button,
   Card,
-  Notification,
   IconArrowRight,
   IconPlusCircleFill,
   LoadingSpinner,
+  Notification,
 } from 'hds-react';
 
 import Validate from './validate';
@@ -16,7 +16,6 @@ import { ProcessingStatus, STEPPER } from '../../../redux';
 import RegistrationNumber from './RegistrationNumber';
 import {
   addRegistration,
-  fetchVehicleAndPrices,
   setCurrentStepper,
 } from '../../../redux/actions/permitCart';
 
@@ -44,9 +43,10 @@ const RegistrationNumbers = ({
     setTimeout(() => dispatch(addRegistration('')));
   }
 
+  // TODO: Need to handle the permit for new registration
   const fetchVehicleDetailAndPrices = () => {
     if (registrationNumbers?.length) {
-      dispatch(fetchVehicleAndPrices(registrationNumbers));
+      dispatch(setCurrentStepper(STEPPER.PERMIT_PRICES));
     }
   };
   return (

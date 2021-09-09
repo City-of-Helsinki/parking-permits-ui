@@ -3,17 +3,16 @@ import { ThunkDispatch } from 'redux-thunk';
 import axios, { AxiosResponse } from 'axios';
 import actionCreatorFactory from 'typescript-fsa';
 
-import { Permit, TalpaCart, UserAddress, UserProfile } from '../types';
+import { Permit, TalpaOrder, UserAddress, UserProfile } from '../types';
 
 const creator = actionCreatorFactory('talpa');
 export const talpaAction = creator.async<
   Record<string, unknown>,
-  TalpaCart,
+  TalpaOrder,
   Error
->('fetch');
+>('create-oder');
 
 const CONFIG = {
-  cartURL: String(process.env.REACT_APP_TALPA_CART_EXPERIENCE_API),
   orderURL: String(process.env.REACT_APP_TALPA_ORDER_EXPERIENCE_API),
 };
 
@@ -27,40 +26,52 @@ export const purchasePermit =
     >
   ): Promise<void> => {
     dispatch(talpaAction.started({}));
-    const { cartURL, orderURL } = CONFIG;
-    if (!cartURL?.length || !orderURL?.length) {
+    const { orderURL } = CONFIG;
+    if (!orderURL?.length) {
       dispatch(
         talpaAction.failed({
-          error: new Error(
-            'Please provide both TALPA_CART_EXPERIENCE_API and TALPA_ORDER_EXPERIENCE_API'
-          ),
+          error: new Error('Please provide TALPA_ORDER_EXPERIENCE_API'),
           params: {},
         })
       );
       return;
     }
-    const data: TalpaCart = {
+    // TODO: Replace this logic
+    const data: TalpaOrder = {
       namespace: 'asukaspysakointi',
       user: user.id,
+      priceNet: '30',
+      priceVat: '12',
+      priceTotal: '42',
       items: permits.map(permit => ({
-        quantity: permit.duration as number,
-        productId: address.zone?.sharedProductId,
-        meta: [{ permitId: permit.id }],
+        quantity: permit.contract.monthCount,
+        productId: address.zone?.sharedProductId as string,
+        productName: address.zone?.name as string,
+        unit: 'pcs',
+        // eslint-disable-next-line no-magic-numbers
+        rowPriceNet: (permit.price.offer * 0.76).toString(),
+        // eslint-disable-next-line no-magic-numbers
+        rowPriceVat: (permit.price.offer * 0.24).toString(),
+        rowPriceTotal: permit.price.offer.toString(),
+        vatPercentage: '24',
+        // eslint-disable-next-line no-magic-numbers
+        priceNet: (permit.price.offer * 0.76).toString(),
+        // eslint-disable-next-line no-magic-numbers
+        priceVat: (permit.price.offer * 0.24).toString(),
+        priceGross: permit.price.offer.toString(),
+        meta: [{ key: 'permitId', value: permit.id }],
       })),
+      customer: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phoneNumber || '+358440210054',
+      },
     };
     try {
-      const cartRes: AxiosResponse<TalpaCart> = await axios.post(cartURL, data);
-      const { cartId } = cartRes.data;
-      const orderRes: AxiosResponse<TalpaCart> = await axios.post(
-        orderURL + cartId,
-        {
-          customer: {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            phone: '1234532244',
-          },
-        }
+      const orderRes: AxiosResponse<TalpaOrder> = await axios.post(
+        orderURL,
+        data
       );
       dispatch(
         talpaAction.done({
