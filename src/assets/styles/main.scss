@@ -52,21 +52,25 @@ body {
 
 .action-buttons {
   display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
   margin: var(--spacing-xl) 0;
   @include for-phone {
     flex-direction: column;
+    justify-content: flex-start;
     margin: var(--spacing-l) 0;
   }
   .action-btn {
-    margin-right: var(--spacing-l);
+    margin-left: var(--spacing-l);
     &:last-of-type {
-      margin-right: 0;
-      @include for-phone {
-        margin-top: var(--spacing-s);
-      }
+      margin-left: 0;
     }
     @include for-phone {
+      margin-left: 0;
       width: 100%;
+      &:last-of-type {
+        margin-top: var(--spacing-s);
+      }
     }
   }
 }
