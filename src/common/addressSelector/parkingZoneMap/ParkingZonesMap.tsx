@@ -72,7 +72,11 @@ export default function ParkingZonesMap({
             userAddress.zone?.location as FeatureCollection<MultiPolygon>
           ) as GeoJsonObject
         }
-        pathOptions={{ fillColor: '#fd9a99', fillOpacity: 0.6 }}
+        pathOptions={{
+          color: '#0072c6',
+          fillColor: '#b5daf7',
+          fillOpacity: 0.5,
+        }}
       />
     </MapContainer>
   );
