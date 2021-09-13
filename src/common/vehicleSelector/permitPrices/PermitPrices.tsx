@@ -129,6 +129,7 @@ const PermitPrices = ({
       </div>
       <div className="discount">
         <Checkbox
+          className="discount-checkbox"
           id={uuidv4()}
           checked={useDiscount}
           onChange={onChange}
