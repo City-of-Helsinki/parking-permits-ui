@@ -16,6 +16,13 @@ import './address.scss';
 
 const T_PATH = 'common.addressSelector.address.Address';
 
+const formatAddress = (address: UserAddress, lang: string) => {
+  const { streetName, streetNameSv, city, citySv, postalCode } = address;
+  const addressStreet = lang === 'sv' ? streetNameSv : streetName;
+  const addressCity = lang === 'sv' ? citySv : city;
+  return `${addressStreet}, ${postalCode} ${addressCity}`;
+};
+
 interface Props {
   isPrimary: boolean;
   address: UserAddress;
@@ -56,11 +63,7 @@ const Address: FC<Props> = ({
               ? t(`${T_PATH}.permanentAddress`)
               : t(`${T_PATH}.temporaryAddress`)}
           </span>
-          <span>{`${
-            i18n.language === 'sv' ? address.streetNameSv : address.streetName
-          }, ${address.postalCode} ${
-            i18n.language === 'sv' ? address.citySv : address.city
-          }`}</span>
+          <span>{formatAddress(address, i18n.language)}</span>
         </div>
         {!openState ? (
           <IconAngleDown onClick={() => setOpenState(!openState)} />
