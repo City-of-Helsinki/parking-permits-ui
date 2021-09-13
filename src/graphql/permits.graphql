@@ -5,11 +5,8 @@ query Query($customerId: ID!) {
       startTime
       primaryVehicle
       status
-      contract {
-        id
-        contractType
-        monthCount
-      }
+      contractType
+      monthCount
       vehicle {
         id
         vehicleType {
