@@ -6,6 +6,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconMinusCircle,
+  Link,
   RadioButton,
 } from 'hds-react';
 import React from 'react';
@@ -27,6 +28,20 @@ export interface Props {
   userProfile: UserProfile;
   permits: { [reg: string]: Permit };
 }
+
+const DiscountCheckboxLabel = (): React.ReactElement => {
+  const { t } = useTranslation();
+  const discountInfoUrl =
+    'https://www.hel.fi/helsinki/fi/kartat-ja-liikenne/pysakointi/vahapaastoisten_alennus';
+  return (
+    <>
+      <span>{t(`${T_PATH}.discount`)}</span>{' '}
+      <Link openInNewTab href={discountInfoUrl}>
+        {t(`${T_PATH}.readMore`)}
+      </Link>
+    </>
+  );
+};
 
 const PermitPrices = ({
   registrations,
@@ -117,7 +132,7 @@ const PermitPrices = ({
           id={uuidv4()}
           checked={useDiscount}
           onChange={onChange}
-          label={t(`${T_PATH}.discount`)}
+          label={<DiscountCheckboxLabel />}
         />
       </div>
       <div className="action-buttons">
