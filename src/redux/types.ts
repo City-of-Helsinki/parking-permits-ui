@@ -97,8 +97,8 @@ export interface Price {
 }
 
 export enum ParkingDurationType {
-  FIXED_PERIOD = 'Fixed period',
-  OPEN_ENDED = 'Open ended',
+  FIXED_PERIOD = 'FIXED_PERIOD',
+  OPEN_ENDED = 'OPEN_ENDED',
 }
 
 export enum ParkingStartType {
@@ -133,12 +133,6 @@ export type StoreState = {
   helsinkiProfileState: HelsinkiUserProfileState;
 };
 
-export type ContractType = {
-  id: string;
-  contractType: ParkingDurationType;
-  monthCount: number;
-};
-
 export type Permit = {
   id: string;
   startType?: ParkingStartType;
@@ -147,7 +141,8 @@ export type Permit = {
   primaryVehicle: boolean;
   vehicle: Vehicle;
   price: Price;
-  contract: ContractType;
+  contractType: ParkingDurationType;
+  monthCount: number;
 };
 
 export type VehicleType = {
