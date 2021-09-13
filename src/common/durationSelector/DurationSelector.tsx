@@ -90,6 +90,7 @@ const DurationSelector = ({
               <SelectionGroup label={t(`${T_PATH}.parkingDurationType.label`)}>
                 <div className="radio-button">
                   <RadioButton
+                    className="custom-radio-btn"
                     id={uuidv4()}
                     value={ParkingContractType.OPEN_ENDED}
                     label={t(`${T_PATH}.openEnded`)}
@@ -109,6 +110,7 @@ const DurationSelector = ({
                 </div>
                 <div className="radio-button">
                   <RadioButton
+                    className="custom-radio-btn"
                     id={uuidv4()}
                     value={ParkingContractType.FIXED_PERIOD}
                     label={t(`${T_PATH}.fixedPeriod`)}
@@ -151,6 +153,7 @@ const DurationSelector = ({
               <SelectionGroup label={t(`${T_PATH}.startType.label`)}>
                 <div className="radio-button">
                   <RadioButton
+                    className="custom-radio-btn"
                     id={uuidv4()}
                     value={ParkingStartType.IMMEDIATELY}
                     label={t(`${T_PATH}.immediately`)}
@@ -169,6 +172,7 @@ const DurationSelector = ({
                 </div>
                 <div className="radio-button">
                   <RadioButton
+                    className="custom-radio-btn"
                     id={uuidv4()}
                     value={ParkingStartType.FROM}
                     label={t(`${T_PATH}.startDate`)}

@@ -79,6 +79,7 @@ const PermitPrices = ({
                 })}>
                 {registrations.length > 1 && (
                   <RadioButton
+                    className="custom-radio-btn"
                     id={uuidv4()}
                     checked={permits[registration].primaryVehicle}
                     onChange={evt =>

@@ -78,3 +78,8 @@ body {
     }
   }
 }
+
+.custom-radio-btn {
+  --icon-color-selected: var(--color-coat-of-arms);
+  --border-color-selected: var(--color-coat-of-arms);
+}
