@@ -40,13 +40,9 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
   .case(setParkingDurationTypeAction, (state, action) => {
     const { permits } = state;
     if (permits) {
-      const { contract } = permits[action.registration];
       permits[action.registration] = {
         ...permits[action.registration],
-        contract: {
-          ...contract,
-          contractType: action.type,
-        },
+        contractType: action.type,
       };
     }
     return { ...state, permits };
@@ -54,7 +50,10 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
   .case(setParkingDurationPeriodAction, (state, action) => {
     const { permits } = state;
     if (permits) {
-      permits[action.registration].contract.monthCount = action.duration;
+      permits[action.registration] = {
+        ...permits[action.registration],
+        monthCount: action.duration,
+      };
     }
     return { ...state, permits };
   })

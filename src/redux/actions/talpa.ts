@@ -43,7 +43,7 @@ export const purchasePermit =
       priceVat: '12',
       priceTotal: '42',
       items: permits.map(permit => ({
-        quantity: permit.contract.monthCount,
+        quantity: permit.monthCount,
         productId: address.zone?.sharedProductId as string,
         productName: address.zone?.name as string,
         unit: 'pcs',

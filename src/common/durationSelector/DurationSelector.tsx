@@ -93,7 +93,7 @@ const DurationSelector = ({
                     value={ParkingDurationType.OPEN_ENDED}
                     label={t(`${T_PATH}.openEnded`)}
                     checked={
-                      permits[reg].contract.contractType ===
+                      permits[reg].contractType ===
                       ParkingDurationType.OPEN_ENDED
                     }
                     onChange={() =>
@@ -115,7 +115,7 @@ const DurationSelector = ({
                     value={ParkingDurationType.FIXED_PERIOD}
                     label={t(`${T_PATH}.fixedPeriod`)}
                     checked={
-                      permits[reg].contract.contractType ===
+                      permits[reg].contractType ===
                       ParkingDurationType.FIXED_PERIOD
                     }
                     onChange={() =>
@@ -141,10 +141,9 @@ const DurationSelector = ({
                 min={1}
                 step={1}
                 max={12}
-                defaultValue={permits[reg].contract.monthCount}
+                defaultValue={permits[reg].monthCount}
                 disabled={
-                  permits[reg].contract.contractType !==
-                  ParkingDurationType.FIXED_PERIOD
+                  permits[reg].contractType !== ParkingDurationType.FIXED_PERIOD
                 }
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                   dispatch(
