@@ -38,6 +38,7 @@ const Address: FC<Props> = ({
       })}>
       <div className="zone__type">
         <RadioButton
+          className="custom-radio-btn"
           id={address.id}
           name={address.id}
           value={address.id}
