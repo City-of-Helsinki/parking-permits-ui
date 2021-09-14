@@ -23,10 +23,7 @@ import {
 } from '../../redux';
 import {
   setCurrentStepper,
-  setParkingDurationPeriod,
-  setParkingDurationType,
-  setParkingStartDate,
-  setParkingStartType,
+  updatePermit,
 } from '../../redux/actions/permitCart';
 import { purchasePermit } from '../../redux/actions/talpa';
 import './durationSelector.scss';
@@ -51,6 +48,10 @@ const DurationSelector = ({
   const sendPurchaseOrderRequest = () => {
     dispatch(purchasePermit(userProfile, address, Object.values(permits)));
     dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
+  };
+
+  const updatePermitData = (reg: string, payload: Partial<Permit>) => {
+    dispatch(updatePermit(userProfile, reg, permits[reg].id, payload));
   };
 
   // eslint-disable-next-line no-magic-numbers
@@ -97,12 +98,9 @@ const DurationSelector = ({
                       ParkingDurationType.OPEN_ENDED
                     }
                     onChange={() =>
-                      dispatch(
-                        setParkingDurationType(
-                          reg,
-                          ParkingDurationType.OPEN_ENDED
-                        )
-                      )
+                      updatePermitData(reg, {
+                        contractType: ParkingDurationType.OPEN_ENDED,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -119,12 +117,9 @@ const DurationSelector = ({
                       ParkingDurationType.FIXED_PERIOD
                     }
                     onChange={() =>
-                      dispatch(
-                        setParkingDurationType(
-                          reg,
-                          ParkingDurationType.FIXED_PERIOD
-                        )
-                      )
+                      updatePermitData(reg, {
+                        contractType: ParkingDurationType.FIXED_PERIOD,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -146,12 +141,9 @@ const DurationSelector = ({
                   permits[reg].contractType !== ParkingDurationType.FIXED_PERIOD
                 }
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                  dispatch(
-                    setParkingDurationPeriod(
-                      reg,
-                      parseInt(e.target.value || '0', 10)
-                    )
-                  );
+                  updatePermitData(reg, {
+                    monthCount: parseInt(e.target.value || '0', 10),
+                  });
                 }}
               />
             </div>
@@ -166,9 +158,9 @@ const DurationSelector = ({
                       permits[reg].startType === ParkingStartType.IMMEDIATELY
                     }
                     onChange={() =>
-                      dispatch(
-                        setParkingStartType(reg, ParkingStartType.IMMEDIATELY)
-                      )
+                      updatePermitData(reg, {
+                        startType: ParkingStartType.IMMEDIATELY,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -182,7 +174,9 @@ const DurationSelector = ({
                     label={t(`${T_PATH}.startDate`)}
                     checked={permits[reg].startType === ParkingStartType.FROM}
                     onChange={() =>
-                      dispatch(setParkingStartType(reg, ParkingStartType.FROM))
+                      updatePermitData(reg, {
+                        startType: ParkingStartType.FROM,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -209,7 +203,9 @@ const DurationSelector = ({
                   permits[reg].startType !== ParkingStartType.FROM
                 }
                 onChange={(value: string, valueAsDate: Date) =>
-                  dispatch(setParkingStartDate(reg, valueAsDate))
+                  updatePermitData(reg, {
+                    startTime: valueAsDate,
+                  })
                 }
               />
             </div>
