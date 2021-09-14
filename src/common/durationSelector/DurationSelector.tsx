@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  ParkingDurationType,
+  ParkingContractType,
   ParkingStartType,
   Permit,
   STEPPER,
@@ -23,10 +23,7 @@ import {
 } from '../../redux';
 import {
   setCurrentStepper,
-  setParkingDurationPeriod,
-  setParkingDurationType,
-  setParkingStartDate,
-  setParkingStartType,
+  updatePermit,
 } from '../../redux/actions/permitCart';
 import { purchasePermit } from '../../redux/actions/talpa';
 import './durationSelector.scss';
@@ -51,6 +48,10 @@ const DurationSelector = ({
   const sendPurchaseOrderRequest = () => {
     dispatch(purchasePermit(userProfile, address, Object.values(permits)));
     dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
+  };
+
+  const updatePermitData = (reg: string, payload: Partial<Permit>) => {
+    dispatch(updatePermit(userProfile, reg, permits[reg].id, payload));
   };
 
   // eslint-disable-next-line no-magic-numbers
@@ -90,19 +91,16 @@ const DurationSelector = ({
                 <div className="radio-button">
                   <RadioButton
                     id={uuidv4()}
-                    value={ParkingDurationType.OPEN_ENDED}
+                    value={ParkingContractType.OPEN_ENDED}
                     label={t(`${T_PATH}.openEnded`)}
                     checked={
-                      permits[reg].contract.contractType ===
-                      ParkingDurationType.OPEN_ENDED
+                      permits[reg].contractType ===
+                      ParkingContractType.OPEN_ENDED
                     }
                     onChange={() =>
-                      dispatch(
-                        setParkingDurationType(
-                          reg,
-                          ParkingDurationType.OPEN_ENDED
-                        )
-                      )
+                      updatePermitData(reg, {
+                        contractType: ParkingContractType.OPEN_ENDED,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -112,19 +110,16 @@ const DurationSelector = ({
                 <div className="radio-button">
                   <RadioButton
                     id={uuidv4()}
-                    value={ParkingDurationType.FIXED_PERIOD}
+                    value={ParkingContractType.FIXED_PERIOD}
                     label={t(`${T_PATH}.fixedPeriod`)}
                     checked={
-                      permits[reg].contract.contractType ===
-                      ParkingDurationType.FIXED_PERIOD
+                      permits[reg].contractType ===
+                      ParkingContractType.FIXED_PERIOD
                     }
                     onChange={() =>
-                      dispatch(
-                        setParkingDurationType(
-                          reg,
-                          ParkingDurationType.FIXED_PERIOD
-                        )
-                      )
+                      updatePermitData(reg, {
+                        contractType: ParkingContractType.FIXED_PERIOD,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -141,18 +136,14 @@ const DurationSelector = ({
                 min={1}
                 step={1}
                 max={12}
-                defaultValue={permits[reg].contract.monthCount}
+                defaultValue={permits[reg].monthCount}
                 disabled={
-                  permits[reg].contract.contractType !==
-                  ParkingDurationType.FIXED_PERIOD
+                  permits[reg].contractType !== ParkingContractType.FIXED_PERIOD
                 }
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                  dispatch(
-                    setParkingDurationPeriod(
-                      reg,
-                      parseInt(e.target.value || '0', 10)
-                    )
-                  );
+                  updatePermitData(reg, {
+                    monthCount: parseInt(e.target.value || '0', 10),
+                  });
                 }}
               />
             </div>
@@ -167,9 +158,9 @@ const DurationSelector = ({
                       permits[reg].startType === ParkingStartType.IMMEDIATELY
                     }
                     onChange={() =>
-                      dispatch(
-                        setParkingStartType(reg, ParkingStartType.IMMEDIATELY)
-                      )
+                      updatePermitData(reg, {
+                        startType: ParkingStartType.IMMEDIATELY,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -183,7 +174,9 @@ const DurationSelector = ({
                     label={t(`${T_PATH}.startDate`)}
                     checked={permits[reg].startType === ParkingStartType.FROM}
                     onChange={() =>
-                      dispatch(setParkingStartType(reg, ParkingStartType.FROM))
+                      updatePermitData(reg, {
+                        startType: ParkingStartType.FROM,
+                      })
                     }
                   />
                   <div className="assistive-text">
@@ -210,7 +203,9 @@ const DurationSelector = ({
                   permits[reg].startType !== ParkingStartType.FROM
                 }
                 onChange={(value: string, valueAsDate: Date) =>
-                  dispatch(setParkingStartDate(reg, valueAsDate))
+                  updatePermitData(reg, {
+                    startTime: valueAsDate,
+                  })
                 }
               />
             </div>

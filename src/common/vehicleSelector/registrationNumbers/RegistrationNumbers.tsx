@@ -11,9 +11,16 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { ProcessingStatus, STEPPER } from '../../../redux';
+import {
+  Permit,
+  ProcessingStatus,
+  STEPPER,
+  UserAddress,
+  UserProfile,
+} from '../../../redux';
 import {
   addRegistration,
+  createPermit,
   setCurrentStepper,
 } from '../../../redux/actions/permitCart';
 import RegistrationNumber from './RegistrationNumber';
@@ -23,6 +30,9 @@ import Validate from './validate';
 const T_PATH = 'common.vehicleSelector.registrationNumbers.RegistrationNumbers';
 
 export interface Props {
+  permits: { [registrationNumber: string]: Permit };
+  selectedAddress: UserAddress;
+  userProfile: UserProfile;
   registrationNumbers: string[] | undefined;
   fetchingStatus?: ProcessingStatus;
   error?: Error;
@@ -33,8 +43,11 @@ const allRegistrationValid = (registrations: string[]) =>
 
 const RegistrationNumbers = ({
   registrationNumbers,
+  selectedAddress,
+  userProfile,
   fetchingStatus,
   error,
+  permits,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -42,9 +55,19 @@ const RegistrationNumbers = ({
     setTimeout(() => dispatch(addRegistration('')));
   }
 
-  // TODO: Need to handle the permit for new registration
   const fetchVehicleDetailAndPrices = () => {
     if (registrationNumbers?.length) {
+      registrationNumbers.forEach(reg => {
+        if (!permits[reg]) {
+          dispatch(
+            createPermit(
+              userProfile.id,
+              selectedAddress.zone?.id as string,
+              reg
+            )
+          );
+        }
+      });
       dispatch(setCurrentStepper(STEPPER.PERMIT_PRICES));
     }
   };

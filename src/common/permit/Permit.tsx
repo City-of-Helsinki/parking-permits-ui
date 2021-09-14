@@ -3,7 +3,7 @@ import { Card, IconCheckCircle, IconDocument } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  ParkingDurationType,
+  ParkingContractType,
   Permit as PermitModel,
   UserAddress,
 } from '../../redux';
@@ -29,7 +29,7 @@ const Permit = ({
       ? format(
           addMonths(
             new Date(permit.startTime as string),
-            permit?.contract.monthCount || 0
+            permit?.monthCount || 0
           ),
           dateFormat
         )
@@ -50,12 +50,10 @@ const Permit = ({
             <span>
               {format(new Date(permit.startTime as string), dateFormat)}
             </span>
-            {permit.contract.contractType ===
-              ParkingDurationType.OPEN_ENDED && (
+            {permit.contractType === ParkingContractType.OPEN_ENDED && (
               <span>{t(`${T_PATH}.contractType`)}</span>
             )}
-            {permit.contract.contractType !==
-              ParkingDurationType.OPEN_ENDED && (
+            {permit.contractType !== ParkingContractType.OPEN_ENDED && (
               <span>{getEndTime(permit)}</span>
             )}
           </div>

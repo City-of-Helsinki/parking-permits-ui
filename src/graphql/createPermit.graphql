@@ -1,8 +1,8 @@
-query Query($customerId: ID!) {
-  getPermits(customerId: $customerId) {
+mutation Mutation($customerId: ID!, $zoneId: ID!, $registration: String!) {
+  createParkingPermit(customerId: $customerId, zoneId: $zoneId, registration: $registration) {
     success
     errors
-    permits {
+    permit {
       id
       startType
       startTime

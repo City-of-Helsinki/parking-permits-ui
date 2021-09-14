@@ -49,7 +49,9 @@ const FrontPage = ({
       (step === STEPPER.VEHICLE_SELECTOR || step === STEPPER.PERMIT_PRICES) &&
       selectedAddress
     ) {
-      return <VehicleSelector cartState={permitCartState} />;
+      return (
+        <VehicleSelector cartState={permitCartState} userProfile={profile} />
+      );
     }
     if (
       step === STEPPER.DURATION_SELECTOR &&

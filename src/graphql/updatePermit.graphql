@@ -1,8 +1,8 @@
-query Query($customerId: ID!) {
-  getPermits(customerId: $customerId) {
+mutation Mutation($permitId: ID!, $input: ParkingPermitInput!) {
+  updateParkingPermit(permitId: $permitId, input: $input) {
     success
     errors
-    permits {
+    permit {
       id
       startType
       startTime

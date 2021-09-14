@@ -1,7 +1,7 @@
 import { Notification, NotificationType } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitCartState, STEPPER } from '../../redux';
+import { PermitCartState, STEPPER, UserProfile } from '../../redux';
 import PermitPrices from './permitPrices/PermitPrices';
 import RegistrationNumbers from './registrationNumbers/RegistrationNumbers';
 import './vehicleSelector.scss';
@@ -10,9 +10,13 @@ const T_PATH = 'common.vehicleSelector.VehicleSelector';
 
 export interface Props {
   cartState: PermitCartState;
+  userProfile: UserProfile;
 }
 
-const VehicleSelector = ({ cartState }: Props): React.ReactElement => {
+const VehicleSelector = ({
+  cartState,
+  userProfile,
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const {
     permits,
@@ -52,17 +56,26 @@ const VehicleSelector = ({ cartState }: Props): React.ReactElement => {
         </Notification>
       ))}
       <div className="section-label">{t(`${T_PATH}.primaryVehicle.label`)}</div>
-      {currentStep === STEPPER.VEHICLE_SELECTOR && (
-        <RegistrationNumbers
-          registrationNumbers={registrationNumbers}
-          fetchingStatus={fetchingStatus}
-          error={error}
-        />
-      )}
+      {currentStep === STEPPER.VEHICLE_SELECTOR &&
+        permits &&
+        selectedAddress && (
+          <RegistrationNumbers
+            permits={permits}
+            selectedAddress={selectedAddress}
+            userProfile={userProfile}
+            registrationNumbers={registrationNumbers}
+            fetchingStatus={fetchingStatus}
+            error={error}
+          />
+        )}
       {currentStep === STEPPER.PERMIT_PRICES &&
         registrationNumbers &&
         permits && (
-          <PermitPrices registrations={registrationNumbers} permits={permits} />
+          <PermitPrices
+            userProfile={userProfile}
+            registrations={registrationNumbers}
+            permits={permits}
+          />
         )}
     </div>
   );

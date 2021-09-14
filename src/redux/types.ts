@@ -34,6 +34,31 @@ export type ProfileQueryResult = {
 export type PermitQueryResult = {
   getPermits: {
     permits: Permit[];
+    success: boolean;
+    errors: string[];
+  };
+};
+
+export type DeletePermitQueryResult = {
+  deleteParkingPermit: {
+    success: boolean;
+    errors: string[];
+  };
+};
+
+export type UpdatePermitQueryResult = {
+  updateParkingPermit: {
+    permit: Permit;
+    success: boolean;
+    errors: string[];
+  };
+};
+
+export type CreatePermitQueryResult = {
+  createParkingPermit: {
+    permit: Permit;
+    success: boolean;
+    errors: string[];
   };
 };
 
@@ -96,14 +121,14 @@ export interface Price {
   currency: string;
 }
 
-export enum ParkingDurationType {
-  FIXED_PERIOD = 'Fixed period',
-  OPEN_ENDED = 'Open ended',
+export enum ParkingContractType {
+  FIXED_PERIOD = 'FIXED_PERIOD',
+  OPEN_ENDED = 'OPEN_ENDED',
 }
 
 export enum ParkingStartType {
-  IMMEDIATELY = 'immediately',
-  FROM = 'from',
+  IMMEDIATELY = 'IMMEDIATELY',
+  FROM = 'FROM',
 }
 
 export interface PermitCartState {
@@ -133,12 +158,6 @@ export type StoreState = {
   helsinkiProfileState: HelsinkiUserProfileState;
 };
 
-export type ContractType = {
-  id: string;
-  contractType: ParkingDurationType;
-  monthCount: number;
-};
-
 export type Permit = {
   id: string;
   startType?: ParkingStartType;
@@ -147,7 +166,8 @@ export type Permit = {
   primaryVehicle: boolean;
   vehicle: Vehicle;
   price: Price;
-  contract: ContractType;
+  contractType: ParkingContractType;
+  monthCount: number;
 };
 
 export type VehicleType = {
@@ -177,7 +197,7 @@ export enum STEPPER {
 export type REG_ACTION = {
   id: string;
   key: string;
-  value: ParkingStartType | ParkingDurationType | Date | string | number;
+  value: ParkingStartType | ParkingContractType | Date | string | number;
 };
 
 export type TalpaItem = {
