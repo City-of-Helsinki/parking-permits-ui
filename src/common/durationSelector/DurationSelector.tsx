@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  ParkingDurationType,
+  ParkingContractType,
   ParkingStartType,
   Permit,
   STEPPER,
@@ -91,15 +91,15 @@ const DurationSelector = ({
                 <div className="radio-button">
                   <RadioButton
                     id={uuidv4()}
-                    value={ParkingDurationType.OPEN_ENDED}
+                    value={ParkingContractType.OPEN_ENDED}
                     label={t(`${T_PATH}.openEnded`)}
                     checked={
                       permits[reg].contractType ===
-                      ParkingDurationType.OPEN_ENDED
+                      ParkingContractType.OPEN_ENDED
                     }
                     onChange={() =>
                       updatePermitData(reg, {
-                        contractType: ParkingDurationType.OPEN_ENDED,
+                        contractType: ParkingContractType.OPEN_ENDED,
                       })
                     }
                   />
@@ -110,15 +110,15 @@ const DurationSelector = ({
                 <div className="radio-button">
                   <RadioButton
                     id={uuidv4()}
-                    value={ParkingDurationType.FIXED_PERIOD}
+                    value={ParkingContractType.FIXED_PERIOD}
                     label={t(`${T_PATH}.fixedPeriod`)}
                     checked={
                       permits[reg].contractType ===
-                      ParkingDurationType.FIXED_PERIOD
+                      ParkingContractType.FIXED_PERIOD
                     }
                     onChange={() =>
                       updatePermitData(reg, {
-                        contractType: ParkingDurationType.FIXED_PERIOD,
+                        contractType: ParkingContractType.FIXED_PERIOD,
                       })
                     }
                   />
@@ -138,7 +138,7 @@ const DurationSelector = ({
                 max={12}
                 defaultValue={permits[reg].monthCount}
                 disabled={
-                  permits[reg].contractType !== ParkingDurationType.FIXED_PERIOD
+                  permits[reg].contractType !== ParkingContractType.FIXED_PERIOD
                 }
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                   updatePermitData(reg, {
