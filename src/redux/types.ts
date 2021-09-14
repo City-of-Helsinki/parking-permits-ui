@@ -121,7 +121,7 @@ export interface Price {
   currency: string;
 }
 
-export enum ParkingDurationType {
+export enum ParkingContractType {
   FIXED_PERIOD = 'FIXED_PERIOD',
   OPEN_ENDED = 'OPEN_ENDED',
 }
@@ -166,7 +166,7 @@ export type Permit = {
   primaryVehicle: boolean;
   vehicle: Vehicle;
   price: Price;
-  contractType: ParkingDurationType;
+  contractType: ParkingContractType;
   monthCount: number;
 };
 
@@ -197,7 +197,7 @@ export enum STEPPER {
 export type REG_ACTION = {
   id: string;
   key: string;
-  value: ParkingStartType | ParkingDurationType | Date | string | number;
+  value: ParkingStartType | ParkingContractType | Date | string | number;
 };
 
 export type TalpaItem = {
