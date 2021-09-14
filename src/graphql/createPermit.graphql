@@ -1,0 +1,32 @@
+mutation Mutation($customerId: ID!, $zoneId: ID!, $registration: String!) {
+  createParkingPermit(customerId: $customerId, zoneId: $zoneId, registration: $registration) {
+    success
+    errors
+    permit {
+      id
+      startType
+      startTime
+      primaryVehicle
+      status
+      contractType
+      monthCount
+      vehicle {
+        id
+        vehicleType {
+          id
+          type
+        }
+        model
+        emission
+        manufacturer
+        productionYear
+        registrationNumber
+      }
+      price {
+        original
+        offer
+        currency
+      }
+    }
+  }
+}
