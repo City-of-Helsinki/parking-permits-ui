@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { setRegistration } from '../../../redux/actions/permitCart';
+import { updateRegistration } from '../../../redux/actions/permitCart';
 import Validate from './validate';
 
 const T_PATH = 'common.vehicleSelector.registrationNumbers.RegistrationNumber';
@@ -34,7 +34,7 @@ const RegistrationNumber = ({
 
   const setRegistrationNumber = () => {
     if (valid && reg) {
-      dispatch(setRegistration(reg, index));
+      dispatch(updateRegistration(reg, index));
     }
   };
   return (

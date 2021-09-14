@@ -12,11 +12,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { Permit, STEPPER } from '../../../redux';
+import { Permit, STEPPER, UserProfile } from '../../../redux';
 import {
-  deleteRegistration,
+  deletePermit,
   setCurrentStepper,
-  setPrimaryVehicle,
+  updatePermit,
 } from '../../../redux/actions/permitCart';
 import './permitPrices.scss';
 
@@ -24,11 +24,13 @@ const T_PATH = 'common.vehicleSelector.permitPrices.PermitPrices';
 
 export interface Props {
   registrations: string[];
+  userProfile: UserProfile;
   permits: { [reg: string]: Permit };
 }
 
 const PermitPrices = ({
   registrations,
+  userProfile,
   permits,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
@@ -37,11 +39,16 @@ const PermitPrices = ({
   const onChange = (event: { target: { checked: boolean } }) => {
     setDiscount(event.target.checked);
   };
-  const changePrimaryVehicle = (
+  const changePrimaryVehicle = async (
     reg: string,
+    permit: Permit,
     event: { target: { checked: boolean } }
   ) => {
-    dispatch(setPrimaryVehicle(reg, event.target.checked));
+    dispatch(
+      updatePermit(userProfile, reg, permit.id, {
+        primaryVehicle: event.target.checked,
+      })
+    );
   };
 
   return (
@@ -59,7 +66,13 @@ const PermitPrices = ({
                   <RadioButton
                     id={uuidv4()}
                     checked={permits[registration].primaryVehicle}
-                    onChange={evt => changePrimaryVehicle(registration, evt)}
+                    onChange={evt =>
+                      changePrimaryVehicle(
+                        registration,
+                        permits[registration],
+                        evt
+                      )
+                    }
                   />
                 )}
                 <div className="car-details">
@@ -86,7 +99,11 @@ const PermitPrices = ({
                     style={{
                       color: 'var(--color-coat-of-arms)',
                     }}
-                    onClick={() => dispatch(deleteRegistration(registration))}
+                    onClick={() =>
+                      dispatch(
+                        deletePermit(userProfile, permits[registration].id)
+                      )
+                    }
                     iconLeft={<IconMinusCircle />}>
                     {t(`${T_PATH}.btn.delete`)}
                   </Button>
