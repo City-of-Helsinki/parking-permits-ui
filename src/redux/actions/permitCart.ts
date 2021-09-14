@@ -1,8 +1,9 @@
-import { keyBy } from 'lodash';
 import { loader } from 'graphql.macro';
+import { keyBy } from 'lodash';
 import { AnyAction, Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
+import PermitGqlClient from '../permitGqlClient';
 import {
   CreatePermitQueryResult,
   DeletePermitQueryResult,
@@ -12,7 +13,6 @@ import {
   UserAddress,
   UserProfile,
 } from '../types';
-import PermitGqlClient from '../permitGqlClient';
 
 const actionCreator = actionCreatorFactory('permitCart');
 

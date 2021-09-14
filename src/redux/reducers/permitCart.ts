@@ -2,11 +2,11 @@ import { uniq } from 'lodash';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import {
   addRegistrationAction,
+  createPermitAction,
   fetchPermitAction,
   setCurrentStepperAction,
-  updatePermitAction,
-  createPermitAction,
   setSelectedAddressAction,
+  updatePermitAction,
   updateRegistrationAction,
 } from '../actions/permitCart';
 import { PermitCartState, ProcessingStatus } from '../types';

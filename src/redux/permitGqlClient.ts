@@ -1,8 +1,7 @@
-import { DocumentNode } from 'graphql';
 import { OperationVariables } from '@apollo/client/core/types';
-
-import { getProfileGqlClient } from './utils';
+import { DocumentNode } from 'graphql';
 import { GraphQLClient } from '../graphql/graphqlClient';
+import { getProfileGqlClient } from './utils';
 
 class PermitGqlClient {
   client: GraphQLClient;
