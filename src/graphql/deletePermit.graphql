@@ -1,0 +1,6 @@
+mutation Mutation($permitId: ID!) {
+  deleteParkingPermit(permitId: $permitId) {
+    success
+    errors
+  }
+}
