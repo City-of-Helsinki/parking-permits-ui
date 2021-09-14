@@ -16,6 +16,32 @@ import './address.scss';
 
 const T_PATH = 'common.addressSelector.address.Address';
 
+const formatAddress = (address: UserAddress, lang: string) => {
+  const { streetName, streetNameSv, city, citySv, postalCode } = address;
+  const addressStreet = lang === 'sv' ? streetNameSv : streetName;
+  const addressCity = lang === 'sv' ? citySv : city;
+  return `${addressStreet}, ${postalCode} ${addressCity}`;
+};
+
+interface AddressHeaderProps {
+  isPrimary: boolean;
+  address: UserAddress;
+}
+
+const AddressLabel: FC<AddressHeaderProps> = ({ isPrimary, address }) => {
+  const { t, i18n } = useTranslation();
+  return (
+    <div className="address__headers">
+      <span className="address__headers__sub_header">
+        {isPrimary
+          ? t(`${T_PATH}.permanentAddress`)
+          : t(`${T_PATH}.temporaryAddress`)}
+      </span>
+      <span>{formatAddress(address, i18n.language)}</span>
+    </div>
+  );
+};
+
 interface Props {
   isPrimary: boolean;
   address: UserAddress;
@@ -30,42 +56,31 @@ const Address: FC<Props> = ({
   const dispatch = useDispatch();
 
   const [openState, setOpenState] = useState(true);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const ArrowIcon = openState ? IconAngleUp : IconAngleDown;
   return (
     <Card
       className={classNames('address-component', {
         selected: address.id === selectedAddress?.id,
       })}>
-      <div className="zone__type">
+      <div className="address">
         <RadioButton
+          className="custom-radio-btn"
           id={address.id}
           name={address.id}
           value={address.id}
           disabled={!address.zone}
-          label={t(`${T_PATH}.residentParkingZone`)}
+          label={<AddressLabel isPrimary={isPrimary} address={address} />}
           checked={selectedAddress?.id === address.id}
           onClick={() => dispatch(setSelectedAddress(address))}
         />
-        <div className="zone__type__symbol">{address.zone?.name}</div>
+        <ArrowIcon onClick={() => setOpenState(!openState)} />
       </div>
-      <div className="accordion">
-        <div className="accordion__headers">
-          <span className="accordion__headers__sub_header">
-            {isPrimary
-              ? t(`${T_PATH}.permanentAddress`)
-              : t(`${T_PATH}.temporaryAddress`)}
-          </span>
-          <span>{`${
-            i18n.language === 'sv' ? address.streetNameSv : address.streetName
-          }, ${address.postalCode} ${
-            i18n.language === 'sv' ? address.citySv : address.city
-          }`}</span>
-        </div>
-        {!openState ? (
-          <IconAngleDown onClick={() => setOpenState(!openState)} />
-        ) : (
-          <IconAngleUp onClick={() => setOpenState(!openState)} />
-        )}
+      <div className="zone_type">
+        <span>
+          {t(`${T_PATH}.residentParkingZone`)} {address.zone?.name}
+        </span>
+        <span>30 € / kk</span>
       </div>
       {openState && (
         <>

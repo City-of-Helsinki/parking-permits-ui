@@ -2,8 +2,12 @@
 @import 'typography';
 @import 'mixin';
 @import url('https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css');
+
 body {
-  font-family: HelsinkiGrotesk;
+  font-family: var(--font-default);
+  font-size: var(--fontsize-body-m);
+  color: var(--color-black-90);
+  line-height: var(--lineheight-l);
 }
 
 #hds-mobile-menu {
@@ -73,4 +77,9 @@ body {
       }
     }
   }
+}
+
+.custom-radio-btn {
+  --icon-color-selected: var(--color-coat-of-arms);
+  --border-color-selected: var(--color-coat-of-arms);
 }

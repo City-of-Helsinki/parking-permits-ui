@@ -6,6 +6,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
   IconMinusCircle,
+  Link,
   RadioButton,
 } from 'hds-react';
 import React from 'react';
@@ -28,6 +29,20 @@ export interface Props {
   permits: { [reg: string]: Permit };
 }
 
+const DiscountCheckboxLabel = (): React.ReactElement => {
+  const { t } = useTranslation();
+  const discountInfoUrl =
+    'https://www.hel.fi/helsinki/fi/kartat-ja-liikenne/pysakointi/vahapaastoisten_alennus';
+  return (
+    <>
+      <span>{t(`${T_PATH}.discount`)}</span>{' '}
+      <Link openInNewTab href={discountInfoUrl}>
+        {t(`${T_PATH}.readMore`)}
+      </Link>
+    </>
+  );
+};
+
 const PermitPrices = ({
   registrations,
   userProfile,
@@ -42,11 +57,11 @@ const PermitPrices = ({
   const changePrimaryVehicle = async (
     reg: string,
     permit: Permit,
-    event: { target: { checked: boolean } }
+    isPrimary: boolean
   ) => {
     dispatch(
       updatePermit(userProfile, reg, permit.id, {
-        primaryVehicle: event.target.checked,
+        primaryVehicle: isPrimary,
       })
     );
   };
@@ -61,16 +76,24 @@ const PermitPrices = ({
               <Card
                 className={classNames('card', {
                   selected: permits[registration].primaryVehicle,
-                })}>
+                })}
+                onClick={() =>
+                  changePrimaryVehicle(
+                    registration,
+                    permits[registration],
+                    true
+                  )
+                }>
                 {registrations.length > 1 && (
                   <RadioButton
+                    className="custom-radio-btn"
                     id={uuidv4()}
                     checked={permits[registration].primaryVehicle}
                     onChange={evt =>
                       changePrimaryVehicle(
                         registration,
                         permits[registration],
-                        evt
+                        evt.target.checked
                       )
                     }
                   />
@@ -114,10 +137,11 @@ const PermitPrices = ({
       </div>
       <div className="discount">
         <Checkbox
+          className="discount-checkbox"
           id={uuidv4()}
           checked={useDiscount}
           onChange={onChange}
-          label={t(`${T_PATH}.discount`)}
+          label={<DiscountCheckboxLabel />}
         />
       </div>
       <div className="action-buttons">
