@@ -1,7 +1,10 @@
 query Query($customerId: ID!) {
   getPermits(customerId: $customerId) {
+    success
+    errors
     permits {
       id
+      startType
       startTime
       primaryVehicle
       status
