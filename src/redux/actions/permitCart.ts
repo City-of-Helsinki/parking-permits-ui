@@ -24,44 +24,16 @@ export const setCurrentStepperAction = actionCreator<number>(
 export const setSelectedAddressAction = actionCreator<UserAddress>(
   'set-selected-address'
 );
-export const setParkingStartTypeAction = actionCreator<{
-  registration: string;
-  type: ParkingStartType;
-}>('parking-start-type');
-
-export const setParkingStartDateAction = actionCreator<{
-  registration: string;
-  date: Date;
-}>('parking-start-date');
-
-export const setParkingDurationTypeAction = actionCreator<{
-  registration: string;
-  type: ParkingDurationType;
-}>('parking-duration-type');
-
-export const setParkingDurationPeriodAction = actionCreator<{
-  registration: string;
-  duration: number;
-}>('parking-duration-period');
 
 export const addRegistrationAction = actionCreator<string>(
   'add-registration-action'
 );
 
-export const deleteRegistrationAction = actionCreator<string>(
-  'delete-registration-action'
-);
-
 export const updateRegistrationAction = actionCreator<{
   registration: string;
   index: number;
-}>('set-registration-action');
 }>('update-registration-action');
 
-export const setPrimaryVehicleAction = actionCreator<{
-  registration: string;
-  primary: boolean;
-}>('set-primary-vehicle');
 export const updatePermitAction = actionCreator.async<
   Record<string, unknown>,
   { [reg: string]: Permit },
@@ -89,30 +61,6 @@ export const setCurrentStepper =
   (id: number) =>
   (dispatch: Dispatch): void => {
     dispatch(setCurrentStepperAction(id));
-  };
-
-export const setParkingStartType =
-  (registration: string, type: ParkingStartType) =>
-  (dispatch: Dispatch): void => {
-    dispatch(setParkingStartTypeAction({ registration, type }));
-  };
-
-export const setParkingStartDate =
-  (registration: string, date: Date) =>
-  (dispatch: Dispatch): void => {
-    dispatch(setParkingStartDateAction({ registration, date }));
-  };
-
-export const setParkingDurationType =
-  (registration: string, type: ParkingDurationType) =>
-  (dispatch: Dispatch): void => {
-    dispatch(setParkingDurationTypeAction({ registration, type }));
-  };
-
-export const setParkingDurationPeriod =
-  (registration: string, duration: number) =>
-  (dispatch: Dispatch): void => {
-    dispatch(setParkingDurationPeriodAction({ registration, duration }));
   };
 
 export const setSelectedAddress =
