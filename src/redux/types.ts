@@ -34,6 +34,31 @@ export type ProfileQueryResult = {
 export type PermitQueryResult = {
   getPermits: {
     permits: Permit[];
+    success: boolean;
+    errors: string[];
+  };
+};
+
+export type DeletePermitQueryResult = {
+  deleteParkingPermit: {
+    success: boolean;
+    errors: string[];
+  };
+};
+
+export type UpdatePermitQueryResult = {
+  updateParkingPermit: {
+    permit: Permit;
+    success: boolean;
+    errors: string[];
+  };
+};
+
+export type CreatePermitQueryResult = {
+  createParkingPermit: {
+    permit: Permit;
+    success: boolean;
+    errors: string[];
   };
 };
 
@@ -102,8 +127,8 @@ export enum ParkingDurationType {
 }
 
 export enum ParkingStartType {
-  IMMEDIATELY = 'immediately',
-  FROM = 'from',
+  IMMEDIATELY = 'IMMEDIATELY',
+  FROM = 'FROM',
 }
 
 export interface PermitCartState {
