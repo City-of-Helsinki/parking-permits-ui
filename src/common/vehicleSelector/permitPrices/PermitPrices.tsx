@@ -57,11 +57,11 @@ const PermitPrices = ({
   const changePrimaryVehicle = async (
     reg: string,
     permit: Permit,
-    event: { target: { checked: boolean } }
+    isPrimary: boolean
   ) => {
     dispatch(
       updatePermit(userProfile, reg, permit.id, {
-        primaryVehicle: event.target.checked,
+        primaryVehicle: isPrimary,
       })
     );
   };
@@ -76,7 +76,14 @@ const PermitPrices = ({
               <Card
                 className={classNames('card', {
                   selected: permits[registration].primaryVehicle,
-                })}>
+                })}
+                onClick={() =>
+                  changePrimaryVehicle(
+                    registration,
+                    permits[registration],
+                    true
+                  )
+                }>
                 {registrations.length > 1 && (
                   <RadioButton
                     className="custom-radio-btn"
@@ -86,7 +93,7 @@ const PermitPrices = ({
                       changePrimaryVehicle(
                         registration,
                         permits[registration],
-                        evt
+                        evt.target.checked
                       )
                     }
                   />
