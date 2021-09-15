@@ -11,17 +11,11 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { UserAddress } from '../../../redux';
 import { setSelectedAddress } from '../../../redux/actions/permitCart';
+import { formatAddress } from '../../utils';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './address.scss';
 
 const T_PATH = 'common.addressSelector.address.Address';
-
-const formatAddress = (address: UserAddress, lang: string) => {
-  const { streetName, streetNameSv, city, citySv, postalCode } = address;
-  const addressStreet = lang === 'sv' ? streetNameSv : streetName;
-  const addressCity = lang === 'sv' ? citySv : city;
-  return `${addressStreet}, ${postalCode} ${addressCity}`;
-};
 
 interface AddressHeaderProps {
   isPrimary: boolean;

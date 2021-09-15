@@ -7,6 +7,7 @@ import {
   Permit as PermitModel,
   UserAddress,
 } from '../../redux';
+import { formatAddress } from '../utils';
 import './permit.scss';
 
 const T_PATH = 'common.permit.Permit';
@@ -22,7 +23,7 @@ const Permit = ({
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy';
   const { t, i18n } = useTranslation();
-  const { streetName, streetNameSv, postalCode, zone, city } = userAddress;
+  const { zone } = userAddress;
 
   const getEndTime = (permit: PermitModel) =>
     permit.startTime
@@ -69,9 +70,9 @@ const Permit = ({
           <span className="pp-list__icon">{zone?.name}</span>
           <div className="pp-list__titles">
             <div className="pp-list__title">{t(`${T_PATH}.permitType`)}</div>
-            <div className="pp-list__subtitle">{`${
-              i18n.language === 'sv' ? streetNameSv : streetName
-            }, ${postalCode} ${city}`}</div>
+            <div className="pp-list__subtitle">
+              {formatAddress(userAddress, i18n.language)}
+            </div>
           </div>
         </div>
         {permits.map(permit => getPermit(permit))}
