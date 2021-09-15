@@ -71,7 +71,7 @@ const Permit = ({
           <div className="pp-list__title">
             <span className="pp-list__title__icon">{zone?.name}</span>
             <span className="pp-list__title__text">
-              {t(`${T_PATH}.permitType`)}
+              {t(`${T_PATH}.parkingZone`)}
             </span>
           </div>
           <div className="pp-list__subtitle">
