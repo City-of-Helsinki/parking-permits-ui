@@ -18,6 +18,7 @@ query Query($customerId: ID!) {
         }
         model
         emission
+        isLowEmission
         manufacturer
         productionYear
         registrationNumber

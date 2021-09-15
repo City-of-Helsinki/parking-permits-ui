@@ -95,9 +95,16 @@ const PermitPrices = ({
                     {permit.vehicle.manufacturer} {permit.vehicle.model}
                   </div>
                   <div className="emission-level">
-                    {t(`${T_PATH}.emission`, {
-                      emission: permit.vehicle.emission,
-                    })}
+                    {t(
+                      `${T_PATH}.${
+                        permit.vehicle.isLowEmission
+                          ? 'lowEmission'
+                          : 'normalEmission'
+                      }`,
+                      {
+                        emission: permit.vehicle.emission,
+                      }
+                    )}
                   </div>
                   <div className="price">
                     <div className="original">{`${permit.price.original} ${permit.price.currency}/KK`}</div>
