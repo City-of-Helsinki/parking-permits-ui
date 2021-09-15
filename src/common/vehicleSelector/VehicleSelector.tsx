@@ -55,7 +55,15 @@ const VehicleSelector = ({
           {notification.message || ''}
         </Notification>
       ))}
-      <div className="section-label">{t(`${T_PATH}.primaryVehicle.label`)}</div>
+      <div className="section-label">
+        {t(
+          `${T_PATH}.${
+            registrationNumbers && registrationNumbers.length > 1
+              ? 'multiplePermitsSectionLabel'
+              : 'singlePermitSectionLabel'
+          }`
+        )}
+      </div>
       {currentStep === STEPPER.VEHICLE_SELECTOR &&
         permits &&
         selectedAddress && (
