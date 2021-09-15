@@ -94,21 +94,21 @@ const PermitPrices = ({
                   <div className="car-model">
                     {permit.vehicle.manufacturer} {permit.vehicle.model}
                   </div>
-                  <div className="emission-level">
-                    {t(
-                      `${T_PATH}.${
-                        permit.vehicle.isLowEmission
-                          ? 'lowEmission'
-                          : 'normalEmission'
-                      }`,
-                      {
-                        emission: permit.vehicle.emission,
-                      }
-                    )}
-                  </div>
+                  {permit.vehicle.isLowEmission && (
+                    <div className="emission-level">
+                      {t(`${T_PATH}.lowEmission`)}
+                    </div>
+                  )}
                   <div className="price">
-                    <div className="original">{`${permit.price.original} ${permit.price.currency}/KK`}</div>
-                    <div className="offer">{`${permit.price.offer} ${permit.price.currency}/KK`}</div>
+                    <div
+                      className={classNames('original', {
+                        invalid: permit.vehicle.isLowEmission,
+                      })}>
+                      {`${permit.price.original} ${permit.price.currency}/KK`}
+                    </div>
+                    {permit.vehicle.isLowEmission && (
+                      <div className="offer">{`${permit.price.offer} ${permit.price.currency}/KK`}</div>
+                    )}
                   </div>
                 </div>
               </Card>
