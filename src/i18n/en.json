@@ -69,7 +69,6 @@
   "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Return to select vehicle",
   "common.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Remove",
   "common.vehicleSelector.permitPrices.PermitPrices.discount": "I would also like to receive a 50 % discount on other off-street parking when paying with parking apps.",
-  "common.vehicleSelector.permitPrices.PermitPrices.normalEmission": "",
   "common.vehicleSelector.permitPrices.PermitPrices.lowEmission": "Low emission vehicle with emissions of less than {{emission}} CO₂",
   "common.vehicleSelector.permitPrices.PermitPrices.readMore": "Read more.",
   "common.vehicleSelector.registrationNumbers.RegistrationNumber.errorText": "Please enter a valid registration number.",

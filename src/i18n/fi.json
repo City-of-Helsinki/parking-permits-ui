@@ -69,7 +69,6 @@
   "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Palaa valitsemaan ajoneuvo",
   "common.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Poista",
   "common.vehicleSelector.permitPrices.PermitPrices.discount": "Haluan saada 50 % alennuksen myös muusta kadunvarsipysäköinnistä pysäköintisovelluksilla maksaessa.",
-  "common.vehicleSelector.permitPrices.PermitPrices.normalEmission": "Normaalipäästöinen ajoneuvo {{emission}} CO₂",
   "common.vehicleSelector.permitPrices.PermitPrices.lowEmission": "Vähäpäästöinen ajoneuvo, päästöt alle {{emission}} CO₂",
   "common.vehicleSelector.permitPrices.PermitPrices.readMore": "Lue lisää.",
   "common.vehicleSelector.registrationNumbers.RegistrationNumber.errorText": "Anna kelvollinen rekisteritunnus.",
