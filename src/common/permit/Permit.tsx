@@ -21,7 +21,7 @@ const Permit = ({
   address: userAddress,
   permits,
 }: Props): React.ReactElement => {
-  const dateFormat = 'd.M.yyyy';
+  const dateFormat = 'd.M.yyyy HH:mm';
   const { t, i18n } = useTranslation();
   const { zone } = userAddress;
 
@@ -48,13 +48,16 @@ const Permit = ({
         </div>
         <div className="pp-list__subtitle">
           <span>
+            {t(`${T_PATH}.startTime`)}:{' '}
             {format(new Date(permit.startTime as string), dateFormat)}
           </span>
           {permit.contractType === ParkingContractType.OPEN_ENDED && (
             <span>{t(`${T_PATH}.contractType`)}</span>
           )}
           {permit.contractType !== ParkingContractType.OPEN_ENDED && (
-            <span>{getEndTime(permit)}</span>
+            <span>
+              {t(`${T_PATH}.endTime`)}: {getEndTime(permit)}
+            </span>
           )}
         </div>
       </div>
