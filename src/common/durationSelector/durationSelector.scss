@@ -44,7 +44,7 @@
     border-top: 4px solid var(--color-coat-of-arms);
     margin-top: var(--spacing-xs);
     margin-bottom: var(--spacing-xs);
-    padding: var(--spacing-s);
+    padding: var(--spacing-xl);
   }
   .time-period {
     padding-top: var(--spacing-l);
@@ -80,6 +80,7 @@
   .radio-button {
     .assistive-text {
       margin-left: 32px;
+      margin-top: 6px;
     }
   }
   @include for-desktop {
