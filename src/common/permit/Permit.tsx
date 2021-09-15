@@ -40,24 +40,22 @@ const Permit = ({
     const { registrationNumber, manufacturer, model } = permit.vehicle;
     return (
       <div className="pp-list" key={permit.vehicle.registrationNumber}>
-        <span className="document-icon">
-          <IconDocument className="icon" color="var(--color-white)" />
-        </span>
-        <div className="pp-list__titles">
-          <div className="pp-list__title">
-            {`${registrationNumber} ${manufacturer} ${model}`}
-          </div>
-          <div className="pp-list__subtitle">
-            <span>
-              {format(new Date(permit.startTime as string), dateFormat)}
-            </span>
-            {permit.contractType === ParkingContractType.OPEN_ENDED && (
-              <span>{t(`${T_PATH}.contractType`)}</span>
-            )}
-            {permit.contractType !== ParkingContractType.OPEN_ENDED && (
-              <span>{getEndTime(permit)}</span>
-            )}
-          </div>
+        <div className="pp-list__title">
+          <span className="pp-list__title__icon document-icon">
+            <IconDocument className="icon" />
+          </span>
+          <span className="pp-list__title__text">{`${registrationNumber} ${manufacturer} ${model}`}</span>
+        </div>
+        <div className="pp-list__subtitle">
+          <span>
+            {format(new Date(permit.startTime as string), dateFormat)}
+          </span>
+          {permit.contractType === ParkingContractType.OPEN_ENDED && (
+            <span>{t(`${T_PATH}.contractType`)}</span>
+          )}
+          {permit.contractType !== ParkingContractType.OPEN_ENDED && (
+            <span>{getEndTime(permit)}</span>
+          )}
         </div>
       </div>
     );
@@ -67,18 +65,21 @@ const Permit = ({
       <div className="section-label">{t(`${T_PATH}.label`)}</div>
       <Card className="card">
         <div className="pp-list">
-          <span className="pp-list__icon">{zone?.name}</span>
-          <div className="pp-list__titles">
-            <div className="pp-list__title">{t(`${T_PATH}.permitType`)}</div>
-            <div className="pp-list__subtitle">
-              {formatAddress(userAddress, i18n.language)}
-            </div>
+          <div className="pp-list__title">
+            <span className="pp-list__title__icon">{zone?.name}</span>
+            <span className="pp-list__title__text">
+              {t(`${T_PATH}.permitType`)}
+            </span>
+          </div>
+          <div className="pp-list__subtitle">
+            {formatAddress(userAddress, i18n.language)}
           </div>
         </div>
         {permits.map(permit => getPermit(permit))}
+        <div className="divider" />
         <div className="message">
           <IconCheckCircle />
-          <div>{t(`${T_PATH}.discount`)}</div>
+          <div className="message-text">{t(`${T_PATH}.discount`)}</div>
         </div>
       </Card>
     </div>
