@@ -41,19 +41,24 @@
         .emission-level {
           font-size: 0.75rem;
           margin: var(--spacing-2-xs) 0;
-          background: var(--color-black-20);
           padding: 6px 6px 4px;
           border-radius: 16px;
         }
+        .low-emission {
+          background: var(--color-fog);
+        }
+        .high-emission {
+          background: var(--color-black-20);
+        }
         &.selected {
           border-top: 4px solid var(--color-coat-of-arms);
-          .emission-level {
-            background: var(--color-fog);
-          }
         }
         .price {
           display: flex;
           align-items: center;
+          margin: var(--spacing-2-xs) 0;
+          height: 24px;
+          white-space: nowrap;
           @include for-phone {
             flex-direction: column;
           }

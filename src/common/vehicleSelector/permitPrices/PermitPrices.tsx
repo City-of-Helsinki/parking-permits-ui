@@ -94,11 +94,20 @@ const PermitPrices = ({
                   <div className="car-model">
                     {permit.vehicle.manufacturer} {permit.vehicle.model}
                   </div>
-                  {permit.vehicle.isLowEmission && (
-                    <div className="emission-level">
-                      {t(`${T_PATH}.lowEmission`)}
-                    </div>
-                  )}
+                  <div
+                    className={`emission-level ${
+                      permit.vehicle.isLowEmission
+                        ? 'low-emission'
+                        : 'high-emission'
+                    }`}>
+                    {t(
+                      `${T_PATH}.${
+                        permit.vehicle.isLowEmission
+                          ? 'lowEmissionVehicle'
+                          : 'highEmissionVehicle'
+                      }`
+                    )}
+                  </div>
                   <div className="price">
                     <div
                       className={classNames('original', {
