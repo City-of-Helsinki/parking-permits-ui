@@ -23,10 +23,11 @@ mutation Mutation($customerId: ID!, $zoneId: ID!, $registration: String!) {
         productionYear
         registrationNumber
       }
-      price {
-        original
-        offer
-        currency
+      prices {
+        priceNet
+        priceVat
+        priceGross
+        vatPercentage
       }
     }
   }
