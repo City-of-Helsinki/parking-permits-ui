@@ -178,6 +178,7 @@ export type VehicleType = {
 export type Vehicle = {
   id: string;
   emission: number;
+  isLowEmission: boolean;
   vehicleType: VehicleType;
   manufacturer: string;
   model: string;

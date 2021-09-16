@@ -71,47 +71,53 @@ const PermitPrices = ({
       <div className="offer-container">
         {registrations
           .filter(reg => !!permits[reg])
-          .map(registration => (
-            <div className="offer" key={registration}>
+          .map(reg => [reg, permits[reg]] as [string, Permit])
+          .map(([reg, permit]) => (
+            <div className="offer" key={reg}>
               <Card
                 className={classNames('card', {
-                  selected: permits[registration].primaryVehicle,
+                  selected: permit.primaryVehicle,
                 })}
-                onClick={() =>
-                  changePrimaryVehicle(
-                    registration,
-                    permits[registration],
-                    true
-                  )
-                }>
+                onClick={() => changePrimaryVehicle(reg, permit, true)}>
                 {registrations.length > 1 && (
                   <RadioButton
                     className="custom-radio-btn"
                     id={uuidv4()}
-                    checked={permits[registration].primaryVehicle}
+                    checked={permit.primaryVehicle}
                     onChange={evt =>
-                      changePrimaryVehicle(
-                        registration,
-                        permits[registration],
-                        evt.target.checked
-                      )
+                      changePrimaryVehicle(reg, permit, evt.target.checked)
                     }
                   />
                 )}
                 <div className="car-details">
-                  <div className="registration-number">{registration}</div>
+                  <div className="registration-number">{reg}</div>
                   <div className="car-model">
-                    {permits[registration].vehicle.manufacturer}{' '}
-                    {permits[registration].vehicle.model}
+                    {permit.vehicle.manufacturer} {permit.vehicle.model}
                   </div>
-                  <div className="emission-level">
-                    {t(`${T_PATH}.emission`, {
-                      emission: permits[registration].vehicle.emission,
-                    })}
+                  <div
+                    className={`emission-level ${
+                      permit.vehicle.isLowEmission
+                        ? 'low-emission'
+                        : 'high-emission'
+                    }`}>
+                    {t(
+                      `${T_PATH}.${
+                        permit.vehicle.isLowEmission
+                          ? 'lowEmissionVehicle'
+                          : 'highEmissionVehicle'
+                      }`
+                    )}
                   </div>
                   <div className="price">
-                    <div className="original">{`${permits[registration].price.original} ${permits[registration].price.currency}/KK`}</div>
-                    <div className="offer">{`${permits[registration].price.offer} ${permits[registration].price.currency}/KK`}</div>
+                    <div
+                      className={classNames('original', {
+                        invalid: permit.vehicle.isLowEmission,
+                      })}>
+                      {`${permit.price.original} ${permit.price.currency}/KK`}
+                    </div>
+                    {permit.vehicle.isLowEmission && (
+                      <div className="offer">{`${permit.price.offer} ${permit.price.currency}/KK`}</div>
+                    )}
                   </div>
                 </div>
               </Card>
@@ -123,9 +129,7 @@ const PermitPrices = ({
                       color: 'var(--color-coat-of-arms)',
                     }}
                     onClick={() =>
-                      dispatch(
-                        deletePermit(userProfile, permits[registration].id)
-                      )
+                      dispatch(deletePermit(userProfile, permit.id))
                     }
                     iconLeft={<IconMinusCircle />}>
                     {t(`${T_PATH}.btn.delete`)}

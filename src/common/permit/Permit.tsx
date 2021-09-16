@@ -7,6 +7,7 @@ import {
   Permit as PermitModel,
   UserAddress,
 } from '../../redux';
+import { formatAddress } from '../utils';
 import './permit.scss';
 
 const T_PATH = 'common.permit.Permit';
@@ -20,9 +21,9 @@ const Permit = ({
   address: userAddress,
   permits,
 }: Props): React.ReactElement => {
-  const dateFormat = 'd.M.yyyy';
+  const dateFormat = 'd.M.yyyy HH:mm';
   const { t, i18n } = useTranslation();
-  const { streetName, streetNameSv, postalCode, zone, city } = userAddress;
+  const { zone } = userAddress;
 
   const getEndTime = (permit: PermitModel) =>
     permit.startTime
@@ -39,24 +40,25 @@ const Permit = ({
     const { registrationNumber, manufacturer, model } = permit.vehicle;
     return (
       <div className="pp-list" key={permit.vehicle.registrationNumber}>
-        <span className="document-icon">
-          <IconDocument className="icon" color="var(--color-white)" />
-        </span>
-        <div className="pp-list__titles">
-          <div className="pp-list__title">
-            {`${registrationNumber} ${manufacturer} ${model}`}
-          </div>
-          <div className="pp-list__subtitle">
+        <div className="pp-list__title">
+          <span className="pp-list__title__icon document-icon">
+            <IconDocument className="icon" />
+          </span>
+          <span className="pp-list__title__text">{`${registrationNumber} ${manufacturer} ${model}`}</span>
+        </div>
+        <div className="pp-list__subtitle">
+          <span>
+            {t(`${T_PATH}.startTime`)}:{' '}
+            {format(new Date(permit.startTime as string), dateFormat)}
+          </span>
+          {permit.contractType === ParkingContractType.OPEN_ENDED && (
+            <span>{t(`${T_PATH}.contractType`)}</span>
+          )}
+          {permit.contractType !== ParkingContractType.OPEN_ENDED && (
             <span>
-              {format(new Date(permit.startTime as string), dateFormat)}
+              {t(`${T_PATH}.endTime`)}: {getEndTime(permit)}
             </span>
-            {permit.contractType === ParkingContractType.OPEN_ENDED && (
-              <span>{t(`${T_PATH}.contractType`)}</span>
-            )}
-            {permit.contractType !== ParkingContractType.OPEN_ENDED && (
-              <span>{getEndTime(permit)}</span>
-            )}
-          </div>
+          )}
         </div>
       </div>
     );
@@ -66,18 +68,21 @@ const Permit = ({
       <div className="section-label">{t(`${T_PATH}.label`)}</div>
       <Card className="card">
         <div className="pp-list">
-          <span className="pp-list__icon">{zone?.name}</span>
-          <div className="pp-list__titles">
-            <div className="pp-list__title">{t(`${T_PATH}.permitType`)}</div>
-            <div className="pp-list__subtitle">{`${
-              i18n.language === 'sv' ? streetNameSv : streetName
-            }, ${postalCode} ${city}`}</div>
+          <div className="pp-list__title">
+            <span className="pp-list__title__icon">{zone?.name}</span>
+            <span className="pp-list__title__text">
+              {t(`${T_PATH}.parkingZone`)}
+            </span>
+          </div>
+          <div className="pp-list__subtitle">
+            {formatAddress(userAddress, i18n.language)}
           </div>
         </div>
         {permits.map(permit => getPermit(permit))}
+        <div className="divider" />
         <div className="message">
           <IconCheckCircle />
-          <div>{t(`${T_PATH}.discount`)}</div>
+          <div className="message-text">{t(`${T_PATH}.discount`)}</div>
         </div>
       </Card>
     </div>
