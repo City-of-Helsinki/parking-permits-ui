@@ -18,6 +18,7 @@ mutation Mutation($customerId: ID!, $zoneId: ID!, $registration: String!) {
         }
         model
         emission
+        isLowEmission
         manufacturer
         productionYear
         registrationNumber

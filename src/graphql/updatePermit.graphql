@@ -18,6 +18,7 @@ mutation Mutation($permitId: ID!, $input: ParkingPermitInput!) {
         }
         model
         emission
+        isLowEmission
         manufacturer
         productionYear
         registrationNumber
