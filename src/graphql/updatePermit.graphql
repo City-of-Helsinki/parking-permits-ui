@@ -18,14 +18,16 @@ mutation Mutation($permitId: ID!, $input: ParkingPermitInput!) {
         }
         model
         emission
+        isLowEmission
         manufacturer
         productionYear
         registrationNumber
       }
-      price {
-        original
-        offer
-        currency
+      prices {
+        priceNet
+        priceVat
+        priceGross
+        vatPercentage
       }
     }
   }

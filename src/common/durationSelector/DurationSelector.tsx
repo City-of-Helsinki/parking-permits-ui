@@ -82,8 +82,12 @@ const DurationSelector = ({
               </div>
 
               <div className="price hide-in-mobile">
-                <div className="original">{`${permits[reg].price.original} ${permits[reg].price.currency}/KK`}</div>
-                <div className="offer">{`${permits[reg].price.offer} ${permits[reg].price.currency}/KK`}</div>
+                {permits[reg].vehicle.isLowEmission && (
+                  <div className="original">{`${
+                    permits[reg].prices.priceGross * 2
+                  } €/KK`}</div>
+                )}
+                <div className="offer">{`${permits[reg].prices.priceGross} €/KK`}</div>
               </div>
             </div>
             <div className="time-period with-bottom-border">
@@ -217,8 +221,12 @@ const DurationSelector = ({
           <div className="price-info hide-in-desktop">
             <div>{t(`${T_PATH}.permitPrice`)}</div>
             <div className="price">
-              <div className="original">{`${permits[reg].price.original} ${permits[reg].price.currency}/KK`}</div>
-              <div className="offer">{`${permits[reg].price.offer} ${permits[reg].price.currency}/KK`}</div>
+              {permits[reg].vehicle.isLowEmission && (
+                <div className="original">{`${
+                  permits[reg].prices.priceGross * 2
+                } €/KK`}</div>
+              )}
+              <div className="offer">{`${permits[reg].prices.priceGross} €/KK`}</div>
             </div>
           </div>
         </div>

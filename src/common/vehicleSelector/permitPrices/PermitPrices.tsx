@@ -109,15 +109,13 @@ const PermitPrices = ({
                     )}
                   </div>
                   <div className="price">
-                    <div
-                      className={classNames('original', {
-                        invalid: permit.vehicle.isLowEmission,
-                      })}>
-                      {`${permit.price.original} ${permit.price.currency}/KK`}
-                    </div>
-                    {permit.vehicle.isLowEmission && (
-                      <div className="offer">{`${permit.price.offer} ${permit.price.currency}/KK`}</div>
+                    {permits[reg].vehicle.isLowEmission && (
+                      <div
+                        className={classNames('original', {
+                          invalid: permit.vehicle.isLowEmission,
+                        })}>{`${permits[reg].prices.priceGross * 2} €/KK`}</div>
                     )}
+                    <div className="offer">{`${permits[reg].prices.priceGross} €/KK`}</div>
                   </div>
                 </div>
               </Card>
