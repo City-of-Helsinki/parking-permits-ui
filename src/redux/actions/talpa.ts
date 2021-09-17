@@ -1,8 +1,15 @@
 import axios, { AxiosResponse } from 'axios';
+import { sumBy } from 'lodash';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
-import { Permit, TalpaOrder, UserAddress, UserProfile } from '../types';
+import {
+  Permit,
+  TalpaItem,
+  TalpaOrder,
+  UserAddress,
+  UserProfile,
+} from '../types';
 
 const creator = actionCreatorFactory('talpa');
 export const talpaAction = creator.async<
@@ -26,46 +33,42 @@ export const purchasePermit =
   ): Promise<void> => {
     dispatch(talpaAction.started({}));
     const { orderURL } = CONFIG;
-    if (!orderURL?.length) {
-      dispatch(
-        talpaAction.failed({
-          error: new Error('Please provide TALPA_ORDER_EXPERIENCE_API'),
-          params: {},
-        })
-      );
-      return;
-    }
-    // TODO: Replace this logic
-    const data: TalpaOrder = {
-      namespace: 'asukaspysakointi',
-      user: user.id,
-      priceNet: '30',
-      priceVat: '12',
-      priceTotal: '42',
-      items: permits.map(permit => ({
+    const customer = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phoneNumber || '+358440210054',
+    };
+    /* TODO: Right now we send order for only one permit
+     * Update this once talpa fixes to handle multiple
+     * items with same product id but different meta
+     * */
+    const items: TalpaItem[] = [permits[0]].map(permit => {
+      const { monthCount } = permit;
+      const { priceNet, priceVat, priceGross } = permit.prices;
+      const rowPrices = {
+        rowPriceNet: priceNet * monthCount,
+        rowPriceVat: priceVat * monthCount,
+        rowPriceTotal: priceGross * monthCount,
+      };
+      return {
         quantity: permit.monthCount,
         productId: address.zone?.sharedProductId as string,
         productName: address.zone?.name as string,
         unit: 'pcs',
-        // eslint-disable-next-line no-magic-numbers
-        rowPriceNet: (permit.price.offer * 0.76).toString(),
-        // eslint-disable-next-line no-magic-numbers
-        rowPriceVat: (permit.price.offer * 0.24).toString(),
-        rowPriceTotal: permit.price.offer.toString(),
-        vatPercentage: '24',
-        // eslint-disable-next-line no-magic-numbers
-        priceNet: (permit.price.offer * 0.76).toString(),
-        // eslint-disable-next-line no-magic-numbers
-        priceVat: (permit.price.offer * 0.24).toString(),
-        priceGross: permit.price.offer.toString(),
         meta: [{ key: 'permitId', value: permit.id }],
-      })),
-      customer: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phoneNumber || '+358440210054',
-      },
+        ...permit.prices,
+        ...rowPrices,
+      };
+    });
+    const data: TalpaOrder = {
+      namespace: 'asukaspysakointi',
+      user: user.id,
+      priceNet: sumBy(items, 'rowPriceNet'),
+      priceVat: sumBy(items, 'rowPriceVat'),
+      priceTotal: sumBy(items, 'rowPriceTotal'),
+      items,
+      customer,
     };
     try {
       const orderRes: AxiosResponse<TalpaOrder> = await axios.post(
@@ -78,6 +81,8 @@ export const purchasePermit =
           result: orderRes.data,
         })
       );
+      const { checkoutUrl, user: userId } = orderRes.data;
+      window.open(`${checkoutUrl}?userId=${userId}`, '_blank');
     } catch (err) {
       dispatch(
         talpaAction.failed({
