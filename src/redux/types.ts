@@ -116,9 +116,10 @@ export interface TalpaState {
 }
 
 export interface Price {
-  original: number;
-  offer: number;
-  currency: string;
+  priceNet: number;
+  priceVat: number;
+  priceGross: number;
+  vatPercentage: number;
 }
 
 export enum ParkingContractType {
@@ -165,7 +166,7 @@ export type Permit = {
   status: string;
   primaryVehicle: boolean;
   vehicle: Vehicle;
-  price: Price;
+  prices: Price;
   contractType: ParkingContractType;
   monthCount: number;
 };
@@ -206,16 +207,16 @@ export type TalpaItem = {
   productName: string;
   quantity: number;
   unit: string;
-  rowPriceNet: string;
-  rowPriceVat: string;
-  rowPriceTotal: string;
+  rowPriceNet: number;
+  rowPriceVat: number;
+  rowPriceTotal: number;
   startDate?: string;
   periodFrequency?: string;
   periodUnit?: string;
-  vatPercentage: string;
-  priceNet: string;
-  priceVat: string;
-  priceGross: string;
+  vatPercentage: number;
+  priceNet: number;
+  priceVat: number;
+  priceGross: number;
   meta: TalpaMeta[];
 };
 
@@ -237,9 +238,10 @@ export type TalpaMeta = {
 export type TalpaOrder = {
   namespace: string;
   user: string;
-  priceNet: string;
-  priceVat: string;
-  priceTotal: string;
+  priceNet: number;
+  priceVat: number;
+  priceTotal: number;
+  checkoutUrl?: string;
   items?: TalpaItem[];
   customer: TalpaCustomer;
 };
