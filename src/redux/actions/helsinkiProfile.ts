@@ -3,7 +3,11 @@ import { loader } from 'graphql.macro';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import actionCreatorFactory from 'typescript-fsa';
-import { ProfileQueryResult, UserProfile } from '../types';
+import {
+  PARKING_PERMIT_TOKEN,
+  ProfileQueryResult,
+  UserProfile,
+} from '../types';
 import { convertQueryToData, getProfileGqlClient } from '../utils';
 import { fetchUserPermits } from './permitCart';
 
@@ -13,6 +17,9 @@ export const fetchHelsinkiProfileAction = creator.async<
   UserProfile,
   Error
 >('fetch');
+
+const setParkingPermitToken = (token: string) =>
+  sessionStorage.setItem(PARKING_PERMIT_TOKEN, token);
 
 export const fetchUserProfile =
   () =>
@@ -43,6 +50,7 @@ export const fetchUserProfile =
     });
     const userProfile = convertQueryToData(result);
     if (userProfile) {
+      await setParkingPermitToken(userProfile.token);
       dispatch(
         fetchHelsinkiProfileAction.done({
           params: {},
