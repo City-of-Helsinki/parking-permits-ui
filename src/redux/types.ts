@@ -14,6 +14,7 @@ export enum ProcessingStatus {
 }
 
 export const CONNECTED_ACTION = 'CONNECTED_ACTION';
+export const PARKING_PERMIT_TOKEN = 'parking_permit_token';
 
 export type GraphQLZone = Zone & {
   __typename: 'ZoneNode';
@@ -92,6 +93,7 @@ export type UserProfile = {
   phoneNumber: string;
   primaryAddress: GraphQLAddress;
   otherAddress: GraphQLAddress;
+  token: string;
 };
 
 export type ProfileActions = {
