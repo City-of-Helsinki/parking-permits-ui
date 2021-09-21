@@ -1,5 +1,5 @@
-mutation Mutation($customerId: ID!, $zoneId: ID!, $registration: String!) {
-  createParkingPermit(customerId: $customerId, zoneId: $zoneId, registration: $registration) {
+mutation Mutation($zoneId: ID!, $registration: String!) {
+  createParkingPermit(zoneId: $zoneId, registration: $registration) {
     success
     errors
     permit {
@@ -12,7 +12,7 @@ mutation Mutation($customerId: ID!, $zoneId: ID!, $registration: String!) {
       monthCount
       vehicle {
         id
-        vehicleType {
+        type {
           id
           type
         }
