@@ -1,5 +1,5 @@
-query Query($customerId: ID!) {
-  getPermits(customerId: $customerId) {
+query Query {
+  getPermits {
     success
     errors
     permits {
@@ -12,7 +12,7 @@ query Query($customerId: ID!) {
       monthCount
       vehicle {
         id
-        vehicleType {
+        type {
           id
           type
         }
