@@ -76,6 +76,7 @@ const PermitPrices = ({
             <div className="offer" key={reg}>
               <Card
                 className={classNames('card', {
+                  multiple: registrations.length > 1,
                   selected: permit.primaryVehicle,
                 })}
                 onClick={() => changePrimaryVehicle(reg, permit, true)}>
