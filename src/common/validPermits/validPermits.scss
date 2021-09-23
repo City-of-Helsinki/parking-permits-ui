@@ -1,0 +1,11 @@
+.valid-permit-component {
+  .hds-button-danger {
+    border-color: var(--color-error);
+    .trash-icon {
+      color: var(--color-error);
+    }
+  }
+  .leaflet-container {
+    height: 25em;
+  }
+}
