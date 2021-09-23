@@ -92,8 +92,8 @@ export type UserProfile = {
   lastName: string;
   language: string;
   phoneNumber: string;
-  primaryAddress: GraphQLAddress;
-  otherAddress: GraphQLAddress;
+  primaryAddress: UserAddress;
+  otherAddress: UserAddress;
   token: string;
 };
 
