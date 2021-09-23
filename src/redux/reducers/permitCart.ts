@@ -9,10 +9,10 @@ import {
   updatePermitAction,
   updateRegistrationAction,
 } from '../actions/permitCart';
-import { PermitCartState, ProcessingStatus } from '../types';
+import { PermitCartState, ProcessingStatus, STEPPER } from '../types';
 
 const initialState: PermitCartState = {
-  currentStep: 1,
+  currentStep: STEPPER.VALID_PERMITS,
 };
 
 const cartReducer = reducerWithInitialState<PermitCartState>(initialState)

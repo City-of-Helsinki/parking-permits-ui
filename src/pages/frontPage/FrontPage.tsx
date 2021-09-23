@@ -5,6 +5,7 @@ import AddressSelector from '../../common/addressSelector/AddressSelector';
 import DurationSelector from '../../common/durationSelector/DurationSelector';
 import Hero from '../../common/hero/Hero';
 import PurchasedOverview from '../../common/purchasedOverview/PurchasedOverview';
+import ValidPermits from '../../common/validPermits/ValidPermits';
 import VehicleSelector from '../../common/vehicleSelector/VehicleSelector';
 import {
   PermitCartState,
@@ -111,14 +112,22 @@ const FrontPage = ({
       )}
       {primaryAddress && (
         <>
-          {currentStep === 1 && (
+          {currentStep === STEPPER.ADDRESS_SELECTOR && (
             <Hero
               title={t(`${T_PATH}.title`, {
                 firstName: profile?.firstName,
               })}
             />
           )}
-          {getStepperComponent(currentStep)}
+          {currentStep === STEPPER.VALID_PERMITS && (
+            <ValidPermits
+              user={profile}
+              addresses={[primaryAddress, otherAddress]}
+              permits={Object.values(permits || [])}
+            />
+          )}
+          {currentStep !== STEPPER.VALID_PERMITS &&
+            getStepperComponent(currentStep)}
         </>
       )}
     </div>

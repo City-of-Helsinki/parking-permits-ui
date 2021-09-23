@@ -200,6 +200,7 @@ export type Vehicle = {
 };
 
 export enum STEPPER {
+  VALID_PERMITS = 0,
   ADDRESS_SELECTOR = 1,
   VEHICLE_SELECTOR = 2,
   // eslint-disable-next-line no-magic-numbers
