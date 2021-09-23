@@ -74,7 +74,7 @@ const Address: FC<Props> = ({
         <span>
           {t(`${T_PATH}.residentParkingZone`)} {address.zone?.name}
         </span>
-        <span>30 € / kk</span>
+        <span>{address?.zone?.price} € / kk</span>
       </div>
       {openState && (
         <>
