@@ -83,6 +83,7 @@ export type UserAddress = {
   postalCode: string;
   location?: Position;
   zone?: Zone;
+  primary: boolean;
 };
 
 export type UserProfile = {
