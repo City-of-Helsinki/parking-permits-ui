@@ -136,6 +136,13 @@ export enum ParkingStartType {
   FROM = 'FROM',
 }
 
+export enum PermitStatus {
+  DRAFT = 'DRAFT',
+  VALID = 'VALID',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
+}
+
 export interface PermitCartState {
   selectedAddress?: UserAddress;
   currentStep: number;
@@ -167,7 +174,7 @@ export type Permit = {
   id: string;
   startType?: ParkingStartType;
   startTime?: Date | string;
-  status: string;
+  status: PermitStatus;
   primaryVehicle: boolean;
   vehicle: Vehicle;
   prices: Price;
