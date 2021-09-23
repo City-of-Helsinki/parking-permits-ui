@@ -9,6 +9,8 @@ import {
   DeletePermitQueryResult,
   Permit,
   PermitQueryResult,
+  PermitStatus,
+  STEPPER,
   UpdatePermitQueryResult,
   UserAddress,
   UserProfile,
@@ -87,7 +89,7 @@ export const updateRegistration =
   };
 
 export const fetchUserPermits =
-  (user: UserProfile) =>
+  (user: UserProfile, initialFetch = false) =>
   async (
     dispatch: ThunkDispatch<
       Record<string, unknown>,
@@ -103,6 +105,12 @@ export const fetchUserPermits =
 
     const { permits, success, errors } = getPermits;
     if (success) {
+      const paidPermits = Object.values(permits || []).filter(
+        permit => permit.status === PermitStatus.VALID
+      );
+      if (paidPermits.length === 0 && initialFetch) {
+        dispatch(setCurrentStepper(STEPPER.ADDRESS_SELECTOR));
+      }
       const result = keyBy(permits, 'vehicle.registrationNumber');
       dispatch(fetchPermitAction.done({ params: {}, result }));
     } else {
