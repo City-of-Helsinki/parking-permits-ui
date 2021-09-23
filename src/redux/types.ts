@@ -66,6 +66,7 @@ export type CreatePermitQueryResult = {
 export type Zone = {
   id: string;
   name: string;
+  price: number;
   sharedProductId: string;
   description: string;
   descriptionSv: string;
