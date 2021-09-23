@@ -173,6 +173,7 @@ export type Permit = {
   prices: Price;
   contractType: ParkingContractType;
   monthCount: number;
+  parkingZone: Zone;
 };
 
 export type VehicleType = {

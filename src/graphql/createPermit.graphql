@@ -23,6 +23,14 @@ mutation Mutation($zoneId: ID!, $registration: String!) {
         productionYear
         registrationNumber
       }
+      parkingZone {
+        id
+        name
+        price
+        description
+        descriptionSv
+        location
+      }
       prices {
         priceNet
         priceVat
