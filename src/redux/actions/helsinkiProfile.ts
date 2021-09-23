@@ -57,7 +57,7 @@ export const fetchUserProfile =
           result: userProfile,
         })
       );
-      await dispatch(fetchUserPermits(userProfile));
+      await dispatch(fetchUserPermits(userProfile, true));
     } else {
       dispatch(
         fetchHelsinkiProfileAction.failed({
