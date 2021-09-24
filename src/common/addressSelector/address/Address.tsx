@@ -40,12 +40,14 @@ interface Props {
   isPrimary: boolean;
   address: UserAddress;
   selectedAddress: UserAddress | undefined;
+  disableSelection?: boolean;
 }
 
 const Address: FC<Props> = ({
   isPrimary,
   address,
   selectedAddress,
+  disableSelection = false,
 }): React.ReactElement => {
   const dispatch = useDispatch();
 
@@ -63,7 +65,7 @@ const Address: FC<Props> = ({
           id={address.id}
           name={address.id}
           value={address.id}
-          disabled={!address.zone}
+          disabled={!address.zone || disableSelection}
           label={<AddressLabel isPrimary={isPrimary} address={address} />}
           checked={selectedAddress?.id === address.id}
           onClick={() => dispatch(setSelectedAddress(address))}
