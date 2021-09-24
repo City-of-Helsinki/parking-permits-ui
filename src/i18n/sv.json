@@ -1,4 +1,6 @@
 {
+  "common.addressLabel.permanentAddress": "Permanent adress",
+  "common.addressLabel.temporaryAddress": "Tillfällig adress",
   "common.addressSelector.AddressSelector.actionBtn.buyPermit": "Köp parkeringstillstånd",
   "common.addressSelector.AddressSelector.notification.info.label": "Du har inte ett giltigt parkeringstillstånd",
   "common.addressSelector.AddressSelector.notification.info.message": "Baserat på din personliga information från befolkningsregistercentret kan du köpa ett parkeringstillstånd för angränsande zoner.",

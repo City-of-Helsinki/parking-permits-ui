@@ -1,4 +1,6 @@
 {
+  "common.addressLabel.permanentAddress": "Pysyvä osoite",
+  "common.addressLabel.temporaryAddress": "Tilapäinen osoite",
   "common.addressSelector.AddressSelector.actionBtn.buyPermit": "Osta pysäkointitunnus",
   "common.addressSelector.AddressSelector.notification.info.label": "Sinulla ei ole voimassa olevia pysäköintitunnuksia",
   "common.addressSelector.AddressSelector.notification.info.message": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella voit ostaa pysäköintitunnuksen oheisille vyöhykkeille.",
