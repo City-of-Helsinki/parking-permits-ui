@@ -32,7 +32,12 @@ const FrontPage = ({
   permitCartState,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const { selectedAddress, registrationNumbers, permits } = permitCartState;
+  const {
+    selectedAddress,
+    registrationNumbers,
+    permits,
+    validRegistrationNumbers,
+  } = permitCartState;
   const { primaryAddress, otherAddress } = profile;
 
   const getStepperComponent = (step: number) => {
@@ -40,6 +45,7 @@ const FrontPage = ({
     if (step === STEPPER.ADDRESS_SELECTOR && primaryAddress) {
       return (
         <AddressSelector
+          validRegistrations={validRegistrationNumbers || []}
           selectedAddress={selectedAddress}
           primaryAddress={primaryAddress}
           otherAddress={otherAddress}

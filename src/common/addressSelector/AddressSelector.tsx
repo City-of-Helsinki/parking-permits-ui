@@ -16,12 +16,14 @@ export interface Props {
   primaryAddress: UserAddress;
   otherAddress: UserAddress;
   selectedAddress: UserAddress | undefined;
+  validRegistrations: string[];
 }
 
 const AddressSelector = ({
   primaryAddress,
   otherAddress,
   selectedAddress,
+  validRegistrations,
 }: Props): React.ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -40,6 +42,7 @@ const AddressSelector = ({
       <div className="addresses">
         <Address
           isPrimary
+          disableSelection={validRegistrations.length > 0}
           address={primaryAddress}
           selectedAddress={selectedAddress}
         />
@@ -48,6 +51,7 @@ const AddressSelector = ({
           address={otherAddress}
           selectedAddress={selectedAddress}
         />
+            disableSelection={validRegistrations.length > 0}
       </div>
       <div className="action-buttons">
         <Button
