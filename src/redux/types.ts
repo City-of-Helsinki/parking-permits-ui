@@ -147,6 +147,7 @@ export interface PermitCartState {
   selectedAddress?: UserAddress;
   currentStep: number;
   registrationNumbers?: string[];
+  validRegistrationNumbers?: string[];
   permits?: {
     [registrationNumber: string]: Permit;
   };

@@ -9,11 +9,25 @@ import {
   updatePermitAction,
   updateRegistrationAction,
 } from '../actions/permitCart';
-import { PermitCartState, ProcessingStatus, STEPPER } from '../types';
+import {
+  Permit,
+  PermitCartState,
+  PermitStatus,
+  ProcessingStatus,
+  STEPPER,
+} from '../types';
 
 const initialState: PermitCartState = {
   currentStep: STEPPER.VALID_PERMITS,
 };
+
+const getRegForStatus = (
+  payload: { [registrationNumber: string]: Permit },
+  status: PermitStatus
+) =>
+  Object.values(payload)
+    .filter(permit => permit.status === status)
+    .map(permit => permit.vehicle.registrationNumber);
 
 const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
   .case(setCurrentStepperAction, (state, action) => ({
@@ -42,7 +56,11 @@ const cartReducer = reducerWithInitialState<PermitCartState>(initialState)
   .case(fetchPermitAction.done, (state, action) => ({
     ...state,
     fetchingStatus: ProcessingStatus.SUCCESS,
-    registrationNumbers: Object.keys(action.result),
+    registrationNumbers: getRegForStatus(action.result, PermitStatus.DRAFT),
+    validRegistrationNumbers: getRegForStatus(
+      action.result,
+      PermitStatus.VALID
+    ),
     permits: action.result,
   }))
   .case(updatePermitAction.started, state => ({
