@@ -36,7 +36,7 @@ const PurchasedOverview = ({ address, permits }: Props): React.ReactElement => {
         <Button
           className="action-btn"
           theme="black"
-          onClick={() => dispatch(setCurrentStepper(STEPPER.ADDRESS_SELECTOR))}>
+          onClick={() => dispatch(setCurrentStepper(STEPPER.VALID_PERMITS))}>
           <span>{t(`${T_PATH}.actionBtn.frontPage`)}</span>
         </Button>
 
