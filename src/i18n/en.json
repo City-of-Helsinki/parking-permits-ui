@@ -1,4 +1,6 @@
 {
+  "common.addressLabel.permanentAddress": "Permanent address",
+  "common.addressLabel.temporaryAddress": "Temporary Address",
   "common.addressSelector.AddressSelector.actionBtn.buyPermit": "Buy parking permit",
   "common.addressSelector.AddressSelector.notification.info.label": "You do not have a valid parking permit",
   "common.addressSelector.AddressSelector.notification.info.message": "Based on your personal information from the Population Register Center, you can purchase a parking permit for the adjacent zones.",
