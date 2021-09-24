@@ -113,6 +113,14 @@ export const fetchUserPermits =
       }
       const result = keyBy(permits, 'vehicle.registrationNumber');
       dispatch(fetchPermitAction.done({ params: {}, result }));
+      if (paidPermits?.length > 0) {
+        const { primaryAddress, otherAddress } = user;
+        const firstPermit = paidPermits[0];
+        const selectedAdd = [primaryAddress, otherAddress].find(
+          add => add.zone?.id === firstPermit.parkingZone.id
+        );
+        dispatch(setSelectedAddress(selectedAdd as UserAddress));
+      }
     } else {
       const error = new Error(errors.join('\n'));
       dispatch(fetchPermitAction.failed({ error, params: {} }));
