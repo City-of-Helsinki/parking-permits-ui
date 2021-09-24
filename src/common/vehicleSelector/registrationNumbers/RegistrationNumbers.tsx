@@ -33,6 +33,7 @@ export interface Props {
   permits: { [registrationNumber: string]: Permit };
   selectedAddress: UserAddress;
   userProfile: UserProfile;
+  numOfUserCars: number;
   registrationNumbers: string[] | undefined;
   fetchingStatus?: ProcessingStatus;
   error?: Error;
@@ -45,6 +46,7 @@ const RegistrationNumbers = ({
   registrationNumbers,
   selectedAddress,
   userProfile,
+  numOfUserCars,
   fetchingStatus,
   error,
   permits,
@@ -82,7 +84,7 @@ const RegistrationNumbers = ({
               index={index}
             />
           ))}
-        {registrationNumbers && registrationNumbers?.length < 2 && (
+        {numOfUserCars < 2 && (
           <Button
             variant="supplementary"
             style={{
