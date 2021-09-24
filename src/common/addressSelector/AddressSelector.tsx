@@ -46,12 +46,14 @@ const AddressSelector = ({
           address={primaryAddress}
           selectedAddress={selectedAddress}
         />
-        <Address
-          isPrimary={false}
-          address={otherAddress}
-          selectedAddress={selectedAddress}
-        />
+        {otherAddress && (
+          <Address
+            isPrimary={false}
+            address={otherAddress}
             disableSelection={validRegistrations.length > 0}
+            selectedAddress={selectedAddress}
+          />
+        )}
       </div>
       <div className="action-buttons">
         <Button
