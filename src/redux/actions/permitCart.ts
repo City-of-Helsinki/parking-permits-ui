@@ -165,7 +165,7 @@ export const updatePermit =
   };
 
 export const createPermit =
-  (customerId: string, zoneId: string, registration: string) =>
+  (user: UserProfile, zoneId: string, registrations: string[]) =>
   async (
     dispatch: ThunkDispatch<
       Record<string, unknown>,
@@ -175,7 +175,7 @@ export const createPermit =
   ): Promise<void> => {
     dispatch(createPermitAction.started({}));
 
-    const variables = { customerId, zoneId, registration };
+    const variables = { customerId: user.id, zoneId, registrations };
     const client = new PermitGqlClient(
       loader('../../graphql/createPermit.graphql')
     );
@@ -183,10 +183,9 @@ export const createPermit =
     const { createParkingPermit } =
       await client.mutate<CreatePermitQueryResult>(variables);
 
-    const { permit, success, errors } = createParkingPermit;
+    const { success, errors } = createParkingPermit;
     if (success) {
-      const result = { [registration]: permit };
-      dispatch(createPermitAction.done({ params: {}, result }));
+      await dispatch(fetchUserPermits(user));
     } else {
       const error = new Error(errors.join('\n'));
       dispatch(createPermitAction.failed({ error, params: {} }));
