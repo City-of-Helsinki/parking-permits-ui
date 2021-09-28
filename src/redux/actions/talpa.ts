@@ -82,7 +82,7 @@ export const purchasePermit =
         })
       );
       const { checkoutUrl, user: userId } = orderRes.data;
-      window.open(`${checkoutUrl}?userId=${userId}`, '_blank');
+      window.open(`${checkoutUrl}?user=${userId}`, '_self');
     } catch (err) {
       dispatch(
         talpaAction.failed({
