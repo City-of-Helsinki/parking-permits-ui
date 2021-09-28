@@ -1,34 +1,6 @@
-mutation Mutation($zoneId: ID!, $registration: String!) {
-  createParkingPermit(zoneId: $zoneId, registration: $registration) {
+mutation Mutation($zoneId: ID!, $registrations: [String]!) {
+  createParkingPermit(zoneId: $zoneId, registrations: $registrations) {
     success
     errors
-    permit {
-      id
-      startType
-      startTime
-      primaryVehicle
-      status
-      contractType
-      monthCount
-      vehicle {
-        id
-        type {
-          id
-          type
-        }
-        model
-        emission
-        isLowEmission
-        manufacturer
-        productionYear
-        registrationNumber
-      }
-      prices {
-        priceNet
-        priceVat
-        priceGross
-        vatPercentage
-      }
-    }
   }
 }

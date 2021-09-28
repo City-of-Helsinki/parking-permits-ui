@@ -23,6 +23,14 @@ mutation Mutation($permitId: ID!, $input: ParkingPermitInput!) {
         productionYear
         registrationNumber
       }
+      parkingZone {
+        id
+        name
+        price
+        description
+        descriptionSv
+        location
+      }
       prices {
         priceNet
         priceVat

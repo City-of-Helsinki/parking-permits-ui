@@ -66,6 +66,7 @@ export type CreatePermitQueryResult = {
 export type Zone = {
   id: string;
   name: string;
+  price: number;
   sharedProductId: string;
   description: string;
   descriptionSv: string;
@@ -82,6 +83,7 @@ export type UserAddress = {
   postalCode: string;
   location?: Position;
   zone?: Zone;
+  primary: boolean;
 };
 
 export type UserProfile = {
@@ -91,8 +93,8 @@ export type UserProfile = {
   lastName: string;
   language: string;
   phoneNumber: string;
-  primaryAddress: GraphQLAddress;
-  otherAddress: GraphQLAddress;
+  primaryAddress: UserAddress;
+  otherAddress: UserAddress;
   token: string;
 };
 
@@ -134,10 +136,18 @@ export enum ParkingStartType {
   FROM = 'FROM',
 }
 
+export enum PermitStatus {
+  DRAFT = 'DRAFT',
+  VALID = 'VALID',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
+}
+
 export interface PermitCartState {
   selectedAddress?: UserAddress;
   currentStep: number;
   registrationNumbers?: string[];
+  validRegistrationNumbers?: string[];
   permits?: {
     [registrationNumber: string]: Permit;
   };
@@ -165,12 +175,13 @@ export type Permit = {
   id: string;
   startType?: ParkingStartType;
   startTime?: Date | string;
-  status: string;
+  status: PermitStatus;
   primaryVehicle: boolean;
   vehicle: Vehicle;
   prices: Price;
   contractType: ParkingContractType;
   monthCount: number;
+  parkingZone: Zone;
 };
 
 export type VehicleType = {
@@ -190,6 +201,7 @@ export type Vehicle = {
 };
 
 export enum STEPPER {
+  VALID_PERMITS = 0,
   ADDRESS_SELECTOR = 1,
   VEHICLE_SELECTOR = 2,
   // eslint-disable-next-line no-magic-numbers

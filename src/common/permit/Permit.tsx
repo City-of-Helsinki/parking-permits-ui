@@ -1,29 +1,46 @@
 import { addMonths, format } from 'date-fns';
-import { Card, IconCheckCircle, IconDocument } from 'hds-react';
+import {
+  Button,
+  Card,
+  IconAngleRight,
+  IconCheckCircle,
+  IconDocument,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import {
   ParkingContractType,
   Permit as PermitModel,
   UserAddress,
+  UserProfile,
 } from '../../redux';
-import { formatAddress } from '../utils';
+import { deletePermit } from '../../redux/actions/permitCart';
+import AddressLabel from '../addressLabel/AddressLabel';
+import ParkingZonesMap from '../addressSelector/parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
 
 const T_PATH = 'common.permit.Permit';
 
 export interface Props {
+  user?: UserProfile;
   address: UserAddress;
   permits: PermitModel[];
+  showActionsButtons?: boolean;
+  showChangeAddressButtons?: boolean;
 }
 
 const Permit = ({
-  address: userAddress,
+  user,
   permits,
+  address,
+  showActionsButtons = false,
+  showChangeAddressButtons = false,
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy HH:mm';
-  const { t, i18n } = useTranslation();
-  const { zone } = userAddress;
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const getEndTime = (permit: PermitModel) =>
     permit.startTime
@@ -48,43 +65,72 @@ const Permit = ({
         </div>
         <div className="pp-list__subtitle">
           <span>
-            {t(`${T_PATH}.startTime`)}:{' '}
             {format(new Date(permit.startTime as string), dateFormat)}
+            {' - '}
+            {permit.contractType === ParkingContractType.OPEN_ENDED &&
+              t(`${T_PATH}.contractType`)}
+            {permit.contractType !== ParkingContractType.OPEN_ENDED &&
+              getEndTime(permit)}
           </span>
-          {permit.contractType === ParkingContractType.OPEN_ENDED && (
-            <span>{t(`${T_PATH}.contractType`)}</span>
-          )}
-          {permit.contractType !== ParkingContractType.OPEN_ENDED && (
-            <span>
-              {t(`${T_PATH}.endTime`)}: {getEndTime(permit)}
-            </span>
-          )}
         </div>
+        {permit.vehicle.isLowEmission && (
+          <div className="message">
+            <IconCheckCircle color="var(--color-success)" />
+            <div className="message-text">{t(`${T_PATH}.discount`)}</div>
+          </div>
+        )}
+        <div className="divider" />
       </div>
     );
   };
+  const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
   return (
     <div className="permit-component">
-      <div className="section-label">{t(`${T_PATH}.label`)}</div>
-      <Card className="card">
-        <div className="pp-list">
-          <div className="pp-list__title">
-            <span className="pp-list__title__icon">{zone?.name}</span>
-            <span className="pp-list__title__text">
-              {t(`${T_PATH}.parkingZone`)}
-            </span>
+      <Card
+        style={{
+          minWidth: 'calc(50% - 72px)',
+          paddingBottom: canEditAddress() ? '0' : 'var(--spacing-l)',
+        }}>
+        <AddressLabel address={address} />
+        <ParkingZonesMap userAddress={address} zoom={13} />
+        {showActionsButtons && showChangeAddressButtons && (
+          <div className="permit-action-btns">
+            <Button
+              className="permit-actions-buttons"
+              variant="supplementary"
+              style={{ margin: 'var(--spacing-xs) 0' }}
+              iconLeft={<IconAngleRight />}>
+              {t(`${T_PATH}.changeAddress`)}
+            </Button>
           </div>
-          <div className="pp-list__subtitle">
-            {formatAddress(userAddress, i18n.language)}
-          </div>
-        </div>
-        {permits.map(permit => getPermit(permit))}
-        <div className="divider" />
-        <div className="message">
-          <IconCheckCircle />
-          <div className="message-text">{t(`${T_PATH}.discount`)}</div>
-        </div>
+        )}
       </Card>
+      <div className="permit-card">
+        {permits.map((permit, index) => (
+          <Card
+            key={uuidv4()}
+            style={{ marginTop: index > 0 ? 'var(--spacing-xs)' : '0' }}>
+            {getPermit(permit)}
+            {showActionsButtons && (
+              <div className="permit-action-btns">
+                <Button variant="supplementary" iconLeft={<IconAngleRight />}>
+                  {t(`${T_PATH}.editVehicle`)}
+                </Button>
+                {permits.length > 1 && index > 0 && (
+                  <Button
+                    variant="supplementary"
+                    iconLeft={<IconAngleRight />}
+                    onClick={() =>
+                      dispatch(deletePermit(user as UserProfile, permit.id))
+                    }>
+                    {t(`${T_PATH}.removeSecondaryVehicle`)}
+                  </Button>
+                )}
+              </div>
+            )}
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };

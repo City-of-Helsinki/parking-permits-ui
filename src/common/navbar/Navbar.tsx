@@ -92,14 +92,17 @@ const Navbar = ({ authenticated, currentStep }: Props): React.ReactElement => {
         <Navigation.LanguageSelector label={lang.toUpperCase()}>
           <Navigation.Item
             label={t(`${T_PATH}.lang.fi`)}
+            lang="fi"
             onClick={(): void => setLanguage('fi')}
           />
           <Navigation.Item
             label={t(`${T_PATH}.lang.sv`)}
+            lang="sv"
             onClick={(): void => setLanguage('sv')}
           />
           <Navigation.Item
             label={t(`${T_PATH}.lang.en`)}
+            lang="en"
             onClick={(): void => setLanguage('en')}
           />
         </Navigation.LanguageSelector>

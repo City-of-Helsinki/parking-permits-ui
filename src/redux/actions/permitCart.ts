@@ -9,6 +9,8 @@ import {
   DeletePermitQueryResult,
   Permit,
   PermitQueryResult,
+  PermitStatus,
+  STEPPER,
   UpdatePermitQueryResult,
   UserAddress,
   UserProfile,
@@ -87,7 +89,7 @@ export const updateRegistration =
   };
 
 export const fetchUserPermits =
-  (user: UserProfile) =>
+  (user: UserProfile, initialFetch = false) =>
   async (
     dispatch: ThunkDispatch<
       Record<string, unknown>,
@@ -103,8 +105,22 @@ export const fetchUserPermits =
 
     const { permits, success, errors } = getPermits;
     if (success) {
+      const paidPermits = Object.values(permits || []).filter(
+        permit => permit.status === PermitStatus.VALID
+      );
+      if (paidPermits.length === 0 && initialFetch) {
+        dispatch(setCurrentStepper(STEPPER.ADDRESS_SELECTOR));
+      }
       const result = keyBy(permits, 'vehicle.registrationNumber');
       dispatch(fetchPermitAction.done({ params: {}, result }));
+      if (paidPermits?.length > 0) {
+        const { primaryAddress, otherAddress } = user;
+        const firstPermit = paidPermits[0];
+        const selectedAdd = [primaryAddress, otherAddress].find(
+          add => add.zone?.id === firstPermit.parkingZone.id
+        );
+        dispatch(setSelectedAddress(selectedAdd as UserAddress));
+      }
     } else {
       const error = new Error(errors.join('\n'));
       dispatch(fetchPermitAction.failed({ error, params: {} }));
@@ -149,7 +165,7 @@ export const updatePermit =
   };
 
 export const createPermit =
-  (customerId: string, zoneId: string, registration: string) =>
+  (user: UserProfile, zoneId: string, registrations: string[]) =>
   async (
     dispatch: ThunkDispatch<
       Record<string, unknown>,
@@ -159,7 +175,7 @@ export const createPermit =
   ): Promise<void> => {
     dispatch(createPermitAction.started({}));
 
-    const variables = { customerId, zoneId, registration };
+    const variables = { customerId: user.id, zoneId, registrations };
     const client = new PermitGqlClient(
       loader('../../graphql/createPermit.graphql')
     );
@@ -167,10 +183,9 @@ export const createPermit =
     const { createParkingPermit } =
       await client.mutate<CreatePermitQueryResult>(variables);
 
-    const { permit, success, errors } = createParkingPermit;
+    const { success, errors } = createParkingPermit;
     if (success) {
-      const result = { [registration]: permit };
-      dispatch(createPermitAction.done({ params: {}, result }));
+      await dispatch(fetchUserPermits(user));
     } else {
       const error = new Error(errors.join('\n'));
       dispatch(createPermitAction.failed({ error, params: {} }));

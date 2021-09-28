@@ -22,6 +22,7 @@ const VehicleSelector = ({
     permits,
     currentStep,
     registrationNumbers,
+    validRegistrationNumbers,
     selectedAddress,
     fetchingStatus,
     error,
@@ -40,6 +41,10 @@ const VehicleSelector = ({
       message: t(`${T_PATH}.notification.info.message`),
     },
   ];
+  const numOfUserCars = () =>
+    [...(registrationNumbers || []), ...(validRegistrationNumbers || [])]
+      .length;
+
   return (
     <div className="vehicle-selector-component">
       <div className="zone__type">
@@ -68,6 +73,7 @@ const VehicleSelector = ({
         permits &&
         selectedAddress && (
           <RegistrationNumbers
+            numOfUserCars={numOfUserCars()}
             permits={permits}
             selectedAddress={selectedAddress}
             userProfile={userProfile}

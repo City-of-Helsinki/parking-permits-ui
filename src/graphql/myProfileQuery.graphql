@@ -16,10 +16,12 @@ query {
       citySv
       postalCode
       location
+      primary
       zone {
         id
         sharedProductId
         name
+        price
         description
         descriptionSv
         location
@@ -34,10 +36,12 @@ query {
       citySv
       postalCode
       location
+      primary
       zone {
         id
         sharedProductId
         name
+        price
         description
         descriptionSv
         location

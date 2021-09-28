@@ -33,6 +33,7 @@ export interface Props {
   permits: { [registrationNumber: string]: Permit };
   selectedAddress: UserAddress;
   userProfile: UserProfile;
+  numOfUserCars: number;
   registrationNumbers: string[] | undefined;
   fetchingStatus?: ProcessingStatus;
   error?: Error;
@@ -45,9 +46,9 @@ const RegistrationNumbers = ({
   registrationNumbers,
   selectedAddress,
   userProfile,
+  numOfUserCars,
   fetchingStatus,
   error,
-  permits,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -55,21 +56,16 @@ const RegistrationNumbers = ({
     setTimeout(() => dispatch(addRegistration('')));
   }
 
-  const fetchVehicleDetailAndPrices = () => {
-    if (registrationNumbers?.length) {
-      registrationNumbers.forEach(reg => {
-        if (!permits[reg]) {
-          dispatch(
-            createPermit(
-              userProfile.id,
-              selectedAddress.zone?.id as string,
-              reg
-            )
-          );
-        }
-      });
-      dispatch(setCurrentStepper(STEPPER.PERMIT_PRICES));
-    }
+  const createPermits = () => {
+    if (!registrationNumbers?.length) return;
+    dispatch(
+      createPermit(
+        userProfile,
+        selectedAddress.zone?.id as string,
+        registrationNumbers
+      )
+    );
+    dispatch(setCurrentStepper(STEPPER.PERMIT_PRICES));
   };
   return (
     <div className="registration-numbers-selector-component">
@@ -82,7 +78,7 @@ const RegistrationNumbers = ({
               index={index}
             />
           ))}
-        {registrationNumbers && registrationNumbers?.length < 2 && (
+        {numOfUserCars < 2 && (
           <Button
             variant="supplementary"
             style={{
@@ -112,7 +108,7 @@ const RegistrationNumbers = ({
             !allRegistrationValid(registrationNumbers) ||
             fetchingStatus === ProcessingStatus.PROCESSING
           }
-          onClick={fetchVehicleDetailAndPrices}>
+          onClick={createPermits}>
           {fetchingStatus === ProcessingStatus.PROCESSING && (
             <LoadingSpinner small />
           )}
