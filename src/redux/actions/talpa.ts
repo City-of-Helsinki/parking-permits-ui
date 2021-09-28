@@ -37,7 +37,6 @@ export const purchasePermit =
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      phone: user.phoneNumber || '+358440210054',
     };
     /* TODO: Right now we send order for only one permit
      * Update this once talpa fixes to handle multiple
@@ -54,7 +53,9 @@ export const purchasePermit =
       return {
         quantity: permit.monthCount,
         productId: address.zone?.sharedProductId as string,
-        productName: address.zone?.name as string,
+        productName: `${address.zone?.name as string} (${
+          permit?.vehicle.registrationNumber
+        })`,
         unit: 'pcs',
         meta: [{ key: 'permitId', value: permit.id }],
         ...permit.prices,
