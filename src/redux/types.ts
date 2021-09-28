@@ -238,7 +238,7 @@ export type TalpaCustomer = {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
 };
 
 export type TalpaMeta = {
