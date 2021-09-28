@@ -100,7 +100,7 @@ const Permit = ({
               variant="supplementary"
               style={{ margin: 'var(--spacing-xs) 0' }}
               iconLeft={<IconAngleRight />}>
-              {t(`Vaihda osoitetta`)}
+              {t(`${T_PATH}.changeAddress`)}
             </Button>
           </div>
         )}
@@ -114,7 +114,7 @@ const Permit = ({
             {showActionsButtons && (
               <div className="permit-action-btns">
                 <Button variant="supplementary" iconLeft={<IconAngleRight />}>
-                  {t(`Muokkaa ajoneuvon tietoja`)}
+                  {t(`${T_PATH}.editVehicle`)}
                 </Button>
                 {permits.length > 1 && index > 0 && (
                   <Button
@@ -123,7 +123,7 @@ const Permit = ({
                     onClick={() =>
                       dispatch(deletePermit(user as UserProfile, permit.id))
                     }>
-                    {t(`Poista toinen ajoneuvo`)}
+                    {t(`${T_PATH}.removeSecondaryVehicle`)}
                   </Button>
                 )}
               </div>
