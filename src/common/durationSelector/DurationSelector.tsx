@@ -47,7 +47,6 @@ const DurationSelector = ({
   const dispatch = useDispatch();
   const sendPurchaseOrderRequest = () => {
     dispatch(purchasePermit(userProfile, address, Object.values(permits)));
-    dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
   };
 
   const updatePermitData = (reg: string, payload: Partial<Permit>) => {
