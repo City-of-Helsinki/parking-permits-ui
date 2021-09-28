@@ -15,8 +15,9 @@ import Stepper from './common/stepper/Stepper';
 import FrontPage from './pages/frontPage/FrontPage';
 import LandingPage from './pages/landingPage/LandingPage';
 import ProfilePage from './pages/profilePage/ProfilePage';
-import { StoreState } from './redux';
+import { STEPPER, StoreState } from './redux';
 import { fetchUserProfile } from './redux/actions/helsinkiProfile';
+import { setCurrentStepper } from './redux/actions/permitCart';
 
 setClientConfig(clientConfig);
 
@@ -25,6 +26,7 @@ function App(): React.ReactElement {
   const dispatch = useDispatch();
   const { callbackPath } = clientConfig;
   const isCallbackUrl = useRouteMatch(callbackPath);
+  const isSuccessUrl = useRouteMatch('/success/');
   const { permitCartState, helsinkiProfileState, talpaState } = useSelector(
     (state: StoreState) => state
   );
@@ -32,6 +34,9 @@ function App(): React.ReactElement {
   const actions = useContext(ApiAccessTokenContext) as ApiAccessTokenActions;
   const { getStatus: getAPITokenStatus } = actions;
 
+  if (isSuccessUrl) {
+    dispatch(setCurrentStepper(STEPPER.PURCHASED_VIEW));
+  }
   if (callbackPath && isCallbackUrl) {
     return <OidcCallback successRedirect="/" failureRedirect="/authError" />;
   }
