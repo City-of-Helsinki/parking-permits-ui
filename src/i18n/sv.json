@@ -75,7 +75,7 @@
   "common.vehicleSelector.VehicleSelector.notification.info.message": "Den första koden är det normala priset, den andra koden är 1,5 gånger priset. Fordonet med lågt utsläpp till halva priset.",
   "common.vehicleSelector.VehicleSelector.notification.success.label": "Din fordonsinformation är uppdaterad",
   "common.vehicleSelector.VehicleSelector.notification.success.message": "Ditt fordon",
-  "common.vehicleSelector.VehicleSelector.singlePermitSectionLabel": "Ajoneuvuosi",
+  "common.vehicleSelector.VehicleSelector.singlePermitSectionLabel": "Ditt fordon",
   "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.continue": "Fortsätt",
   "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Gå tillbaka för att välja fordon",
   "common.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Ta bort",
