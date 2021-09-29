@@ -75,7 +75,7 @@
   "common.vehicleSelector.VehicleSelector.notification.info.message": "1. tunnus on normaalihintainen, 2. tunnuksen hinta 1,5-kertainen. Vähäpäästöinen ajoneuvo puoleen hintaan.",
   "common.vehicleSelector.VehicleSelector.notification.success.label": "Ajoneuvosi tiedot ovat ajantasalla",
   "common.vehicleSelector.VehicleSelector.notification.success.message": "",
-  "common.vehicleSelector.VehicleSelector.singlePermitSectionLabel": "Ajoneuvuosi",
+  "common.vehicleSelector.VehicleSelector.singlePermitSectionLabel": "Ajoneuvosi",
   "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.continue": "Jatka",
   "common.vehicleSelector.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Palaa valitsemaan ajoneuvo",
   "common.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Poista",
