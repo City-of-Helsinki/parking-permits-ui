@@ -1,24 +1,20 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router';
 import { Card, Container } from 'reactstrap';
-import { ApiAccessTokenActions } from '../../client/types';
-import { ApiAccessTokenContext } from '../../common/apiAccessTokenProvider';
-import { StoreState } from '../../redux';
+import { UserProfileContext } from '../../hooks/userProfileProvider';
+import { ROUTES } from '../../types';
 
 const T_PATH = 'pages.profilePage.ProfilePage';
 
 const ProfilePage = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const actions = useContext(ApiAccessTokenContext) as ApiAccessTokenActions;
-  const { helsinkiProfileState } = useSelector((state: StoreState) => state);
-  const { firstName, lastName, primaryAddress, otherAddress } =
-    helsinkiProfileState.profile;
-  const { getStatus: getApiAccessTokenStatus } = actions;
-  const apiAccessTokenStatus = getApiAccessTokenStatus();
-  if (apiAccessTokenStatus === 'error') {
-    return <div>{t(`${T_PATH}.apiError`)}</div>;
+  const profileCtx = useContext(UserProfileContext);
+  if (!profileCtx?.getProfile()) {
+    return <Navigate to={ROUTES.LANDING} />;
   }
+  const { firstName, lastName, primaryAddress, otherAddress } =
+    profileCtx?.getProfile();
 
   const getAddresses = () =>
     [primaryAddress, otherAddress].map((address, index) => (
@@ -40,7 +36,7 @@ const ProfilePage = (): React.ReactElement => {
   return (
     <Container>
       <div style={{ fontSize: 'var(--fontsize-heading-m)' }}>
-        Helsinki profile:
+        {t(`${T_PATH}Helsinki profile:`)}
       </div>
       <Card
         style={{ marginTop: 'var(--spacing-s)', padding: 'var(--spacing-xs)' }}>
@@ -58,7 +54,7 @@ const ProfilePage = (): React.ReactElement => {
       </Card>
       <div style={{ fontSize: 'var(--fontsize-heading-m)' }}>Data:</div>
       <Card>
-        <pre>{JSON.stringify(helsinkiProfileState.profile, null, 2)}</pre>
+        <pre>{JSON.stringify(profileCtx?.getProfile(), null, 2)}</pre>
       </Card>
     </Container>
   );
