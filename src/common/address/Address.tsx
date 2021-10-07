@@ -6,16 +6,15 @@ import {
   Notification,
   RadioButton,
 } from 'hds-react';
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { UserAddress } from '../../../redux';
-import { setSelectedAddress } from '../../../redux/actions/permitCart';
-import { formatAddress } from '../../utils';
+import { PermitStateContext } from '../../hooks/permitProvider';
+import { UserAddress } from '../../types';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
+import { formatAddress } from '../utils';
 import './address.scss';
 
-const T_PATH = 'common.addressSelector.address.Address';
+const T_PATH = 'common.address.Address';
 
 interface AddressHeaderProps {
   isPrimary: boolean;
@@ -49,7 +48,7 @@ const Address: FC<Props> = ({
   selectedAddress,
   disableSelection = false,
 }): React.ReactElement => {
-  const dispatch = useDispatch();
+  const permitCtx = useContext(PermitStateContext);
 
   const [openState, setOpenState] = useState(true);
   const { t } = useTranslation();
@@ -68,7 +67,7 @@ const Address: FC<Props> = ({
           disabled={!address.zone || disableSelection}
           label={<AddressLabel isPrimary={isPrimary} address={address} />}
           checked={selectedAddress?.id === address.id}
-          onClick={() => dispatch(setSelectedAddress(address))}
+          onClick={() => permitCtx?.setAddress(address)}
         />
         <ArrowIcon onClick={() => setOpenState(!openState)} />
       </div>
