@@ -1,10 +1,5 @@
-import React, {
-  createContext,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { isEmpty } from 'lodash';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 import { getClient } from './oidc-react';
 import {
   ApiAccessTokenActions,
@@ -162,8 +157,15 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
     setApiTokens(undefined);
     setStatus('unauthorized');
   }
-  const fetchTokens: ApiAccessTokenActions['fetch'] = useCallback(
-    async options => {
+  const hasApiTokens = !isEmpty(apiTokens);
+
+  useEffect(() => {
+    const autoFetch = async (): Promise<void> => {
+      const options = {
+        audience: String(process.env.REACT_APP_API_BACKEND_AUDIENCE),
+        permission: String(process.env.REACT_APP_API_BACKEND_PERMISSION),
+        grantType: String(process.env.REACT_APP_API_BACKEND_GRANT_TYPE),
+      };
       setStatus('loading');
       const result = await client.getApiAccessToken(options);
       if (result.error) {
@@ -178,25 +180,12 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
         setApiTokens(result as JWTPayload);
         setStatus('loaded');
       }
-      return result;
-    },
-    [client]
-  );
-
-  useEffect(() => {
-    const autoFetch = async (): Promise<void> => {
-      if (currentStatus !== 'ready') {
-        return;
-      }
-      fetchTokens({
-        audience: String(process.env.REACT_APP_API_BACKEND_AUDIENCE),
-        permission: String(process.env.REACT_APP_API_BACKEND_PERMISSION),
-        grantType: String(process.env.REACT_APP_API_BACKEND_GRANT_TYPE),
-      });
     };
+    if (currentStatus === 'ready' && !hasApiTokens) {
+      autoFetch();
+    }
+  }, [client, currentStatus, hasApiTokens]);
 
-    autoFetch();
-  }, [fetchTokens, currentStatus]);
   return {
     getStatus: () => status,
     getErrorMessage: () => {
@@ -211,7 +200,6 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
       }
       return undefined;
     },
-    fetch: options => fetchTokens(options),
     getTokens: () => apiTokens,
   } as ApiAccessTokenActions;
 }
