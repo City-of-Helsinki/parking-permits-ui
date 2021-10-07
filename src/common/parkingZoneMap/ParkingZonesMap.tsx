@@ -4,8 +4,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { v4 as uuidv4 } from 'uuid';
-import marker from '../../../assets/images/icon_poi_talo-sininen.svg';
-import { UserAddress } from '../../../redux';
+import marker from '../../assets/images/icon_poi_talo-sininen.svg';
+import { UserAddress } from '../../types';
 import './parkingZonesMap.css';
 
 const icon = new L.Icon({
