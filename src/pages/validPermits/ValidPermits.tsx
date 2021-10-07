@@ -1,72 +1,63 @@
 import { Button, IconPlusCircle, IconTrash } from 'hds-react';
 import { first } from 'lodash';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import {
-  Permit as PermitModel,
-  PermitStatus,
-  STEPPER,
-  UserAddress,
-  UserProfile,
-} from '../../redux';
-import {
-  deletePermit,
-  setCurrentStepper,
-} from '../../redux/actions/permitCart';
-import Permit from '../permit/Permit';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Permit from '../../common/permit/Permit';
+import { PermitStateContext } from '../../hooks/permitProvider';
+import { UserProfileContext } from '../../hooks/userProfileProvider';
+import { ROUTES, UserAddress } from '../../types';
 import './validPermits.scss';
 
-const T_PATH = 'common.validPermit';
+const T_PATH = 'pages.validPermit.ValidPermit';
 
-export interface Props {
-  user: UserProfile;
-  addresses: UserAddress[];
-  permits: PermitModel[];
-}
-
-const ValidPermits = ({
-  addresses,
-  permits,
-  user,
-}: Props): React.ReactElement => {
-  const dispatch = useDispatch();
+const ValidPermits = (): React.ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const profileCtx = useContext(UserProfileContext);
+  const permitCtx = useContext(PermitStateContext);
+
+  const profile = profileCtx?.getProfile();
+  const validPermits = permitCtx?.getValidPermits();
+
+  if (!profile || !validPermits?.length) {
+    return <Navigate to={ROUTES.BASE} />;
+  }
+
+  const { primaryAddress, otherAddress } = profile;
+  const addresses = [primaryAddress, otherAddress];
 
   const getAddress = (): UserAddress | undefined => {
-    const firstPermit = first(Object.values(permits || []));
+    const firstPermit = first(validPermits);
     return addresses.find(add => add.zone?.id === firstPermit?.parkingZone.id);
   };
+
   const address = getAddress();
-  const paidPermits = Object.values(permits || []).filter(
-    permit => permit.status === PermitStatus.VALID
-  );
   const deletePermits = () => {
-    permits.map(permit => dispatch(deletePermit(user, permit.id)));
-    dispatch(setCurrentStepper(STEPPER.ADDRESS_SELECTOR));
+    validPermits.map(permit => permitCtx?.deletePermit(permit.id));
+    navigate(ROUTES.ADDRESS);
   };
+
   return (
     <div className="valid-permit-component">
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
-      {address && paidPermits.length > 0 && address.zone && (
+      {address && validPermits.length > 0 && address.zone && (
         <Permit
-          user={user}
+          user={profile}
           address={address}
-          permits={paidPermits}
+          permits={validPermits}
           showActionsButtons
           showChangeAddressButtons={addresses.length > 1}
         />
       )}
       <div className="action-buttons">
-        {paidPermits.length === 1 && (
+        {validPermits.length === 1 && (
           <Button
             className="action-btn"
             variant="secondary"
             theme="black"
             iconLeft={<IconPlusCircle />}
-            onClick={() =>
-              dispatch(setCurrentStepper(STEPPER.ADDRESS_SELECTOR))
-            }>
+            onClick={() => navigate(ROUTES.CAR_REGISTRATIONS)}>
             {t(`${T_PATH}.newOrder`)}
           </Button>
         )}
