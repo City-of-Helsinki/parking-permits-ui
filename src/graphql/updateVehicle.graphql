@@ -1,0 +1,19 @@
+mutation Mutation($vehicleId: ID!, $registration: String!) {
+  updateVehicle(vehicleId: $vehicleId, registration: $registration) {
+    success
+    errors
+    vehicle {
+      id
+      type {
+        id
+        type
+      }
+      model
+      emission
+      isLowEmission
+      manufacturer
+      productionYear
+      registrationNumber
+    }
+  }
+}
