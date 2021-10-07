@@ -47,12 +47,11 @@
     padding: var(--spacing-xl);
   }
   .time-period {
-    padding-top: var(--spacing-l);
+    padding-top: var(--spacing-s);
     padding-bottom: var(--spacing-s);
     .month-selection,
     .date-selection {
-      padding-top: var(--spacing-l);
-      padding-left: var(--spacing-l);
+      padding-top: var(--spacing-s);
       padding-right: var(--spacing-3-xl);
     }
     &.with-bottom-border {
