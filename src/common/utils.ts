@@ -1,4 +1,4 @@
-import { UserAddress } from '../redux/types';
+import { UserAddress } from '../types';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formatAddress = (address: UserAddress, lang: string): string => {

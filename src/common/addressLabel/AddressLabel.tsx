@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UserAddress } from '../../redux';
+import { UserAddress } from '../../types';
 import { formatAddress } from '../utils';
 import './addressLabel.scss';
 
