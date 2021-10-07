@@ -9,25 +9,16 @@ import {
   Link,
   RadioButton,
 } from 'hds-react';
-import React from 'react';
+import { first, sortBy } from 'lodash';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { Permit, STEPPER, UserProfile } from '../../../redux';
-import {
-  deletePermit,
-  setCurrentStepper,
-  updatePermit,
-} from '../../../redux/actions/permitCart';
+import { PermitStateContext } from '../../hooks/permitProvider';
+import { Permit, ROUTES, STEPPER } from '../../types';
 import './permitPrices.scss';
 
-const T_PATH = 'common.vehicleSelector.permitPrices.PermitPrices';
-
-export interface Props {
-  registrations: string[];
-  userProfile: UserProfile;
-  permits: { [reg: string]: Permit };
-}
+const T_PATH = 'pages.permitPrices.PermitPrices';
 
 const DiscountCheckboxLabel = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -43,50 +34,76 @@ const DiscountCheckboxLabel = (): React.ReactElement => {
   );
 };
 
-const PermitPrices = ({
-  registrations,
-  userProfile,
-  permits,
-}: Props): React.ReactElement => {
+const PermitPrices = (): React.ReactElement => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [useDiscount, setDiscount] = React.useState(false);
-  const onChange = (event: { target: { checked: boolean } }) => {
-    setDiscount(event.target.checked);
-  };
-  const changePrimaryVehicle = async (
-    reg: string,
-    permit: Permit,
-    isPrimary: boolean
+  const navigate = useNavigate();
+  const permitCtx = useContext(PermitStateContext);
+
+  const permits = permitCtx?.getDraftPermits();
+  const registrations = permits?.map(p => p.vehicle.registrationNumber);
+  const currentStep = permitCtx?.getStep();
+  const firstPermit = first(sortBy(permits, 'id'));
+
+  const updatePermitData = (
+    permitsToUpdate: Permit[],
+    payload: Partial<Permit>
   ) => {
-    dispatch(
-      updatePermit(userProfile, reg, permit.id, {
-        primaryVehicle: isPrimary,
-      })
+    permitCtx?.updatePermit(
+      permitsToUpdate.map(p => p.id),
+      payload
+    );
+  };
+
+  if (!registrations?.length) {
+    return <Navigate to={ROUTES.CAR_REGISTRATIONS} />;
+  }
+
+  if (currentStep !== STEPPER.PERMIT_PRICES) {
+    const timeOutFor = 100;
+    setTimeout(() => permitCtx?.setStep(STEPPER.PERMIT_PRICES), timeOutFor);
+  }
+
+  const getPrices = (permit: Permit) => {
+    const { isLowEmission } = permit.vehicle;
+    const { priceGross } = permit.prices;
+    return (
+      <div className="price">
+        {isLowEmission && (
+          <div
+            className={classNames('original', {
+              invalid: isLowEmission,
+            })}>{`${priceGross} €/KK`}</div>
+        )}
+        <div className="offer">{`${priceGross} €/KK`}</div>
+      </div>
     );
   };
 
   return (
     <div className="permit-prices-component">
       <div className="offer-container">
-        {registrations
-          .filter(reg => !!permits[reg])
-          .map(reg => [reg, permits[reg]] as [string, Permit])
+        {sortBy(permits || [], 'vehicle.registrationNumber')
+          .filter(permit => !!permit)
+          .map(
+            permit =>
+              [permit.vehicle.registrationNumber, permit] as [string, Permit]
+          )
           .map(([reg, permit]) => (
-            <div className="offer" key={reg}>
+            <div className="offer" key={permit.id}>
               <Card
                 className={classNames('card', {
-                  multiple: registrations.length > 1,
+                  multiple: (registrations?.length || 0) > 1,
                   selected: permit.primaryVehicle,
-                })}
-                onClick={() => changePrimaryVehicle(reg, permit, true)}>
-                {registrations.length > 1 && (
+                })}>
+                {(registrations?.length || 0) > 1 && (
                   <RadioButton
                     className="custom-radio-btn"
                     id={uuidv4()}
                     checked={permit.primaryVehicle}
                     onChange={evt =>
-                      changePrimaryVehicle(reg, permit, evt.target.checked)
+                      updatePermitData([permit], {
+                        primaryVehicle: evt.target.checked,
+                      })
                     }
                   />
                 )}
@@ -109,27 +126,17 @@ const PermitPrices = ({
                       }`
                     )}
                   </div>
-                  <div className="price">
-                    {permits[reg].vehicle.isLowEmission && (
-                      <div
-                        className={classNames('original', {
-                          invalid: permit.vehicle.isLowEmission,
-                        })}>{`${permits[reg].prices.priceGross * 2} €/KK`}</div>
-                    )}
-                    <div className="offer">{`${permits[reg].prices.priceGross} €/KK`}</div>
-                  </div>
+                  {getPrices(permit)}
                 </div>
               </Card>
-              {registrations.length > 1 && (
+              {(registrations?.length || 0) > 1 && (
                 <div className="action-delete">
                   <Button
                     variant="supplementary"
                     style={{
                       color: 'var(--color-coat-of-arms)',
                     }}
-                    onClick={() =>
-                      dispatch(deletePermit(userProfile, permit.id))
-                    }
+                    onClick={() => permitCtx?.deletePermit(permit.id)}
                     iconLeft={<IconMinusCircle />}>
                     {t(`${T_PATH}.btn.delete`)}
                   </Button>
@@ -142,8 +149,12 @@ const PermitPrices = ({
         <Checkbox
           className="discount-checkbox"
           id={uuidv4()}
-          checked={useDiscount}
-          onChange={onChange}
+          checked={firstPermit?.consentLowEmissionAccepted}
+          onChange={evt =>
+            updatePermitData(permits as Permit[], {
+              consentLowEmissionAccepted: evt.target.checked,
+            })
+          }
           label={<DiscountCheckboxLabel />}
         />
       </div>
@@ -151,9 +162,7 @@ const PermitPrices = ({
         <Button
           theme="black"
           className="action-btn"
-          onClick={() =>
-            dispatch(setCurrentStepper(STEPPER.DURATION_SELECTOR))
-          }>
+          onClick={() => navigate(ROUTES.DURATION_SELECTOR)}>
           <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
           <IconArrowRight />
         </Button>
@@ -163,7 +172,7 @@ const PermitPrices = ({
           theme="black"
           variant="secondary"
           iconLeft={<IconArrowLeft />}
-          onClick={() => dispatch(setCurrentStepper(STEPPER.VEHICLE_SELECTOR))}>
+          onClick={() => navigate(ROUTES.CAR_REGISTRATIONS)}>
           <span>{t(`${T_PATH}.actionBtn.gotoRegistration`)}</span>
         </Button>
       </div>
