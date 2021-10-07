@@ -5,9 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './assets/styles/main.scss';
 import { ClientProvider } from './client/ClientProvider';
-import { ApiAccessTokenProvider } from './common/apiAccessTokenProvider';
+import HandleCallback from './client/HandleCallback';
+import { ApiAccessTokenProvider } from './hooks/apiAccessTokenProvider';
+import { PermitProvider } from './hooks/permitProvider';
+import { UserProfileProvider } from './hooks/userProfileProvider';
 import './i18n/i18n';
-import StoreProvider from './redux/StoreProvider';
 import reportWebVitals from './reportWebVitals';
 
 const ENVS_WITH_SENTRY = ['staging', 'production'];
@@ -24,13 +26,17 @@ if (
 
 ReactDOM.render(
   <BrowserRouter>
-    <ClientProvider>
-      <StoreProvider>
+    <HandleCallback>
+      <ClientProvider>
         <ApiAccessTokenProvider>
-          <App />
+          <UserProfileProvider>
+            <PermitProvider>
+              <App />
+            </PermitProvider>
+          </UserProfileProvider>
         </ApiAccessTokenProvider>
-      </StoreProvider>
-    </ClientProvider>
+      </ClientProvider>
+    </HandleCallback>
   </BrowserRouter>,
   document.getElementById('root')
 );
