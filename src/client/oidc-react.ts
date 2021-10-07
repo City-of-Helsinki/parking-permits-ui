@@ -13,7 +13,6 @@ import {
   getTokenUri,
   hasValidClientConfig,
 } from '.';
-import { AnyObject } from '../common/types';
 import {
   Client,
   ClientError,
@@ -24,6 +23,8 @@ import {
   ClientStatusId,
   User as ClientUser,
 } from './types';
+
+export type AnyObject = Record<string, unknown>;
 
 let client: Client | null = null;
 
