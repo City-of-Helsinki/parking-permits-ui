@@ -1,7 +1,5 @@
-import { ApolloQueryResult } from '@apollo/client/core/types';
 import { getClient } from '../client/oidc-react';
 import { createGraphQLClient, GraphQLClient } from '../graphql/graphqlClient';
-import { ProfileQueryResult, UserProfile } from './types';
 
 let profileGqlClient: GraphQLClient;
 
@@ -25,14 +23,4 @@ export function getProfileGqlClient(): GraphQLClient | undefined {
     profileGqlClient = createGraphQLClient(uri, token);
   }
   return profileGqlClient;
-}
-
-export function convertQueryToData(
-  queryResult: ApolloQueryResult<ProfileQueryResult>
-): UserProfile | undefined {
-  const profile = queryResult && queryResult.data && queryResult.data.profile;
-  if (!profile) {
-    return undefined;
-  }
-  return profile;
 }
