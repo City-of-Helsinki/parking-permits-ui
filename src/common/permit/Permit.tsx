@@ -6,19 +6,18 @@ import {
   IconCheckCircle,
   IconDocument,
 } from 'hds-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
   UserAddress,
   UserProfile,
-} from '../../redux';
-import { deletePermit } from '../../redux/actions/permitCart';
+} from '../../types';
 import AddressLabel from '../addressLabel/AddressLabel';
-import ParkingZonesMap from '../addressSelector/parkingZoneMap/ParkingZonesMap';
+import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
 
 const T_PATH = 'common.permit.Permit';
@@ -32,7 +31,6 @@ export interface Props {
 }
 
 const Permit = ({
-  user,
   permits,
   address,
   showActionsButtons = false,
@@ -40,7 +38,7 @@ const Permit = ({
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy HH:mm';
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const permitCtx = useContext(PermitStateContext);
 
   const getEndTime = (permit: PermitModel) =>
     permit.startTime
@@ -120,9 +118,7 @@ const Permit = ({
                   <Button
                     variant="supplementary"
                     iconLeft={<IconAngleRight />}
-                    onClick={() =>
-                      dispatch(deletePermit(user as UserProfile, permit.id))
-                    }>
+                    onClick={() => permitCtx?.deletePermit(permit.id)}>
                     {t(`${T_PATH}.removeSecondaryVehicle`)}
                   </Button>
                 )}
