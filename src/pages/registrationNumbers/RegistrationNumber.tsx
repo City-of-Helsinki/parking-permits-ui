@@ -1,27 +1,24 @@
 import { TextInput } from 'hds-react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { updateRegistration } from '../../../redux/actions/permitCart';
+import { PermitStateContext } from '../../hooks/permitProvider';
+import { Permit } from '../../types';
 import Validate from './validate';
 
-const T_PATH = 'common.vehicleSelector.registrationNumbers.RegistrationNumber';
+const T_PATH = 'pages.registrationNumbers.RegistrationNumber';
 
 export interface Props {
-  registration?: string;
+  permit: Permit;
   label?: string;
   index: number;
 }
 
-const RegistrationNumber = ({
-  registration,
-  index,
-}: Props): React.ReactElement => {
-  const dispatch = useDispatch();
+const RegistrationNumber = ({ permit, index }: Props): React.ReactElement => {
+  const permitCtx = useContext(PermitStateContext);
   const { t } = useTranslation();
   const [valid, setValid] = useState(false);
-  const [reg, setReg] = useState(registration);
+  const [reg, setReg] = useState(permit?.vehicle?.registrationNumber);
   const [dirty, setDirty] = useState(false);
 
   const inputRegistration = (event: { target: { value: string } }) => {
@@ -33,8 +30,8 @@ const RegistrationNumber = ({
   };
 
   const setRegistrationNumber = () => {
-    if (valid && reg) {
-      dispatch(updateRegistration(reg, index));
+    if (valid && reg && permitCtx) {
+      permitCtx?.updateVehicle(permit.id, reg);
     }
   };
   return (
