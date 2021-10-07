@@ -227,3 +227,7 @@ export function createClientGetOrLoadUserFunction({
     });
   };
 }
+
+export function isCallbackUrl(url: string): boolean {
+  return url === config.callbackPath;
+}
