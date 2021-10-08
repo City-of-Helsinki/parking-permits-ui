@@ -2,51 +2,54 @@
 $step-width: 24px;
 
 .stepper-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: var(--spacing-s) 0;
-  .stepper__label {
-    font-size: 2rem;
-    height: 2rem;
-    line-height: 2rem;
-    flex-basis: 60%;
-    @include for-phone {
-      display: none;
-    }
-  }
-  .steps {
-    flex: 1 1 auto;
+  .steppers {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    &.last {
-      max-width: $step-width;
-      min-width: $step-width;
+    margin: auto;
+    padding: var(--spacing-s) 0;
+    .stepper__label {
+      font-size: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+      flex-basis: 60%;
+      @include for-phone {
+        display: none;
+      }
     }
-    .step {
-      min-width: $step-width;
-      max-width: $step-width;
-      height: $step-width;
-      line-height: $step-width;
-      text-align: center;
-      border-radius: 50%;
-      border: 2px solid var(--color-black-20);
-      color: var(--color-black-20);
-      & + .step-length {
-        height: 2px;
-        width: 100%;
-        background: var(--color-black-20);
+    .steps {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      &.last {
+        max-width: $step-width;
+        min-width: $step-width;
+      }
+      .step {
+        min-width: $step-width;
+        max-width: $step-width;
+        height: $step-width;
+        line-height: $step-width;
+        text-align: center;
+        border-radius: 50%;
+        border: 2px solid var(--color-black-20);
+        color: var(--color-black-20);
+        & + .step-length {
+          height: 2px;
+          width: 100%;
+          background: var(--color-black-20);
+          &.completed {
+            background: var(--color-black);
+          }
+        }
         &.completed {
           background: var(--color-black);
+          color: var(--color-white);
         }
-      }
-      &.completed {
-        background: var(--color-black);
-        color: var(--color-white);
-      }
-      &.selected {
-        border: 2px solid var(--color-black);
-        color: var(--color-black);
+        &.selected {
+          border: 2px solid var(--color-black);
+          color: var(--color-black);
+        }
       }
     }
   }

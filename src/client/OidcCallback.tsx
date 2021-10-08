@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router';
 import { useClientCallback } from './hooks';
 
 export type OidcCallbackProps = {
@@ -15,9 +15,9 @@ const OidcCallback = (props: OidcCallbackProps): React.ReactElement => {
     return <div>Tarkistetaan kirjautumistietoja...</div>;
   }
   return authenticated ? (
-    <Redirect to={props.successRedirect} />
+    <Navigate to={props.successRedirect} />
   ) : (
-    <Redirect to={props.failureRedirect} />
+    <Navigate to={props.failureRedirect} />
   );
 };
 

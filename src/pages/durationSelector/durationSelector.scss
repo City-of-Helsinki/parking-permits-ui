@@ -1,0 +1,95 @@
+@import '../../assets/styles/mixin';
+.duration-selector-component {
+  .price {
+    display: flex;
+    .original {
+      margin-right: var(--spacing-s);
+      text-decoration: line-through;
+    }
+    .offer {
+      font-weight: bold;
+    }
+  }
+  .price-info {
+    display: flex;
+    justify-content: space-between;
+    padding-left: var(--spacing-s);
+    padding-right: var(--spacing-s);
+    @include for-phone {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .header {
+    padding-bottom: var(--spacing-s);
+    border-bottom: 2px solid var(--color-black-20);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .car-info {
+      display: flex;
+      @include for-phone {
+        flex-direction: column;
+      }
+      .permit-count {
+        padding-bottom: var(--spacing-3-xs);
+        margin-right: var(--spacing-s);
+      }
+      .car-details {
+        font-weight: bolder;
+      }
+    }
+  }
+  .card {
+    border-top: 4px solid var(--color-coat-of-arms);
+    margin-top: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+    padding: var(--spacing-xl);
+  }
+  .time-period {
+    padding-top: var(--spacing-s);
+    padding-bottom: var(--spacing-s);
+    .month-selection,
+    .date-selection {
+      padding-top: var(--spacing-s);
+      padding-right: var(--spacing-3-xl);
+    }
+    &.with-bottom-border {
+      border-bottom: 2px solid var(--color-black-20);
+    }
+    .date-selection {
+      input[readonly] {
+        background-color: var(--input-background-default);
+        border: var(--border-width) solid var(--input-border-color-default);
+        color: var(--input-color-default);
+        padding: 0 var(--spacing-s);
+        cursor: default;
+      }
+      input[disabled] {
+        background-color: var(--input-background-disabled);
+        color: var(--input-color-disabled);
+        cursor: not-allowed;
+        border: 0;
+      }
+    }
+  }
+  .zone__type {
+    margin-top: var(--spacing-l);
+  }
+  .radio-button {
+    .assistive-text {
+      margin-left: 32px;
+      margin-top: 6px;
+    }
+  }
+  @include for-desktop {
+    .hide-in-desktop {
+      display: none;
+    }
+  }
+  @include for-phone {
+    .hide-in-mobile {
+      display: none;
+    }
+  }
+}

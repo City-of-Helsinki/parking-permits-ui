@@ -1,12 +1,13 @@
-mutation Mutation($permitId: ID!, $input: ParkingPermitInput!) {
-  updateParkingPermit(permitId: $permitId, input: $input) {
+mutation Mutation($permitIds: [ID]!, $input: ParkingPermitInput!) {
+  updateParkingPermit(permitIds: $permitIds, input: $input) {
     success
     errors
-    permit {
+    permits {
       id
       startType
       startTime
       primaryVehicle
+      consentLowEmissionAccepted
       status
       contractType
       monthCount
@@ -35,6 +36,9 @@ mutation Mutation($permitId: ID!, $input: ParkingPermitInput!) {
         priceNet
         priceVat
         priceGross
+        rowPriceNet
+        rowPriceVat
+        rowPriceTotal
         vatPercentage
       }
     }

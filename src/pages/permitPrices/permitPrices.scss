@@ -1,0 +1,95 @@
+@import '../../assets/styles/mixin';
+.permit-prices-component {
+  .offer-container {
+    display: flex;
+    justify-content: space-between;
+    .offer {
+      @include for-desktop {
+        flex-basis: calc(50% - 8px);
+      }
+      &:last-of-type {
+        margin-left: var(--spacing-3-xs);
+      }
+      & > .card {
+        display: flex;
+        cursor: pointer;
+        @include for-phone {
+          flex-direction: column;
+          align-items: center;
+        }
+        .car-details {
+          display: flex;
+          flex-direction: column;
+          margin-left: var(--spacing-xs);
+          @include for-phone {
+            margin-left: 0;
+          }
+          align-items: normal;
+        }
+        .registration-number {
+          margin-bottom: var(--spacing-2-xs);
+          @include for-phone {
+            margin-top: var(--spacing-2-xs);
+          }
+        }
+        .registration-number,
+        .price .offer {
+          font-size: var(--fontsize-heading-s);
+          font-weight: bold;
+        }
+        .emission-level {
+          font-size: 0.75rem;
+          margin: var(--spacing-2-xs) 0;
+          padding: 6px 6px 4px;
+          border-radius: 16px;
+        }
+        .low-emission {
+          background: var(--color-fog);
+        }
+        .high-emission {
+          background: var(--color-black-20);
+        }
+        &.multiple {
+          border-top: 4px solid var(--color-black-10);
+          &.selected {
+            border-top: 4px solid var(--color-coat-of-arms);
+          }
+        }
+        .price {
+          display: flex;
+          align-items: center;
+          margin: var(--spacing-2-xs) 0;
+          height: 24px;
+          white-space: nowrap;
+          @include for-phone {
+            flex-direction: column;
+          }
+          & > div {
+            margin-right: var(--spacing-s);
+            &:last-of-type {
+              margin-right: 0;
+            }
+          }
+          & > div.invalid {
+            text-decoration: line-through;
+          }
+        }
+      }
+      .action-delete {
+        display: flex;
+        justify-content: center;
+        background: var(--color-white);
+        border-top: 1px solid var(--color-black-20);
+      }
+      .registration-number,
+      .car-model {
+        @include for-phone {
+          text-align: center;
+        }
+      }
+    }
+  }
+  .discount-checkbox {
+    margin: var(--spacing-s);
+  }
+}
