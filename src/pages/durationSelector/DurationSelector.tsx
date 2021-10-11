@@ -9,7 +9,7 @@ import {
   RadioButton,
   SelectionGroup,
 } from 'hds-react';
-import { first, sortBy } from 'lodash';
+import { first, last, sortBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -93,13 +93,22 @@ const DurationSelector = (): React.ReactElement => {
   const getMonthValue = (permit: Permit) => {
     const { monthCount: currentCount } = permit;
     const { monthCount: firstCount } = firstPermit as Permit;
-    if (currentCount > firstCount) {
-      updatePermitData([permit], {
-        monthCount: firstCount,
-      });
-      return firstCount;
+    return currentCount > firstCount ? firstCount : currentCount;
+  };
+
+  const updateMonthCount = (currentPermit: Permit, count: number) => {
+    const sortedPermits = sortBy(permits, 'id');
+    const permitsToUpdate = [currentPermit];
+
+    if (sortedPermits.length > 1) {
+      const lastPermit = last(sortedPermits) as Permit;
+      if (lastPermit.monthCount > count && currentPermit.id !== lastPermit.id) {
+        permitsToUpdate.push(lastPermit);
+      }
     }
-    return currentCount;
+    updatePermitData(permitsToUpdate, {
+      monthCount: count,
+    });
   };
 
   // eslint-disable-next-line no-magic-numbers
@@ -257,9 +266,10 @@ const DurationSelector = (): React.ReactElement => {
                     ParkingContractType.FIXED_PERIOD
                   }
                   onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    updatePermitData([permit], {
-                      monthCount: parseInt(e.target.value || '0', 10),
-                    });
+                    updateMonthCount(
+                      permit,
+                      parseInt(e.target.value || '0', 10)
+                    );
                   }}
                 />
               </div>
