@@ -140,6 +140,7 @@ const DurationSelector = (): React.ReactElement => {
                 onClick={() =>
                   updatePermitData(permits, {
                     contractType: ParkingContractType.OPEN_ENDED,
+                    monthCount: 1,
                   })
                 }
               />
