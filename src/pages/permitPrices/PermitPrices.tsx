@@ -72,7 +72,7 @@ const PermitPrices = (): React.ReactElement => {
           <div
             className={classNames('original', {
               invalid: isLowEmission,
-            })}>{`${priceGross} €/KK`}</div>
+            })}>{`${priceGross * 2} €/KK`}</div>
         )}
         <div className="offer">{`${priceGross} €/KK`}</div>
       </div>
