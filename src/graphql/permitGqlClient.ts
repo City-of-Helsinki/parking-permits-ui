@@ -15,7 +15,7 @@ import { getEnv } from '../utils';
 import { GraphQLClient } from './graphqlClient';
 
 class PermitGqlClient {
-  uri = getEnv('REACT_APP_PROFILE_BACKEND_URL');
+  uri = getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL');
 
   client: GraphQLClient;
 
