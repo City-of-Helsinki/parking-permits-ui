@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash';
 import React, { createContext, useEffect, useRef, useState } from 'react';
+import { getEnv } from '../utils';
 import { getClient } from './oidc-react';
 import {
   ApiAccessTokenActions,
@@ -162,9 +163,9 @@ export function useApiAccessTokens(): ApiAccessTokenActions {
   useEffect(() => {
     const autoFetch = async (): Promise<void> => {
       const options = {
-        audience: String(process.env.REACT_APP_API_BACKEND_AUDIENCE),
-        permission: String(process.env.REACT_APP_API_BACKEND_PERMISSION),
-        grantType: String(process.env.REACT_APP_API_BACKEND_GRANT_TYPE),
+        audience: getEnv('REACT_APP_PARKING_PERMITS_AUDIENCE'),
+        permission: getEnv('REACT_APP_PARKING_PERMITS_PERMISSION'),
+        grantType: getEnv('REACT_APP_PARKING_PERMITS_GRANT_TYPE'),
       };
       setStatus('loading');
       const result = await client.getApiAccessToken(options);

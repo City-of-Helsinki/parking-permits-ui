@@ -16,7 +16,7 @@ export function getGqlClient(): GraphQLClient | undefined {
     if (!parkingPermitsApiToken || !helsinkiProfileApiToken) {
       return undefined;
     }
-    const uri = getEnv('REACT_APP_PROFILE_BACKEND_URL');
+    const uri = getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL');
     gqlClient = createGraphQLClient(
       uri,
       parkingPermitsApiToken,
