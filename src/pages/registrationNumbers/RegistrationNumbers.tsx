@@ -7,7 +7,6 @@ import {
   LoadingSpinner,
   Notification,
 } from 'hds-react';
-import { sortBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -56,7 +55,7 @@ const RegistrationNumbers = (): React.ReactElement => {
     <div className="registration-numbers-selector-component">
       <Card className="card">
         {draftPermits &&
-          sortBy(draftPermits, 'id').map((permit, index) => (
+          draftPermits.map((permit, index) => (
             <RegistrationNumber key={uuidv4()} permit={permit} index={index} />
           ))}
         {numOfUserCars < 2 && (
