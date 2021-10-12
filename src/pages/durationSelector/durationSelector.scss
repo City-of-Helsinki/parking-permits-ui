@@ -57,6 +57,9 @@
     &.with-bottom-border {
       border-bottom: 2px solid var(--color-black-20);
     }
+    .disabled{
+      color: var(--color-black-60);
+    }
     .date-selection {
       input[readonly] {
         background-color: var(--input-background-default);
