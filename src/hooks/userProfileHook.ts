@@ -4,18 +4,13 @@ import { isEmpty } from 'lodash';
 import { useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import { GraphQLClient } from '../graphql/graphqlClient';
-import {
-  PARKING_PERMIT_TOKEN,
-  ProfileActions,
-  ProfileQueryResult,
-  UserProfile,
-} from '../types';
+import { ProfileActions, ProfileQueryResult, UserProfile } from '../types';
 import { ApiAccessTokenContext } from './apiAccessTokenProvider';
-import { getProfileGqlClient } from './utils';
+import { getGqlClient } from './utils';
 
 const useProfile = (): ProfileActions => {
   const apiTokenCtx = useContext(ApiAccessTokenContext);
-  const profileGqlClient = getProfileGqlClient() as GraphQLClient;
+  const profileGqlClient = getGqlClient() as GraphQLClient;
   const [status, setStatus] = useState<FetchStatus>('waiting');
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
   const [error, setError] = useState<ApiFetchError>();
@@ -40,7 +35,6 @@ const useProfile = (): ProfileActions => {
         const { profile: userProfile } = result.data;
         setStatus('loaded');
         setProfile(userProfile);
-        sessionStorage.setItem(PARKING_PERMIT_TOKEN, userProfile?.token);
       }
     };
     if (hasApiToken && !profileLoaded) {

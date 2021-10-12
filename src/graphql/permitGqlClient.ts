@@ -1,26 +1,26 @@
 import { OperationVariables } from '@apollo/client/core/types';
 import { DocumentNode } from 'graphql';
 import { loader } from 'graphql.macro';
+import { getGqlClient } from '../hooks/utils';
 import {
   CreatePermitQueryResult,
   DeletePermitQueryResult,
-  PARKING_PERMIT_TOKEN,
   Permit,
   PermitQueryResult,
   UpdatePermitQueryResult,
   UpdateVehicleQueryResult,
   UserAddress,
 } from '../types';
-import { createGraphQLClient, GraphQLClient } from './graphqlClient';
+import { getEnv } from '../utils';
+import { GraphQLClient } from './graphqlClient';
 
 class PermitGqlClient {
-  uri = process.env.REACT_APP_PROFILE_BACKEND_URL;
+  uri = getEnv('REACT_APP_PROFILE_BACKEND_URL');
 
   client: GraphQLClient;
 
   constructor(public documentNode: DocumentNode) {
-    const token = sessionStorage.getItem(PARKING_PERMIT_TOKEN);
-    this.client = createGraphQLClient(this.uri as string, token as string);
+    this.client = getGqlClient() as GraphQLClient;
   }
 
   async query<T>(variables: OperationVariables): Promise<T> {

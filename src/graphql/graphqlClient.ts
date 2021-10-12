@@ -19,13 +19,18 @@ const defaultOptions: DefaultOptions = {
   },
 };
 
-export function createGraphQLClient(uri: string, token: string): GraphQLClient {
+export function createGraphQLClient(
+  uri: string,
+  parkingPermitsApiToken: string,
+  helsinkiProfileApiToken: string
+): GraphQLClient {
   return new ApolloClient({
     uri,
     defaultOptions,
     cache: new InMemoryCache(),
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${parkingPermitsApiToken}`,
+      'X-Authorization': `Bearer ${helsinkiProfileApiToken}`,
       'Content-Language': 'fi',
     },
   });
