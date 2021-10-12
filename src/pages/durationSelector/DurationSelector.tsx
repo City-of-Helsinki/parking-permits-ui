@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { format } from 'date-fns';
 import {
   Button,
@@ -248,7 +249,12 @@ const DurationSelector = (): React.ReactElement => {
                 <div className="hide-in-mobile">{getPrices(permit)}</div>
               </div>
               <div className="time-period with-bottom-border">
-                <div className="assistive-text">
+                <div
+                  className={classNames(`assistive-text`, {
+                    disabled:
+                      primaryPermit?.contractType ===
+                      ParkingContractType.OPEN_ENDED,
+                  })}>
                   {t(`${T_PATH}.fixedPeriodAssistiveText`, {
                     max: index === 1 ? primaryPermit?.monthCount : MAX_MONTH,
                   })}
