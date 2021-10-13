@@ -10,7 +10,7 @@ import {
   RadioButton,
   SelectionGroup,
 } from 'hds-react';
-import { sortBy } from 'lodash';
+import { orderBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -233,66 +233,61 @@ const DurationSelector = (): React.ReactElement => {
           />
         </div>
       </Card>
-      {sortBy(permits || [], 'vehicle.registrationNumber').map(
-        (permit, index) => (
-          <div key={uuidv4()}>
-            <Card className="card">
-              <div className="header">
-                <div className="car-info">
-                  {permits.length > 1 && (
-                    <div className="permit-count">
-                      {t(`${T_PATH}.permitCount`, { count: index + 1 })}
-                    </div>
-                  )}
-                  <div className="car-details">{getCarDetails(permit)}</div>
-                </div>
-                <div className="hide-in-mobile">{getPrices(permit)}</div>
+      {orderBy(permits || [], 'primaryVehicle', 'desc').map((permit, index) => (
+        <div key={uuidv4()}>
+          <Card className="card">
+            <div className="header">
+              <div className="car-info">
+                {permits.length > 1 && (
+                  <div className="permit-count">
+                    {t(`${T_PATH}.permitCount`, { count: index + 1 })}
+                  </div>
+                )}
+                <div className="car-details">{getCarDetails(permit)}</div>
               </div>
-              <div className="time-period with-bottom-border">
-                <div
-                  className={classNames(`assistive-text`, {
-                    disabled:
-                      primaryPermit?.contractType ===
-                      ParkingContractType.OPEN_ENDED,
-                  })}>
-                  {t(`${T_PATH}.fixedPeriodAssistiveText`, {
-                    max: index === 1 ? primaryPermit?.monthCount : MAX_MONTH,
-                  })}
-                </div>
-                <NumberInput
-                  style={{ maxWidth: '250px' }}
-                  className="month-selection"
-                  id={uuidv4()}
-                  helperText={t(`${T_PATH}.monthSelectionHelpText`, {
-                    max: index === 1 ? primaryPermit?.monthCount : MAX_MONTH,
-                  })}
-                  label=""
-                  min={1}
-                  step={1}
-                  max={index === 1 ? primaryPermit?.monthCount : MAX_MONTH}
-                  defaultValue={
-                    index === 0 ? permit?.monthCount : getMonthValue(permit)
-                  }
-                  disabled={
-                    primaryPermit?.contractType !==
-                    ParkingContractType.FIXED_PERIOD
-                  }
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    updateMonthCount(
-                      permit,
-                      parseInt(e.target.value || '0', 10)
-                    );
-                  }}
-                />
-              </div>
-            </Card>
-            <div className="price-info hide-in-desktop">
-              <div>{t(`${T_PATH}.permitPrice`)}</div>
-              {getPrices(permit)}
+              <div className="hide-in-mobile">{getPrices(permit)}</div>
             </div>
+            <div className="time-period with-bottom-border">
+              <div
+                className={classNames(`assistive-text`, {
+                  disabled:
+                    primaryPermit?.contractType ===
+                    ParkingContractType.OPEN_ENDED,
+                })}>
+                {t(`${T_PATH}.fixedPeriodAssistiveText`, {
+                  max: index === 1 ? primaryPermit?.monthCount : MAX_MONTH,
+                })}
+              </div>
+              <NumberInput
+                style={{ maxWidth: '250px' }}
+                className="month-selection"
+                id={uuidv4()}
+                helperText={t(`${T_PATH}.monthSelectionHelpText`, {
+                  max: index === 1 ? primaryPermit?.monthCount : MAX_MONTH,
+                })}
+                label=""
+                min={1}
+                step={1}
+                max={index === 1 ? primaryPermit?.monthCount : MAX_MONTH}
+                defaultValue={
+                  index === 0 ? permit?.monthCount : getMonthValue(permit)
+                }
+                disabled={
+                  primaryPermit?.contractType !==
+                  ParkingContractType.FIXED_PERIOD
+                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                  updateMonthCount(permit, parseInt(e.target.value || '0', 10));
+                }}
+              />
+            </div>
+          </Card>
+          <div className="price-info hide-in-desktop">
+            <div>{t(`${T_PATH}.permitPrice`)}</div>
+            {getPrices(permit)}
           </div>
-        )
-      )}
+        </div>
+      ))}
       <div className="action-buttons">
         <Button
           theme="black"
