@@ -1,7 +1,6 @@
 query {
   profile {
     id
-    token
     firstName
     lastName
     language
