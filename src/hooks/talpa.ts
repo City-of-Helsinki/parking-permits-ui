@@ -26,6 +26,10 @@ const proceedToOrderPayment = (
   };
   const items: TalpaItem[] = permits.map(permit => {
     const { monthCount } = permit;
+    const openEndedFields = {
+      periodUnit: 'monthly',
+      periodFrequency: '1',
+    };
     return {
       quantity:
         permit.contractType === ParkingContractType.OPEN_ENDED ? 1 : monthCount,
@@ -36,6 +40,9 @@ const proceedToOrderPayment = (
       unit: 'pcs',
       meta: [{ key: 'permitId', value: permit.id }],
       ...permit.prices,
+      ...(permit.contractType === ParkingContractType.OPEN_ENDED
+        ? openEndedFields
+        : {}),
     };
   });
   const data: TalpaOrder = {
