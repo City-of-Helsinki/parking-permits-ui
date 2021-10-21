@@ -12,6 +12,9 @@
     @include for-desktop {
       margin-left: var(--spacing-s);
     }
+    .processing {
+      background: var(--color-black-10);
+    }
   }
   .permit-action-btns {
     display: flex;
@@ -40,6 +43,9 @@
 
         &.document-icon {
           background: var(--color-success);
+          &.processing {
+            background: var(--color-black-40);
+          }
           .icon {
             margin: 6px;
             color: var(--color-white);
