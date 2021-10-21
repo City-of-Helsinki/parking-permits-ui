@@ -4,8 +4,11 @@ query Query {
     errors
     permits {
       id
+      orderId
+      subscriptionId
       startType
       startTime
+      endTime
       primaryVehicle
       consentLowEmissionAccepted
       status

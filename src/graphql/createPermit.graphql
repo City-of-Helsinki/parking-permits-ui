@@ -4,8 +4,11 @@ mutation Mutation($zoneId: ID!) {
     errors
     permits {
       id
+      orderId
+      subscriptionId
       startType
       startTime
+      endTime
       primaryVehicle
       consentLowEmissionAccepted
       status
