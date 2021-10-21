@@ -46,35 +46,12 @@
     margin-bottom: var(--spacing-xs);
     padding: var(--spacing-xl);
   }
-  .time-period {
+  .month-selection {
     padding-top: var(--spacing-s);
-    padding-bottom: var(--spacing-s);
-    .month-selection,
-    .date-selection {
-      padding-top: var(--spacing-s);
-      padding-right: var(--spacing-3-xl);
-    }
-    &.with-bottom-border {
-      border-bottom: 2px solid var(--color-black-20);
-    }
-    .disabled {
-      color: var(--color-black-60);
-    }
-    .date-selection {
-      input[readonly] {
-        background-color: var(--input-background-default);
-        border: var(--border-width) solid var(--input-border-color-default);
-        color: var(--input-color-default);
-        padding: 0 var(--spacing-s);
-        cursor: default;
-      }
-      input[disabled] {
-        background-color: var(--input-background-disabled);
-        color: var(--input-color-disabled);
-        cursor: not-allowed;
-        border: 0;
-      }
-    }
+    padding-right: var(--spacing-3-xl);
+  }
+  .disabled {
+    color: var(--color-black-60);
   }
   .zone__type {
     margin-top: var(--spacing-l);

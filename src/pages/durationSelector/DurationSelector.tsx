@@ -1,42 +1,46 @@
 import classNames from 'classnames';
-import { format } from 'date-fns';
+import { addMonths, differenceInMonths } from 'date-fns';
 import {
   Button,
   Card,
-  DateInput,
   IconArrowLeft,
   IconArrowRight,
   NumberInput,
-  RadioButton,
-  SelectionGroup,
 } from 'hds-react';
-import { orderBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import PermitType from '../../common/permitType/PermitType';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import {
-  ParkingContractType,
-  ParkingStartType,
-  Permit,
-  ROUTES,
-  STEPPER,
-} from '../../types';
+import { ParkingContractType, Permit, ROUTES, STEPPER } from '../../types';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
 const T_PATH = 'pages.durationSelector.DurationSelector';
 
 const DurationSelector = (): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const permitCtx = useContext(PermitStateContext);
   const navigate = useNavigate();
-  const permits = permitCtx?.getDraftPermits();
-  const registrationNumbers = permits?.map(p => p.vehicle.registrationNumber);
+  const draftPermits = permitCtx?.getDraftPermits();
+  const validPermits = permitCtx?.getValidPermits();
+
+  const registrationNumbers = draftPermits?.map(
+    p => p.vehicle.registrationNumber
+  );
   const currentStep = permitCtx?.getStep();
   const address = permitCtx?.getAddress();
-  const primaryPermit = permits?.find(p => p.primaryVehicle);
+  let [primaryPermit, otherPermit] = draftPermits as Permit[];
+
+  if (validPermits?.length) {
+    primaryPermit = validPermits.find(p => p.primaryVehicle) as Permit;
+  }
+
+  if (validPermits?.length && draftPermits?.length) {
+    [otherPermit] = draftPermits;
+  }
+  const mainPermitToUpdate = validPermits?.length ? otherPermit : primaryPermit;
 
   if (!address) {
     return <Navigate to={ROUTES.ADDRESS} />;
@@ -47,7 +51,7 @@ const DurationSelector = (): React.ReactElement => {
     setTimeout(() => permitCtx?.setStep(STEPPER.DURATION_SELECTOR), timeOutFor);
   }
 
-  if (!permits?.length) {
+  if (!draftPermits?.length) {
     return <Navigate to={ROUTES.PERMIT_PRICES} />;
   }
 
@@ -93,15 +97,33 @@ const DurationSelector = (): React.ReactElement => {
 
   const getMonthValue = (permit: Permit) => {
     const { monthCount: currentCount } = permit;
-    const { monthCount: firstCount } = primaryPermit as Permit;
-    return currentCount > firstCount ? firstCount : currentCount;
+    const { monthCount: primaryCount } = primaryPermit;
+
+    return currentCount > primaryCount ? primaryCount : currentCount;
+  };
+
+  const getMaxMonth = (permit: Permit) => {
+    if (
+      permit.id !== primaryPermit.id &&
+      primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
+    ) {
+      const { startTime, monthCount } = primaryPermit;
+      const primaryEndDate = addMonths(
+        new Date(startTime as string),
+        monthCount
+      );
+      return differenceInMonths(
+        primaryEndDate,
+        new Date(permit.startTime as string)
+      );
+    }
+    return MAX_MONTH;
   };
 
   const updateMonthCount = (currentPermit: Permit, count: number) => {
     const permitsToUpdate = [currentPermit];
 
-    if (permits.length > 1) {
-      const otherPermit = permits.find(p => !p.primaryVehicle) as Permit;
+    if (draftPermits.length > 1) {
       if (
         otherPermit.monthCount > count &&
         currentPermit.id !== otherPermit.id
@@ -111,11 +133,10 @@ const DurationSelector = (): React.ReactElement => {
     }
     updatePermitData(permitsToUpdate, {
       monthCount: count,
+      endTime: addMonths(new Date(primaryPermit.startTime as string), count),
     });
   };
 
-  // eslint-disable-next-line no-magic-numbers
-  const getMaxDate = new Date(Date.now() + 12096e5);
   return (
     <div className="duration-selector-component">
       <div className="zone__type">
@@ -126,119 +147,20 @@ const DurationSelector = (): React.ReactElement => {
       </div>
 
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
-      <Card className="card">
-        <div className="time-period with-bottom-border">
-          <SelectionGroup label={t(`${T_PATH}.parkingDurationType.label`)}>
-            <div className="radio-button">
-              <RadioButton
-                className="custom-radio-btn"
-                id={uuidv4()}
-                value={ParkingContractType.OPEN_ENDED}
-                label={t(`${T_PATH}.openEnded`)}
-                checked={
-                  primaryPermit?.contractType === ParkingContractType.OPEN_ENDED
-                }
-                onClick={() =>
-                  updatePermitData(permits, {
-                    contractType: ParkingContractType.OPEN_ENDED,
-                    monthCount: 1,
-                  })
-                }
-              />
-              <div className="assistive-text">
-                {t(`${T_PATH}.openEndedAssistiveText`)}
-              </div>
-            </div>
-            <div className="radio-button">
-              <RadioButton
-                className="custom-radio-btn"
-                id={uuidv4()}
-                value={ParkingContractType.FIXED_PERIOD}
-                label={t(`${T_PATH}.fixedPeriod`)}
-                checked={
-                  primaryPermit?.contractType ===
-                  ParkingContractType.FIXED_PERIOD
-                }
-                onClick={() =>
-                  updatePermitData(permits, {
-                    contractType: ParkingContractType.FIXED_PERIOD,
-                  })
-                }
-              />
-            </div>
-          </SelectionGroup>
-        </div>
-        <div className="time-period">
-          <SelectionGroup label={t(`${T_PATH}.startType.label`)}>
-            <div className="radio-button">
-              <RadioButton
-                className="custom-radio-btn"
-                id={uuidv4()}
-                value={ParkingStartType.IMMEDIATELY}
-                label={t(`${T_PATH}.immediately`)}
-                checked={
-                  primaryPermit?.startType === ParkingStartType.IMMEDIATELY
-                }
-                onClick={() =>
-                  updatePermitData(permits, {
-                    startType: ParkingStartType.IMMEDIATELY,
-                  })
-                }
-              />
-              <div className="assistive-text">
-                {t(`${T_PATH}.immediatelyAssistiveText`)}
-              </div>
-            </div>
-            <div className="radio-button">
-              <RadioButton
-                className="custom-radio-btn"
-                id={uuidv4()}
-                value={ParkingStartType.FROM}
-                label={t(`${T_PATH}.startDate`)}
-                checked={primaryPermit?.startType === ParkingStartType.FROM}
-                onClick={() =>
-                  updatePermitData(permits, {
-                    startType: ParkingStartType.FROM,
-                  })
-                }
-              />
-              <div className="assistive-text">
-                {t(`${T_PATH}.startDateAssistiveText`)}
-              </div>
-            </div>
-          </SelectionGroup>
-          <DateInput
-            readOnly
-            style={{ maxWidth: '250px' }}
-            minDate={new Date()}
-            maxDate={getMaxDate}
-            className="date-selection"
-            placeholder={t(`${T_PATH}.datePlaceHolder`)}
-            id={uuidv4()}
-            initialMonth={new Date(primaryPermit?.startTime as string)}
-            language={(i18n?.language || 'fi') as 'fi' | 'sv' | 'en'}
-            value={format(
-              new Date(primaryPermit?.startTime as string),
-              'd.M.yyyy'
-            )}
-            disabled={primaryPermit?.startType !== ParkingStartType.FROM}
-            disableDatePicker={
-              primaryPermit?.startType !== ParkingStartType.FROM
-            }
-            onChange={(value: string, valueAsDate: Date) =>
-              updatePermitData(permits, {
-                startTime: valueAsDate,
-              })
-            }
-          />
-        </div>
-      </Card>
-      {orderBy(permits || [], 'primaryVehicle', 'desc').map((permit, index) => (
+      {primaryPermit && (
+        <PermitType
+          primaryPermit={primaryPermit}
+          mainPermitToUpdate={mainPermitToUpdate}
+          permitToUpdate={otherPermit}
+          updatePermitData={updatePermitData}
+        />
+      )}
+      {draftPermits.map((permit, index) => (
         <div key={uuidv4()}>
           <Card className="card">
             <div className="header">
               <div className="car-info">
-                {permits.length > 1 && (
+                {draftPermits.length > 1 && (
                   <div className="permit-count">
                     {t(`${T_PATH}.permitCount`, { count: index + 1 })}
                   </div>
@@ -251,11 +173,11 @@ const DurationSelector = (): React.ReactElement => {
               <div
                 className={classNames(`assistive-text`, {
                   disabled:
-                    primaryPermit?.contractType ===
+                    mainPermitToUpdate.contractType ===
                     ParkingContractType.OPEN_ENDED,
                 })}>
                 {t(`${T_PATH}.fixedPeriodAssistiveText`, {
-                  max: index === 1 ? primaryPermit?.monthCount : MAX_MONTH,
+                  max: getMaxMonth(permit),
                 })}
               </div>
               <NumberInput
@@ -263,17 +185,17 @@ const DurationSelector = (): React.ReactElement => {
                 className="month-selection"
                 id={uuidv4()}
                 helperText={t(`${T_PATH}.monthSelectionHelpText`, {
-                  max: index === 1 ? primaryPermit?.monthCount : MAX_MONTH,
+                  max: getMaxMonth(permit),
                 })}
                 label=""
                 min={1}
                 step={1}
-                max={index === 1 ? primaryPermit?.monthCount : MAX_MONTH}
+                max={getMaxMonth(permit)}
                 defaultValue={
                   index === 0 ? permit?.monthCount : getMonthValue(permit)
                 }
                 disabled={
-                  primaryPermit?.contractType !==
+                  mainPermitToUpdate.contractType !==
                   ParkingContractType.FIXED_PERIOD
                 }
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
