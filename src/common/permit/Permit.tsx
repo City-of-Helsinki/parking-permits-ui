@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { addMonths, format } from 'date-fns';
 import {
   Button,
@@ -6,6 +7,7 @@ import {
   IconCheckCircle,
   IconDocument,
 } from 'hds-react';
+import { orderBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
@@ -13,6 +15,7 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
+  PermitStatus,
   UserAddress,
   UserProfile,
 } from '../../types';
@@ -50,13 +53,17 @@ const Permit = ({
           dateFormat
         )
       : '';
-
+  const isProcessing = (permit: PermitModel) =>
+    permit.status === PermitStatus.DRAFT && permit.orderId;
   const getPermit = (permit: PermitModel) => {
     const { registrationNumber, manufacturer, model } = permit.vehicle;
     return (
       <div className="pp-list" key={permit.vehicle.registrationNumber}>
         <div className="pp-list__title">
-          <span className="pp-list__title__icon document-icon">
+          <span
+            className={classNames('pp-list__title__icon document-icon', {
+              processing: isProcessing(permit),
+            })}>
             <IconDocument className="icon" />
           </span>
           <span className="pp-list__title__text">{`${registrationNumber} ${manufacturer} ${model}`}</span>
@@ -73,7 +80,9 @@ const Permit = ({
         </div>
         {permit.vehicle.isLowEmission && (
           <div className="message">
-            <IconCheckCircle color="var(--color-success)" />
+            <IconCheckCircle
+              color={isProcessing(permit) ? '' : 'var(--color-success)'}
+            />
             <div className="message-text">{t(`${T_PATH}.discount`)}</div>
           </div>
         )}
@@ -88,6 +97,9 @@ const Permit = ({
         style={{
           minWidth: 'calc(50% - 72px)',
           paddingBottom: canEditAddress() ? '0' : 'var(--spacing-l)',
+          background: permits.every(isProcessing)
+            ? 'var(--color-black-10)'
+            : 'var(--color-white)',
         }}>
         <AddressLabel address={address} />
         <ParkingZonesMap userAddress={address} zoom={13} />
@@ -96,6 +108,7 @@ const Permit = ({
             <Button
               className="permit-actions-buttons"
               variant="supplementary"
+              disabled={permits.some(isProcessing)}
               style={{ margin: 'var(--spacing-xs) 0' }}
               iconLeft={<IconAngleRight />}>
               {t(`${T_PATH}.changeAddress`)}
@@ -104,19 +117,26 @@ const Permit = ({
         )}
       </Card>
       <div className="permit-card">
-        {permits.map((permit, index) => (
+        {orderBy(permits, 'primaryVehicle', 'desc').map((permit, index) => (
           <Card
+            className={classNames({
+              processing: isProcessing(permit),
+            })}
             key={uuidv4()}
             style={{ marginTop: index > 0 ? 'var(--spacing-xs)' : '0' }}>
             {getPermit(permit)}
             {showActionsButtons && (
               <div className="permit-action-btns">
-                <Button variant="supplementary" iconLeft={<IconAngleRight />}>
+                <Button
+                  variant="supplementary"
+                  disabled={permits.some(isProcessing)}
+                  iconLeft={<IconAngleRight />}>
                   {t(`${T_PATH}.editVehicle`)}
                 </Button>
                 {permits.length > 1 && index > 0 && (
                   <Button
                     variant="supplementary"
+                    disabled={!!isProcessing(permit)}
                     iconLeft={<IconAngleRight />}
                     onClick={() => permitCtx?.deletePermit(permit.id)}>
                     {t(`${T_PATH}.removeSecondaryVehicle`)}
