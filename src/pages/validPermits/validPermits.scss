@@ -4,6 +4,12 @@
     .trash-icon {
       color: var(--color-error);
     }
+    &.processing {
+      border-color: inherit;
+      .trash-icon {
+        color: inherit;
+      }
+    }
   }
   .leaflet-container {
     height: 25em;
