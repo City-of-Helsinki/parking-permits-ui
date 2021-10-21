@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty, orderBy } from 'lodash';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
@@ -8,13 +8,7 @@ import {
   updateDraftPermit,
   updateVehicleRegistration,
 } from '../graphql/permitGqlClient';
-import {
-  Permit,
-  PermitActions,
-  PermitStatus,
-  UserAddress,
-  UserProfile,
-} from '../types';
+import { Permit, PermitActions, UserAddress, UserProfile } from '../types';
 import proceedToOrderPayment from './talpa';
 import { UserProfileContext } from './userProfileProvider';
 
@@ -44,12 +38,8 @@ const usePermitState = (): PermitActions => {
       onError(errors);
       return;
     }
-    const vPermits = (userPermits || []).filter(
-      permit => permit.status === PermitStatus.VALID
-    );
-    setDraftPermits(
-      (userPermits || []).filter(permit => permit.status === PermitStatus.DRAFT)
-    );
+    const vPermits = (userPermits || []).filter(permit => !!permit.orderId);
+    setDraftPermits((userPermits || []).filter(permit => !permit.orderId));
     setValidPermits(vPermits);
     if (vPermits?.length > 0 && profile) {
       const { primaryAddress, otherAddress } = profile;
@@ -81,18 +71,11 @@ const usePermitState = (): PermitActions => {
         fetchPermits();
         return;
       }
-      if (permits.length === draftPermits.length) {
-        setDraftPermits(permits);
-      } else if (permits.length) {
-        const permit = permits[0];
-        setDraftPermits([
-          ...draftPermits.filter(p => p.id !== permit.id),
-          permit,
-        ]);
-      }
+      const drafts = (permits || []).filter(permit => !permit.orderId);
+      setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
       setStatus('loaded');
     },
-    [fetchPermits, draftPermits]
+    [fetchPermits]
   );
 
   const createPermit = useCallback(async () => {
@@ -104,9 +87,8 @@ const usePermitState = (): PermitActions => {
       onError(errors);
       return;
     }
-    setDraftPermits(
-      (permits || []).filter(permit => permit.status === PermitStatus.DRAFT)
-    );
+    const drafts = (permits || []).filter(permit => !permit.orderId);
+    setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
     setStatus('loaded');
   }, [address]);
 
