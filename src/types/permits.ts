@@ -13,8 +13,11 @@ export interface Price {
 
 export type Permit = {
   id: string;
+  orderId: string;
+  subscriptionId: string;
   startType?: ParkingStartType;
   startTime?: Date | string;
+  endTime?: Date | string | null;
   status: PermitStatus;
   primaryVehicle: boolean;
   consentLowEmissionAccepted: boolean;
