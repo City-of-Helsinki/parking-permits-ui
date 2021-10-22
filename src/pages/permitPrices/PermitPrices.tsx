@@ -2,37 +2,22 @@ import classNames from 'classnames';
 import {
   Button,
   Card,
-  Checkbox,
   IconArrowLeft,
   IconArrowRight,
   IconMinusCircle,
-  Link,
   RadioButton,
 } from 'hds-react';
-import { first, sortBy } from 'lodash';
+import { sortBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConsent';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, STEPPER } from '../../types';
 import './permitPrices.scss';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
-
-const DiscountCheckboxLabel = (): React.ReactElement => {
-  const { t } = useTranslation();
-  const discountInfoUrl =
-    'https://www.hel.fi/helsinki/fi/kartat-ja-liikenne/pysakointi/vahapaastoisten_alennus';
-  return (
-    <>
-      <span>{t(`${T_PATH}.discount`)}</span>{' '}
-      <Link openInNewTab href={discountInfoUrl}>
-        {t(`${T_PATH}.readMore`)}
-      </Link>
-    </>
-  );
-};
 
 const PermitPrices = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -42,7 +27,6 @@ const PermitPrices = (): React.ReactElement => {
   const permits = permitCtx?.getDraftPermits();
   const registrations = permits?.map(p => p.vehicle.registrationNumber);
   const currentStep = permitCtx?.getStep();
-  const firstPermit = first(sortBy(permits, 'id'));
 
   const updatePermitData = (
     permitsToUpdate: Permit[],
@@ -145,19 +129,12 @@ const PermitPrices = (): React.ReactElement => {
             </div>
           ))}
       </div>
-      <div className="discount">
-        <Checkbox
-          className="discount-checkbox"
-          id={uuidv4()}
-          checked={firstPermit?.consentLowEmissionAccepted}
-          onChange={evt =>
-            updatePermitData(permits as Permit[], {
-              consentLowEmissionAccepted: evt.target.checked,
-            })
-          }
-          label={<DiscountCheckboxLabel />}
+      {permits?.length && (
+        <LowEmissionConsent
+          permits={permits}
+          updatePermitData={updatePermitData}
         />
-      </div>
+      )}
       <div className="action-buttons">
         <Button
           theme="black"
