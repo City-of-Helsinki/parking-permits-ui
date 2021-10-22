@@ -75,6 +75,7 @@
   "pages.permitPrices.PermitPrices.btn.delete": "Poista",
   "pages.permitPrices.PermitPrices.discount": "Haluan saada 50 % alennuksen myös muusta kadunvarsipysäköinnistä pysäköintisovelluksilla maksaessa.",
   "pages.permitPrices.PermitPrices.highEmissionVehicle": "Korkeapäästöinen ajoneuvo",
+  "pages.permitPrices.PermitPrices.lowEmissionLabel": "Haluatko alennuksen pysäkointisovelluksissa?",
   "pages.permitPrices.PermitPrices.lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
   "pages.permitPrices.PermitPrices.readMore": "Lue lisää.",
   "pages.profilePage.ProfilePage.apiError": "Api access tokenin lataus epäonnistui",
