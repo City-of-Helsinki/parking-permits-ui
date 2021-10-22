@@ -1,12 +1,19 @@
+import classNames from 'classnames';
 import { Button, IconPlusCircle, IconTrash } from 'hds-react';
 import { first } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Permit from '../../common/permit/Permit';
+import PurchaseNotification from '../../common/purchaseNotification/PurchaseNotification';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
-import { ROUTES, UserAddress } from '../../types';
+import {
+  Permit as PermitModel,
+  PermitStatus,
+  ROUTES,
+  UserAddress,
+} from '../../types';
 import './validPermits.scss';
 
 const T_PATH = 'pages.validPermit.ValidPermit';
@@ -37,10 +44,15 @@ const ValidPermits = (): React.ReactElement => {
     validPermits.map(permit => permitCtx?.deletePermit(permit.id));
     navigate(ROUTES.ADDRESS);
   };
+  const isProcessing = (permit: PermitModel) =>
+    permit.status === PermitStatus.DRAFT && permit.orderId;
 
   return (
     <div className="valid-permit-component">
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
+      {validPermits.some(isProcessing) && (
+        <PurchaseNotification validPermits={validPermits} />
+      )}
       {address && validPermits.length > 0 && address.zone && (
         <Permit
           user={profile}
@@ -56,15 +68,19 @@ const ValidPermits = (): React.ReactElement => {
             className="action-btn"
             variant="secondary"
             theme="black"
+            disabled={validPermits.some(isProcessing)}
             iconLeft={<IconPlusCircle />}
             onClick={() => navigate(ROUTES.CAR_REGISTRATIONS)}>
             {t(`${T_PATH}.newOrder`)}
           </Button>
         )}
         <Button
-          className="action-btn hds-button-danger"
+          className={classNames('action-btn hds-button-danger', {
+            processing: validPermits.some(isProcessing),
+          })}
           variant="secondary"
           theme="black"
+          disabled={validPermits.some(isProcessing)}
           iconLeft={<IconTrash className="trash-icon" />}
           onClick={() => deletePermits()}>
           {t(`${T_PATH}.deleteOrder`)}

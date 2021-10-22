@@ -68,11 +68,12 @@ const usePermitState = (): PermitActions => {
         return;
       }
       if ('primaryVehicle' in payload) {
-        fetchPermits();
+        await fetchPermits();
         return;
       }
       const drafts = (permits || []).filter(permit => !permit.orderId);
       setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
+      setValidPermits((permits || []).filter(permit => permit.orderId));
       setStatus('loaded');
     },
     [fetchPermits]
