@@ -75,6 +75,7 @@
   "pages.permitPrices.PermitPrices.btn.delete": "Remove",
   "pages.permitPrices.PermitPrices.discount": "I would also like to receive a 50 % discount on other off-street parking when paying with parking apps.",
   "pages.permitPrices.PermitPrices.highEmissionVehicle": "High-emission vehicle",
+  "pages.permitPrices.PermitPrices.lowEmissionLabel": "Want a discount on parking applications?",
   "pages.permitPrices.PermitPrices.lowEmissionVehicle": "Low-emission vehicle",
   "pages.permitPrices.PermitPrices.readMore": "Read more.",
   "pages.profilePage.ProfilePage.apiError": "Api access token failed to load",

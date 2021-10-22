@@ -72,6 +72,12 @@
   "pages.landingPage.LandingPage.login": "Logga in",
   "pages.permitPrices.PermitPrices.actionBtn.continue": "Fortsätt",
   "pages.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Gå tillbaka för att välja adress",
+  "pages.permitPrices.PermitPrices.btn.delete": "Ta bort",
+  "pages.permitPrices.PermitPrices.discount": "Jag skulle också vilja få 50 % rabatt på annan parkering utanför gatan när jag betalar med parkeringsappar.",
+  "pages.permitPrices.PermitPrices.highEmissionVehicle": "Högutsläppsfordon",
+  "pages.permitPrices.PermitPrices.lowEmissionLabel": "Vill du ha rabatt på parkeringsapplikationer?",
+  "pages.permitPrices.PermitPrices.lowEmissionVehicle": "Fordon med låga utsläpp",
+  "pages.permitPrices.PermitPrices.readMore": "Läs mer.",
   "pages.profilePage.ProfilePage.apiError": "Api-åtkomsttoken kunde inte laddas",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.frontPage": "Återgå till hemsidan",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.logout": "Logga ut",
@@ -92,10 +98,5 @@
   "pages.vehicleSelector.VehicleSelector.notification.info.message": "Den första koden är det normala priset, den andra koden är 1,5 gånger priset. Fordonet med lågt utsläpp till halva priset.",
   "pages.vehicleSelector.VehicleSelector.notification.success.label": "Din fordonsinformation är uppdaterad",
   "pages.vehicleSelector.VehicleSelector.notification.success.message": "Ditt fordon",
-  "pages.vehicleSelector.VehicleSelector.singlePermitSectionLabel": "Ditt fordon",
-  "pages.vehicleSelector.permitPrices.PermitPrices.btn.delete": "Ta bort",
-  "pages.vehicleSelector.permitPrices.PermitPrices.discount": "Jag skulle också vilja få 50 % rabatt på annan parkering utanför gatan när jag betalar med parkeringsappar.",
-  "pages.vehicleSelector.permitPrices.PermitPrices.highEmissionVehicle": "Högutsläppsfordon",
-  "pages.vehicleSelector.permitPrices.PermitPrices.lowEmissionVehicle": "Fordon med låga utsläpp",
-  "pages.vehicleSelector.permitPrices.PermitPrices.readMore": "Läs mer."
+  "pages.vehicleSelector.VehicleSelector.singlePermitSectionLabel": "Ditt fordon"
 }
