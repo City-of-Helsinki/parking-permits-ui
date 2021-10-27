@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { addDays, addWeeks, format } from 'date-fns';
+import { addDays, addWeeks, format, startOfDay } from 'date-fns';
 import { Card, DateInput, RadioButton, SelectionGroup } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -99,7 +99,7 @@ const PermitType = ({
               onClick={() =>
                 updatePermitData(permitsToUpdate, {
                   startType: ParkingStartType.IMMEDIATELY,
-                  startTime: addDays(new Date(), 1),
+                  startTime: startOfDay(addDays(new Date(), 1)),
                 })
               }
             />
@@ -117,6 +117,7 @@ const PermitType = ({
               onClick={() =>
                 updatePermitData(permitsToUpdate, {
                   startType: ParkingStartType.FROM,
+                  startTime: startOfDay(addDays(new Date(), 1)),
                 })
               }
             />
@@ -145,6 +146,7 @@ const PermitType = ({
           }
           onChange={(value: string, valueAsDate: Date) =>
             updatePermitData(permitsToUpdate, {
+              startType: ParkingStartType.FROM,
               startTime: valueAsDate,
             })
           }
