@@ -1,5 +1,5 @@
-mutation Mutation($permitIds: [ID]!, $input: ParkingPermitInput!) {
-  updateParkingPermit(permitIds: $permitIds, input: $input) {
+mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
+  updateParkingPermit(input: $input, permitId: $permitId) {
     success
     errors
     permits {
