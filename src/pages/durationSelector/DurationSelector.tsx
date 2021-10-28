@@ -1,5 +1,10 @@
 import classNames from 'classnames';
-import { differenceInMonths } from 'date-fns';
+import {
+  addDays,
+  addMonths,
+  differenceInDays,
+  differenceInMonths,
+} from 'date-fns';
 import {
   Button,
   Card,
@@ -99,16 +104,18 @@ const DurationSelector = (): React.ReactElement => {
 
   const getMaxMonth = (permit: Permit) => {
     if (
-      permit.id !== primaryPermit.id &&
-      primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
+      permit.primaryVehicle ||
+      primaryPermit.contractType === ParkingContractType.OPEN_ENDED
     ) {
-      const { endTime } = primaryPermit;
-      return differenceInMonths(
-        new Date(endTime as string),
-        new Date(permit.startTime as string)
-      );
+      return MAX_MONTH;
     }
-    return MAX_MONTH;
+    const endDate = new Date(primaryPermit.endTime as string);
+    const monthDiff = differenceInMonths(endDate, addDays(new Date(), 1));
+    const danglingDays = differenceInDays(
+      endDate,
+      addMonths(addDays(new Date(), 1), monthDiff)
+    );
+    return danglingDays >= 1 ? monthDiff + 1 : monthDiff;
   };
 
   const updateMonthCount = (permitId: string, monthCount: number) =>
