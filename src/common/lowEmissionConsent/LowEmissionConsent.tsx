@@ -23,10 +23,7 @@ const DiscountCheckboxLabel = (): React.ReactElement => {
 
 export interface Props {
   permits: Permit[];
-  updatePermitData: (
-    permitsToUpdate: Permit[],
-    payload: Partial<Permit>
-  ) => void;
+  updatePermitData: (payload: Partial<Permit>, permitId?: string) => void;
 }
 const LowEmissionConsent = ({
   permits,
@@ -55,9 +52,12 @@ const LowEmissionConsent = ({
                   id={uuidv4()}
                   checked={permit?.consentLowEmissionAccepted}
                   onChange={evt =>
-                    updatePermitData([permit], {
-                      consentLowEmissionAccepted: evt.target.checked,
-                    })
+                    updatePermitData(
+                      {
+                        consentLowEmissionAccepted: evt.target.checked,
+                      },
+                      permit.id
+                    )
                   }
                   label={
                     permits?.length > 1 ? (
