@@ -95,13 +95,6 @@ const DurationSelector = (): React.ReactElement => {
     );
   };
 
-  const getMonthValue = (permit: Permit) => {
-    const { monthCount: currentCount } = permit;
-    const { monthCount: primaryCount } = primaryPermit;
-
-    return currentCount > primaryCount ? primaryCount : currentCount;
-  };
-
   const getMaxMonth = (permit: Permit) => {
     if (
       permit.primaryVehicle ||
@@ -176,9 +169,7 @@ const DurationSelector = (): React.ReactElement => {
                 min={1}
                 step={1}
                 max={getMaxMonth(permit)}
-                defaultValue={
-                  index === 0 ? permit?.monthCount : getMonthValue(permit)
-                }
+                defaultValue={permit?.monthCount}
                 disabled={
                   mainPermitToUpdate.contractType !==
                   ParkingContractType.FIXED_PERIOD
