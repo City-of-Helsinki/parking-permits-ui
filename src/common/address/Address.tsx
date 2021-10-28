@@ -9,7 +9,7 @@ import {
 import React, { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { UserAddress } from '../../types';
+import { UserAddress, Zone } from '../../types';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import { formatAddress } from '../utils';
 import './address.scss';
@@ -53,6 +53,10 @@ const Address: FC<Props> = ({
   const [openState, setOpenState] = useState(true);
   const { t } = useTranslation();
   const ArrowIcon = openState ? IconAngleUp : IconAngleDown;
+  const updateAddressZone = (userAddress: UserAddress) => {
+    permitCtx?.setAddress(userAddress);
+    permitCtx?.updatePermit({ zoneId: userAddress.zone?.id } as Partial<Zone>);
+  };
   return (
     <Card
       className={classNames('address-component', {
@@ -67,7 +71,7 @@ const Address: FC<Props> = ({
           disabled={!address.zone || disableSelection}
           label={<AddressLabel isPrimary={isPrimary} address={address} />}
           checked={selectedAddress?.id === address.id}
-          onClick={() => permitCtx?.setAddress(address)}
+          onClick={() => updateAddressZone(address)}
         />
         <ArrowIcon onClick={() => setOpenState(!openState)} />
       </div>

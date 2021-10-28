@@ -1,6 +1,6 @@
 import { FetchStatus } from '../client/types';
 import { Permit } from './permits';
-import { UserAddress, UserProfile } from './user';
+import { UserAddress, UserProfile, Zone } from './user';
 
 export type ProfileActions = {
   getProfile: () => UserProfile;
@@ -16,7 +16,10 @@ export type PermitActions = {
   getDraftPermits: () => Permit[];
   getAddress: () => UserAddress;
   setAddress: (address: UserAddress) => void;
-  updatePermit: (payload: Partial<Permit>, permitId?: string) => Promise<void>;
+  updatePermit: (
+    payload: Partial<Permit> | Partial<Zone>,
+    permitId?: string
+  ) => Promise<void>;
   updateVehicle: (permitId: string, registration: string) => Promise<void>;
   createPermit: () => Promise<void>;
   proceedToTalpa: () => Promise<void>;

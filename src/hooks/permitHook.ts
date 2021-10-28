@@ -8,7 +8,13 @@ import {
   updateDraftPermit,
   updateVehicleRegistration,
 } from '../graphql/permitGqlClient';
-import { Permit, PermitActions, UserAddress, UserProfile } from '../types';
+import {
+  Permit,
+  PermitActions,
+  UserAddress,
+  UserProfile,
+  Zone,
+} from '../types';
 import proceedToOrderPayment from './talpa';
 import { UserProfileContext } from './userProfileProvider';
 
@@ -57,7 +63,10 @@ const usePermitState = (): PermitActions => {
   }, [address, profile]);
 
   const updatePermit = useCallback(
-    async (payload: Partial<Permit>, permitId: string | undefined) => {
+    async (
+      payload: Partial<Permit> | Partial<Zone>,
+      permitId: string | undefined
+    ) => {
       setStatus('loading');
       const { permits, success, errors } = await updateDraftPermit(
         payload,
