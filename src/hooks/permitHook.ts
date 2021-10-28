@@ -57,11 +57,11 @@ const usePermitState = (): PermitActions => {
   }, [address, profile]);
 
   const updatePermit = useCallback(
-    async (permitIds: string[], payload: Partial<Permit>) => {
+    async (payload: Partial<Permit>, permitId: string | undefined) => {
       setStatus('loading');
       const { permits, success, errors } = await updateDraftPermit(
-        permitIds,
-        payload
+        payload,
+        permitId
       );
       if (!success) {
         onError(errors);
@@ -149,7 +149,7 @@ const usePermitState = (): PermitActions => {
     getDraftPermits: () => draftPermits,
     getValidPermits: () => validPermits,
     setStep: count => setStep(count),
-    updatePermit: (permitIds, payload) => updatePermit(permitIds, payload),
+    updatePermit: (payload, permitId) => updatePermit(payload, permitId),
     updateVehicle: (permitId, registration) =>
       updateVehicleReg(permitId, registration),
     deletePermit: permitId => deletePermit(permitId),
