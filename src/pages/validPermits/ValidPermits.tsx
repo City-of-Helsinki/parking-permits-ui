@@ -45,7 +45,7 @@ const ValidPermits = (): React.ReactElement => {
     navigate(ROUTES.ADDRESS);
   };
   const isProcessing = (permit: PermitModel) =>
-    permit.status === PermitStatus.DRAFT && permit.orderId;
+    permit.status === PermitStatus.PROCESSING && permit.orderId;
 
   return (
     <div className="valid-permit-component">
