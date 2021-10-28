@@ -28,15 +28,8 @@ const PermitPrices = (): React.ReactElement => {
   const registrations = permits?.map(p => p.vehicle.registrationNumber);
   const currentStep = permitCtx?.getStep();
 
-  const updatePermitData = (
-    permitsToUpdate: Permit[],
-    payload: Partial<Permit>
-  ) => {
-    permitCtx?.updatePermit(
-      permitsToUpdate.map(p => p.id),
-      payload
-    );
-  };
+  const updatePermitData = (payload: Partial<Permit>, permitId?: string) =>
+    permitCtx?.updatePermit(payload, permitId);
 
   if (!registrations?.length) {
     return <Navigate to={ROUTES.CAR_REGISTRATIONS} />;
@@ -85,7 +78,7 @@ const PermitPrices = (): React.ReactElement => {
                     id={uuidv4()}
                     checked={permit.primaryVehicle}
                     onChange={evt =>
-                      updatePermitData([permit], {
+                      updatePermitData({
                         primaryVehicle: evt.target.checked,
                       })
                     }

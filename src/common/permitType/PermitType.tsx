@@ -11,24 +11,15 @@ const T_PATH = 'common.permitType.PermitType';
 
 export interface Props {
   primaryPermit: Permit;
-  permitToUpdate: Permit;
   mainPermitToUpdate: Permit;
-  updatePermitData: (
-    permitsToUpdate: Permit[],
-    payload: Partial<Permit>
-  ) => void;
+  updatePermitData: (payload: Partial<Permit>, permitId?: string) => void;
 }
 const PermitType = ({
   primaryPermit,
-  permitToUpdate,
   mainPermitToUpdate,
   updatePermitData,
 }: Props): React.ReactElement => {
   const { t, i18n } = useTranslation();
-  const permitsToUpdate: Permit[] = [permitToUpdate];
-  if (!mainPermitToUpdate.orderId) {
-    permitsToUpdate.push(mainPermitToUpdate);
-  }
 
   return (
     <Card className="permit-type-component">
@@ -49,9 +40,8 @@ const PermitType = ({
                 ParkingContractType.OPEN_ENDED
               }
               onClick={() =>
-                updatePermitData(permitsToUpdate, {
+                updatePermitData({
                   contractType: ParkingContractType.OPEN_ENDED,
-                  endTime: null,
                   monthCount: 1,
                 })
               }
@@ -77,7 +67,7 @@ const PermitType = ({
                 ParkingContractType.FIXED_PERIOD
               }
               onClick={() =>
-                updatePermitData(permitsToUpdate, {
+                updatePermitData({
                   contractType: ParkingContractType.FIXED_PERIOD,
                 })
               }
@@ -97,7 +87,7 @@ const PermitType = ({
                 mainPermitToUpdate.startType === ParkingStartType.IMMEDIATELY
               }
               onClick={() =>
-                updatePermitData(permitsToUpdate, {
+                updatePermitData({
                   startType: ParkingStartType.IMMEDIATELY,
                   startTime: startOfDay(addDays(new Date(), 1)),
                 })
@@ -115,7 +105,7 @@ const PermitType = ({
               label={t(`${T_PATH}.startDate`)}
               checked={mainPermitToUpdate.startType === ParkingStartType.FROM}
               onClick={() =>
-                updatePermitData(permitsToUpdate, {
+                updatePermitData({
                   startType: ParkingStartType.FROM,
                   startTime: startOfDay(addDays(new Date(), 1)),
                 })
@@ -145,7 +135,7 @@ const PermitType = ({
             mainPermitToUpdate.startType !== ParkingStartType.FROM
           }
           onChange={(value: string, valueAsDate: Date) =>
-            updatePermitData(permitsToUpdate, {
+            updatePermitData({
               startType: ParkingStartType.FROM,
               startTime: valueAsDate,
             })

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { addMonths, differenceInMonths } from 'date-fns';
+import { differenceInMonths } from 'date-fns';
 import {
   Button,
   Card,
@@ -60,14 +60,9 @@ const DurationSelector = (): React.ReactElement => {
   };
 
   const updatePermitData = (
-    permitsToUpdate: Permit[],
-    payload: Partial<Permit>
-  ) => {
-    permitCtx?.updatePermit(
-      permitsToUpdate.map(p => p.id),
-      payload
-    );
-  };
+    payload: Partial<Permit>,
+    permitId: string | undefined
+  ) => permitCtx?.updatePermit(payload, permitId);
 
   const getCarDetails = (permit: Permit) => {
     const { registrationNumber, manufacturer, model } = permit.vehicle;
@@ -107,35 +102,20 @@ const DurationSelector = (): React.ReactElement => {
       permit.id !== primaryPermit.id &&
       primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
     ) {
-      const { startTime, monthCount } = primaryPermit;
-      const primaryEndDate = addMonths(
-        new Date(startTime as string),
-        monthCount
-      );
+      const { endTime } = primaryPermit;
       return differenceInMonths(
-        primaryEndDate,
+        new Date(endTime as string),
         new Date(permit.startTime as string)
       );
     }
     return MAX_MONTH;
   };
 
-  const updateMonthCount = (currentPermit: Permit, count: number) => {
-    const permitsToUpdate = [currentPermit];
-
-    if (draftPermits.length > 1) {
-      if (
-        otherPermit.monthCount > count &&
-        currentPermit.id !== otherPermit.id
-      ) {
-        permitsToUpdate.push(otherPermit);
-      }
-    }
-    updatePermitData(permitsToUpdate, {
-      monthCount: count,
-      endTime: addMonths(new Date(primaryPermit.startTime as string), count),
-    });
-  };
+  const updateMonthCount = (permitId: string, monthCount: number) =>
+    updatePermitData(
+      { monthCount, contractType: ParkingContractType.FIXED_PERIOD },
+      permitId
+    );
 
   return (
     <div className="duration-selector-component">
@@ -145,13 +125,11 @@ const DurationSelector = (): React.ReactElement => {
           {t(`${T_PATH}.residentParkingZone`)}
         </div>
       </div>
-
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       {primaryPermit && (
         <PermitType
           primaryPermit={primaryPermit}
           mainPermitToUpdate={mainPermitToUpdate}
-          permitToUpdate={otherPermit}
           updatePermitData={updatePermitData}
         />
       )}
@@ -199,7 +177,10 @@ const DurationSelector = (): React.ReactElement => {
                   ParkingContractType.FIXED_PERIOD
                 }
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                  updateMonthCount(permit, parseInt(e.target.value || '0', 10));
+                  updateMonthCount(
+                    permit.id,
+                    parseInt(e.target.value || '0', 10)
+                  );
                 }}
               />
             </div>
