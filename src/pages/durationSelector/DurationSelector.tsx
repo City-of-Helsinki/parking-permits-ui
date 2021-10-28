@@ -12,6 +12,7 @@ import {
   IconArrowRight,
   NumberInput,
 } from 'hds-react';
+import { orderBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -133,7 +134,7 @@ const DurationSelector = (): React.ReactElement => {
           updatePermitData={updatePermitData}
         />
       )}
-      {draftPermits.map((permit, index) => (
+      {orderBy(draftPermits, 'primaryVehicle', 'desc').map((permit, index) => (
         <div key={uuidv4()}>
           <Card className="card">
             <div className="header">
