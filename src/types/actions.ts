@@ -16,10 +16,7 @@ export type PermitActions = {
   getDraftPermits: () => Permit[];
   getAddress: () => UserAddress;
   setAddress: (address: UserAddress) => void;
-  updatePermit: (
-    permitIds: string[],
-    payload: Partial<Permit>
-  ) => Promise<void>;
+  updatePermit: (payload: Partial<Permit>, permitId?: string) => Promise<void>;
   updateVehicle: (permitId: string, registration: string) => Promise<void>;
   createPermit: () => Promise<void>;
   proceedToTalpa: () => Promise<void>;

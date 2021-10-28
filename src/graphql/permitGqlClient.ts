@@ -70,10 +70,10 @@ export const createDraftPermit = (
 };
 
 export const updateDraftPermit = (
-  permitIds: string[],
-  payload: Partial<Permit>
+  payload: Partial<Permit>,
+  permitId: string | undefined
 ): Promise<UpdatePermitQueryResult['updateParkingPermit']> => {
-  const variables = { permitIds, input: payload };
+  const variables = { permitId, input: payload };
   const client = new PermitGqlClient(loader('../graphql/updatePermit.graphql'));
   return client
     .mutate<UpdatePermitQueryResult>(variables)
