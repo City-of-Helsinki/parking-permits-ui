@@ -42,10 +42,7 @@ const PurchasedOverview = (): React.ReactElement => {
 
   if (draftPermits.length && queryStr.orderId) {
     setTimeout(() => {
-      permitCtx?.updatePermit(
-        draftPermits.map(p => p.id),
-        { orderId: queryStr.orderId as string }
-      );
+      permitCtx?.updatePermit({ orderId: queryStr.orderId as string });
       // eslint-disable-next-line no-magic-numbers
     }, 300);
     return <LoadingSpinner style={{ marginLeft: '50%' }} small />;
