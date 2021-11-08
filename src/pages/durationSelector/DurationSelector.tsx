@@ -168,41 +168,44 @@ const DurationSelector = (): React.ReactElement => {
               </div>
               <div className="hide-in-mobile">{getPrices(permit)}</div>
             </div>
-            <div className="time-period with-bottom-border">
-              <div
-                className={classNames(`assistive-text`, {
-                  disabled:
-                    mainPermitToUpdate.contractType ===
-                    ParkingContractType.OPEN_ENDED,
-                })}>
-                {t(`${T_PATH}.fixedPeriodAssistiveText`, {
-                  max: getMaxMonth(permit),
-                })}
+            {mainPermitToUpdate.contractType ===
+              ParkingContractType.OPEN_ENDED && (
+              <div>{t(`${T_PATH}.openEndedAssistiveText`)}</div>
+            )}
+
+            {mainPermitToUpdate.contractType ===
+              ParkingContractType.FIXED_PERIOD && (
+              <div className="time-period with-bottom-border">
+                <div className={classNames(`assistive-text`)}>
+                  {t(`${T_PATH}.fixedPeriodAssistiveText`, {
+                    max: getMaxMonth(permit),
+                  })}
+                </div>
+                <NumberInput
+                  style={{ maxWidth: '250px' }}
+                  className="month-selection"
+                  id={uuidv4()}
+                  helperText={t(`${T_PATH}.monthSelectionHelpText`, {
+                    max: getMaxMonth(permit),
+                  })}
+                  label=""
+                  min={1}
+                  step={1}
+                  max={getMaxMonth(permit)}
+                  defaultValue={permit?.monthCount}
+                  disabled={
+                    mainPermitToUpdate.contractType !==
+                    ParkingContractType.FIXED_PERIOD
+                  }
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                    updateMonthCount(
+                      permit.id,
+                      parseInt(e.target.value || '0', 10)
+                    );
+                  }}
+                />
               </div>
-              <NumberInput
-                style={{ maxWidth: '250px' }}
-                className="month-selection"
-                id={uuidv4()}
-                helperText={t(`${T_PATH}.monthSelectionHelpText`, {
-                  max: getMaxMonth(permit),
-                })}
-                label=""
-                min={1}
-                step={1}
-                max={getMaxMonth(permit)}
-                defaultValue={permit?.monthCount}
-                disabled={
-                  mainPermitToUpdate.contractType !==
-                  ParkingContractType.FIXED_PERIOD
-                }
-                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                  updateMonthCount(
-                    permit.id,
-                    parseInt(e.target.value || '0', 10)
-                  );
-                }}
-              />
-            </div>
+            )}
           </Card>
           <div className="price-info hide-in-desktop">
             <div>{t(`${T_PATH}.permitPrice`)}</div>
