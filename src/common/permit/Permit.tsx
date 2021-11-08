@@ -30,12 +30,14 @@ export interface Props {
   address: UserAddress;
   permits: PermitModel[];
   showActionsButtons?: boolean;
+  hideMap?: boolean;
   showChangeAddressButtons?: boolean;
 }
 
 const Permit = ({
   permits,
   address,
+  hideMap = false,
   showActionsButtons = false,
   showChangeAddressButtons = false,
 }: Props): React.ReactElement => {
@@ -86,37 +88,42 @@ const Permit = ({
             <div className="message-text">{t(`${T_PATH}.discount`)}</div>
           </div>
         )}
-        <div className="divider" />
+        {!hideMap && <div className="divider" />}
       </div>
     );
   };
   const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
   return (
     <div className="permit-component">
-      <Card
-        style={{
-          minWidth: 'calc(50% - 72px)',
-          paddingBottom: canEditAddress() ? '0' : 'var(--spacing-l)',
-          background: permits.every(isProcessing)
-            ? 'var(--color-black-10)'
-            : 'var(--color-white)',
-        }}>
-        <AddressLabel address={address} />
-        <ParkingZonesMap userAddress={address} zoom={13} />
-        {showActionsButtons && showChangeAddressButtons && (
-          <div className="permit-action-btns">
-            <Button
-              className="permit-actions-buttons"
-              variant="supplementary"
-              disabled={permits.some(isProcessing)}
-              style={{ margin: 'var(--spacing-xs) 0' }}
-              iconLeft={<IconAngleRight />}>
-              {t(`${T_PATH}.changeAddress`)}
-            </Button>
-          </div>
-        )}
-      </Card>
-      <div className="permit-card">
+      {!hideMap && (
+        <Card
+          style={{
+            minWidth: 'calc(50% - 72px)',
+            paddingBottom: canEditAddress() ? '0' : 'var(--spacing-l)',
+            background: permits.every(isProcessing)
+              ? 'var(--color-black-10)'
+              : 'var(--color-white)',
+          }}>
+          <AddressLabel address={address} />
+          <ParkingZonesMap userAddress={address} zoom={13} />
+          {showActionsButtons && showChangeAddressButtons && (
+            <div className="permit-action-btns">
+              <Button
+                className="permit-actions-buttons"
+                variant="supplementary"
+                disabled={permits.some(isProcessing)}
+                style={{ margin: 'var(--spacing-xs) 0' }}
+                iconLeft={<IconAngleRight />}>
+                {t(`${T_PATH}.changeAddress`)}
+              </Button>
+            </div>
+          )}
+        </Card>
+      )}
+      <div
+        className={classNames('permit-card', {
+          'hide-map': hideMap,
+        })}>
         {orderBy(permits, 'primaryVehicle', 'desc').map((permit, index) => (
           <Card
             className={classNames({
