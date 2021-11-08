@@ -1,6 +1,12 @@
 import classNames from 'classnames';
 import { addDays, addWeeks, format, startOfDay } from 'date-fns';
-import { Card, DateInput, RadioButton, SelectionGroup } from 'hds-react';
+import {
+  Card,
+  DateInput,
+  Notification,
+  RadioButton,
+  SelectionGroup,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,6 +31,12 @@ const PermitType = ({
     <Card className="permit-type-component">
       <div className="time-period with-bottom-border">
         <SelectionGroup label={t(`${T_PATH}.parkingDurationType.label`)}>
+          {!!primaryPermit.orderId &&
+            primaryPermit.contractType === ParkingContractType.FIXED_PERIOD && (
+              <Notification
+                label={t(`${T_PATH}.sameAsFirstPermitNotification`)}
+              />
+            )}
           <div className="radio-button">
             <RadioButton
               className="custom-radio-btn"
