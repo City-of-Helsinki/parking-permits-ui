@@ -17,9 +17,15 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import Permit from '../../common/permit/Permit';
 import PermitType from '../../common/permitType/PermitType';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { ParkingContractType, Permit, ROUTES, STEPPER } from '../../types';
+import {
+  ParkingContractType,
+  Permit as PermitModel,
+  ROUTES,
+  STEPPER,
+} from '../../types';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
@@ -37,10 +43,10 @@ const DurationSelector = (): React.ReactElement => {
   );
   const currentStep = permitCtx?.getStep();
   const address = permitCtx?.getAddress();
-  let [primaryPermit, otherPermit] = draftPermits as Permit[];
+  let [primaryPermit, otherPermit] = draftPermits as PermitModel[];
 
   if (validPermits?.length) {
-    primaryPermit = validPermits.find(p => p.primaryVehicle) as Permit;
+    primaryPermit = validPermits.find(p => p.primaryVehicle) as PermitModel;
   }
 
   if (validPermits?.length && draftPermits?.length) {
@@ -66,16 +72,16 @@ const DurationSelector = (): React.ReactElement => {
   };
 
   const updatePermitData = (
-    payload: Partial<Permit>,
+    payload: Partial<PermitModel>,
     permitId: string | undefined
   ) => permitCtx?.updatePermit(payload, permitId);
 
-  const getCarDetails = (permit: Permit) => {
+  const getCarDetails = (permit: PermitModel) => {
     const { registrationNumber, manufacturer, model } = permit.vehicle;
     return `${registrationNumber} ${manufacturer} ${model}`;
   };
 
-  const getPrices = (permit: Permit) => {
+  const getPrices = (permit: PermitModel) => {
     const { isLowEmission } = permit.vehicle;
     const { contractType, prices } = permit;
     const { priceGross, rowPriceTotal } = prices;
@@ -96,7 +102,7 @@ const DurationSelector = (): React.ReactElement => {
     );
   };
 
-  const getMaxMonth = (permit: Permit) => {
+  const getMaxMonth = (permit: PermitModel) => {
     if (
       permit.primaryVehicle ||
       primaryPermit.contractType === ParkingContractType.OPEN_ENDED
@@ -126,7 +132,21 @@ const DurationSelector = (): React.ReactElement => {
           {t(`${T_PATH}.residentParkingZone`)}
         </div>
       </div>
-      <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
+      {!!validPermits?.length && (
+        <>
+          <div className="section-label">
+            {t(`${T_PATH}.validPermitCount`, { count: validPermits.length })}
+          </div>
+          <Permit permits={validPermits} address={address} hideMap />
+        </>
+      )}
+      <div className="section-label">
+        {t(
+          `${T_PATH}.${
+            validPermits?.length ? 'secondPermitLabel' : 'sectionLabel'
+          }`
+        )}
+      </div>
       {primaryPermit && (
         <PermitType
           primaryPermit={primaryPermit}
