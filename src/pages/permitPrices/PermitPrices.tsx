@@ -106,19 +106,17 @@ const PermitPrices = (): React.ReactElement => {
                   {getPrices(permit)}
                 </div>
               </Card>
-              {(registrations?.length || 0) > 1 && (
-                <div className="action-delete">
-                  <Button
-                    variant="supplementary"
-                    style={{
-                      color: 'var(--color-coat-of-arms)',
-                    }}
-                    onClick={() => permitCtx?.deletePermit(permit.id)}
-                    iconLeft={<IconMinusCircle />}>
-                    {t(`${T_PATH}.btn.delete`)}
-                  </Button>
-                </div>
-              )}
+              <div className="action-delete">
+                <Button
+                  variant="supplementary"
+                  style={{
+                    color: 'var(--color-coat-of-arms)',
+                  }}
+                  onClick={() => permitCtx?.deletePermit(permit.id)}
+                  iconLeft={<IconMinusCircle />}>
+                  {t(`${T_PATH}.btn.delete`)}
+                </Button>
+              </div>
             </div>
           ))}
       </div>
