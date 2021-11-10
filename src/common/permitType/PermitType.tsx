@@ -27,16 +27,22 @@ const PermitType = ({
 }: Props): React.ReactElement => {
   const { t, i18n } = useTranslation();
 
+  const hasSecondPermitNotification = () => {
+    if (
+      primaryPermit.orderId &&
+      primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
+    ) {
+      return (
+        <Notification label={t(`${T_PATH}.sameAsFirstPermitNotification`)} />
+      );
+    }
+    return <></>;
+  };
   return (
     <Card className="permit-type-component">
       <div className="time-period with-bottom-border">
         <SelectionGroup label={t(`${T_PATH}.parkingDurationType.label`)}>
-          {!!primaryPermit.orderId &&
-            primaryPermit.contractType === ParkingContractType.FIXED_PERIOD && (
-              <Notification
-                label={t(`${T_PATH}.sameAsFirstPermitNotification`)}
-              />
-            )}
+          {hasSecondPermitNotification()}
           <div className="radio-button">
             <RadioButton
               className="custom-radio-btn"
