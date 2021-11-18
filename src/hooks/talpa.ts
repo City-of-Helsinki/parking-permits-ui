@@ -11,6 +11,8 @@ import {
 
 const CONFIG = {
   orderURL: String(process.env.REACT_APP_TALPA_ORDER_EXPERIENCE_API),
+  API_KEY: String(process.env.REACT_APP_TALPA_API_KEY),
+  namespace: String(process.env.REACT_APP_TALPA_NAMESPACE),
 };
 
 const proceedToOrderPayment = (
@@ -46,7 +48,7 @@ const proceedToOrderPayment = (
     };
   });
   const data: TalpaOrder = {
-    namespace: 'asukaspysakointi',
+    namespace: CONFIG.namespace,
     user: user.id,
     priceNet: sumBy(items, 'priceNet'),
     priceVat: sumBy(items, 'priceVat'),
@@ -54,7 +56,13 @@ const proceedToOrderPayment = (
     items,
     customer,
   };
-  return axios.post(orderURL, data).then(orderRes => orderRes.data);
+  const headers = {
+    'Content-Type': 'application/json',
+    'api-key': CONFIG.API_KEY,
+  };
+  return axios
+    .post(orderURL, data, { headers })
+    .then(orderRes => orderRes.data);
 };
 
 export default proceedToOrderPayment;
