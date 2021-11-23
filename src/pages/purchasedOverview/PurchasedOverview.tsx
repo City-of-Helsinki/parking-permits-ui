@@ -31,21 +31,12 @@ const PurchasedOverview = (): React.ReactElement => {
   const queryStr = queryString.parse(location.search);
   const selectedAddress = permitCtx.getAddress();
   const currentStep = permitCtx.getStep();
-  const draftPermits = permitCtx.getDraftPermits();
   const validPermits = permitCtx.getValidPermits();
 
   if (currentStep !== STEPPER.PURCHASED_VIEW) {
     const timeOutFor = 100;
     setTimeout(() => permitCtx.setStep(STEPPER.PURCHASED_VIEW), timeOutFor);
     return <></>;
-  }
-
-  if (draftPermits.length && queryStr.orderId) {
-    setTimeout(() => {
-      permitCtx?.updatePermit({ orderId: queryStr.orderId as string });
-      // eslint-disable-next-line no-magic-numbers
-    }, 300);
-    return <LoadingSpinner style={{ marginLeft: '50%' }} small />;
   }
 
   const getCurrentPurchasedPermits = () =>
