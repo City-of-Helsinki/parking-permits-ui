@@ -83,3 +83,7 @@ body {
   --icon-color-selected: var(--color-coat-of-arms);
   --border-color-selected: var(--color-coat-of-arms);
 }
+.leaflet-bottom,
+.leaflet-top {
+  z-index: auto;
+}
