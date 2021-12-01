@@ -39,3 +39,7 @@ export enum PermitStatus {
   CANCELLED = 'CANCELLED',
   EXPIRED = 'EXPIRED',
 }
+export enum PermitEndType {
+  IMMEDIATELY = 'IMMEDIATELY',
+  AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
+}
