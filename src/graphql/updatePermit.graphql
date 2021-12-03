@@ -16,10 +16,7 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
       monthCount
       vehicle {
         id
-        type {
-          id
-          type
-        }
+        powerType
         model
         emission
         isLowEmission

@@ -16,10 +16,7 @@ mutation Mutation($zoneId: ID!) {
       monthCount
       vehicle {
         id
-        type {
-          id
-          type
-        }
+        powerType
         model
         emission
         isLowEmission
