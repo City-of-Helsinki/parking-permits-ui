@@ -4,6 +4,7 @@ import { ApiFetchError, FetchStatus } from '../client/types';
 import {
   createDraftPermit,
   deleteDraftPermit,
+  endPermits,
   getAllPermits,
   updateDraftPermit,
   updateVehicleRegistration,
@@ -113,6 +114,17 @@ const usePermitState = (): PermitActions => {
     [fetchPermits]
   );
 
+  const endValidPermits = useCallback(
+    async (permitIds, endType, iban) => {
+      setStatus('loading');
+      const { success } = await endPermits(permitIds, endType, iban);
+      if (success) {
+        await fetchPermits();
+      }
+    },
+    [fetchPermits]
+  );
+
   const updateVehicleReg = useCallback(
     async (permitId, registration) => {
       setStatus('loading');
@@ -162,6 +174,8 @@ const usePermitState = (): PermitActions => {
     updateVehicle: (permitId, registration) =>
       updateVehicleReg(permitId, registration),
     deletePermit: permitId => deletePermit(permitId),
+    endValidPermits: (permitIds, endType, iban) =>
+      endValidPermits(permitIds, endType, iban),
     createPermit: () => createPermit(),
     proceedToTalpa: () => proceedToTalpa(),
     getErrorMessage: () => {

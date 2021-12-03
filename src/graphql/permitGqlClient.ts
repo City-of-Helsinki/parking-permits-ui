@@ -5,6 +5,7 @@ import { getGqlClient } from '../hooks/utils';
 import {
   CreatePermitQueryResult,
   DeletePermitQueryResult,
+  endPermitQueryResult,
   Permit,
   PermitQueryResult,
   UpdatePermitQueryResult,
@@ -88,4 +89,16 @@ export const deleteDraftPermit = (
   return client
     .mutate<DeletePermitQueryResult>(variables)
     .then(res => res.deleteParkingPermit);
+};
+
+export const endPermits = (
+  permitIds: string,
+  endType: string,
+  iban: string
+): Promise<endPermitQueryResult['endParkingPermit']> => {
+  const variables = { permitIds, endType, iban };
+  const client = new PermitGqlClient(loader('../graphql/endPermit.graphql'));
+  return client
+    .mutate<endPermitQueryResult>(variables)
+    .then(res => res.endParkingPermit);
 };

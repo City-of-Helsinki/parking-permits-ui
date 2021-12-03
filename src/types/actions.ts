@@ -24,6 +24,11 @@ export type PermitActions = {
   createPermit: () => Promise<void>;
   proceedToTalpa: () => Promise<void>;
   deletePermit: (permitId: string) => Promise<void>;
+  endValidPermits: (
+    permitIds: string[],
+    endType: string,
+    iban: string
+  ) => Promise<void>;
   getStep: () => number;
   setStep: (step: number) => void;
   getStatus: () => FetchStatus;
