@@ -4,10 +4,7 @@ mutation Mutation($vehicleId: ID!, $registration: String!) {
     errors
     vehicle {
       id
-      type {
-        id
-        type
-      }
+      powerType
       model
       emission
       isLowEmission

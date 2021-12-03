@@ -28,16 +28,11 @@ export type Permit = {
   parkingZone: Zone;
 };
 
-export type VehicleType = {
-  id: string;
-  type: string;
-};
-
 export type Vehicle = {
   id: string;
   emission: number;
   isLowEmission: boolean;
-  vehicleType: VehicleType;
+  powerType: string;
   manufacturer: string;
   model: string;
   productionYear: number;
