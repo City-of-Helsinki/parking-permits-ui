@@ -33,6 +33,13 @@ export type DeletePermitQueryResult = {
   };
 };
 
+export type endPermitQueryResult = {
+  endParkingPermit: {
+    success: boolean;
+    errors: string[];
+  };
+};
+
 export type UpdatePermitQueryResult = {
   updateParkingPermit: {
     permits: Permit[];
