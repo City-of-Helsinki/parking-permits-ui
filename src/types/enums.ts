@@ -43,3 +43,9 @@ export enum PermitEndType {
   IMMEDIATELY = 'IMMEDIATELY',
   AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
 }
+
+export enum END_PERMIT {
+  REFUND = 'REFUND',
+  ACCOUNT = 'ACCOUNT',
+  RESULT = 'RESULT',
+}
