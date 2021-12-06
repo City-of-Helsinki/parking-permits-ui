@@ -8,18 +8,21 @@ import {
   IconDocument,
 } from 'hds-react';
 import { orderBy } from 'lodash';
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
+  PermitEndType,
   PermitStatus,
+  ROUTES,
   UserAddress,
   UserProfile,
 } from '../../types';
 import AddressLabel from '../addressLabel/AddressLabel';
+import EndPermitDialog from '../endPermitDialog/EndPermitDialog';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
 
@@ -43,7 +46,8 @@ const Permit = ({
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy HH:mm';
   const { t } = useTranslation();
-  const permitCtx = useContext(PermitStateContext);
+  const navigate = useNavigate();
+  const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
 
   const getEndTime = (permit: PermitModel) =>
     permit.startTime
@@ -145,10 +149,25 @@ const Permit = ({
                     variant="supplementary"
                     disabled={!!isProcessing(permit)}
                     iconLeft={<IconAngleRight />}
-                    onClick={() => permitCtx?.deletePermit(permit.id)}>
+                    onClick={() => setOpenEndPermitDialog(true)}>
                     {t(`${T_PATH}.removeSecondaryVehicle`)}
                   </Button>
                 )}
+                <EndPermitDialog
+                  isOpen={openEndPermitDialog}
+                  currentPeriodEndTime={permit.currentPeriodEndTime as string}
+                  canEndAfterCurrentPeriod={permit.canEndAfterCurrentPeriod}
+                  onCancel={() => setOpenEndPermitDialog(false)}
+                  onConfirm={(endType: PermitEndType) =>
+                    navigate({
+                      pathname: ROUTES.END_PERMITS,
+                      search: `?${createSearchParams({
+                        permitIds: [permit.id],
+                        endType,
+                      })}`,
+                    })
+                  }
+                />
               </div>
             )}
           </Card>
