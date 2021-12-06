@@ -7,6 +7,7 @@ export enum ROUTES {
   ADDRESS = '/address',
   AUTH_ERROR = '/auth-error',
   VALID_PERMITS = '/valid-permits',
+  END_PERMITS = '/end-permits',
   DURATION_SELECTOR = '/duration-selector',
   CAR_REGISTRATIONS = '/vehicle/registrations',
   PERMIT_PRICES = '/vehicle/permit-prices',
