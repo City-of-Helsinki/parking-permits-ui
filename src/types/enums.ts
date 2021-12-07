@@ -34,8 +34,8 @@ export enum ParkingStartType {
 
 export enum PermitStatus {
   DRAFT = 'DRAFT',
-  PROCESSING = 'PROCESSING',
+  PAYMENT_IN_PROGRESS = 'PAYMENT_IN_PROGRESS',
   VALID = 'VALID',
   CANCELLED = 'CANCELLED',
-  EXPIRED = 'EXPIRED',
+  CLOSED = 'CLOSED',
 }
