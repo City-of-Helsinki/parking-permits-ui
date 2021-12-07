@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ClientContext } from '../../client/ClientProvider';
 import { ROUTES } from '../../types';
-import './endPermitResult.scss';
 
 const T_PATH = 'common.accountDetail.EndPermitResult';
 
