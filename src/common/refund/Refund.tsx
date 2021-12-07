@@ -9,6 +9,7 @@ import {
   IconPenLine,
   Link,
 } from 'hds-react';
+import { orderBy } from 'lodash';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -146,7 +147,7 @@ const Refund: FC<Props> = ({
           t(`${T_PATH}.zone`, { zone: permits[0].parkingZone.name }),
           t(`${T_PATH}.vat`)
         )}
-        {permits.map((permit, index) => (
+        {orderBy(permits, 'primaryVehicle', 'desc').map((permit, index) => (
           <div
             key={uuidv4()}
             className={classNames({
