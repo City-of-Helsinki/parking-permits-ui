@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  END_PERMIT,
+  EndPermitStep,
   ParkingContractType,
   Permit,
   PermitEndType,
@@ -34,7 +34,7 @@ interface Props {
     endType: string,
     iban: string
   ) => Promise<void>;
-  setEndPermitState: (state: END_PERMIT) => void;
+  setEndPermitState: (state: EndPermitStep) => void;
 }
 
 const receiptRow = (title: string, message: string, price?: string) => (
@@ -118,7 +118,7 @@ const Refund: FC<Props> = ({
   };
 
   const onContinue = async () => {
-    const state = getsRefund ? END_PERMIT.ACCOUNT : END_PERMIT.RESULT;
+    const state = getsRefund ? EndPermitStep.ACCOUNT : EndPermitStep.RESULT;
     if (!getsRefund) {
       await endValidPermits(
         permits.map(p => p.id),

@@ -45,7 +45,7 @@ export enum PermitEndType {
   AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
 }
 
-export enum END_PERMIT {
+export enum EndPermitStep {
   REFUND = 'REFUND',
   ACCOUNT = 'ACCOUNT',
   RESULT = 'RESULT',
