@@ -11,7 +11,6 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import { END_PERMIT, Permit, PermitEndType } from '../../types';
-import './accountDetail.scss';
 
 const T_PATH = 'common.accountDetail.AccountDetail';
 
