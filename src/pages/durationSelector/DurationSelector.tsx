@@ -109,7 +109,8 @@ const DurationSelector = (): React.ReactElement => {
     ) {
       return MAX_MONTH;
     }
-    const endDate = new Date(primaryPermit.endTime as string);
+    const { endTime, currentPeriodEndTime } = primaryPermit;
+    const endDate = new Date((endTime || currentPeriodEndTime) as string);
     const monthDiff = differenceInMonths(endDate, addDays(new Date(), 1));
     const danglingDays = differenceInDays(
       endDate,
