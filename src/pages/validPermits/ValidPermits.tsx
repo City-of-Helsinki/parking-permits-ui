@@ -1,15 +1,17 @@
 import classNames from 'classnames';
 import { Button, IconPlusCircle, IconTrash } from 'hds-react';
 import { first } from 'lodash';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { createSearchParams, Navigate, useNavigate } from 'react-router-dom';
+import EndPermitDialog from '../../common/endPermitDialog/EndPermitDialog';
 import Permit from '../../common/permit/Permit';
 import PurchaseNotification from '../../common/purchaseNotification/PurchaseNotification';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import {
   Permit as PermitModel,
+  PermitEndType,
   PermitStatus,
   ROUTES,
   UserAddress,
@@ -23,6 +25,7 @@ const ValidPermits = (): React.ReactElement => {
   const navigate = useNavigate();
   const profileCtx = useContext(UserProfileContext);
   const permitCtx = useContext(PermitStateContext);
+  const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
 
   const profile = profileCtx?.getProfile();
   const validPermits = permitCtx?.getValidPermits();
@@ -40,10 +43,6 @@ const ValidPermits = (): React.ReactElement => {
   };
 
   const address = getAddress();
-  const deletePermits = () => {
-    validPermits.map(permit => permitCtx?.deletePermit(permit.id));
-    navigate(ROUTES.ADDRESS);
-  };
   const isProcessing = (permit: PermitModel) =>
     permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.orderId;
 
@@ -82,9 +81,28 @@ const ValidPermits = (): React.ReactElement => {
           theme="black"
           disabled={validPermits.some(isProcessing)}
           iconLeft={<IconTrash className="trash-icon" />}
-          onClick={() => deletePermits()}>
+          onClick={() => setOpenEndPermitDialog(true)}>
           {t(`${T_PATH}.deleteOrder`)}
         </Button>
+        <EndPermitDialog
+          isOpen={openEndPermitDialog}
+          currentPeriodEndTime={
+            first(validPermits)?.currentPeriodEndTime as string
+          }
+          canEndAfterCurrentPeriod={
+            first(validPermits)?.canEndAfterCurrentPeriod || false
+          }
+          onCancel={() => setOpenEndPermitDialog(false)}
+          onConfirm={(endType: PermitEndType) =>
+            navigate({
+              pathname: ROUTES.END_PERMITS,
+              search: `?${createSearchParams({
+                permitIds: validPermits?.map(p => p.id),
+                endType,
+              })}`,
+            })
+          }
+        />
       </div>
     </div>
   );

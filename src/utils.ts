@@ -10,3 +10,10 @@ export function getBooleanEnv(key: string): boolean {
   const val = getEnv(key);
   return ['true', '1'].includes(val);
 }
+
+export function formatDateTimeDisplay(datetime: string | Date): string {
+  const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
+  const dateStr = dt.toLocaleDateString('fi');
+  const timeStr = dt.toLocaleTimeString('fi');
+  return `${dateStr}, ${timeStr}`;
+}

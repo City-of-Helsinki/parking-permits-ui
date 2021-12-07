@@ -7,6 +7,7 @@ export enum ROUTES {
   ADDRESS = '/address',
   AUTH_ERROR = '/auth-error',
   VALID_PERMITS = '/valid-permits',
+  END_PERMITS = '/end-permits',
   DURATION_SELECTOR = '/duration-selector',
   CAR_REGISTRATIONS = '/vehicle/registrations',
   PERMIT_PRICES = '/vehicle/permit-prices',
@@ -38,4 +39,14 @@ export enum PermitStatus {
   VALID = 'VALID',
   CANCELLED = 'CANCELLED',
   CLOSED = 'CLOSED',
+}
+export enum PermitEndType {
+  IMMEDIATELY = 'IMMEDIATELY',
+  AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
+}
+
+export enum EndPermitStep {
+  REFUND = 'REFUND',
+  ACCOUNT = 'ACCOUNT',
+  RESULT = 'RESULT',
 }

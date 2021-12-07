@@ -26,6 +26,12 @@ export type Permit = {
   contractType: ParkingContractType;
   monthCount: number;
   parkingZone: Zone;
+  monthsLeft: number;
+  currentPeriodEndTime: Date | string;
+  canEndImmediately: boolean;
+  hasRefund: boolean;
+  monthlyPrice: number;
+  canEndAfterCurrentPeriod: boolean;
 };
 
 export type Vehicle = {

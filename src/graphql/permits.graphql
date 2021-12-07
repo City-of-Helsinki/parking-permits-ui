@@ -14,6 +14,12 @@ query Query {
       status
       contractType
       monthCount
+      monthsLeft
+      monthlyPrice
+      currentPeriodEndTime
+      canEndImmediately
+      canEndAfterCurrentPeriod
+      hasRefund
       vehicle {
         id
         powerType
