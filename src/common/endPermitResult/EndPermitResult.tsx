@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ClientContext } from '../../client/ClientProvider';
 import { ROUTES } from '../../types';
 
-const T_PATH = 'common.accountDetail.EndPermitResult';
+const T_PATH = 'common.endPermitResult.EndPermitResult';
 
 export interface Props {
   getsRefund: boolean;
