@@ -10,7 +10,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
-import { END_PERMIT, Permit, PermitEndType } from '../../types';
+import { EndPermitStep, Permit, PermitEndType } from '../../types';
 
 const T_PATH = 'common.accountDetail.AccountDetail';
 
@@ -22,7 +22,7 @@ interface Props {
     endType: string,
     iban: string
   ) => Promise<void>;
-  setEndPermitState: (state: END_PERMIT) => void;
+  setEndPermitState: (state: EndPermitStep) => void;
 }
 
 const AccountDetail = ({
@@ -52,7 +52,7 @@ const AccountDetail = ({
       endType,
       iban
     );
-    setEndPermitState(END_PERMIT.RESULT);
+    setEndPermitState(EndPermitStep.RESULT);
   };
 
   return (
