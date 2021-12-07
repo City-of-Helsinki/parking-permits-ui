@@ -47,7 +47,12 @@ const Permit = ({
   const dateFormat = 'd.M.yyyy HH:mm';
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
+  const [openEndPermitDialog, setOpenEndPermitDialog] = useState(
+    permits.reduce(
+      (opened: { [k: string]: boolean }, p) => ({ ...opened, [p.id]: false }),
+      {}
+    )
+  );
 
   const getEndTime = (permit: PermitModel) =>
     permit.startTime
@@ -149,15 +154,25 @@ const Permit = ({
                     variant="supplementary"
                     disabled={!!isProcessing(permit)}
                     iconLeft={<IconAngleRight />}
-                    onClick={() => setOpenEndPermitDialog(true)}>
+                    onClick={() =>
+                      setOpenEndPermitDialog({
+                        ...openEndPermitDialog,
+                        [permit.id]: true,
+                      })
+                    }>
                     {t(`${T_PATH}.removeSecondaryVehicle`)}
                   </Button>
                 )}
                 <EndPermitDialog
-                  isOpen={openEndPermitDialog}
+                  isOpen={openEndPermitDialog[permit.id]}
                   currentPeriodEndTime={permit.currentPeriodEndTime as string}
                   canEndAfterCurrentPeriod={permit.canEndAfterCurrentPeriod}
-                  onCancel={() => setOpenEndPermitDialog(false)}
+                  onCancel={() =>
+                    setOpenEndPermitDialog({
+                      ...openEndPermitDialog,
+                      [permit.id]: false,
+                    })
+                  }
                   onConfirm={(endType: PermitEndType) =>
                     navigate({
                       pathname: ROUTES.END_PERMITS,
