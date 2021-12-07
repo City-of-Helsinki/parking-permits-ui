@@ -16,10 +16,7 @@ query Query {
       monthCount
       vehicle {
         id
-        type {
-          id
-          type
-        }
+        powerType
         model
         emission
         isLowEmission
