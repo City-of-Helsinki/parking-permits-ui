@@ -44,3 +44,7 @@ export type Vehicle = {
   productionYear: number;
   registrationNumber: string;
 };
+
+export type TalpaOrder = {
+  checkoutUrl?: string;
+};

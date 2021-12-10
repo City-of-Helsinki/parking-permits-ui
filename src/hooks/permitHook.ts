@@ -3,20 +3,14 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
   createDraftPermit,
+  createTalpaOrder,
   deleteDraftPermit,
   endPermits,
   getAllPermits,
   updateDraftPermit,
   updateVehicleRegistration,
 } from '../graphql/permitGqlClient';
-import {
-  Permit,
-  PermitActions,
-  UserAddress,
-  UserProfile,
-  Zone,
-} from '../types';
-import proceedToOrderPayment from './talpa';
+import { Permit, PermitActions, UserAddress, Zone } from '../types';
 import { UserProfileContext } from './userProfileProvider';
 
 const usePermitState = (): PermitActions => {
@@ -148,13 +142,9 @@ const usePermitState = (): PermitActions => {
 
   const proceedToTalpa = useCallback(async () => {
     setStatus('loading');
-    const { checkoutUrl, user: userId } = await proceedToOrderPayment(
-      profile as UserProfile,
-      address as UserAddress,
-      draftPermits
-    );
-    window.open(`${checkoutUrl}?user=${userId}`, '_self');
-  }, [address, draftPermits, profile]);
+    const { order } = await createTalpaOrder();
+    window.open(`${order.checkoutUrl}?user=${profile?.id}`, '_self');
+  }, [profile]);
 
   useEffect(() => {
     if (profileLoaded && status === 'waiting') {
