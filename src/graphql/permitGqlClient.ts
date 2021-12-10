@@ -4,6 +4,7 @@ import { loader } from 'graphql.macro';
 import { getGqlClient } from '../hooks/utils';
 import {
   CreatePermitQueryResult,
+  createTalpaOrderQueryResult,
   DeletePermitQueryResult,
   endPermitQueryResult,
   Permit,
@@ -101,4 +102,15 @@ export const endPermits = (
   return client
     .mutate<endPermitQueryResult>(variables)
     .then(res => res.endParkingPermit);
+};
+
+export const createTalpaOrder = (): Promise<
+  createTalpaOrderQueryResult['createTalpaOrder']
+> => {
+  const client = new PermitGqlClient(
+    loader('../graphql/createTalpaOrder.graphql')
+  );
+  return client
+    .mutate<createTalpaOrderQueryResult>({})
+    .then(res => res.createTalpaOrder);
 };

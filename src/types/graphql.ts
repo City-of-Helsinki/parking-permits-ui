@@ -1,5 +1,5 @@
 import { ParkingContractType, ParkingStartType } from './enums';
-import { Permit, Vehicle } from './permits';
+import { Permit, TalpaOrder, Vehicle } from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
 export type GraphQLZone = Zone & {
@@ -68,4 +68,12 @@ export type REG_ACTION = {
   id: string;
   key: string;
   value: ParkingStartType | ParkingContractType | Date | string | number;
+};
+
+export type createTalpaOrderQueryResult = {
+  createTalpaOrder: {
+    success: boolean;
+    errors: string[];
+    order: TalpaOrder;
+  };
 };
