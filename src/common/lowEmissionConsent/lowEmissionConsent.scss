@@ -1,5 +1,8 @@
 @import '../../assets/styles/mixin';
 .low-emission-consent-component {
+  .section-label {
+    height: unset;
+  }
   .discount-checkbox,
   .discount-label {
     margin: var(--spacing-s);
