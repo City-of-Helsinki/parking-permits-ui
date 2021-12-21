@@ -27,6 +27,7 @@ import {
   ROUTES,
   STEPPER,
 } from '../../types';
+import { formatDate } from '../../utils';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
@@ -96,7 +97,9 @@ const DurationSelector = (): React.ReactElement => {
       <div className="prices">
         {products.map(product => (
           <div key={uuidv4()} className="price">
-            <div>{`(${product.startDate} - ${product.endDate})`}</div>
+            <div>{`(${formatDate(product.startDate)} - ${formatDate(
+              product.endDate
+            )})`}</div>
             {isLowEmission && originalPrice(product)}
             <div className="offer">{`${
               isOpenEnded ? product.unitPrice : product.totalPrice
