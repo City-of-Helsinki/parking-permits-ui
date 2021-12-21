@@ -7,7 +7,7 @@
   "common.PurchaseNotification.notification.success.message": "Parkeringstillståndet är elektroniskt och parkeringskontrollen identifierar ett giltigt ID baserat på ditt fordons registreringsnummer.",
   "common.accountDetail.AccountDetail.accountLabel": "Ange kontonummer",
   "common.accountDetail.AccountDetail.actionBtn.continue": "Fortsätt",
-  "common.accountDetail.AccountDetail.errorText": "Kontonummer krävs",
+  "common.accountDetail.AccountDetail.errorText": "ogiltigt kontonummer",
   "common.accountDetail.AccountDetail.label": "Återbetalning",
   "common.accountDetail.AccountDetail.message": "Ange kontonumret som du vill ha pengarna tillbaka till. Pengarna kommer att återbetalas för de återstående hela månaderna.",
   "common.accountDetail.AccountDetail.nonFinnInfo": "Om du har ett icke-finskt kontonummer, vänligen kontakta kundtjänst.",
