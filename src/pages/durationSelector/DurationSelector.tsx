@@ -23,6 +23,7 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
+  Product,
   ROUTES,
   STEPPER,
 } from '../../types';
@@ -83,21 +84,25 @@ const DurationSelector = (): React.ReactElement => {
 
   const getPrices = (permit: PermitModel) => {
     const { isLowEmission } = permit.vehicle;
-    const { contractType, prices } = permit;
-    const { priceGross, rowPriceTotal } = prices;
+    const { contractType, products } = permit;
     const isOpenEnded = contractType === ParkingContractType.OPEN_ENDED;
 
-    const originalPrice = (
+    const originalPrice = (product: Product) => (
       <div className="original">{`${
-        (isOpenEnded ? priceGross : rowPriceTotal) * 2
+        (isOpenEnded ? product.unitPrice : product.totalPrice) * 2
       } €${isOpenEnded ? '/KK' : ''}`}</div>
     );
     return (
-      <div className="price">
-        {isLowEmission && originalPrice}
-        <div className="offer">{`${isOpenEnded ? priceGross : rowPriceTotal} €${
-          isOpenEnded ? '/KK' : ''
-        }`}</div>
+      <div className="prices">
+        {products.map(product => (
+          <div key={uuidv4()} className="price">
+            <div>{`(${product.startDate} - ${product.endDate})`}</div>
+            {isLowEmission && originalPrice(product)}
+            <div className="offer">{`${
+              isOpenEnded ? product.unitPrice : product.totalPrice
+            } €${isOpenEnded ? '/KK' : ''}`}</div>
+          </div>
+        ))}
       </div>
     );
   };
