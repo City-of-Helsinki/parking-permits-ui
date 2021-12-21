@@ -42,17 +42,21 @@ const PermitPrices = (): React.ReactElement => {
 
   const getPrices = (permit: Permit) => {
     const { isLowEmission } = permit.vehicle;
-    const { priceGross } = permit.prices;
     return (
-      <div className="price">
-        {isLowEmission && (
-          <div
-            className={classNames('original', {
-              invalid: isLowEmission,
-            })}>{`${priceGross * 2} €/KK`}</div>
-        )}
-        <div className="offer">{`${priceGross} €/KK`}</div>
-      </div>
+      <>
+        {permit.products.map(product => (
+          <div key={uuidv4()} className="price">
+            {isLowEmission && (
+              <div
+                className={classNames('original', {
+                  invalid: isLowEmission,
+                })}>{`${product.unitPrice * 2} €/KK`}</div>
+            )}
+            <div className="offer">{`${product.unitPrice} €/KK`}</div>
+            <div>{`(${product.startDate} - ${product.endDate})`}</div>
+          </div>
+        ))}
+      </>
     );
   };
 
