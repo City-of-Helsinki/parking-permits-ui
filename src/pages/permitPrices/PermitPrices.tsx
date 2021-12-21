@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConsent';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, STEPPER } from '../../types';
+import { formatDate } from '../../utils';
 import './permitPrices.scss';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
@@ -53,7 +54,9 @@ const PermitPrices = (): React.ReactElement => {
                 })}>{`${product.unitPrice * 2} €/KK`}</div>
             )}
             <div className="offer">{`${product.unitPrice} €/KK`}</div>
-            <div>{`(${product.startDate} - ${product.endDate})`}</div>
+            <div>{`(${formatDate(product.startDate)} - ${formatDate(
+              product.endDate
+            )})`}</div>
           </div>
         ))}
       </>
