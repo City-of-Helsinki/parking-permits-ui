@@ -7,6 +7,7 @@ import {
   Link,
   TextInput,
 } from 'hds-react';
+import { electronicFormatIBAN, isValidIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
@@ -39,8 +40,7 @@ const AccountDetail = ({
   const inputIban = (event: { target: { value: string } }) => {
     const { value } = event.target;
 
-    // eslint-disable-next-line no-magic-numbers
-    const isValid = value?.length > 10;
+    const isValid = isValidIBAN(electronicFormatIBAN(value) || '');
     setValid(isValid);
     setDirty(true);
     setIban(value);
@@ -64,7 +64,7 @@ const AccountDetail = ({
         <p>{t(`${T_PATH}.message`)}</p>
         <TextInput
           id={uuidv4()}
-          maxLength={20}
+          maxLength={40}
           value={iban}
           errorText={!valid && dirty ? t(`${T_PATH}.errorText`) : ''}
           label={t(`${T_PATH}.accountLabel`)}
