@@ -7,7 +7,7 @@
   "common.PurchaseNotification.notification.success.message": "The parking permit is electronic and the parking control identifies a valid permit based on your vehicle's registration number.",
   "common.accountDetail.AccountDetail.accountLabel": "Enter account number",
   "common.accountDetail.AccountDetail.actionBtn.continue": "Continue",
-  "common.accountDetail.AccountDetail.errorText": "Account Number Required",
+  "common.accountDetail.AccountDetail.errorText": "Invalid account number",
   "common.accountDetail.AccountDetail.label": "Refund",
   "common.accountDetail.AccountDetail.message": "Enter the account number to which you want the money returned. The money will be refunded for the remaining full months.",
   "common.accountDetail.AccountDetail.nonFinnInfo": "If you have a non-Finnish account number, please contact customer service.",

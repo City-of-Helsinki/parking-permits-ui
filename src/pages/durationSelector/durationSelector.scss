@@ -2,6 +2,10 @@
 .duration-selector-component {
   .price {
     display: flex;
+    justify-content: space-between;
+    > div:first-of-type {
+      margin-right: var(--spacing-2-xs);
+    }
     .original {
       margin-right: var(--spacing-s);
       text-decoration: line-through;

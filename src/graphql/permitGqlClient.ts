@@ -3,8 +3,8 @@ import { DocumentNode } from 'graphql';
 import { loader } from 'graphql.macro';
 import { getGqlClient } from '../hooks/utils';
 import {
+  createOrderQueryResult,
   CreatePermitQueryResult,
-  createTalpaOrderQueryResult,
   DeletePermitQueryResult,
   endPermitQueryResult,
   Permit,
@@ -104,13 +104,9 @@ export const endPermits = (
     .then(res => res.endParkingPermit);
 };
 
-export const createTalpaOrder = (): Promise<
-  createTalpaOrderQueryResult['createTalpaOrder']
+export const createOrder = (): Promise<
+  createOrderQueryResult['createOrder']
 > => {
-  const client = new PermitGqlClient(
-    loader('../graphql/createTalpaOrder.graphql')
-  );
-  return client
-    .mutate<createTalpaOrderQueryResult>({})
-    .then(res => res.createTalpaOrder);
+  const client = new PermitGqlClient(loader('../graphql/createOrder.graphql'));
+  return client.mutate<createOrderQueryResult>({}).then(res => res.createOrder);
 };

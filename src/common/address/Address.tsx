@@ -76,10 +76,7 @@ const Address: FC<Props> = ({
         <ArrowIcon onClick={() => setOpenState(!openState)} />
       </div>
       <div className="zone_type">
-        <span>
-          {t(`${T_PATH}.residentParkingZone`)} {address.zone?.name}
-        </span>
-        <span>{address?.zone?.price} € / kk</span>
+        {t(`${T_PATH}.residentParkingZone`)} {address.zone?.name}
       </div>
       {openState && (
         <>

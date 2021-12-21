@@ -7,7 +7,7 @@
   "common.PurchaseNotification.notification.success.message": "Pysäköintilupa on sähköinen ja pysäköintivalvonta tunnistaa voimassaolevan tunnuksen ajoneuvosi rekisterinumeron perusteella.",
   "common.accountDetail.AccountDetail.accountLabel": "Syötä tilinumero IBAN-muodossa",
   "common.accountDetail.AccountDetail.actionBtn.continue": "Jatka",
-  "common.accountDetail.AccountDetail.errorText": "Tilinumero vaaditaan",
+  "common.accountDetail.AccountDetail.errorText": "Virheellinen tilinumero",
   "common.accountDetail.AccountDetail.label": "Hyvitys",
   "common.accountDetail.AccountDetail.message": "Anna tilinumero, johon haluat rahat palautettavan. Rahat palautetaan jäljellä olevista täysistä kuukausista.",
   "common.accountDetail.AccountDetail.nonFinnInfo": "Jos sinulla on muu kuin suomalainen tilinumero, ota yhteyttä asiakaspalveluun.",

@@ -1,14 +1,14 @@
 import { ParkingContractType, ParkingStartType, PermitStatus } from './enums';
 import { Zone } from './user';
 
-export interface Price {
-  priceNet: number;
-  priceVat: number;
-  priceGross: number;
-  vatPercentage: number;
-  rowPriceNet: number;
-  rowPriceVat: number;
-  rowPriceTotal: number;
+export interface Product {
+  vat: number;
+  quantity: number;
+  endDate: string;
+  startDate: string;
+  unitPrice: number;
+  totalPrice: number;
+  lowEmissionDiscount: number;
 }
 
 export type Permit = {
@@ -22,7 +22,7 @@ export type Permit = {
   primaryVehicle: boolean;
   consentLowEmissionAccepted: boolean;
   vehicle: Vehicle;
-  prices: Price;
+  products: Product[];
   contractType: ParkingContractType;
   monthCount: number;
   parkingZone: Zone;

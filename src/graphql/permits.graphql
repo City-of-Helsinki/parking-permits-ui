@@ -15,7 +15,6 @@ query Query {
       contractType
       monthCount
       monthsLeft
-      monthlyPrice
       currentPeriodEndTime
       canEndImmediately
       canEndAfterCurrentPeriod
@@ -33,19 +32,18 @@ query Query {
       parkingZone {
         id
         name
-        price
         description
         descriptionSv
         location
       }
-      prices {
-        priceNet
-        priceVat
-        priceGross
-        rowPriceNet
-        rowPriceVat
-        rowPriceTotal
-        vatPercentage
+      products {
+        vat
+        endDate
+        startDate
+        unitPrice
+        totalPrice
+        quantity
+        lowEmissionDiscount
       }
     }
   }

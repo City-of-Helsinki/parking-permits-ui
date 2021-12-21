@@ -20,7 +20,6 @@ query {
         id
         sharedProductId
         name
-        price
         description
         descriptionSv
         location
@@ -40,7 +39,6 @@ query {
         id
         sharedProductId
         name
-        price
         description
         descriptionSv
         location

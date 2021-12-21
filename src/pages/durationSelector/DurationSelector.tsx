@@ -10,10 +10,11 @@ import {
   Card,
   IconArrowLeft,
   IconArrowRight,
+  LoadingSpinner,
   NumberInput,
 } from 'hds-react';
 import { orderBy } from 'lodash';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -23,9 +24,11 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
+  Product,
   ROUTES,
   STEPPER,
 } from '../../types';
+import { formatDate } from '../../utils';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
@@ -35,6 +38,7 @@ const DurationSelector = (): React.ReactElement => {
   const { t } = useTranslation();
   const permitCtx = useContext(PermitStateContext);
   const navigate = useNavigate();
+  const [orderRequest, setOrderRequest] = useState<boolean>(false);
   const draftPermits = permitCtx?.getDraftPermits();
   const validPermits = permitCtx?.getValidPermits();
 
@@ -68,7 +72,8 @@ const DurationSelector = (): React.ReactElement => {
   }
 
   const sendPurchaseOrderRequest = () => {
-    permitCtx?.proceedToTalpa();
+    permitCtx?.createOrderRequest();
+    setOrderRequest(true);
   };
 
   const updatePermitData = (
@@ -83,21 +88,28 @@ const DurationSelector = (): React.ReactElement => {
 
   const getPrices = (permit: PermitModel) => {
     const { isLowEmission } = permit.vehicle;
-    const { contractType, prices } = permit;
-    const { priceGross, rowPriceTotal } = prices;
+    const { contractType, products } = permit;
     const isOpenEnded = contractType === ParkingContractType.OPEN_ENDED;
 
-    const originalPrice = (
+    const originalPrice = (product: Product) => (
       <div className="original">{`${
-        (isOpenEnded ? priceGross : rowPriceTotal) * 2
+        (isOpenEnded ? product.unitPrice : product.totalPrice) * 2
       } €${isOpenEnded ? '/KK' : ''}`}</div>
     );
     return (
-      <div className="price">
-        {isLowEmission && originalPrice}
-        <div className="offer">{`${isOpenEnded ? priceGross : rowPriceTotal} €${
-          isOpenEnded ? '/KK' : ''
-        }`}</div>
+      <div className="prices">
+        {products.map(product => (
+          <div key={uuidv4()} className="price">
+            <div>{`(${formatDate(product.startDate)} - ${formatDate(
+              product.endDate
+            )})`}</div>
+            <div style={{ marginRight: '4px' }}>Yht.</div>
+            {isLowEmission && originalPrice(product)}
+            <div className="offer">{`${
+              isOpenEnded ? product.unitPrice : product.totalPrice
+            } €${isOpenEnded ? '/KK' : ''}`}</div>
+          </div>
+        ))}
       </div>
     );
   };
@@ -219,9 +231,14 @@ const DurationSelector = (): React.ReactElement => {
           theme="black"
           className="action-btn"
           onClick={() => sendPurchaseOrderRequest()}
-          disabled={!registrationNumbers?.length}>
-          <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
-          <IconArrowRight />
+          disabled={!registrationNumbers?.length || orderRequest}>
+          {orderRequest && <LoadingSpinner small />}
+          {!orderRequest && (
+            <>
+              <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
+              <IconArrowRight />
+            </>
+          )}
         </Button>
 
         <Button

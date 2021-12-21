@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
   createDraftPermit,
-  createTalpaOrder,
+  createOrder,
   deleteDraftPermit,
   endPermits,
   getAllPermits,
@@ -140,9 +140,9 @@ const usePermitState = (): PermitActions => {
     [draftPermits]
   );
 
-  const proceedToTalpa = useCallback(async () => {
+  const createOrderRequest = useCallback(async () => {
     setStatus('loading');
-    const { order } = await createTalpaOrder();
+    const { order } = await createOrder();
     window.open(`${order.checkoutUrl}?user=${profile?.id}`, '_self');
   }, [profile]);
 
@@ -167,7 +167,7 @@ const usePermitState = (): PermitActions => {
     endValidPermits: (permitIds, endType, iban) =>
       endValidPermits(permitIds, endType, iban),
     createPermit: () => createPermit(),
-    proceedToTalpa: () => proceedToTalpa(),
+    createOrderRequest: () => createOrderRequest(),
     getErrorMessage: () => {
       if (!error) {
         return undefined;
