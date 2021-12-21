@@ -22,7 +22,7 @@ export type PermitActions = {
   ) => Promise<void>;
   updateVehicle: (permitId: string, registration: string) => Promise<void>;
   createPermit: () => Promise<void>;
-  proceedToTalpa: () => Promise<void>;
+  createOrderRequest: () => Promise<void>;
   deletePermit: (permitId: string) => Promise<void>;
   endValidPermits: (
     permitIds: string[],

@@ -70,8 +70,8 @@ export type REG_ACTION = {
   value: ParkingStartType | ParkingContractType | Date | string | number;
 };
 
-export type createTalpaOrderQueryResult = {
-  createTalpaOrder: {
+export type createOrderQueryResult = {
+  createOrder: {
     success: boolean;
     errors: string[];
     order: TalpaOrder;
