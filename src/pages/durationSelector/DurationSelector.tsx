@@ -10,10 +10,11 @@ import {
   Card,
   IconArrowLeft,
   IconArrowRight,
+  LoadingSpinner,
   NumberInput,
 } from 'hds-react';
 import { orderBy } from 'lodash';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -37,6 +38,7 @@ const DurationSelector = (): React.ReactElement => {
   const { t } = useTranslation();
   const permitCtx = useContext(PermitStateContext);
   const navigate = useNavigate();
+  const [orderRequest, setOrderRequest] = useState<boolean>(false);
   const draftPermits = permitCtx?.getDraftPermits();
   const validPermits = permitCtx?.getValidPermits();
 
@@ -71,6 +73,7 @@ const DurationSelector = (): React.ReactElement => {
 
   const sendPurchaseOrderRequest = () => {
     permitCtx?.createOrderRequest();
+    setOrderRequest(true);
   };
 
   const updatePermitData = (
@@ -227,9 +230,14 @@ const DurationSelector = (): React.ReactElement => {
           theme="black"
           className="action-btn"
           onClick={() => sendPurchaseOrderRequest()}
-          disabled={!registrationNumbers?.length}>
-          <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
-          <IconArrowRight />
+          disabled={!registrationNumbers?.length || orderRequest}>
+          {orderRequest && <LoadingSpinner small />}
+          {!orderRequest && (
+            <>
+              <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
+              <IconArrowRight />
+            </>
+          )}
         </Button>
 
         <Button
