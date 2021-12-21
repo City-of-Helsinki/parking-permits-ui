@@ -69,7 +69,7 @@ const DurationSelector = (): React.ReactElement => {
   }
 
   const sendPurchaseOrderRequest = () => {
-    permitCtx?.proceedToTalpa();
+    permitCtx?.createOrderRequest();
   };
 
   const updatePermitData = (
