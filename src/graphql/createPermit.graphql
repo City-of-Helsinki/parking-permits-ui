@@ -15,7 +15,6 @@ mutation Mutation($zoneId: ID!) {
       contractType
       monthCount
       monthsLeft
-      monthlyPrice
       currentPeriodEndTime
       canEndImmediately
       canEndAfterCurrentPeriod
@@ -33,19 +32,18 @@ mutation Mutation($zoneId: ID!) {
       parkingZone {
         id
         name
-        price
         description
         descriptionSv
         location
       }
-      prices {
-        priceNet
-        priceVat
-        priceGross
-        rowPriceNet
-        rowPriceVat
-        rowPriceTotal
-        vatPercentage
+      products {
+        vat
+        endDate
+        startDate
+        unitPrice
+        totalPrice
+        quantity
+        lowEmissionDiscount
       }
     }
   }

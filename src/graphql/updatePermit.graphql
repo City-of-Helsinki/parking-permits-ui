@@ -15,7 +15,6 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
       contractType
       monthCount
       monthsLeft
-      monthlyPrice
       currentPeriodEndTime
       canEndImmediately
       canEndAfterCurrentPeriod
@@ -33,19 +32,18 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
       parkingZone {
         id
         name
-        price
         description
         descriptionSv
         location
       }
-      prices {
-        priceNet
-        priceVat
-        priceGross
-        rowPriceNet
-        rowPriceVat
-        rowPriceTotal
-        vatPercentage
+      products {
+        vat
+        endDate
+        startDate
+        unitPrice
+        totalPrice
+        quantity
+        lowEmissionDiscount
       }
     }
   }
