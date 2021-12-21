@@ -103,6 +103,7 @@ const DurationSelector = (): React.ReactElement => {
             <div>{`(${formatDate(product.startDate)} - ${formatDate(
               product.endDate
             )})`}</div>
+            <div style={{ marginRight: '4px' }}>Yht.</div>
             {isLowEmission && originalPrice(product)}
             <div className="offer">{`${
               isOpenEnded ? product.unitPrice : product.totalPrice
