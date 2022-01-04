@@ -7,7 +7,7 @@ import {
   Link,
   TextInput,
 } from 'hds-react';
-import { electronicFormatIBAN, isValidIBAN } from 'ibantools';
+import { electronicFormatIBAN, extractIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
@@ -39,8 +39,9 @@ const AccountDetail = ({
 
   const inputIban = (event: { target: { value: string } }) => {
     const { value } = event.target;
-
-    const isValid = isValidIBAN(electronicFormatIBAN(value) || '');
+    const electronicFormat = electronicFormatIBAN(value) || '';
+    const ibanResult = extractIBAN(electronicFormat);
+    const isValid = ibanResult.valid && ibanResult.countryCode === 'FI';
     setValid(isValid);
     setDirty(true);
     setIban(value);
