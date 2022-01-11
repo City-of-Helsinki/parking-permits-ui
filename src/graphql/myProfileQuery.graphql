@@ -1,6 +1,7 @@
 query {
   profile {
     id
+    age
     firstName
     lastName
     language
