@@ -1,4 +1,4 @@
-import { isEmpty, orderBy } from 'lodash';
+import { orderBy } from 'lodash';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
@@ -11,6 +11,7 @@ import {
   updateVehicleRegistration,
 } from '../graphql/permitGqlClient';
 import { Permit, PermitActions, UserAddress, Zone } from '../types';
+import { getEnv } from '../utils';
 import { UserProfileContext } from './userProfileProvider';
 
 const usePermitState = (): PermitActions => {
@@ -23,8 +24,6 @@ const usePermitState = (): PermitActions => {
   const [error, setError] = useState<ApiFetchError>();
 
   const profile = profileCtx?.getProfile();
-  const profileLoaded =
-    !isEmpty(profile) && profileCtx?.getStatus() === 'loaded';
 
   const onError = (errors: string[] | string) => {
     setStatus('error');
@@ -147,10 +146,11 @@ const usePermitState = (): PermitActions => {
   }, [profile]);
 
   useEffect(() => {
-    if (profileLoaded && status === 'waiting') {
+    const allowedAgeLimit = getEnv('REACT_APP_ALLOWED_AGE_LIMIT');
+    if (status === 'waiting' && profile && profile.age >= +allowedAgeLimit) {
       fetchPermits();
     }
-  }, [fetchPermits, profileLoaded, status]);
+  }, [fetchPermits, status, profile]);
 
   return {
     getStatus: () => status,
