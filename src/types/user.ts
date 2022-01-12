@@ -25,6 +25,7 @@ export type UserAddress = {
 
 export type UserProfile = {
   id: string;
+  age: number;
   email: string;
   firstName: string;
   lastName: string;

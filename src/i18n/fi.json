@@ -122,6 +122,7 @@
   "pages.durationSelector.DurationSelector.sectionLabel": "Määrittele tilauksen tiedot",
   "pages.durationSelector.DurationSelector.validPermitCount": "{{count}}. tunnuksen tiedot",
   "pages.landingPage.LandingPage.login": "Kirjaudu sisään",
+  "pages.landingPage.LandingPage.underAgeMessage": "Pysäköintitunnuksen ostaminen on mahdollista vain yli 18-vuotiaille. Ole yhteydessä asiakaspalveluun.",
   "pages.permitPrices.PermitPrices.actionBtn.continue": "Jatka",
   "pages.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Palaa valitsemaan ajoneuvo",
   "pages.permitPrices.PermitPrices.btn.delete": "Poista",

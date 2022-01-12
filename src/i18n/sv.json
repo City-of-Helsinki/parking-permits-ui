@@ -122,6 +122,7 @@
   "pages.durationSelector.DurationSelector.sectionLabel": "Välj varaktighet och startdatum",
   "pages.durationSelector.DurationSelector.validPermitCount": "{{count}}. tillståndsinformation",
   "pages.landingPage.LandingPage.login": "Logga in",
+  "pages.landingPage.LandingPage.underAgeMessage": "Att köpa parkeringstillstånd är endast tillåtet för lagligt åldrade personer över 18 år. Kontakta kundtjänst för mer information.",
   "pages.permitPrices.PermitPrices.actionBtn.continue": "Fortsätt",
   "pages.permitPrices.PermitPrices.actionBtn.gotoRegistration": "Gå tillbaka för att välja adress",
   "pages.permitPrices.PermitPrices.btn.delete": "Ta bort",
