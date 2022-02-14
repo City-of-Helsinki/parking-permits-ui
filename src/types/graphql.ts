@@ -18,25 +18,29 @@ export type ProfileQueryResult = {
   profile: GraphQLProfile;
 };
 
+export type ParkingPermitError = {
+  message: string;
+};
+
 export type PermitQueryResult = {
   getPermits: {
     permits: Permit[];
     success: boolean;
-    errors: string[];
+    errors: string | string[] | ParkingPermitError[];
   };
 };
 
 export type DeletePermitQueryResult = {
   deleteParkingPermit: {
     success: boolean;
-    errors: string[];
+    errors: string | string[] | ParkingPermitError[];
   };
 };
 
 export type endPermitQueryResult = {
   endParkingPermit: {
     success: boolean;
-    errors: string[];
+    errors: string | string[] | ParkingPermitError[];
   };
 };
 
@@ -52,7 +56,7 @@ export type CreatePermitQueryResult = {
   createParkingPermit: {
     permits: Permit[];
     success: boolean;
-    errors: string[];
+    errors: string | string[] | ParkingPermitError[];
   };
 };
 
@@ -60,7 +64,7 @@ export type UpdateVehicleQueryResult = {
   updateVehicle: {
     vehicle: Vehicle;
     success: boolean;
-    errors: string[];
+    errors: string | string[] | ParkingPermitError[];
   };
 };
 
@@ -73,7 +77,7 @@ export type REG_ACTION = {
 export type createOrderQueryResult = {
   createOrder: {
     success: boolean;
-    errors: string[];
+    errors: string | string[] | ParkingPermitError[];
     order: TalpaOrder;
   };
 };
