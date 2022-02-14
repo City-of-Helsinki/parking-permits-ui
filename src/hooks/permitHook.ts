@@ -10,7 +10,14 @@ import {
   updateDraftPermit,
   updateVehicleRegistration,
 } from '../graphql/permitGqlClient';
-import { Permit, PermitActions, UserAddress, Zone } from '../types';
+import {
+  ParkingPermitError,
+  Permit,
+  PermitActions,
+  PermitStatus,
+  UserAddress,
+  Zone,
+} from '../types';
 import { getEnv } from '../utils';
 import { UserProfileContext } from './userProfileProvider';
 
@@ -25,9 +32,17 @@ const usePermitState = (): PermitActions => {
 
   const profile = profileCtx?.getProfile();
 
-  const onError = (errors: string[] | string) => {
+  const onError = (errors: ParkingPermitError[] | string | string[]) => {
     setStatus('error');
-    setError(typeof errors === 'string' ? errors : errors.join('\n'));
+    if (!errors) {
+      return setError('Some thing went wrong');
+    }
+    if (typeof errors === 'string') {
+      return setError(errors);
+    }
+    return setError(
+      errors.map(e => (typeof e !== 'string' && e?.message) || e).join('\n')
+    );
   };
 
   const fetchPermits = useCallback(async () => {
@@ -38,8 +53,12 @@ const usePermitState = (): PermitActions => {
       onError(errors);
       return;
     }
-    const vPermits = (userPermits || []).filter(permit => !!permit.orderId);
-    setDraftPermits((userPermits || []).filter(permit => !permit.orderId));
+    const vPermits = (userPermits || []).filter(
+      permit => permit.status === PermitStatus.VALID
+    );
+    setDraftPermits(
+      (userPermits || []).filter(permit => permit.status === PermitStatus.DRAFT)
+    );
     setValidPermits(vPermits);
     if (vPermits?.length > 0 && profile) {
       const { primaryAddress, otherAddress } = profile;
@@ -74,9 +93,13 @@ const usePermitState = (): PermitActions => {
         await fetchPermits();
         return;
       }
-      const drafts = (permits || []).filter(permit => !permit.orderId);
+      const drafts = (permits || []).filter(
+        permit => permit.status !== PermitStatus.VALID
+      );
       setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
-      setValidPermits((permits || []).filter(permit => permit.orderId));
+      setValidPermits(
+        (permits || []).filter(permit => permit.status === PermitStatus.VALID)
+      );
       setStatus('loaded');
     },
     [fetchPermits]
@@ -91,7 +114,9 @@ const usePermitState = (): PermitActions => {
       onError(errors);
       return;
     }
-    const drafts = (permits || []).filter(permit => !permit.orderId);
+    const drafts = (permits || []).filter(
+      permit => permit.status !== PermitStatus.VALID
+    );
     setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
     setStatus('loaded');
   }, [address]);
@@ -121,12 +146,13 @@ const usePermitState = (): PermitActions => {
   const updateVehicleReg = useCallback(
     async (permitId, registration) => {
       setStatus('loading');
-      const permit = draftPermits.find(p => p.id === permitId);
+      const permit = draftPermits.find(p => p.id === permitId) as Permit;
       const { success, errors, vehicle } = await updateVehicleRegistration(
-        permit as Permit,
+        permit,
         registration
       );
       if (!success) {
+        permit.vehicle.registrationNumber = '';
         onError(errors);
         return;
       }
