@@ -79,7 +79,7 @@ const RegistrationNumbers = (): React.ReactElement => {
           label={t(`${T_PATH}.error.label`)}
           type="error"
           style={{ marginTop: 'var(--spacing-s)' }}>
-          error
+          {permitCtx?.getErrorMessage()}
         </Notification>
       )}
       <div className="action-buttons">

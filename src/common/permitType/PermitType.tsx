@@ -10,7 +10,12 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
-import { ParkingContractType, ParkingStartType, Permit } from '../../types';
+import {
+  ParkingContractType,
+  ParkingStartType,
+  Permit,
+  PermitStatus,
+} from '../../types';
 import './permitType.scss';
 
 const T_PATH = 'common.permitType.PermitType';
@@ -29,7 +34,7 @@ const PermitType = ({
 
   const hasSecondPermitNotification = () => {
     if (
-      primaryPermit.orderId &&
+      primaryPermit.status === PermitStatus.VALID &&
       primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
     ) {
       return (
@@ -50,7 +55,7 @@ const PermitType = ({
               value={ParkingContractType.OPEN_ENDED}
               label={t(`${T_PATH}.openEnded`)}
               disabled={
-                !!primaryPermit.orderId &&
+                primaryPermit.status === PermitStatus.VALID &&
                 primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
               }
               checked={
@@ -67,7 +72,7 @@ const PermitType = ({
             <div
               className={classNames(`assistive-text`, {
                 disabled:
-                  !!primaryPermit.orderId &&
+                  primaryPermit.status === PermitStatus.VALID &&
                   primaryPermit.contractType ===
                     ParkingContractType.FIXED_PERIOD,
               })}>
