@@ -10,57 +10,48 @@ import {
 import { electronicFormatIBAN, extractIBAN } from 'ibantools';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { EndPermitStep, Permit, PermitEndType } from '../../types';
+import { ROUTES } from '../../types';
+import './accountDetail.scss';
 
-const T_PATH = 'common.accountDetail.AccountDetail';
+const T_PATH = 'pages.accountDetail.AccountDetail';
 
-interface Props {
-  permits: Permit[];
-  endType: PermitEndType;
-  endValidPermits: (
-    permitIds: string[],
-    endType: string,
-    iban: string
-  ) => Promise<void>;
-  setEndPermitState: (state: EndPermitStep) => void;
-}
-
-const AccountDetail = ({
-  permits,
-  endType,
-  setEndPermitState,
-  endValidPermits,
-}: Props): React.ReactElement => {
+const AccountDetail = (): React.ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [iban, setIban] = useState('');
   const [valid, setValid] = useState(false);
   const [dirty, setDirty] = useState(false);
+  const { state } = useLocation() as { state: { permitId: boolean } };
 
+  if (!state?.permitId) {
+    return <Navigate to={ROUTES.VALID_PERMITS} />;
+  }
   const inputIban = (event: { target: { value: string } }) => {
     const { value } = event.target;
     const electronicFormat = electronicFormatIBAN(value) || '';
     const ibanResult = extractIBAN(electronicFormat);
-    const isValid = ibanResult.valid && ibanResult.countryCode === 'FI';
+    const isValid =
+      !value || (ibanResult.valid && ibanResult.countryCode === 'FI');
     setValid(isValid);
     setDirty(true);
     setIban(value);
   };
 
-  const onEnd = async () => {
-    await endValidPermits(
-      permits.map(p => p.id),
-      endType,
-      iban
-    );
-    setEndPermitState(EndPermitStep.RESULT);
-  };
-
   return (
-    <div className="accountDetail-component">
+    <div className="account-detail-component">
       <Card>
-        <div style={{ fontSize: 'var(--fontsize-body-xl)' }}>
-          {t(`${T_PATH}.label`)}
+        <div className="title">{t(`${T_PATH}.label`)}</div>
+        <div className="total-amounts">
+          <div className="row">
+            <div className="product-title">{t(`${T_PATH}.total.refund`)}</div>
+            <strong>90,5 €</strong>
+          </div>
+          <div className="row">
+            <div>{t(`${T_PATH}.vat`)}</div>
+            <div>10,5 €</div>
+          </div>
         </div>
         <p>{t(`${T_PATH}.message`)}</p>
         <TextInput
@@ -86,19 +77,34 @@ const AccountDetail = ({
         <Link
           style={{ marginLeft: 'var(--spacing-l)' }}
           openInNewTab
-          href={t(`${T_PATH}.service.link`)}
+          href={t(`${T_PATH}.customerService.link`)}
           iconLeft={<IconLinkExternal size="xs" />}>
-          {t(`${T_PATH}.service.linkText`)}
+          {t(`${T_PATH}.customerService.label`)}
         </Link>
       </Card>
       <div className="action-buttons">
         <Button
           theme="black"
           className="action-btn"
-          disabled={!valid}
-          onClick={() => onEnd()}>
-          <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
-          <IconArrowRight />
+          iconRight={<IconArrowRight />}
+          onClick={() =>
+            navigate(ROUTES.SUCCESS, {
+              state: { refundId: '1123' },
+            })
+          }>
+          {t(`${T_PATH}.actionBtn.continue`)}
+        </Button>
+
+        <Button
+          className="action-btn"
+          theme="black"
+          variant="secondary"
+          onClick={() =>
+            navigate(ROUTES.SUCCESS, {
+              state: { refundId: '1123' },
+            })
+          }>
+          {t(`${T_PATH}.actionBtn.skip`)}
         </Button>
       </div>
     </div>

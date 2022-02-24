@@ -30,6 +30,7 @@ export type Permit = {
   currentPeriodEndTime: Date | string;
   canEndImmediately: boolean;
   hasRefund: boolean;
+  refundAmount?: number;
   monthlyPrice: number;
   canEndAfterCurrentPeriod: boolean;
 };

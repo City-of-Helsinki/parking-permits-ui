@@ -1,6 +1,9 @@
 export enum ROUTES {
   BASE = '/',
   LANDING = '/landing-page',
+  CHANGE_ADDRESS = '/change-address/',
+  REFUND = '/refund',
+  ACCOUNT_DETAIL = '/account-detail',
   SUCCESS = '/success',
   PROFILE = '/profile',
   VEHICLE = '/vehicle',
@@ -14,7 +17,7 @@ export enum ROUTES {
 }
 
 export enum STEPPER {
-  VALID_PERMITS = 0,
+  HIDE_STEPPER = 0,
   ADDRESS_SELECTOR = 1,
   VEHICLE_SELECTOR = 2,
   // eslint-disable-next-line no-magic-numbers

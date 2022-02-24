@@ -1,0 +1,10 @@
+@import '../../assets/styles/mixin';
+
+.customer-info-component {
+  .title {
+    @include flex-container(row, space-between, center);
+  }
+  .edit {
+    margin-right: -32px;
+  }
+}

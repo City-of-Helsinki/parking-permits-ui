@@ -1,0 +1,47 @@
+@import '../../assets/styles/mixin';
+
+.refund-container {
+  margin-top: var(--spacing-3-xs);
+  .refund-title {
+    font-size: var(--fontsize-heading-m);
+    margin: var(--spacing-m) 0;
+  }
+
+  .order-title {
+    font-size: var(--fontsize-heading-s);
+    margin-bottom: var(--spacing-s);
+    font-weight: bold;
+  }
+
+  .product-title {
+    font-size: var(--fontsize-heading-xs);
+    font-weight: bold;
+  }
+
+  .products {
+    padding-bottom: var(--spacing-s);
+    .product {
+      @include flex-container(column, flex-start, stretch);
+    }
+  }
+
+  .row {
+    @include flex-container(row, space-between, center);
+  }
+
+  .details {
+    background: rgb(250, 250, 250);
+  }
+  .total-amounts {
+    background: rgb(242, 242, 242);
+  }
+  .details,
+  .total-amounts {
+    margin: 0 -32px;
+    padding: var(--spacing-s) var(--spacing-l);
+    @include for-phone {
+      margin: 0 -16px;
+      padding: var(--spacing-s) var(--spacing-s);
+    }
+  }
+}

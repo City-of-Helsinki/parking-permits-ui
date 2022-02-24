@@ -53,6 +53,9 @@ $step-width: 24px;
       }
     }
   }
+  &.hidden {
+    display: none;
+  }
   @include for-phone {
     &.hideInMobile {
       display: none;

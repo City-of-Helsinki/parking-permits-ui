@@ -1,4 +1,10 @@
-import { Button, IconDocument, IconSignout, LoadingSpinner } from 'hds-react';
+import {
+  Button,
+  IconDocument,
+  IconSignout,
+  LoadingSpinner,
+  Notification,
+} from 'hds-react';
 import queryString from 'query-string';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +25,8 @@ const PurchasedOverview = (): React.ReactElement => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  const { state } = useLocation() as { state: { refundId: string } };
+
   if (!clientCtx || clientCtx.client.getStatus() === 'UNAUTHORIZED') {
     return <Navigate to={ROUTES.LANDING} />;
   }
@@ -33,7 +41,7 @@ const PurchasedOverview = (): React.ReactElement => {
   const currentStep = permitCtx.getStep();
   const validPermits = permitCtx.getValidPermits();
 
-  if (currentStep !== STEPPER.PURCHASED_VIEW) {
+  if (!state?.refundId && currentStep) {
     const timeOutFor = 100;
     setTimeout(() => permitCtx.setStep(STEPPER.PURCHASED_VIEW), timeOutFor);
     return <></>;
@@ -44,6 +52,15 @@ const PurchasedOverview = (): React.ReactElement => {
 
   return (
     <div className="purchased-overview-component">
+      {state?.refundId && (
+        <Notification
+          type="success"
+          style={{ margin: 'var(--spacing-s) 0' }}
+          label="Palautus otettu käsittelyyn">
+          Olemme lähettäneet vahvistusviestin sähköpostiisi
+          kaisa.kooper@gmail.com. Voit tarkistaa tiedot myös alta.
+        </Notification>
+      )}
       <PurchaseNotification validPermits={validPermits} />
       {selectedAddress && getCurrentPurchasedPermits() && (
         <>
@@ -51,8 +68,14 @@ const PurchasedOverview = (): React.ReactElement => {
             theme="black"
             variant="secondary"
             className="download-receipt">
-            <IconDocument />
-            <span>{t(`${T_PATH}.btn.receipt`)}</span>
+            {!state?.refundId && <IconDocument />}
+            <span>
+              {t(
+                `${T_PATH}.btn.${
+                  state?.refundId ? 'confirmationMessage' : 'receipt'
+                }`
+              )}
+            </span>
           </Button>
           <Permit
             address={selectedAddress}
@@ -65,16 +88,16 @@ const PurchasedOverview = (): React.ReactElement => {
           className="action-btn"
           theme="black"
           onClick={() => navigate(ROUTES.VALID_PERMITS)}>
-          <span>{t(`${T_PATH}.actionBtn.frontPage`)}</span>
+          {t(`${T_PATH}.actionBtn.frontPage`)}
         </Button>
 
         <Button
           className="action-btn"
           theme="black"
           variant="secondary"
+          iconLeft={<IconSignout />}
           onClick={(): void => client.logout()}>
-          <IconSignout />
-          <span>{t(`${T_PATH}.actionBtn.logout`)}</span>
+          {t(`${T_PATH}.actionBtn.logout`)}
         </Button>
       </div>
     </div>

@@ -22,6 +22,7 @@ const Stepper: FC<Props> = ({ style, className }): React.ReactElement => {
     <div
       className={classNames(`stepper-container ${className}`, {
         hideInMobile: absoluteStep === 1,
+        hidden: !absoluteStep,
       })}
       style={{ ...style }}>
       <Container className="steppers">

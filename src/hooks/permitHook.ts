@@ -1,4 +1,3 @@
-import { orderBy } from 'lodash';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
@@ -81,53 +80,23 @@ const usePermitState = (): PermitActions => {
       permitId: string | undefined
     ) => {
       setStatus('loading');
-      const { permits, success, errors } = await updateDraftPermit(
-        payload,
-        permitId
-      );
-      if (!success) {
-        onError(errors);
-        return;
-      }
-      if ('primaryVehicle' in payload) {
-        await fetchPermits();
-        return;
-      }
-      const drafts = (permits || []).filter(
-        permit => permit.status !== PermitStatus.VALID
-      );
-      setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
-      setValidPermits(
-        (permits || []).filter(permit => permit.status === PermitStatus.VALID)
-      );
-      setStatus('loaded');
+      const { success, errors } = await updateDraftPermit(payload, permitId);
+      return !success ? onError(errors) : fetchPermits();
     },
     [fetchPermits]
   );
 
   const createPermit = useCallback(async () => {
     setStatus('loading');
-    const { success, errors, permits } = await createDraftPermit(
-      address as UserAddress
-    );
-    if (!success) {
-      onError(errors);
-      return;
-    }
-    const drafts = (permits || []).filter(
-      permit => permit.status !== PermitStatus.VALID
-    );
-    setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
-    setStatus('loaded');
-  }, [address]);
+    const { success, errors } = await createDraftPermit(address as UserAddress);
+    return !success ? onError(errors) : fetchPermits();
+  }, [address, fetchPermits]);
 
   const deletePermit = useCallback(
     async permitId => {
       setStatus('loading');
-      const { success } = await deleteDraftPermit(permitId);
-      if (success) {
-        await fetchPermits();
-      }
+      const { success, errors } = await deleteDraftPermit(permitId);
+      return !success ? onError(errors) : fetchPermits();
     },
     [fetchPermits]
   );
@@ -135,10 +104,8 @@ const usePermitState = (): PermitActions => {
   const endValidPermits = useCallback(
     async (permitIds, endType, iban) => {
       setStatus('loading');
-      const { success } = await endPermits(permitIds, endType, iban);
-      if (success) {
-        await fetchPermits();
-      }
+      const { success, errors } = await endPermits(permitIds, endType, iban);
+      return !success ? onError(errors) : fetchPermits();
     },
     [fetchPermits]
   );

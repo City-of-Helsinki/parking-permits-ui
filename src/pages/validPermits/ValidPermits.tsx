@@ -3,7 +3,7 @@ import { Button, IconPlusCircle, IconTrash } from 'hds-react';
 import { first } from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { createSearchParams, Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import EndPermitDialog from '../../common/endPermitDialog/EndPermitDialog';
 import Permit from '../../common/permit/Permit';
 import PurchaseNotification from '../../common/purchaseNotification/PurchaseNotification';
@@ -11,7 +11,6 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import {
   Permit as PermitModel,
-  PermitEndType,
   PermitStatus,
   ROUTES,
   UserAddress,
@@ -93,13 +92,9 @@ const ValidPermits = (): React.ReactElement => {
             first(validPermits)?.canEndAfterCurrentPeriod || false
           }
           onCancel={() => setOpenEndPermitDialog(false)}
-          onConfirm={(endType: PermitEndType) =>
-            navigate({
-              pathname: ROUTES.END_PERMITS,
-              search: `?${createSearchParams({
-                permitIds: validPermits?.map(p => p.id),
-                endType,
-              })}`,
+          onConfirm={() =>
+            navigate(ROUTES.REFUND, {
+              state: { endingPermit: true },
             })
           }
         />

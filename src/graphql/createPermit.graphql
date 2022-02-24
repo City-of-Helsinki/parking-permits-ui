@@ -2,49 +2,5 @@ mutation Mutation($zoneId: ID!) {
   createParkingPermit(zoneId: $zoneId) {
     success
     errors
-    permits {
-      id
-      orderId
-      subscriptionId
-      startType
-      startTime
-      endTime
-      primaryVehicle
-      consentLowEmissionAccepted
-      status
-      contractType
-      monthCount
-      monthsLeft
-      currentPeriodEndTime
-      canEndImmediately
-      canEndAfterCurrentPeriod
-      hasRefund
-      vehicle {
-        id
-        powerType
-        model
-        emission
-        isLowEmission
-        manufacturer
-        productionYear
-        registrationNumber
-      }
-      parkingZone {
-        id
-        name
-        description
-        descriptionSv
-        location
-      }
-      products {
-        vat
-        endDate
-        startDate
-        unitPrice
-        totalPrice
-        quantity
-        lowEmissionDiscount
-      }
-    }
   }
 }

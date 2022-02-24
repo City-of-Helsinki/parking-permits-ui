@@ -87,3 +87,9 @@ body {
 .leaflet-top {
   z-index: auto;
 }
+.divider {
+  border-top: 1px solid var(--color-black-20);
+  height: 1px;
+  margin: var(--spacing-s) 0;
+  width: 100%;
+}

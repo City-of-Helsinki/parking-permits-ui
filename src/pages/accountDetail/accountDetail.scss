@@ -1,0 +1,21 @@
+@import '../../assets/styles/mixin';
+
+.account-detail-component {
+  margin-top: var(--spacing-s);
+  .title {
+    font-size: var(--fontsize-heading-m);
+    margin-bottom: var(--spacing-m);
+  }
+  .row {
+    @include flex-container(row, space-between, center);
+  }
+  .total-amounts {
+    background: rgb(242, 242, 242);
+    margin: 0 -32px;
+    padding: var(--spacing-s) var(--spacing-l);
+    @include for-phone {
+      margin: 0 -16px;
+      padding: var(--spacing-s) var(--spacing-s);
+    }
+  }
+}

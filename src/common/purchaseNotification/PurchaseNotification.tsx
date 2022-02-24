@@ -44,10 +44,7 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
   return (
     <Notification
       type={alert.type}
-      style={{
-        marginTop: 'var(--spacing-l)',
-        marginBottom: 'var(--spacing-l)',
-      }}
+      style={{ margin: 'var(--spacing-m) 0' }}
       label={alert.label}>
       {alert.message}
     </Notification>
