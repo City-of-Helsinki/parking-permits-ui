@@ -3,10 +3,12 @@ import { DocumentNode } from 'graphql';
 import { loader } from 'graphql.macro';
 import { getGqlClient } from '../hooks/utils';
 import {
+  ChangeAddressResult,
   createOrderQueryResult,
   CreatePermitQueryResult,
   DeletePermitQueryResult,
   endPermitQueryResult,
+  GetUpdateAddressPriceChangesResult,
   Permit,
   PermitQueryResult,
   UpdatePermitQueryResult,
@@ -109,4 +111,31 @@ export const createOrder = (): Promise<
 > => {
   const client = new PermitGqlClient(loader('../graphql/createOrder.graphql'));
   return client.mutate<createOrderQueryResult>({}).then(res => res.createOrder);
+};
+
+export const getChangeAddressPriceChanges = (
+  addressId: string
+): Promise<
+  GetUpdateAddressPriceChangesResult['getUpdateAddressPriceChanges']
+> => {
+  const client = new PermitGqlClient(
+    loader('../graphql/getUpdateAddressPriceChanges.graphql')
+  );
+  const variables = { addressId };
+  return client
+    .query<GetUpdateAddressPriceChangesResult>(variables)
+    .then(res => res.getUpdateAddressPriceChanges);
+};
+
+export const changeAddress = (
+  addressId: string,
+  iban?: string
+): Promise<ChangeAddressResult['changeAddress']> => {
+  const client = new PermitGqlClient(
+    loader('../graphql/changeAddress.graphql')
+  );
+  const variables = { addressId, iban };
+  return client
+    .mutate<ChangeAddressResult>(variables)
+    .then(res => res.changeAddress);
 };

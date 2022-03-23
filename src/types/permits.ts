@@ -48,3 +48,19 @@ export type Vehicle = {
 export type TalpaOrder = {
   checkoutUrl?: string;
 };
+
+export interface PermitPriceChangeItem {
+  product: string;
+  previousPrice: number;
+  newPrice: number;
+  priceChange: number;
+  priceChangeVat: number;
+  startDate: string;
+  endDate: string;
+  monthCount: number;
+}
+
+export interface PermitPriceChanges {
+  permit: Pick<Permit, 'id' | 'vehicle'>;
+  priceChanges: PermitPriceChangeItem[];
+}
