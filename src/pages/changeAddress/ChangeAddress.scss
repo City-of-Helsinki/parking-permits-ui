@@ -1,0 +1,10 @@
+@import '../../assets/styles/mixin';
+
+.change-address-component {
+  margin: var(--spacing-l) 0;
+
+  .change-address-preview {
+    padding: var(--spacing-m);
+    background-color: #ffffff;
+  }
+}

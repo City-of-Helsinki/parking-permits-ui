@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import MainLayout from './common/mainLayout/MainLayout';
 import AddressSelector from './pages/addressSelector/AddressSelector';
+import ChangeAddress from './pages/changeAddress/ChangeAddress';
 import DurationSelector from './pages/durationSelector/DurationSelector';
 import EndPermit from './pages/endPermit/EndPermit';
 import LandingPage from './pages/landingPage/LandingPage';
@@ -33,6 +34,7 @@ const routes = [
       { path: ROUTES.DURATION_SELECTOR, element: <DurationSelector /> },
       { path: ROUTES.VALID_PERMITS, element: <ValidPermits /> },
       { path: ROUTES.END_PERMITS, element: <EndPermit /> },
+      { path: ROUTES.CHANGE_ADDRESS, element: <ChangeAddress /> },
       { path: ROUTES.BASE, element: <Navigate to={ROUTES.LANDING} /> },
       { path: '*', element: <Navigate to={ROUTES.LANDING} /> },
     ],
