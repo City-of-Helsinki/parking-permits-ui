@@ -1,0 +1,14 @@
+@import '../../assets/styles/mixin';
+
+.notification {
+  margin: var(--spacing-m) 0;
+}
+
+.title {
+  font-size: var(--fontsize-heading-m);
+  margin-bottom: var(--spacing-s);
+}
+
+.open-confirmation-btn {
+  margin: var(--spacing-s) 0;
+}

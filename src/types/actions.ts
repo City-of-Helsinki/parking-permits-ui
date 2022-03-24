@@ -1,5 +1,5 @@
 import { FetchStatus } from '../client/types';
-import { Permit } from './permits';
+import { Permit, PermitPriceChanges } from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
 export type ProfileActions = {
@@ -16,6 +16,10 @@ export type PermitActions = {
   getDraftPermits: () => Permit[];
   getAddress: () => UserAddress;
   setAddress: (address: UserAddress) => void;
+  getChangeAddressPriceChanges: (
+    addressId: string
+  ) => Promise<PermitPriceChanges[]>;
+  changeAddress: (addressId: string, iban?: string) => Promise<void>;
   updatePermit: (
     payload: Partial<Permit> | Partial<Zone>,
     permitId?: string

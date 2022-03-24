@@ -11,6 +11,7 @@ export enum ROUTES {
   DURATION_SELECTOR = '/duration-selector',
   CAR_REGISTRATIONS = '/vehicle/registrations',
   PERMIT_PRICES = '/vehicle/permit-prices',
+  CHANGE_ADDRESS = '/change-address',
 }
 
 export enum STEPPER {

@@ -2,11 +2,13 @@ import { orderBy } from 'lodash';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
+  changeAddress,
   createDraftPermit,
   createOrder,
   deleteDraftPermit,
   endPermits,
   getAllPermits,
+  getChangeAddressPriceChanges,
   updateDraftPermit,
   updateVehicleRegistration,
 } from '../graphql/permitGqlClient';
@@ -171,6 +173,17 @@ const usePermitState = (): PermitActions => {
     window.open(`${order.checkoutUrl}?user=${profile?.id}`, '_self');
   }, [profile]);
 
+  const changeAddressRequest = useCallback(
+    async (addressId, iban) => {
+      setStatus('loading');
+      const { success } = await changeAddress(addressId, iban);
+      if (success) {
+        await fetchPermits();
+      }
+    },
+    [fetchPermits]
+  );
+
   useEffect(() => {
     const allowedAgeLimit = getEnv('REACT_APP_ALLOWED_AGE_LIMIT');
     if (status === 'waiting' && profile && profile.age >= +allowedAgeLimit) {
@@ -185,6 +198,8 @@ const usePermitState = (): PermitActions => {
     setAddress: userAddress => setAddress(userAddress),
     getDraftPermits: () => draftPermits,
     getValidPermits: () => validPermits,
+    getChangeAddressPriceChanges,
+    changeAddress: (addressId, iban) => changeAddressRequest(addressId, iban),
     setStep: count => setStep(count),
     updatePermit: (payload, permitId) => updatePermit(payload, permitId),
     updateVehicle: (permitId, registration) =>
