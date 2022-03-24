@@ -43,7 +43,9 @@ const OrderReview: React.FC<OrderReviewProps> = ({
           className="notification"
           type="info"
           label={t(`${T_PATH}.notification.info.pendingRefundTitle`)}>
-          {t(`${T_PATH}.notification.error.pendingRefundMessage`)}
+          {t(`${T_PATH}.notification.error.pendingRefundMessage`, {
+            email: profile.email,
+          })}
         </Notification>
         <Button className="open-confirmation-btn" theme="black">
           {t(`${T_PATH}.openConfirmPage`)}

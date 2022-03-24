@@ -111,6 +111,10 @@ const ChangeAddress = (): React.ReactElement => {
           onConfirm={() => {
             if (priceChangeTotal > 0) {
               // TODO: extra payment
+            } else if (priceChangeTotal === 0) {
+              changeAddress(notUsedAddress.id).then(() =>
+                setStep(ChangeAddressStep.ORDER_REVIEW)
+              );
             } else {
               setStep(ChangeAddressStep.REFUND);
             }
