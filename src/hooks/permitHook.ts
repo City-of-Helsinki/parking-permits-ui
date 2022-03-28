@@ -176,12 +176,14 @@ const usePermitState = (): PermitActions => {
   const changeAddressRequest = useCallback(
     async (addressId, iban) => {
       setStatus('loading');
-      const { success } = await changeAddress(addressId, iban);
-      if (success) {
+      const { checkoutUrl } = await changeAddress(addressId, iban);
+      if (checkoutUrl) {
+        window.open(`${checkoutUrl}?user=${profile?.id}`, '_self');
+      } else {
         await fetchPermits();
       }
     },
-    [fetchPermits]
+    [fetchPermits, profile]
   );
 
   useEffect(() => {
