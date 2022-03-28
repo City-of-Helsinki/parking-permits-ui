@@ -96,10 +96,19 @@ const ChangeAddress = (): React.ReactElement => {
           address={notUsedAddress}
           onCancel={() => navigate(ROUTES.VALID_PERMITS)}
           onConfirm={() => {
-            setStep(ChangeAddressStep.PRICE_PREVIEW);
-            getChangeAddressPriceChanges(notUsedAddress.id).then(changes =>
-              setPriceChangesList(changes)
-            );
+            getChangeAddressPriceChanges(notUsedAddress.id).then(changes => {
+              setPriceChangesList(changes);
+              const changeTotal = changes.reduce(
+                (total, item) =>
+                  total + getPermitPriceTotal(item.priceChanges, 'priceChange'),
+                0
+              );
+              if (changeTotal > 0) {
+                changeAddress(notUsedAddress.id);
+              } else {
+                setStep(ChangeAddressStep.PRICE_PREVIEW);
+              }
+            });
           }}
         />
       )}
@@ -109,13 +118,11 @@ const ChangeAddress = (): React.ReactElement => {
           priceChangesList={priceChangesList}
           onCancel={() => setStep(ChangeAddressStep.ADDRESS)}
           onConfirm={() => {
-            if (priceChangeTotal > 0) {
-              // TODO: extra payment
-            } else if (priceChangeTotal === 0) {
+            if (priceChangeTotal === 0) {
               changeAddress(notUsedAddress.id).then(() =>
                 setStep(ChangeAddressStep.ORDER_REVIEW)
               );
-            } else {
+            } else if (priceChangeTotal < 0) {
               setStep(ChangeAddressStep.REFUND);
             }
           }}
