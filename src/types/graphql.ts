@@ -89,5 +89,6 @@ export type GetUpdateAddressPriceChangesResult = {
 export type ChangeAddressResult = {
   changeAddress: {
     success: boolean;
+    checkoutUrl?: string;
   };
 };

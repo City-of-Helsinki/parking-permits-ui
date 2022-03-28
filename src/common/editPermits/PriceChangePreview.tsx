@@ -139,22 +139,6 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
             <div>{t(`${T_PATH}.priceCalcDescription`)}</div>
           </div>
         </div>
-        {priceChangeType === PriceChangeType.HIGHER_PRICE && (
-          <div className="extra-payment">
-            <div className="row">
-              <div>
-                <b>{t(`${T_PATH}.extraPaymentTotal`)}</b>
-              </div>
-              <div>
-                <b>{priceChangeTotal} €</b>
-              </div>
-            </div>
-            <div className="row">
-              <div>{t(`${T_PATH}.extraPaymentVatTotal`)}</div>
-              <div>{priceChangeVatTotal} €</div>
-            </div>
-          </div>
-        )}
         {priceChangeType === PriceChangeType.LOWER_PRICE && (
           <div className="refund">
             <div className="row">
