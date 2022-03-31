@@ -1,5 +1,5 @@
 import { ParkingContractType, ParkingStartType } from './enums';
-import { Permit, TalpaOrder, Vehicle } from './permits';
+import { Permit, PermitPriceChanges, TalpaOrder, Vehicle } from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
 export type GraphQLZone = Zone & {
@@ -79,5 +79,16 @@ export type createOrderQueryResult = {
     success: boolean;
     errors: string | string[] | ParkingPermitError[];
     order: TalpaOrder;
+  };
+};
+
+export type GetUpdateAddressPriceChangesResult = {
+  getUpdateAddressPriceChanges: PermitPriceChanges[];
+};
+
+export type ChangeAddressResult = {
+  changeAddress: {
+    success: boolean;
+    checkoutUrl?: string;
   };
 };

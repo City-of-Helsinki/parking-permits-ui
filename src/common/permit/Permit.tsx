@@ -122,7 +122,8 @@ const Permit = ({
                 variant="supplementary"
                 disabled={permits.some(isProcessing)}
                 style={{ margin: 'var(--spacing-xs) 0' }}
-                iconLeft={<IconAngleRight />}>
+                iconLeft={<IconAngleRight />}
+                onClick={() => navigate(ROUTES.CHANGE_ADDRESS)}>
                 {t(`${T_PATH}.changeAddress`)}
               </Button>
             </div>

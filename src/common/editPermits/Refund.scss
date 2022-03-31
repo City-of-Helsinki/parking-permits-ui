@@ -1,0 +1,36 @@
+@import '../../assets/styles/mixin';
+
+.refund-info {
+  margin-bottom: var(--spacing-s);
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+.refund-description {
+  margin: var(--spacing-m) 0;
+}
+
+.account-info {
+  margin: var(--spacing-s) 0;
+  display: flex;
+  flex-direction: row;
+
+  .account-info-messages {
+    display: flex;
+    flex-direction: column;
+    margin-left: var(--spacing-s);
+
+    div:not(:last-child) {
+      margin-bottom: var(--spacing-s);
+    }
+  }
+}
+
+.contact-link {
+  display: block;
+  width: fit-content;
+}

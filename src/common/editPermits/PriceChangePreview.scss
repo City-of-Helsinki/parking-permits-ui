@@ -1,0 +1,47 @@
+@import '../../assets/styles/mixin';
+
+.title {
+  font-size: var(--fontsize-heading-m);
+  margin-bottom: var(--spacing-s);
+}
+
+.price-change-detail {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-m);
+  background-color: #ffffff;
+
+  .subtitle {
+    font-size: var(--fontsize-body-l);
+    font-weight: bold;
+    margin-bottom: var(--spacing-m);
+  }
+
+  .permit-price-changes {
+    .vehicle {
+      font-size: var(--fontsize-body-l);
+      font-weight: bold;
+      margin-bottom: var(--spacing-s);
+    }
+    .price-change-item {
+      margin-bottom: var(--spacing-m);
+    }
+  }
+
+  .total-info {
+    margin-bottom: var(--spacing-m);
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+}
+
+.divider {
+  margin: var(--spacing-s) 0;
+  width: 100%;
+  border-bottom: 1px solid var(--color-black-30);
+}
