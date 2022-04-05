@@ -36,6 +36,7 @@ const AddressLabel: FC<AddressHeaderProps> = ({ isPrimary, address }) => {
 };
 
 interface Props {
+  showControl?: boolean;
   isPrimary: boolean;
   address: UserAddress;
   selectedAddress: UserAddress | undefined;
@@ -43,6 +44,7 @@ interface Props {
 }
 
 const Address: FC<Props> = ({
+  showControl = true,
   isPrimary,
   address,
   selectedAddress,
@@ -66,19 +68,26 @@ const Address: FC<Props> = ({
       className={classNames('address-component', {
         selected: address.id === selectedAddress?.id,
       })}>
-      <div className="address">
-        <RadioButton
-          className="custom-radio-btn"
-          id={address.id}
-          name={address.id}
-          value={address.id}
-          disabled={!address.zone || disableSelection}
-          label={<AddressLabel isPrimary={isPrimary} address={address} />}
-          checked={selectedAddress?.id === address.id}
-          onClick={() => updateAddressZone(address)}
-        />
-        <ArrowIcon onClick={() => setOpenState(!openState)} />
-      </div>
+      {showControl && (
+        <div className="address">
+          <RadioButton
+            className="custom-radio-btn"
+            id={address.id}
+            name={address.id}
+            value={address.id}
+            disabled={!address.zone || disableSelection}
+            label={<AddressLabel isPrimary={isPrimary} address={address} />}
+            checked={selectedAddress?.id === address.id}
+            onClick={() => updateAddressZone(address)}
+          />
+          <ArrowIcon onClick={() => setOpenState(!openState)} />
+        </div>
+      )}
+      {!showControl && (
+        <div className="address">
+          <AddressLabel isPrimary={isPrimary} address={address} />
+        </div>
+      )}
       <div className="zone_type">
         {t(`${T_PATH}.residentParkingZone`)} {address.zone?.name}
       </div>
