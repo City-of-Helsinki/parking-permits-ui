@@ -37,6 +37,7 @@
   "common.editPermits.Refund.title": "Återställ",
   "common.editPermits.SelectAddress.actionBtn.cancel": "Avbryt",
   "common.editPermits.SelectAddress.actionBtn.continue": "Fortsätt",
+  "common.editPermits.SelectAddress.title": "Bekräfta ny adress",
   "common.endPermitDialog.EndPermitDialog.cancel": "Avbryt",
   "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Välj när tillståndet upphör",
   "common.endPermitDialog.EndPermitDialog.continue": "Fortsätt",
