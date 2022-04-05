@@ -23,7 +23,12 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
   const { t } = useTranslation();
   return (
     <div className={className}>
-      <Address isPrimary={false} address={address} selectedAddress={address} />
+      <Address
+        showControl={false}
+        isPrimary={false}
+        address={address}
+        selectedAddress={address}
+      />
       <div className="action-buttons">
         <Button
           type="submit"
