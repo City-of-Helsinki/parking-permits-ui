@@ -47,6 +47,7 @@
   "common.editPermits.Refund.title": "Palautus",
   "common.editPermits.SelectAddress.actionBtn.cancel": "Peruuta",
   "common.editPermits.SelectAddress.actionBtn.continue": "Continue",
+  "common.editPermits.SelectAddress.title": "Vahvista uusi osoite",
   "common.endPermitDialog.EndPermitDialog.cancel": "Peruuta",
   "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Valitsen milloin tunnuksen voimassaolo päättyy",
   "common.endPermitDialog.EndPermitDialog.continue": "Jatka",
