@@ -36,6 +36,7 @@
   "common.editPermits.Refund.refundTotal": "Total amount to be refunded",
   "common.editPermits.Refund.refundTotalVat": "Incl. VAT (24%)",
   "common.editPermits.Refund.title": "Refund",
+  "common.editPermits.SelectAddress.title": "Confirm new address",
   "common.editPermits.SelectAddress.actionBtn.cancel": "Cancel",
   "common.editPermits.SelectAddress.actionBtn.continue": "Continue",
   "common.endPermitDialog.EndPermitDialog.cancel": "Cancel",

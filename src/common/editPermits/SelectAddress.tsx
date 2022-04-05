@@ -23,6 +23,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
   const { t } = useTranslation();
   return (
     <div className={className}>
+      <div className="title">{t(`${T_PATH}.title`)}</div>
       <Address
         showControl={false}
         isPrimary={false}
