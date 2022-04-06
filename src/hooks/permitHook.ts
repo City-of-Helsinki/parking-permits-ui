@@ -1,4 +1,3 @@
-import { orderBy } from 'lodash';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
@@ -10,7 +9,6 @@ import {
   getAllPermits,
   getChangeAddressPriceChanges,
   updateDraftPermit,
-  updateVehicleRegistration,
 } from '../graphql/permitGqlClient';
 import {
   ParkingPermitError,
@@ -27,9 +25,10 @@ const usePermitState = (): PermitActions => {
   const profileCtx = useContext(UserProfileContext);
   const [status, setStatus] = useState<FetchStatus>('waiting');
   const [step, setStep] = useState<number>(0);
-  const [validPermits, setValidPermits] = useState<Permit[]>([]);
-  const [draftPermits, setDraftPermits] = useState<Permit[]>([]);
-  const [address, setAddress] = useState<UserAddress | undefined>(undefined);
+  const [permits, setPermits] = useState<Permit[]>([]);
+  const [selectedAddress, setSelectedAddress] = useState<
+    UserAddress | undefined
+  >(undefined);
   const [error, setError] = useState<ApiFetchError>();
 
   const profile = profileCtx?.getProfile();
@@ -43,39 +42,31 @@ const usePermitState = (): PermitActions => {
       return setError(errors);
     }
     return setError(
-      errors.map(e => (typeof e !== 'string' && e?.message) || e).join('\n')
+      errors?.map(e => (typeof e !== 'string' && e?.message) || e).join('\n')
     );
   };
 
   const fetchPermits = useCallback(async () => {
     setStatus('loading');
 
-    const { permits: userPermits, success, errors } = await getAllPermits();
-    if (!success) {
-      onError(errors);
-      return;
-    }
-    const vPermits = (userPermits || []).filter(
-      permit => permit.status === PermitStatus.VALID
-    );
-    setDraftPermits(
-      (userPermits || []).filter(permit => permit.status === PermitStatus.DRAFT)
-    );
-    setValidPermits(vPermits);
-    if (vPermits?.length > 0 && profile) {
-      const { primaryAddress, otherAddress } = profile;
-      const firstPermit = vPermits[0];
-      const selectedAdd = [primaryAddress, otherAddress].find(
-        add => add.zone?.id === firstPermit.parkingZone.id
-      );
-      setAddress(selectedAdd);
-    }
-    if (!address && profile) {
-      const { primaryAddress } = profile;
-      setAddress(primaryAddress);
-    }
+    await getAllPermits()
+      .then(userPermits => {
+        setPermits(userPermits || []);
+        if (userPermits.length) {
+          setSelectedAddress(
+            profileCtx
+              ?.getAddresses()
+              .find(
+                address => address?.zone?.id === userPermits[0].parkingZone.id
+              )
+          );
+        } else if (!selectedAddress) {
+          setSelectedAddress(profileCtx?.getAddresses()[0]);
+        }
+      })
+      .catch(onError);
     setStatus('loaded');
-  }, [address, profile]);
+  }, [profileCtx, selectedAddress]);
 
   const updatePermit = useCallback(
     async (
@@ -83,26 +74,7 @@ const usePermitState = (): PermitActions => {
       permitId: string | undefined
     ) => {
       setStatus('loading');
-      const { permits, success, errors } = await updateDraftPermit(
-        payload,
-        permitId
-      );
-      if (!success) {
-        onError(errors);
-        return;
-      }
-      if ('primaryVehicle' in payload) {
-        await fetchPermits();
-        return;
-      }
-      const drafts = (permits || []).filter(
-        permit => permit.status !== PermitStatus.VALID
-      );
-      setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
-      setValidPermits(
-        (permits || []).filter(permit => permit.status === PermitStatus.VALID)
-      );
-      setStatus('loaded');
+      updateDraftPermit(payload, permitId).then(fetchPermits).catch(onError);
     },
     [fetchPermits]
   );
@@ -120,10 +92,7 @@ const usePermitState = (): PermitActions => {
   const deletePermit = useCallback(
     async permitId => {
       setStatus('loading');
-      const { success } = await deleteDraftPermit(permitId);
-      if (success) {
-        await fetchPermits();
-      }
+      deleteDraftPermit(permitId).then(fetchPermits).catch(onError);
     },
     [fetchPermits]
   );
@@ -131,40 +100,17 @@ const usePermitState = (): PermitActions => {
   const endValidPermits = useCallback(
     async (permitIds, endType, iban) => {
       setStatus('loading');
-      const { success } = await endPermits(permitIds, endType, iban);
-      if (success) {
-        await fetchPermits();
-      }
+      endPermits(permitIds, endType, iban).then(fetchPermits).catch(onError);
     },
     [fetchPermits]
   );
 
-  const updateVehicleReg = useCallback(
-    async (permitId, registration) => {
-      setStatus('loading');
-      const permit = draftPermits.find(p => p.id === permitId) as Permit;
-      const { success, errors, vehicle } = await updateVehicleRegistration(
-        permit,
-        registration
-      );
-      if (!success) {
-        permit.vehicle.registrationNumber = '';
-        onError(errors);
-        return;
-      }
-      setDraftPermits([
-        ...draftPermits.filter(p => p.id !== permitId),
-        { ...permit, vehicle },
-      ] as Permit[]);
-      setStatus('loaded');
-    },
-    [draftPermits]
-  );
-
   const createOrderRequest = useCallback(async () => {
     setStatus('loading');
-    const { order } = await createOrder();
-    window.open(`${order.checkoutUrl}?user=${profile?.id}`, '_self');
+    const order = await createOrder();
+    if (order.checkoutUrl) {
+      window.open(`${order?.checkoutUrl}?user=${profile?.id}`, '_self');
+    }
   }, [profile]);
 
   const changeAddressRequest = useCallback(
@@ -190,22 +136,26 @@ const usePermitState = (): PermitActions => {
   return {
     getStatus: () => status,
     getStep: () => step,
-    getAddress: () => address,
-    setAddress: userAddress => setAddress(userAddress),
-    getDraftPermits: () => draftPermits,
-    getValidPermits: () => validPermits,
+    getSelectedAddress: () => selectedAddress,
+    setSelectedAddress: userAddress => setSelectedAddress(userAddress),
     getPermits: () => permits,
+    getDraftPermits: () =>
+      permits.filter(permit => permit.status === PermitStatus.DRAFT),
+    getValidPermits: () =>
+      permits.filter(permit => permit.status === PermitStatus.VALID),
     getChangeAddressPriceChanges,
     changeAddress: (addressId, iban) => changeAddressRequest(addressId, iban),
     setStep: count => setStep(count),
     updatePermit: (payload, permitId) => updatePermit(payload, permitId),
-    updateVehicle: (permitId, registration) =>
-      updateVehicleReg(permitId, registration),
     deletePermit: permitId => deletePermit(permitId),
     endValidPermits: (permitIds, endType, iban) =>
       endValidPermits(permitIds, endType, iban),
     createPermit: registration => createPermit(registration),
     createOrderRequest: () => createOrderRequest(),
+    clearErrorMessage: () => {
+      setStatus('loaded');
+      setError('');
+    },
     getErrorMessage: () => {
       if (!error) {
         return undefined;
