@@ -8,7 +8,6 @@ import Stepper from '../stepper/Stepper';
 import './mainLayout.scss';
 
 const SHOW_STEPPER_ROUTES = [
-  ROUTES.CAR_REGISTRATIONS,
   ROUTES.PERMIT_PRICES,
   ROUTES.DURATION_SELECTOR,
   ROUTES.SUCCESS,

@@ -69,7 +69,7 @@ const ValidPermits = (): React.ReactElement => {
             theme="black"
             disabled={validPermits.some(isProcessing)}
             iconLeft={<IconPlusCircle />}
-            onClick={() => navigate(ROUTES.CAR_REGISTRATIONS)}>
+            onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
             {t(`${T_PATH}.newOrder`)}
           </Button>
         )}
