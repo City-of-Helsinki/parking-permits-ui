@@ -10,7 +10,7 @@ import {
 import { sortBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConsent';
 import { PermitStateContext } from '../../hooks/permitProvider';
@@ -32,14 +32,15 @@ const PermitPrices = (): React.ReactElement => {
   const updatePermitData = (payload: Partial<Permit>, permitId?: string) =>
     permitCtx?.updatePermit(payload, permitId);
 
-  if (!registrations?.length) {
-    return <Navigate to={ROUTES.CAR_REGISTRATIONS} />;
-  }
-
   if (currentStep !== STEPPER.PERMIT_PRICES) {
     const timeOutFor = 100;
     setTimeout(() => permitCtx?.setStep(STEPPER.PERMIT_PRICES), timeOutFor);
   }
+
+  const navigateTo = (route: ROUTES) => {
+    navigate(route);
+    permitCtx?.clearErrorMessage();
+  };
 
   const getPrices = (permit: Permit) => {
     const { isLowEmission } = permit.vehicle;
@@ -137,7 +138,7 @@ const PermitPrices = (): React.ReactElement => {
         <Button
           theme="black"
           className="action-btn"
-          onClick={() => navigate(ROUTES.DURATION_SELECTOR)}>
+          onClick={() => navigateTo(ROUTES.DURATION_SELECTOR)}>
           <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
           <IconArrowRight />
         </Button>
@@ -147,8 +148,8 @@ const PermitPrices = (): React.ReactElement => {
           theme="black"
           variant="secondary"
           iconLeft={<IconArrowLeft />}
-          onClick={() => navigate(ROUTES.CAR_REGISTRATIONS)}>
-          <span>{t(`${T_PATH}.actionBtn.gotoRegistration`)}</span>
+          onClick={() => navigateTo(ROUTES.ADDRESS)}>
+          <span>{t(`${T_PATH}.actionBtn.gotoAddressSelection`)}</span>
         </Button>
       </div>
     </div>
