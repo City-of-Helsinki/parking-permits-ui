@@ -13,6 +13,7 @@ export type ProfileActions = {
 };
 
 export type PermitActions = {
+  getPermits: () => Permit[];
   getValidPermits: () => Permit[];
   getDraftPermits: () => Permit[];
   getAddress: () => UserAddress;

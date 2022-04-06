@@ -194,6 +194,7 @@ const usePermitState = (): PermitActions => {
     setAddress: userAddress => setAddress(userAddress),
     getDraftPermits: () => draftPermits,
     getValidPermits: () => validPermits,
+    getPermits: () => permits,
     getChangeAddressPriceChanges,
     changeAddress: (addressId, iban) => changeAddressRequest(addressId, iban),
     setStep: count => setStep(count),
