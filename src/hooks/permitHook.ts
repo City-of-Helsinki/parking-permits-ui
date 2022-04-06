@@ -107,21 +107,15 @@ const usePermitState = (): PermitActions => {
     [fetchPermits]
   );
 
-  const createPermit = useCallback(async () => {
-    setStatus('loading');
-    const { success, errors, permits } = await createDraftPermit(
-      address as UserAddress
-    );
-    if (!success) {
-      onError(errors);
-      return;
-    }
-    const drafts = (permits || []).filter(
-      permit => permit.status !== PermitStatus.VALID
-    );
-    setDraftPermits(orderBy(drafts || [], 'primaryVehicle', 'desc'));
-    setStatus('loaded');
-  }, [address]);
+  const createPermit = useCallback(
+    async (registration: string) => {
+      setStatus('loading');
+      createDraftPermit(selectedAddress as UserAddress, registration)
+        .then(fetchPermits)
+        .catch(onError);
+    },
+    [selectedAddress, fetchPermits]
+  );
 
   const deletePermit = useCallback(
     async permitId => {
@@ -209,7 +203,7 @@ const usePermitState = (): PermitActions => {
     deletePermit: permitId => deletePermit(permitId),
     endValidPermits: (permitIds, endType, iban) =>
       endValidPermits(permitIds, endType, iban),
-    createPermit: () => createPermit(),
+    createPermit: registration => createPermit(registration),
     createOrderRequest: () => createOrderRequest(),
     getErrorMessage: () => {
       if (!error) {
