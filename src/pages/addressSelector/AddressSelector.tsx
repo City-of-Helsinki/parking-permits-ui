@@ -74,7 +74,7 @@ const AddressSelector = (): React.ReactElement => {
       <div className="action-buttons">
         <Button
           className="action-btn"
-          onClick={() => navigate(ROUTES.CAR_REGISTRATIONS)}
+          onClick={() => navigate(ROUTES.PERMIT_PRICES)}
           theme="black">
           <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
           <IconArrowRight />
