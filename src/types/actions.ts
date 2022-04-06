@@ -16,8 +16,8 @@ export type PermitActions = {
   getPermits: () => Permit[];
   getValidPermits: () => Permit[];
   getDraftPermits: () => Permit[];
-  getAddress: () => UserAddress;
-  setAddress: (address: UserAddress) => void;
+  getSelectedAddress: () => UserAddress;
+  setSelectedAddress: (address: UserAddress) => void;
   getChangeAddressPriceChanges: (
     addressId: string
   ) => Promise<PermitPriceChanges[]>;
@@ -26,7 +26,6 @@ export type PermitActions = {
     payload: Partial<Permit> | Partial<Zone>,
     permitId?: string
   ) => Promise<void>;
-  updateVehicle: (permitId: string, registration: string) => Promise<void>;
   createPermit: (registration: string) => Promise<void>;
   createOrderRequest: () => Promise<void>;
   deletePermit: (permitId: string) => Promise<void>;
@@ -38,7 +37,7 @@ export type PermitActions = {
   getStep: () => number;
   setStep: (step: number) => void;
   getStatus: () => FetchStatus;
-  clear: () => Promise<void>;
+  clearErrorMessage: () => void;
   getErrorMessage: () => string | undefined;
   getResultErrorMessage: () => string | undefined;
 };
