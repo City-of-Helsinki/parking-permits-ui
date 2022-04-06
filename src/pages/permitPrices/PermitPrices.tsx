@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConsent';
+import RegistrationNumber from '../../common/registrationNumber/RegistrationNumber';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, STEPPER } from '../../types';
 import { formatDate } from '../../utils';
@@ -66,7 +67,14 @@ const PermitPrices = (): React.ReactElement => {
 
   return (
     <div className="permit-prices-component">
+      <div className="not-in-phone">
+        <RegistrationNumber />
+        <div className="permit-info">{t(`${T_PATH}.permitInfo`)}</div>
+      </div>
       <div className="offer-container">
+        <div className="permit-info not-in-desktop">
+          {t(`${T_PATH}.permitInfo`)}
+        </div>
         {sortBy(permits || [], 'vehicle.registrationNumber')
           .filter(permit => !!permit)
           .map(
@@ -128,12 +136,15 @@ const PermitPrices = (): React.ReactElement => {
             </div>
           ))}
       </div>
-      {permits?.length && (
+      {permits && permits.length > 0 && (
         <LowEmissionConsent
           permits={permits}
           updatePermitData={updatePermitData}
         />
       )}
+      <div className="not-in-desktop">
+        <RegistrationNumber />
+      </div>
       <div className="action-buttons">
         <Button
           theme="black"

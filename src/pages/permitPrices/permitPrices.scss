@@ -1,10 +1,30 @@
 @import '../../assets/styles/mixin';
 .permit-prices-component {
+  @include for-desktop {
+    .not-in-desktop {
+      display: none;
+    }
+    .permit-info {
+      max-width: 50%;
+    }
+  }
+  @include for-phone {
+    .not-in-phone {
+      display: none;
+    }
+  }
+  .permit-info {
+    margin-bottom: var(--spacing-s);
+  }
   .offer-container {
     display: flex;
     justify-content: space-between;
     @include for-phone {
       flex-direction: column;
+
+      & > .offer:not(:last-of-type) {
+        margin-bottom: var(--spacing-s);
+      }
     }
     .offer {
       @include for-desktop {
