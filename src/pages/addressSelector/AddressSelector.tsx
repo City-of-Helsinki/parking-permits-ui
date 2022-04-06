@@ -21,9 +21,9 @@ const AddressSelector = (): React.ReactElement => {
     return <></>;
   }
   const { getProfile } = profileCtx;
-  const { getValidPermits, getStep, setStep, getAddress } = permitCtx;
+  const { getValidPermits, getStep, setStep, getSelectedAddress } = permitCtx;
 
-  const selectedAddress = getAddress();
+  const selectedAddress = getSelectedAddress();
   const validPermits = getValidPermits();
   const profile = getProfile();
 

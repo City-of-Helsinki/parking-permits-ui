@@ -46,7 +46,7 @@ const DurationSelector = (): React.ReactElement => {
     p => p.vehicle.registrationNumber
   );
   const currentStep = permitCtx?.getStep();
-  const address = permitCtx?.getAddress();
+  const address = permitCtx?.getSelectedAddress();
   let [primaryPermit, otherPermit] = draftPermits as PermitModel[];
 
   if (validPermits?.length) {

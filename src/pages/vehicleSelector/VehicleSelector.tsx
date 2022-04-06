@@ -25,7 +25,7 @@ const VehicleSelector = (): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
   const permits = permitCtx?.getDraftPermits();
   const registrationNumbers = permits?.map(p => p.vehicle.registrationNumber);
-  const selectedAddress = permitCtx?.getAddress();
+  const selectedAddress = permitCtx?.getSelectedAddress();
 
   if (!selectedAddress) {
     return <Navigate to={ROUTES.ADDRESS} />;
