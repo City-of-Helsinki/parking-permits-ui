@@ -1,50 +1,45 @@
 mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
-  updateParkingPermit(input: $input, permitId: $permitId) {
-    success
-    errors
-    permits {
+  updateParkingPermit(input: $input, permitId: $permitId) { id
+    orderId
+    subscriptionId
+    startType
+    startTime
+    endTime
+    primaryVehicle
+    consentLowEmissionAccepted
+    status
+    contractType
+    monthCount
+    monthsLeft
+    currentPeriodEndTime
+    canEndImmediately
+    canEndAfterCurrentPeriod
+    hasRefund
+    vehicle {
       id
-      orderId
-      subscriptionId
-      startType
-      startTime
-      endTime
-      primaryVehicle
-      consentLowEmissionAccepted
-      status
-      contractType
-      monthCount
-      monthsLeft
-      currentPeriodEndTime
-      canEndImmediately
-      canEndAfterCurrentPeriod
-      hasRefund
-      vehicle {
-        id
-        powerType
-        model
-        emission
-        isLowEmission
-        manufacturer
-        productionYear
-        registrationNumber
-      }
-      parkingZone {
-        id
-        name
-        description
-        descriptionSv
-        location
-      }
-      products {
-        vat
-        endDate
-        startDate
-        unitPrice
-        totalPrice
-        quantity
-        lowEmissionDiscount
-      }
+      powerType
+      model
+      emission
+      isLowEmission
+      manufacturer
+      productionYear
+      registrationNumber
+    }
+    parkingZone {
+      id
+      name
+      description
+      descriptionSv
+      location
+    }
+    products {
+      vat
+      endDate
+      startDate
+      unitPrice
+      totalPrice
+      quantity
+      lowEmissionDiscount
     }
   }
 }
