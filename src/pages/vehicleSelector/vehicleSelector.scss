@@ -8,8 +8,8 @@
     margin-top: var(--spacing-s);
     padding: 4px;
   }
-
-  .notification:not(:first-of-type) {
-    margin-top: var(--spacing-s);
+  .error-notification,
+  .purchase-amount-info {
+    margin-bottom: var(--spacing-s);
   }
 }
