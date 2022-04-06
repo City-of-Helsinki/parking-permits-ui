@@ -1,5 +1,5 @@
 import { ParkingContractType, ParkingStartType } from './enums';
-import { Permit, PermitPriceChanges, TalpaOrder, Vehicle } from './permits';
+import { Permit, PermitPriceChanges } from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
 export type GraphQLZone = Zone & {
@@ -23,49 +23,23 @@ export type ParkingPermitError = {
 };
 
 export type PermitQueryResult = {
-  getPermits: {
-    permits: Permit[];
-    success: boolean;
-    errors: string | string[] | ParkingPermitError[];
-  };
+  getPermits: Permit[];
 };
 
 export type DeletePermitQueryResult = {
-  deleteParkingPermit: {
-    success: boolean;
-    errors: string | string[] | ParkingPermitError[];
-  };
+  deleteParkingPermit: boolean;
 };
 
 export type endPermitQueryResult = {
-  endParkingPermit: {
-    success: boolean;
-    errors: string | string[] | ParkingPermitError[];
-  };
+  endParkingPermit: boolean;
 };
 
 export type UpdatePermitQueryResult = {
-  updateParkingPermit: {
-    permits: Permit[];
-    success: boolean;
-    errors: string[];
-  };
+  updateParkingPermit: Permit;
 };
 
 export type CreatePermitQueryResult = {
-  createParkingPermit: {
-    permits: Permit[];
-    success: boolean;
-    errors: string | string[] | ParkingPermitError[];
-  };
-};
-
-export type UpdateVehicleQueryResult = {
-  updateVehicle: {
-    vehicle: Vehicle;
-    success: boolean;
-    errors: string | string[] | ParkingPermitError[];
-  };
+  createParkingPermit: Permit;
 };
 
 export type REG_ACTION = {
@@ -76,9 +50,7 @@ export type REG_ACTION = {
 
 export type createOrderQueryResult = {
   createOrder: {
-    success: boolean;
-    errors: string | string[] | ParkingPermitError[];
-    order: TalpaOrder;
+    checkoutUrl: string;
   };
 };
 

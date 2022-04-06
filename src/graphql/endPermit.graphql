@@ -1,5 +1,3 @@
 mutation endParkingPermit($permitIds: [String]!, $endType: PermitEndType!, $iban: String) {
-  endParkingPermit(permitIds: $permitIds, endType: $endType, iban: $iban) {
-    success
-  }
+  endParkingPermit(permitIds: $permitIds, endType: $endType, iban: $iban)
 }

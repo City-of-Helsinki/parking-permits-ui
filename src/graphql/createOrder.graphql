@@ -1,9 +1,5 @@
 mutation Mutation {
   createOrder {
-    success
-    errors
-    order {
-      checkoutUrl
-    }
+    checkoutUrl
   }
 }
