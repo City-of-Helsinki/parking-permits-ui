@@ -44,6 +44,10 @@ const useProfile = (): ProfileActions => {
 
   return {
     getProfile: () => profile,
+    getAddresses: () =>
+      [profile?.primaryAddress, profile?.otherAddress].filter(
+        address => !!address
+      ),
     getStatus: () => status,
     getErrorMessage: () => {
       if (!error) {
