@@ -4,6 +4,7 @@ import { UserAddress, UserProfile, Zone } from './user';
 
 export type ProfileActions = {
   getProfile: () => UserProfile;
+  getAddresses: () => UserAddress[];
   fetch: () => Promise<void>;
   getStatus: () => FetchStatus;
   clear: () => Promise<void>;
