@@ -54,8 +54,12 @@ const Address: FC<Props> = ({
   const { t } = useTranslation();
   const ArrowIcon = openState ? IconAngleUp : IconAngleDown;
   const updateAddressZone = (userAddress: UserAddress) => {
-    permitCtx?.setAddress(userAddress);
-    permitCtx?.updatePermit({ zoneId: userAddress.zone?.id } as Partial<Zone>);
+    permitCtx?.setSelectedAddress(userAddress);
+    if (permitCtx?.getPermits().some(p => p.id)) {
+      permitCtx?.updatePermit({
+        zoneId: userAddress.zone?.id,
+      } as Partial<Zone>);
+    }
   };
   return (
     <Card
