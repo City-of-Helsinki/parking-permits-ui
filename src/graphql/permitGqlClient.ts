@@ -12,7 +12,6 @@ import {
   Permit,
   PermitQueryResult,
   UpdatePermitQueryResult,
-  UpdateVehicleQueryResult,
   UserAddress,
 } from '../types';
 import { getEnv } from '../utils';
@@ -49,19 +48,6 @@ class PermitGqlClient {
     return Promise.reject(result.errors);
   }
 }
-
-export const updateVehicleRegistration = (
-  permit: Permit,
-  registration: string
-): Promise<UpdateVehicleQueryResult['updateVehicle']> => {
-  const variables = { vehicleId: permit?.vehicle.id, registration };
-  const client = new PermitGqlClient(
-    loader('../graphql/updateVehicle.graphql')
-  );
-  return client
-    .mutate<UpdateVehicleQueryResult>(variables)
-    .then(res => res.updateVehicle);
-};
 
 export const getAllPermits = (): Promise<PermitQueryResult['getPermits']> => {
   const LOADER = loader('../graphql/permits.graphql');
