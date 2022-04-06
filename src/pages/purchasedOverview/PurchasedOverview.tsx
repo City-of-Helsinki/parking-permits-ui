@@ -29,7 +29,7 @@ const PurchasedOverview = (): React.ReactElement => {
 
   const client = clientCtx?.client;
   const queryStr = queryString.parse(location.search);
-  const selectedAddress = permitCtx.getAddress();
+  const selectedAddress = permitCtx.getSelectedAddress();
   const currentStep = permitCtx.getStep();
   const validPermits = permitCtx.getValidPermits();
 
