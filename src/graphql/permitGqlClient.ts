@@ -32,7 +32,10 @@ class PermitGqlClient {
       query: this.documentNode,
       variables,
     });
-    return result.data;
+    if (result.data) {
+      return result.data;
+    }
+    return Promise.reject(result.errors);
   }
 
   async mutate<T>(variables: OperationVariables): Promise<T> {
@@ -40,7 +43,10 @@ class PermitGqlClient {
       mutation: this.documentNode,
       variables,
     });
-    return result.data;
+    if (result.data) {
+      return result.data;
+    }
+    return Promise.reject(result.errors);
   }
 }
 
