@@ -25,7 +25,7 @@ export type PermitActions = {
     permitId?: string
   ) => Promise<void>;
   updateVehicle: (permitId: string, registration: string) => Promise<void>;
-  createPermit: () => Promise<void>;
+  createPermit: (registration: string) => Promise<void>;
   createOrderRequest: () => Promise<void>;
   deletePermit: (permitId: string) => Promise<void>;
   endValidPermits: (
