@@ -1,0 +1,18 @@
+@import '../../assets/styles/mixin';
+.registration-number-container {
+  @include for-phone {
+    button,
+    .registration-input {
+      margin-top: var(--spacing-s);
+    }
+  }
+
+  @include for-desktop {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-s);
+    button {
+      margin-left: var(--spacing-s);
+    }
+  }
+}
