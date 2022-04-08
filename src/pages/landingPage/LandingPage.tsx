@@ -22,6 +22,10 @@ const LandingPage = (): React.ReactElement => {
   const authenticated = client?.isAuthenticated();
   const profile = profileCtx?.getProfile();
   const allowedAgeLimit = getEnv('REACT_APP_ALLOWED_AGE_LIMIT');
+
+  if (profileCtx?.getStatus() === 'error') {
+    return <div>{profileCtx.getErrorMessage()}</div>;
+  }
   if (profile && profile.age < +allowedAgeLimit) {
     return <div>{t(`${T_PATH}.underAgeMessage`)}</div>;
   }
