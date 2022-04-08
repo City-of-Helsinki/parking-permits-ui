@@ -29,7 +29,6 @@ import './permit.scss';
 const T_PATH = 'common.permit.Permit';
 
 export interface Props {
-  user?: UserProfile;
   address: UserAddress;
   permits: PermitModel[];
   showActionsButtons?: boolean;
