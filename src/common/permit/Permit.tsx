@@ -19,7 +19,6 @@ import {
   PermitStatus,
   ROUTES,
   UserAddress,
-  UserProfile,
 } from '../../types';
 import AddressLabel from '../addressLabel/AddressLabel';
 import EndPermitDialog from '../endPermitDialog/EndPermitDialog';

@@ -52,7 +52,6 @@ const OrderReview: React.FC<OrderReviewProps> = ({
         </Button>
         <div className="title">{t(`${T_PATH}.title`)}</div>
         <Permit
-          user={profile}
           address={address}
           permits={validPermits}
           showActionsButtons

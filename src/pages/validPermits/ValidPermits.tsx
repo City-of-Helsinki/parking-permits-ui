@@ -54,7 +54,6 @@ const ValidPermits = (): React.ReactElement => {
       )}
       {address && validPermits.length > 0 && address.zone && (
         <Permit
-          user={profile}
           address={address}
           permits={validPermits}
           showActionsButtons
