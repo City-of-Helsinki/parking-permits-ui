@@ -1,10 +1,14 @@
 import {
   ApolloClient,
+  ApolloLink,
+  concat,
   DefaultOptions,
+  HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
 import { FetchError } from '../client/types';
+import i18n from '../i18n/i18n';
 
 export type GraphQLClient = ApolloClient<NormalizedCacheObject>;
 export type GraphQLClientError = Pick<FetchError, 'error' | 'message'>;
@@ -24,15 +28,23 @@ export function createGraphQLClient(
   parkingPermitsApiToken: string,
   helsinkiProfileApiToken: string
 ): GraphQLClient {
+  const httpLink = new HttpLink({ uri });
+  const authLink = new ApolloLink((operation, forward) => {
+    operation.setContext(({ headers = {} }) => ({
+      headers: {
+        ...headers,
+        Authorization: `Bearer ${parkingPermitsApiToken}`,
+        'X-Authorization': `Bearer ${helsinkiProfileApiToken}`,
+        'Content-Language': i18n.language,
+        'Accept-Language': i18n.language,
+      },
+    }));
+    return forward(operation);
+  });
   return new ApolloClient({
-    uri,
     defaultOptions,
     cache: new InMemoryCache(),
-    headers: {
-      Authorization: `Bearer ${parkingPermitsApiToken}`,
-      'X-Authorization': `Bearer ${helsinkiProfileApiToken}`,
-      'Content-Language': 'fi',
-    },
+    link: concat(authLink, httpLink),
   });
 }
 
