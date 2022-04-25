@@ -31,6 +31,7 @@ export type Permit = {
   hasRefund: boolean;
   monthlyPrice: number;
   canEndAfterCurrentPeriod: boolean;
+  vehicleChanged: boolean;
 };
 
 export type Vehicle = {
