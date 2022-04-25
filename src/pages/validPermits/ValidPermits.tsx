@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { Button, IconPlusCircle, IconTrash } from 'hds-react';
+import { endOfDay, format } from 'date-fns';
+import { Button, IconPlusCircle, IconTrash, Notification } from 'hds-react';
 import { first } from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +17,7 @@ import {
   ROUTES,
   UserAddress,
 } from '../../types';
+import { formatDate } from '../../utils';
 import './validPermits.scss';
 
 const T_PATH = 'pages.validPermit.ValidPermit';
@@ -46,11 +48,24 @@ const ValidPermits = (): React.ReactElement => {
   const isProcessing = (permit: PermitModel) =>
     permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.orderId;
 
+  const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
+
   return (
     <div className="valid-permit-component">
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       {validPermits.some(isProcessing) && (
         <PurchaseNotification validPermits={validPermits} />
+      )}
+      {validPermits.some(hasVehicleChanged) && (
+        <Notification
+          type="alert"
+          className="vehicleChanged"
+          label={t(`${T_PATH}.vehicleChanged.notification.label`)}>
+          {t(`${T_PATH}.vehicleChanged.notification.message`, {
+            date: formatDate(new Date()),
+            time: format(endOfDay(new Date()), 'HH:mm'),
+          })}
+        </Notification>
       )}
       {address && validPermits.length > 0 && address.zone && (
         <Permit
