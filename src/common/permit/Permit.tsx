@@ -136,6 +136,7 @@ const Permit = ({
           <Card
             className={classNames({
               processing: isProcessing(permit),
+              vehicleChanged: permit.vehicleChanged,
             })}
             key={uuidv4()}
             style={{ marginTop: index > 0 ? 'var(--spacing-xs)' : '0' }}>
