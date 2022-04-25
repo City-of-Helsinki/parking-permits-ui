@@ -20,5 +20,5 @@ export function formatDateTimeDisplay(datetime: string | Date): string {
   return `${dateStr}, ${timeStr}`;
 }
 
-export const formatDate = (date: string): string =>
-  format(new Date(date), 'd.M.yyyy');
+export const formatDate = (date: string | Date): string =>
+  format(typeof date === 'string' ? new Date(date) : date, 'd.M.yyyy');
