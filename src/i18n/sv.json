@@ -176,6 +176,8 @@
   "pages.validPermit.deleteOrder": "Ta bort beställning",
   "pages.validPermit.newOrder": "Lägg till ett annat fordon",
   "pages.validPermit.sectionLabel": "Ditt parkeringstillstånd",
+  "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Ändring av fordonsinformation",
+  "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Baserat på informationen från Traficom är du inte ägare eller ägare till fordonet som är kopplat till ditt konto. Vänligen uppdatera din fordonsinformation. Annars kommer kontot automatiskt löper ut den {{date}} kl. {{time}}.",
   "pages.vehicleSelector.VehicleSelector.label": "Boendeparkeringstecken område",
   "pages.vehicleSelector.VehicleSelector.noOfVehicleInformation": "Du kan lägga till information för ett eller upp till två fordon i parkeringskoden.",
   "pages.vehicleSelector.VehicleSelector.sectionLabel": "Fordonsinformation"
