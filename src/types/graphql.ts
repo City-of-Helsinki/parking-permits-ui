@@ -46,6 +46,10 @@ export type GetVehicleInformationQueryResult = {
   getVehicleInformation: Vehicle;
 };
 
+export type UpdatePermitVehicleQueryResult = {
+  updatePermitVehicle: Permit;
+};
+
 export type REG_ACTION = {
   id: string;
   key: string;
