@@ -14,6 +14,7 @@ export type ProfileActions = {
 
 export type PermitActions = {
   getPermits: () => Permit[];
+  fetchPermits: () => Promise<void>;
   getValidPermits: () => Permit[];
   getDraftPermits: () => Permit[];
   getSelectedAddress: () => UserAddress;
