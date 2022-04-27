@@ -11,6 +11,10 @@
       }
     }
   }
+  .vehicleChanged {
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-l);
+  }
   .leaflet-container {
     height: 25em;
   }

@@ -1,0 +1,47 @@
+mutation Mutation($permitId: ID!, $vehicleId: ID!) {
+  updatePermitVehicle(permitId: $permitId, vehicleId: $vehicleId) {
+    id
+    orderId
+    subscriptionId
+    startType
+    startTime
+    endTime
+    primaryVehicle
+    consentLowEmissionAccepted
+    status
+    contractType
+    monthCount
+    monthsLeft
+    currentPeriodEndTime
+    canEndImmediately
+    canEndAfterCurrentPeriod
+    hasRefund
+    vehicleChanged
+    vehicle {
+      id
+      powerType
+      model
+      emission
+      isLowEmission
+      manufacturer
+      productionYear
+      registrationNumber
+    }
+    parkingZone {
+      id
+      name
+      description
+      descriptionSv
+      location
+    }
+    products {
+      vat
+      endDate
+      startDate
+      unitPrice
+      totalPrice
+      quantity
+      lowEmissionDiscount
+    }
+  }
+}

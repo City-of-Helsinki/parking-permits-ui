@@ -9,9 +9,11 @@ import {
   DeletePermitQueryResult,
   endPermitQueryResult,
   GetUpdateAddressPriceChangesResult,
+  GetVehicleInformationQueryResult,
   Permit,
   PermitQueryResult,
   UpdatePermitQueryResult,
+  UpdatePermitVehicleQueryResult,
   UserAddress,
 } from '../types';
 import { getEnv } from '../utils';
@@ -131,4 +133,29 @@ export const changeAddress = (
   return client
     .mutate<ChangeAddressResult>(variables)
     .then(res => res.changeAddress);
+};
+
+export const getVehicleInformation = (
+  registration: string
+): Promise<GetVehicleInformationQueryResult['getVehicleInformation']> => {
+  const variables = { registration };
+  const client = new PermitGqlClient(
+    loader('../graphql/getVehicleInformation.graphql')
+  );
+  return client
+    .mutate<GetVehicleInformationQueryResult>(variables)
+    .then(res => res.getVehicleInformation);
+};
+
+export const updatePermitVehicle = (
+  permitId: string | undefined,
+  vehicleId: string | undefined
+): Promise<UpdatePermitVehicleQueryResult['updatePermitVehicle']> => {
+  const variables = { permitId, vehicleId };
+  const client = new PermitGqlClient(
+    loader('../graphql/updatePermitVehicle.graphql')
+  );
+  return client
+    .mutate<UpdatePermitVehicleQueryResult>(variables)
+    .then(res => res.updatePermitVehicle);
 };

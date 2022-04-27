@@ -12,6 +12,7 @@ export enum ROUTES {
   CAR_REGISTRATIONS = '/vehicle/registrations',
   PERMIT_PRICES = '/vehicle/permit-prices',
   CHANGE_ADDRESS = '/change-address',
+  CHANGE_VEHICLE = '/change-vehicle/:permitId',
 }
 
 export enum STEPPER {

@@ -139,6 +139,7 @@ const usePermitState = (): PermitActions => {
     getSelectedAddress: () => selectedAddress,
     setSelectedAddress: userAddress => setSelectedAddress(userAddress),
     getPermits: () => permits,
+    fetchPermits: (): Promise<void> => fetchPermits(),
     getDraftPermits: () =>
       permits.filter(permit => permit.status === PermitStatus.DRAFT),
     getValidPermits: () =>
