@@ -9,6 +9,7 @@ import {
   DeletePermitQueryResult,
   endPermitQueryResult,
   GetUpdateAddressPriceChangesResult,
+  GetVehicleInformationQueryResult,
   Permit,
   PermitQueryResult,
   UpdatePermitQueryResult,
@@ -131,4 +132,16 @@ export const changeAddress = (
   return client
     .mutate<ChangeAddressResult>(variables)
     .then(res => res.changeAddress);
+};
+
+export const getVehicleInformation = (
+  registration: string
+): Promise<GetVehicleInformationQueryResult['getVehicleInformation']> => {
+  const variables = { registration };
+  const client = new PermitGqlClient(
+    loader('../graphql/getVehicleInformation.graphql')
+  );
+  return client
+    .mutate<GetVehicleInformationQueryResult>(variables)
+    .then(res => res.getVehicleInformation);
 };

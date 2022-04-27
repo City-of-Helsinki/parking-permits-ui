@@ -1,5 +1,5 @@
 import { ParkingContractType, ParkingStartType } from './enums';
-import { Permit, PermitPriceChanges } from './permits';
+import { Permit, PermitPriceChanges, Vehicle } from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
 export type GraphQLZone = Zone & {
@@ -40,6 +40,10 @@ export type UpdatePermitQueryResult = {
 
 export type CreatePermitQueryResult = {
   createParkingPermit: Permit;
+};
+
+export type GetVehicleInformationQueryResult = {
+  getVehicleInformation: Vehicle;
 };
 
 export type REG_ACTION = {
