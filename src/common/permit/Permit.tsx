@@ -146,6 +146,7 @@ const Permit = ({
                 <Button
                   variant="supplementary"
                   disabled={permits.some(isProcessing)}
+                  onClick={() => navigate(`/change-vehicle/${permit.id}`)}
                   iconLeft={<IconAngleRight />}>
                   {t(`${T_PATH}.editVehicle`)}
                 </Button>
