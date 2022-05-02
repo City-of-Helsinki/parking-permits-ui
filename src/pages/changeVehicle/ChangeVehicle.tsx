@@ -82,7 +82,7 @@ const ChangeVehicle = (): React.ReactElement => {
         {
           permit,
           priceChanges: permit.products.map(product => ({
-            product: permit.parkingZone.name,
+            product: product.name,
             previousPrice: product.unitPrice,
             newPrice: product.unitPrice * multiplier,
             priceChange: product.unitPrice * multiplier - product.unitPrice,
