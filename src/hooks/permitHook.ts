@@ -143,7 +143,11 @@ const usePermitState = (): PermitActions => {
     getDraftPermits: () =>
       permits.filter(permit => permit.status === PermitStatus.DRAFT),
     getValidPermits: () =>
-      permits.filter(permit => permit.status === PermitStatus.VALID),
+      permits.filter(permit =>
+        [PermitStatus.VALID, PermitStatus.PAYMENT_IN_PROGRESS].includes(
+          permit.status
+        )
+      ),
     getChangeAddressPriceChanges,
     changeAddress: (addressId, iban) => changeAddressRequest(addressId, iban),
     setStep: count => setStep(count),
