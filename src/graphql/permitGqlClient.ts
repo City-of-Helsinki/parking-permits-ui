@@ -149,9 +149,10 @@ export const getVehicleInformation = (
 
 export const updatePermitVehicle = (
   permitId: string | undefined,
-  vehicleId: string | undefined
+  vehicleId: string | undefined,
+  iban?: string
 ): Promise<UpdatePermitVehicleQueryResult['updatePermitVehicle']> => {
-  const variables = { permitId, vehicleId };
+  const variables = { permitId, vehicleId, iban };
   const client = new PermitGqlClient(
     loader('../graphql/updatePermitVehicle.graphql')
   );

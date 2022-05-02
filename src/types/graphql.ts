@@ -47,7 +47,10 @@ export type GetVehicleInformationQueryResult = {
 };
 
 export type UpdatePermitVehicleQueryResult = {
-  updatePermitVehicle: Permit;
+  updatePermitVehicle: {
+    orderId: string;
+    checkoutUrl?: string;
+  };
 };
 
 export type REG_ACTION = {
