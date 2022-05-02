@@ -35,6 +35,7 @@ mutation Mutation($zoneId: ID!, $registration: String!) {
       location
     }
     products {
+      name
       vat
       endDate
       startDate

@@ -35,6 +35,7 @@ query Query {
       location
     }
     products {
+      name
       vat
       endDate
       startDate

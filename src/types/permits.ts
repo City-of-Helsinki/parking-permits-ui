@@ -2,6 +2,7 @@ import { ParkingContractType, ParkingStartType, PermitStatus } from './enums';
 import { Zone } from './user';
 
 export interface Product {
+  name: string;
   vat: number;
   quantity: number;
   endDate: string;
