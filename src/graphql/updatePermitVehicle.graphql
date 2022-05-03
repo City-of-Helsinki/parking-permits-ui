@@ -1,6 +1,6 @@
 mutation Mutation($permitId: ID!, $vehicleId: ID!, $iban: String) {
   updatePermitVehicle(permitId: $permitId, vehicleId: $vehicleId, iban: $iban) {
     checkoutUrl
-    orderId
+    latestOrderId
   }
 }

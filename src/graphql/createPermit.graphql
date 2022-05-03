@@ -1,7 +1,7 @@
 mutation Mutation($zoneId: ID!, $registration: String!) {
   createParkingPermit(zoneId: $zoneId, registration: $registration) {
     id
-    orderId
+    latestOrderId
     subscriptionId
     startType
     startTime

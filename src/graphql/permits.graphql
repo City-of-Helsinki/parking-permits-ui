@@ -1,7 +1,7 @@
 query Query {
   getPermits {
     id
-    orderId
+    latestOrderId
     subscriptionId
     startType
     startTime

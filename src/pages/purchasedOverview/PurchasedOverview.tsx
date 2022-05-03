@@ -40,7 +40,9 @@ const PurchasedOverview = (): React.ReactElement => {
   }
 
   const getCurrentPurchasedPermits = () =>
-    (validPermits || []).filter(permit => permit.orderId === queryStr.orderId);
+    (validPermits || []).filter(
+      permit => permit.latestOrderId === queryStr.orderId
+    );
 
   return (
     <div className="purchased-overview-component">
