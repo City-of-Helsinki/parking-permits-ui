@@ -1,6 +1,6 @@
 mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
   updateParkingPermit(input: $input, permitId: $permitId) { id
-    orderId
+    latestOrderId
     subscriptionId
     startType
     startTime

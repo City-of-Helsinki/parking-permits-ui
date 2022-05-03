@@ -15,7 +15,7 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
     label: string;
     message: string;
   } => {
-    const orderIds = validPermits.map(permit => permit.orderId);
+    const orderIds = validPermits.map(permit => permit.latestOrderId);
     const uniqueOrderIds = Array.from(new Set(orderIds));
     const isSecondary = uniqueOrderIds.length > 1;
     const hasDrafts = validPermits.some(

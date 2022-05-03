@@ -63,7 +63,7 @@ const Permit = ({
         )
       : '';
   const isProcessing = (permit: PermitModel) =>
-    permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.orderId;
+    permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.latestOrderId;
   const getPermit = (permit: PermitModel) => {
     const { registrationNumber, manufacturer, model } = permit.vehicle;
     return (

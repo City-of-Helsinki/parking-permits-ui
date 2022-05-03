@@ -56,13 +56,13 @@ const ChangeVehicle = (): React.ReactElement => {
   };
 
   const updateAndNavigateToOrderView = async (accountNumber?: string) => {
-    const { orderId } = await updatePermitVehicle(
+    const { latestOrderId } = await updatePermitVehicle(
       permit.id,
       vehicle?.id,
       accountNumber
     );
     await permitCtx?.fetchPermits();
-    navigate(`${ROUTES.SUCCESS}?orderId=${orderId}`);
+    navigate(`${ROUTES.SUCCESS}?orderId=${latestOrderId}`);
   };
 
   const continueTo = async () => {
