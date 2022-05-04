@@ -80,7 +80,7 @@ const ChangeVehicle = (): React.ReactElement => {
     ) {
       setPriceChangesList([
         {
-          permit,
+          vehicle,
           priceChanges: permit.products.map(product => ({
             product: product.name,
             previousPrice: product.unitPrice,
