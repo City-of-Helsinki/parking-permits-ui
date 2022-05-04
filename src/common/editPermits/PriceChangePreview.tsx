@@ -1,7 +1,11 @@
 import { Button, IconArrowLeft, IconArrowRight } from 'hds-react';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitPriceChangeItem, PermitPriceChanges } from '../../types/permits';
+import {
+  PermitPriceChangeItem,
+  PermitPriceChanges,
+  Vehicle,
+} from '../../types/permits';
 import { formatDateDisplay, formatMonthlyPrice, formatVehicle } from '../utils';
 import './PriceChangePreview.scss';
 import { getPermitPriceTotal } from './utils';
@@ -105,9 +109,11 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
       <div className="title">{t(`${T_PATH}.title`)}</div>
       <div className="price-change-detail">
         <div className="subtitle">{t(`${T_PATH}.subtitle`)}</div>
-        {priceChangesList.map(({ permit, priceChanges }) => (
-          <div className="permit-price-changes" key={permit.id}>
-            <div className="vehicle">{formatVehicle(permit.vehicle)}</div>
+        {priceChangesList.map(({ permit, vehicle, priceChanges }) => (
+          <div className="permit-price-changes" key={permit?.id || vehicle?.id}>
+            <div className="vehicle">
+              {formatVehicle((permit?.vehicle as Vehicle) || vehicle)}
+            </div>
             {priceChanges.map((priceChangeItem, index) => (
               <Fragment
                 key={`${priceChangeItem.product}-${priceChangeItem.startDate}`}>

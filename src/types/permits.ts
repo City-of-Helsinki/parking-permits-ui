@@ -62,6 +62,7 @@ export interface PermitPriceChangeItem {
 }
 
 export interface PermitPriceChanges {
-  permit: Pick<Permit, 'id' | 'vehicle'>;
+  permit?: Pick<Permit, 'id' | 'vehicle'>;
+  vehicle?: Vehicle;
   priceChanges: PermitPriceChangeItem[];
 }
