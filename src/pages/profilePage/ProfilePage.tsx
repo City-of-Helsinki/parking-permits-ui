@@ -1,7 +1,7 @@
+import { Card, Container } from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
-import { Card, Container } from 'reactstrap';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { ROUTES } from '../../types';
 
