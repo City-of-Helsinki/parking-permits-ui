@@ -8,7 +8,12 @@ import VehicleDetails from '../../common/editPermits/VehicleDetails';
 import { updatePermitVehicle } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
-import { PermitPriceChanges, ROUTES, Vehicle } from '../../types';
+import {
+  ParkingContractType,
+  PermitPriceChanges,
+  ROUTES,
+  Vehicle,
+} from '../../types';
 
 enum PriceChangeType {
   HIGHER_PRICE = 2,
@@ -100,7 +105,9 @@ const ChangeVehicle = (): React.ReactElement => {
           vehicle?.id
         );
         await permitCtx?.fetchPermits();
-        if (checkoutUrl && profileCtx) {
+        if (permit.contractType === ParkingContractType.OPEN_ENDED) {
+          navigate(ROUTES.VALID_PERMITS);
+        } else if (checkoutUrl && profileCtx) {
           const { id: userId } = profileCtx.getProfile();
           window.open(`${checkoutUrl}?user=${userId}`, '_self');
         }
