@@ -49,6 +49,6 @@ export enum PermitEndType {
 
 export enum EndPermitStep {
   REFUND = 'REFUND',
-  ACCOUNT = 'ACCOUNT',
   RESULT = 'RESULT',
+  PRICE_PREVIEW = 'PRICE_PREVIEW',
 }
