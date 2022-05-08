@@ -137,6 +137,10 @@ const usePermitState = (): PermitActions => {
     getStatus: () => status,
     getStep: () => step,
     getSelectedAddress: () => selectedAddress,
+    permitExists: registration =>
+      permits.some(
+        p => p.vehicle.registrationNumber === registration.toUpperCase()
+      ),
     setSelectedAddress: userAddress => setSelectedAddress(userAddress),
     getPermits: () => permits,
     fetchPermits: (): Promise<void> => fetchPermits(),
