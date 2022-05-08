@@ -13,6 +13,7 @@ export type ProfileActions = {
 };
 
 export type PermitActions = {
+  permitExists: (registration: string) => boolean;
   getPermits: () => Permit[];
   fetchPermits: () => Promise<void>;
   getValidPermits: () => Permit[];
