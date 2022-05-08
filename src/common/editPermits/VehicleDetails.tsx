@@ -12,12 +12,14 @@ import React, {
   FC,
   SetStateAction,
   useCallback,
+  useContext,
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { getVehicleInformation } from '../../graphql/permitGqlClient';
+import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, Vehicle } from '../../types';
 import { formatDate } from '../../utils';
 import './vehicleDetails.scss';
@@ -41,6 +43,7 @@ const VehicleDetails: FC<Props> = ({
 }): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const permitCtx = useContext(PermitStateContext);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [tempRegistration, setTempRegistration] = useState('');
@@ -49,6 +52,9 @@ const VehicleDetails: FC<Props> = ({
     setError('');
     const { value } = event.target;
     setTempRegistration(value);
+    if (value && permitCtx?.permitExists(value)) {
+      setError(t(`${T_PATH}.permitExistError`));
+    }
   };
 
   const fetchVehicleInformation = useCallback(async () => {
@@ -82,7 +88,7 @@ const VehicleDetails: FC<Props> = ({
       <Button
         variant="secondary"
         className="change-btn"
-        disabled={loading}
+        disabled={loading || !!error?.length}
         onClick={fetchVehicleInformation}>
         {!loading && t(`${T_PATH}.changeBtn`)}
         {loading && <LoadingSpinner small />}

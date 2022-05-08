@@ -21,6 +21,7 @@
   "common.editPermits.ChangeVehicle.input.helpText": "Ange registreringsnummer",
   "common.editPermits.ChangeVehicle.highEmissionVehicle": "Fordon med höga utsläpp",
   "common.editPermits.ChangeVehicle.lowEmissionVehicle": "Fordon med låga utsläpp",
+  "common.editPermits.ChangeVehicle.permitExistError": "Du har redan ett giltigt tillstånd för ett visst fordon",
   "common.editPermits.ChangeVehicle.sectionLabel": "Fordonsinformation",
   "common.editPermits.OrderReview.actionBtn.logout": "Logga ut",
   "common.editPermits.OrderReview.actionBtn.returnToHomePage": "Återgå till startsidan",

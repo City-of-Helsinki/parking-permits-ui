@@ -22,6 +22,7 @@
   "common.editPermits.ChangeVehicle.input.helpText": "Enter registration number",
   "common.editPermits.ChangeVehicle.highEmissionVehicle": "High emission vehicle",
   "common.editPermits.ChangeVehicle.lowEmissionVehicle": "Low emission vehicle",
+  "common.editPermits.ChangeVehicle.permitExistError": "You already have a valid permits for given vehicle",
   "common.editPermits.ChangeVehicle.sectionLabel": "Vehicle Details",
   "common.editPermits.OrderReview.actionBtn.logout": "Log Out",
   "common.editPermits.OrderReview.actionBtn.returnToHomePage": "Return to Home Page",

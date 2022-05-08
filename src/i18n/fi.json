@@ -21,6 +21,7 @@
   "common.editPermits.ChangeVehicle.input.helpText": "Syötä rekisterinumero",
   "common.editPermits.ChangeVehicle.highEmissionVehicle": "Korkeapäästöinen ajoneuvo",
   "common.editPermits.ChangeVehicle.lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
+  "common.editPermits.ChangeVehicle.permitExistError": "Sinulla on jo voimassaolevat luvat kyseiseen ajoneuvoon",
   "common.editPermits.ChangeVehicle.sectionLabel": "Ajoneuvon tiedot",
   "common.editPermits.OrderReview.actionBtn.logout": "Kirjaudu ulos",
   "common.editPermits.OrderReview.actionBtn.returnToHomePage": "Palaa etusivulle",
