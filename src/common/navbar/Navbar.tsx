@@ -1,8 +1,9 @@
 import { Navigation } from 'hds-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { matchPath, useLocation } from 'react-router-dom';
 import { ClientContext } from '../../client/ClientProvider';
+import { UserProfileContext } from '../../hooks/userProfileProvider';
 
 const T_PATH = 'common.navbar.Navbar';
 
@@ -22,13 +23,13 @@ const Navbar = ({ showNavItems = false }: Props): React.ReactElement => {
   const clientCtx = useContext(ClientContext);
   const client = clientCtx?.client;
   const authenticated = client?.isAuthenticated();
+  const profileCtx = useContext(UserProfileContext);
   const location = useLocation();
   const { t, i18n } = useTranslation();
 
-  const [language, setLang] = useState<string>(LANGUAGES[0]);
   const setLanguage = (code: string) => {
     i18n.changeLanguage(code);
-    setLang(code);
+    profileCtx?.updateLanguage(code);
   };
 
   const initialized = client?.isInitialized();
@@ -58,7 +59,7 @@ const Navbar = ({ showNavItems = false }: Props): React.ReactElement => {
           </Navigation.Row>
         )}
         <Navigation.Actions>
-          <Navigation.LanguageSelector label={language.toUpperCase()}>
+          <Navigation.LanguageSelector label={i18n.language.toUpperCase()}>
             {LANGUAGES.map(lang => (
               <Navigation.Item
                 key={lang}

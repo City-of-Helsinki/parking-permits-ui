@@ -7,6 +7,7 @@ query {
     language
     email
     phoneNumber
+    language
     primaryAddress {
       id
       streetName
@@ -19,7 +20,6 @@ query {
       primary
       zone {
         id
-        sharedProductId
         name
         description
         descriptionSv
@@ -38,7 +38,6 @@ query {
       primary
       zone {
         id
-        sharedProductId
         name
         description
         descriptionSv

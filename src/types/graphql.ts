@@ -75,3 +75,9 @@ export type ChangeAddressResult = {
     checkoutUrl?: string;
   };
 };
+
+export type UpdateLanguageResult = {
+  updateLanguage: {
+    language: string;
+  };
+};
