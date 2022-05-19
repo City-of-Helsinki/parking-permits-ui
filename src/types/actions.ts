@@ -1,4 +1,5 @@
 import { FetchStatus } from '../client/types';
+import { UpdateLanguageResult } from './graphql';
 import { Permit, PermitPriceChanges } from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
@@ -10,6 +11,7 @@ export type ProfileActions = {
   clear: () => Promise<void>;
   getErrorMessage: () => string | undefined;
   getResultErrorMessage: () => string | undefined;
+  updateLanguage: (lang: string) => Promise<UpdateLanguageResult>;
 };
 
 export type PermitActions = {
