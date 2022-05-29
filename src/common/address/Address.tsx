@@ -101,7 +101,13 @@ const Address: FC<Props> = ({
               {t(`${T_PATH}.notification.error.message`)}
             </Notification>
           )}
-          {address.zone && <ParkingZonesMap userAddress={address} zoom={13} />}
+          {address.zone && (
+            <ParkingZonesMap
+              userAddress={address}
+              zoom={13}
+              zone={address.zone}
+            />
+          )}
         </>
       )}
     </Card>
