@@ -54,7 +54,7 @@ const OrderReview: React.FC<OrderReviewProps> = ({
         <Permit
           address={address}
           permits={validPermits}
-          showActionsButtons
+          showActionsButtons={false}
           showChangeAddressButtons={false}
         />
       </div>
