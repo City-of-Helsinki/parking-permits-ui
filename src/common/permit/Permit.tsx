@@ -100,6 +100,7 @@ const Permit = ({
     );
   };
   const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
+  const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
   return (
     <div className="permit-component">
       {!hideMap && (
@@ -141,6 +142,7 @@ const Permit = ({
             className={classNames({
               processing: isProcessing(permit),
               vehicleChanged: permit.vehicleChanged,
+              addressChanged: permit.zoneChanged,
             })}
             key={uuidv4()}
             style={{ marginTop: index > 0 ? 'var(--spacing-xs)' : '0' }}>
@@ -149,7 +151,10 @@ const Permit = ({
               <div className="permit-action-btns">
                 <Button
                   variant="supplementary"
-                  disabled={permits.some(isProcessing)}
+                  disabled={
+                    permits.some(isProcessing) ||
+                    permits.some(hasAddressChanged)
+                  }
                   onClick={() => navigate(`/change-vehicle/${permit.id}`)}
                   iconLeft={<IconAngleRight />}>
                   {t(`${T_PATH}.editVehicle`)}
