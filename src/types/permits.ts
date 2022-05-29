@@ -33,6 +33,7 @@ export type Permit = {
   monthlyPrice: number;
   canEndAfterCurrentPeriod: boolean;
   vehicleChanged: boolean;
+  zoneChanged: boolean;
 };
 
 export type Vehicle = {
