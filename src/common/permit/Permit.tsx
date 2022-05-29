@@ -112,7 +112,11 @@ const Permit = ({
               : 'var(--color-white)',
           }}>
           <AddressLabel address={address} />
-          <ParkingZonesMap userAddress={address} zoom={13} />
+          <ParkingZonesMap
+            userAddress={address}
+            zoom={13}
+            zone={permits[0].parkingZone}
+          />
           {showActionsButtons && showChangeAddressButtons && (
             <div className="permit-action-btns">
               <Button
