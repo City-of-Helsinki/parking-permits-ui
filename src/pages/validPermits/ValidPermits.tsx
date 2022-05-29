@@ -41,7 +41,10 @@ const ValidPermits = (): React.ReactElement => {
 
   const getAddress = (): UserAddress | undefined => {
     const firstPermit = first(validPermits);
-    return addresses.find(add => add.zone?.id === firstPermit?.parkingZone.id);
+    const permitAddress = addresses.find(
+      add => add.zone?.id === firstPermit?.parkingZone.id
+    );
+    return permitAddress || addresses.find(add => add.primary);
   };
 
   const address = getAddress();
@@ -49,6 +52,7 @@ const ValidPermits = (): React.ReactElement => {
     permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.latestOrderId;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
+  const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
 
   return (
     <div className="valid-permit-component">
@@ -67,7 +71,18 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
-      {address && validPermits.length > 0 && address.zone && (
+      {validPermits.some(hasAddressChanged) && (
+        <Notification
+          type="alert"
+          className="addressChanged"
+          label={t(`${T_PATH}.addressChanged.notification.label`)}>
+          {t(`${T_PATH}.addressChanged.notification.message`, {
+            date: formatDate(new Date()),
+            time: format(endOfDay(new Date()), 'HH:mm'),
+          })}
+        </Notification>
+      )}
+      {address && validPermits.length > 0 && (
         <Permit
           address={address}
           permits={validPermits}
@@ -81,7 +96,10 @@ const ValidPermits = (): React.ReactElement => {
             className="action-btn"
             variant="secondary"
             theme="black"
-            disabled={validPermits.some(isProcessing)}
+            disabled={
+              validPermits.some(isProcessing) ||
+              validPermits.some(hasAddressChanged)
+            }
             iconLeft={<IconPlusCircle />}
             onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
             {t(`${T_PATH}.newOrder`)}
