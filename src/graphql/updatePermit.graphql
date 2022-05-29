@@ -16,6 +16,7 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
     canEndAfterCurrentPeriod
     hasRefund
     vehicleChanged
+    zoneChanged
     vehicle {
       id
       powerType

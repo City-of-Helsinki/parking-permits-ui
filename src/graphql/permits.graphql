@@ -17,6 +17,7 @@ query Query {
     canEndAfterCurrentPeriod
     hasRefund
     vehicleChanged
+    zoneChanged
     vehicle {
       id
       powerType

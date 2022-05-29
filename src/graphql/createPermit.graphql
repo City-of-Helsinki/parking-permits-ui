@@ -17,6 +17,7 @@ mutation Mutation($zoneId: ID!, $registration: String!) {
     canEndAfterCurrentPeriod
     hasRefund
     vehicleChanged
+    zoneChanged
     vehicle {
       id
       powerType
