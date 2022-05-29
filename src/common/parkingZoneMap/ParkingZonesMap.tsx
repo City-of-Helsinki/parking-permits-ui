@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { v4 as uuidv4 } from 'uuid';
 import marker from '../../assets/images/icon_poi_talo-sininen.svg';
-import { UserAddress } from '../../types';
+import { UserAddress, Zone } from '../../types';
 import './parkingZonesMap.css';
 
 const icon = new L.Icon({
@@ -18,6 +18,7 @@ const icon = new L.Icon({
 
 export interface Props {
   zoom: number;
+  zone?: Zone;
   userAddress: UserAddress;
 }
 
@@ -43,6 +44,7 @@ const getAddressZoneInfo = (address: UserAddress, lang: string) => {
 export default function ParkingZonesMap({
   userAddress,
   zoom,
+  zone,
 }: Props): React.ReactElement {
   const { t, i18n } = useTranslation();
   const center = userAddress.location as LatLngExpression;
@@ -62,22 +64,22 @@ export default function ParkingZonesMap({
       {i18n.language !== 'sv' && (
         <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
       )}
-      <Marker position={flipLocation(center as number[])} icon={icon}>
-        <Popup>{getAddressZoneInfo(userAddress, i18n.language)}</Popup>
-      </Marker>
-      <GeoJSON
-        key={uuidv4()}
-        data={
-          getMultiPolygon(
-            userAddress.zone?.location as FeatureCollection<MultiPolygon>
-          ) as GeoJsonObject
-        }
-        pathOptions={{
-          color: '#0072c6',
-          fillColor: '#b5daf7',
-          fillOpacity: 0.5,
-        }}
-      />
+      {userAddress && (
+        <Marker position={flipLocation(center as number[])} icon={icon}>
+          <Popup>{getAddressZoneInfo(userAddress, i18n.language)}</Popup>
+        </Marker>
+      )}
+      {zone && (
+        <GeoJSON
+          key={uuidv4()}
+          data={getMultiPolygon(zone.location) as GeoJsonObject}
+          pathOptions={{
+            color: '#0072c6',
+            fillColor: '#b5daf7',
+            fillOpacity: 0.5,
+          }}
+        />
+      )}
     </MapContainer>
   );
 }
