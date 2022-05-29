@@ -7,4 +7,27 @@
     padding: var(--spacing-m);
     background-color: #ffffff;
   }
+  .addresses {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    & > div {
+      flex-basis: calc(50% - 70px);
+      @include for-phone {
+        flex-basis: 100%;
+      }
+    }
+    &.fullWidth > div {
+      flex-basis: 100%;
+    }
+    :last-of-type {
+      @include for-phone {
+        margin-top: var(--spacing-s);
+      }
+    }
+    @include for-phone {
+      flex-basis: 100%;
+    }
+  }
 }
