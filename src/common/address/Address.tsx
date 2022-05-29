@@ -41,6 +41,7 @@ interface Props {
   address: UserAddress;
   selectedAddress: UserAddress | undefined;
   disableSelection?: boolean;
+  setSelectedAddress?: (address: UserAddress) => void;
 }
 
 const Address: FC<Props> = ({
@@ -49,6 +50,7 @@ const Address: FC<Props> = ({
   address,
   selectedAddress,
   disableSelection = false,
+  setSelectedAddress,
 }): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
 
@@ -78,7 +80,11 @@ const Address: FC<Props> = ({
             disabled={!address.zone || disableSelection}
             label={<AddressLabel isPrimary={isPrimary} address={address} />}
             checked={selectedAddress?.id === address.id}
-            onClick={() => updateAddressZone(address)}
+            onClick={() =>
+              setSelectedAddress
+                ? setSelectedAddress(address)
+                : updateAddressZone(address)
+            }
           />
           <ArrowIcon onClick={() => setOpenState(!openState)} />
         </div>
