@@ -14,7 +14,7 @@ export interface Product {
 
 export type Permit = {
   id: string;
-  latestOrderId: string;
+  talpaOrderId: string;
   startType?: ParkingStartType;
   startTime?: Date | string;
   endTime?: Date | string | null;

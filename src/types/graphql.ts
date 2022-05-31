@@ -48,7 +48,6 @@ export type GetVehicleInformationQueryResult = {
 
 export type UpdatePermitVehicleQueryResult = {
   updatePermitVehicle: {
-    latestOrderId: string;
     checkoutUrl?: string;
   };
 };

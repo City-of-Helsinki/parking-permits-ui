@@ -49,7 +49,7 @@ const ValidPermits = (): React.ReactElement => {
 
   const address = getAddress();
   const isProcessing = (permit: PermitModel) =>
-    permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.latestOrderId;
+    permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.talpaOrderId;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;

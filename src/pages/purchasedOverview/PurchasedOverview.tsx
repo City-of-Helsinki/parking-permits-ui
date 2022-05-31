@@ -41,7 +41,9 @@ const PurchasedOverview = (): React.ReactElement => {
 
   const getCurrentPurchasedPermits = () =>
     (validPermits || []).filter(
-      permit => permit.latestOrderId === queryStr.orderId
+      permit =>
+        permit.talpaOrderId === queryStr.orderId ||
+        permit.id === queryStr.permitId
     );
 
   return (
