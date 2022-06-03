@@ -9,7 +9,7 @@ import {
 import React, { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { UserAddress, Zone } from '../../types';
+import { Permit, UserAddress } from '../../types';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import { formatAddress } from '../utils';
 import './address.scss';
@@ -61,8 +61,8 @@ const Address: FC<Props> = ({
     permitCtx?.setSelectedAddress(userAddress);
     if (permitCtx?.getPermits().some(p => p.id)) {
       permitCtx?.updatePermit({
-        zoneId: userAddress.zone?.id,
-      } as Partial<Zone>);
+        addressId: userAddress.id,
+      } as Partial<Permit>);
     }
   };
   return (

@@ -61,7 +61,7 @@ export const createDraftPermit = (
   address: UserAddress,
   registration: string
 ): Promise<CreatePermitQueryResult['createParkingPermit']> => {
-  const variables = { zoneId: address?.zone?.id, registration };
+  const variables = { addressId: address?.id, registration };
   const client = new PermitGqlClient(loader('../graphql/createPermit.graphql'));
   return client
     .mutate<CreatePermitQueryResult>(variables)
