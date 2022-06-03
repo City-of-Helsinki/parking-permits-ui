@@ -1,5 +1,5 @@
-mutation Mutation($zoneId: ID!, $registration: String!) {
-  createParkingPermit(zoneId: $zoneId, registration: $registration) {
+mutation Mutation($addressId: ID!, $registration: String!) {
+  createParkingPermit(addressId: $addressId, registration: $registration) {
     id
     talpaOrderId
     subscriptionId
