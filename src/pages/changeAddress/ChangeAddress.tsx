@@ -87,8 +87,8 @@ const ChangeAddress = (): React.ReactElement => {
     ? [notUsedAddress]
     : [primaryAddress, otherAddress];
 
-  if (!selectedAddress && primaryAddress) {
-    setSelectedAddress(primaryAddress);
+  if (!selectedAddress && notUsedAddress) {
+    setSelectedAddress(notUsedAddress);
   }
 
   const priceChangeTotal = priceChangesList.reduce(
