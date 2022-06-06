@@ -11,7 +11,7 @@ import Refund from '../../common/editPermits/Refund';
 import { getPermitPriceTotal } from '../../common/editPermits/utils';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
-import { ROUTES, UserAddress } from '../../types';
+import { ParkingContractType, ROUTES, UserAddress } from '../../types';
 import { PermitPriceChanges } from '../../types/permits';
 import './ChangeAddress.scss';
 
@@ -141,6 +141,12 @@ const ChangeAddress = (): React.ReactElement => {
                     );
                     if (changeTotal > 0) {
                       changeAddress(selectedAddress.id);
+                      const isAllOpenEnded = validPermits.every(
+                        permit =>
+                          permit.contractType === ParkingContractType.OPEN_ENDED
+                      );
+                      if (isAllOpenEnded)
+                        setStep(ChangeAddressStep.ORDER_REVIEW);
                     } else {
                       setStep(ChangeAddressStep.PRICE_PREVIEW);
                     }
