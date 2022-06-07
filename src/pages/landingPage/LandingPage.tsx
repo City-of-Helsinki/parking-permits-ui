@@ -1,4 +1,4 @@
-import { Button, LoadingSpinner } from 'hds-react';
+import { Button, LoadingSpinner, Notification } from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
@@ -24,11 +24,24 @@ const LandingPage = (): React.ReactElement => {
   const allowedAgeLimit = getEnv('REACT_APP_ALLOWED_AGE_LIMIT');
 
   if (profileCtx?.getStatus() === 'error') {
-    return <div>{profileCtx.getErrorMessage()}</div>;
+    return (
+      <Notification type="error">
+        {t(profileCtx?.getErrorMessage() || '')}
+      </Notification>
+    );
   }
   if (profile && profile.age < +allowedAgeLimit) {
     return <div>{t(`${T_PATH}.underAgeMessage`)}</div>;
   }
+
+  if (permitCtx?.getStatus() === 'error') {
+    return (
+      <Notification type="error">
+        {t(permitCtx?.getErrorMessage() || '')}
+      </Notification>
+    );
+  }
+
   if (permitStatus === 'loaded') {
     return validPermits?.length ? (
       <Navigate to={ROUTES.VALID_PERMITS} />
