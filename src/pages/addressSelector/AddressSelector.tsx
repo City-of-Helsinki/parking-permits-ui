@@ -48,9 +48,16 @@ const AddressSelector = (): React.ReactElement => {
           firstName: profile?.firstName,
         })}
       />
-      <Notification label={t(`${T_PATH}.notification.info.label`)}>
-        {t(`${T_PATH}.notification.info.message`)}
-      </Notification>
+      {permitCtx?.getStatus() !== 'error' && (
+        <Notification label={t(`${T_PATH}.notification.info.label`)}>
+          {t(`${T_PATH}.notification.info.message`)}
+        </Notification>
+      )}
+      {permitCtx?.getStatus() === 'error' && (
+        <Notification type="error">
+          {t(permitCtx?.getErrorMessage() || '')}
+        </Notification>
+      )}
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       <div className="addresses">
         {primaryAddress && (

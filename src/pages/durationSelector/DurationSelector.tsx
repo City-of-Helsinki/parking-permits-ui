@@ -11,6 +11,7 @@ import {
   IconArrowLeft,
   IconArrowRight,
   LoadingSpinner,
+  Notification,
   NumberInput,
 } from 'hds-react';
 import { orderBy } from 'lodash';
@@ -160,6 +161,11 @@ const DurationSelector = (): React.ReactElement => {
           }`
         )}
       </div>
+      {permitCtx?.getStatus() === 'error' && (
+        <Notification type="error">
+          {t(permitCtx?.getErrorMessage() || '')}
+        </Notification>
+      )}
       {primaryPermit && (
         <PermitType
           primaryPermit={primaryPermit}
