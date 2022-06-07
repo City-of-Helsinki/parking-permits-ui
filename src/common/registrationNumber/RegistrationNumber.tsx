@@ -15,7 +15,7 @@ const RegistrationNumber = (): React.ReactElement => {
 
   const inputRegistration = (event: { target: { value: string } }) => {
     const { value } = event.target;
-    setTempRegistration(value);
+    setTempRegistration(value?.toUpperCase());
   };
 
   if (permitCtx?.getStatus() === 'loaded' && checkReg) {
