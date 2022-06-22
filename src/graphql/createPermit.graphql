@@ -2,6 +2,7 @@ mutation Mutation($addressId: ID!, $registration: String!) {
   createParkingPermit(addressId: $addressId, registration: $registration) {
     id
     talpaOrderId
+    receiptUrl
     subscriptionId
     startType
     startTime

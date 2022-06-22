@@ -2,6 +2,7 @@ query Query {
   getPermits {
     id
     talpaOrderId
+    receiptUrl
     subscriptionId
     startType
     startTime

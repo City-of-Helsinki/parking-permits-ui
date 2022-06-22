@@ -1,4 +1,5 @@
 import { Button, IconDocument, IconSignout, LoadingSpinner } from 'hds-react';
+import { first } from 'lodash';
 import queryString from 'query-string';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -46,6 +47,13 @@ const PurchasedOverview = (): React.ReactElement => {
         permit.id === queryStr.permitId
     );
 
+  const showReceipt = () => {
+    const firstPurchasedPermit = first(getCurrentPurchasedPermits());
+    if (firstPurchasedPermit?.receiptUrl) {
+      window.open(`${firstPurchasedPermit.receiptUrl}`, '_self');
+    }
+  };
+
   return (
     <div className="purchased-overview-component">
       <PurchaseNotification validPermits={validPermits} />
@@ -54,6 +62,7 @@ const PurchasedOverview = (): React.ReactElement => {
           <Button
             theme="black"
             variant="secondary"
+            onClick={() => showReceipt()}
             className="download-receipt">
             <IconDocument />
             <span>{t(`${T_PATH}.btn.receipt`)}</span>
