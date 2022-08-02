@@ -22,6 +22,7 @@ const Footer = (): React.ReactElement => {
       }}>
       <HDSFooter.Navigation>
         <HDSFooter.Item
+          target="_blank"
           href="https://www.hel.fi/static/liitteet/kaupunkiymparisto/liikenne-ja-kartat/pysakointi/pysakointitunnusten-ohjeet.pdf"
           label={t(`${T_PATH}.termsOfParkingCode`)}
         />
@@ -34,6 +35,7 @@ const Footer = (): React.ReactElement => {
           label={t(`${T_PATH}.feedback`)}
         />
         <HDSFooter.Item
+          target="_blank"
           href="https://www.hel.fi/fi/kaupunkiymparisto-ja-liikenne/kaupunkiympariston-asiakaspalvelu"
           label={t(`${T_PATH}.contactInformation`)}
         />
@@ -57,6 +59,7 @@ const Footer = (): React.ReactElement => {
       <HDSFooter.Base copyrightHolder={t(`${T_PATH}.copyright`)}>
         <HDSFooter.Item label={t('www.hel.fi')} />
         <HDSFooter.Item
+          target="_blank"
           href="https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Maksullisen%20pys%C3%A4k%C3%B6innin%20ja%20pys%C3%A4k%C3%B6intitunnusten%20asiakasrekisteri.pdf"
           label={t(`${T_PATH}.registryDescription`)}
         />
