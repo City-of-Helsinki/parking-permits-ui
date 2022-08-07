@@ -3,6 +3,7 @@ import { DocumentNode } from 'graphql';
 import { loader } from 'graphql.macro';
 import { getGqlClient } from '../hooks/utils';
 import {
+  addTemporaryVehicle,
   ChangeAddressResult,
   createOrderQueryResult,
   CreatePermitQueryResult,
@@ -12,6 +13,7 @@ import {
   GetVehicleInformationQueryResult,
   Permit,
   PermitQueryResult,
+  removeTemporaryVehicle,
   UpdatePermitQueryResult,
   UpdatePermitVehicleQueryResult,
   UserAddress,
@@ -159,4 +161,31 @@ export const updatePermitVehicle = (
   return client
     .mutate<UpdatePermitVehicleQueryResult>(variables)
     .then(res => res.updatePermitVehicle);
+};
+
+export const addTemporaryVehicleToPermit = (
+  permitId: string,
+  registration: string,
+  startTime: string,
+  endTime: string
+): Promise<addTemporaryVehicle['addTemporaryVehicle']> => {
+  const variables = { permitId, registration, startTime, endTime };
+  const client = new PermitGqlClient(
+    loader('../graphql/addTemporaryVehicle.graphql')
+  );
+  return client
+    .mutate<addTemporaryVehicle>(variables)
+    .then(res => res.addTemporaryVehicle);
+};
+
+export const removeTemporaryVehicleFromPermit = (
+  permitId: string
+): Promise<removeTemporaryVehicle['removeTemporaryVehicle']> => {
+  const variables = { permitId };
+  const client = new PermitGqlClient(
+    loader('../graphql/removeTemporaryVehicle.graphql')
+  );
+  return client
+    .mutate<removeTemporaryVehicle>(variables)
+    .then(res => res.removeTemporaryVehicle);
 };
