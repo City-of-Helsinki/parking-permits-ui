@@ -1,0 +1,21 @@
+@import '../../assets/styles/mixin';
+
+.temporary-vehicle-component{
+  .date-input, .time-input, .message {
+    margin-top: var(--spacing-xs);
+  }
+  .message {
+    padding: 0 var(--spacing-l);
+    .icon {
+      margin-right: var(--spacing-3-xs);
+    }
+  }
+
+  .notification {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
