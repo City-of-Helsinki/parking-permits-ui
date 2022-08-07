@@ -19,6 +19,17 @@ mutation Mutation($addressId: ID!, $registration: String!) {
     hasRefund
     vehicleChanged
     zoneChanged
+    temporaryVehicles {
+      id
+      startTime
+      endTime
+      isActive
+      vehicle {
+        model
+        manufacturer
+        registrationNumber
+      }
+    }
     vehicle {
       id
       powerType

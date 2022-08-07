@@ -13,6 +13,7 @@ export enum ROUTES {
   PERMIT_PRICES = '/vehicle/permit-prices',
   CHANGE_ADDRESS = '/change-address',
   CHANGE_VEHICLE = '/change-vehicle/:permitId',
+  TEMPORARY_VEHICLE = '/temporary-vehicle/:permitId',
 }
 
 export enum STEPPER {
@@ -45,6 +46,11 @@ export enum PermitStatus {
 export enum PermitEndType {
   IMMEDIATELY = 'IMMEDIATELY',
   AFTER_CURRENT_PERIOD = 'AFTER_CURRENT_PERIOD',
+}
+
+export enum PermitEditType {
+  TEMPORARY = 'TEMPORARY',
+  NEW = 'NEW',
 }
 
 export enum EndPermitStep {

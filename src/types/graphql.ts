@@ -34,6 +34,13 @@ export type endPermitQueryResult = {
   endParkingPermit: boolean;
 };
 
+export type addTemporaryVehicle = {
+  addTemporaryVehicle: boolean;
+};
+
+export type removeTemporaryVehicle = {
+  removeTemporaryVehicle: boolean;
+};
 export type UpdatePermitQueryResult = {
   updateParkingPermit: Permit;
 };
