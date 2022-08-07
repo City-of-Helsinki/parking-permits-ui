@@ -1,4 +1,15 @@
 import { format } from 'date-fns';
+import { TemporaryVehicle } from './types';
+
+export const validateTime = (time: string): boolean =>
+  /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(time);
+
+export const combineDateAndTime = (date: Date, time: string): Date => {
+  const dateString = `${
+    date.getMonth() + 1
+  }/${date.getDay()}/${date.getFullYear()}`;
+  return new Date(`${dateString} ${time}`);
+};
 
 export function getEnv(key: string): string {
   const variable = process.env[key];
@@ -22,3 +33,17 @@ export function formatDateTimeDisplay(datetime: string | Date): string {
 
 export const formatDate = (date: string | Date): string =>
   format(typeof date === 'string' ? new Date(date) : date, 'd.M.yyyy');
+
+export const getActiveTemporaryVehicle = (
+  temporaryVehicles: TemporaryVehicle[]
+): TemporaryVehicle | null => {
+  const temporaryVehicle = temporaryVehicles.find(tv => tv.isActive);
+  if (
+    temporaryVehicle &&
+    new Date(temporaryVehicle.endTime as string).valueOf() >
+      new Date().valueOf()
+  ) {
+    return temporaryVehicle;
+  }
+  return null;
+};

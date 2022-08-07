@@ -12,6 +12,14 @@ export interface Product {
   lowEmissionDiscount: number;
 }
 
+export type TemporaryVehicle = {
+  id: string;
+  vehicle: Vehicle;
+  startTime: Date | string;
+  endTime: Date | string | null;
+  isActive: boolean;
+};
+
 export type Permit = {
   id: string;
   talpaOrderId: string;
@@ -23,6 +31,7 @@ export type Permit = {
   primaryVehicle: boolean;
   consentLowEmissionAccepted: boolean;
   vehicle: Vehicle;
+  temporaryVehicles: TemporaryVehicle[];
   products: Product[];
   contractType: ParkingContractType;
   monthCount: number;
