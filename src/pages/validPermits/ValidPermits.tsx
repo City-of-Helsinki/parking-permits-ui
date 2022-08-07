@@ -88,6 +88,7 @@ const ValidPermits = (): React.ReactElement => {
           permits={validPermits}
           showActionsButtons
           showChangeAddressButtons={addresses.length > 1}
+          fetchPermits={permitCtx?.fetchPermits}
         />
       )}
       <div className="action-buttons">
