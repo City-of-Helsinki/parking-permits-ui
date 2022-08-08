@@ -31,6 +31,7 @@ export type Permit = {
   primaryVehicle: boolean;
   consentLowEmissionAccepted: boolean;
   vehicle: Vehicle;
+  activeTemporaryVehicle: TemporaryVehicle;
   temporaryVehicles: TemporaryVehicle[];
   products: Product[];
   contractType: ParkingContractType;
