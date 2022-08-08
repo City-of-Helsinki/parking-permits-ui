@@ -22,7 +22,6 @@ import {
   ROUTES,
   UserAddress,
 } from '../../types';
-import { getActiveTemporaryVehicle } from '../../utils';
 import AddressLabel from '../addressLabel/AddressLabel';
 import DeleteTemporaryVehicleDialog from '../deleteTemporaryVehicleDialog/DeleteTemporaryVehicleDialog';
 import EditPermitDialog from '../editPermitDialog/EditPermitDialog';
@@ -85,20 +84,18 @@ const Permit = ({
   };
 
   const getPermit = (permit: PermitModel) => {
-    const temporaryVehicle = getActiveTemporaryVehicle(
-      permit.temporaryVehicles || []
-    );
+    const activeTempVehicle = permit.activeTemporaryVehicle;
     const { registrationNumber, manufacturer, model } = permit.vehicle;
     return (
       <div className="pp-list" key={permit.vehicle.registrationNumber}>
-        {temporaryVehicle && (
+        {activeTempVehicle && (
           <>
             <div className="pp-list__title">
               <span
                 className={classNames('pp-list__title__icon document-icon')}>
                 <IconDocument className="icon" />
               </span>
-              <span className="pp-list__title__text">{`${temporaryVehicle.vehicle.registrationNumber} ${temporaryVehicle.vehicle.manufacturer} ${temporaryVehicle.vehicle.model}`}</span>
+              <span className="pp-list__title__text">{`${activeTempVehicle.vehicle.registrationNumber} ${activeTempVehicle.vehicle.manufacturer} ${activeTempVehicle.vehicle.model}`}</span>
             </div>
             <Button
               className="permit-actions-buttons"
@@ -111,12 +108,12 @@ const Permit = ({
             </Button>
           </>
         )}
-        {temporaryVehicle && (
+        {activeTempVehicle && (
           <p className="invalid-title">{t(`${T_PATH}.invalidPermit`)}</p>
         )}
         <div
           className={classNames('pp-list__title', {
-            hasTemporary: temporaryVehicle,
+            hasTemporary: activeTempVehicle,
           })}>
           <div
             className={classNames('pp-list__title__icon document-icon', {
@@ -126,7 +123,7 @@ const Permit = ({
           </div>
           <span className="pp-list__title__text">{`${registrationNumber} ${manufacturer} ${model}`}</span>
         </div>
-        {!temporaryVehicle && (
+        {!activeTempVehicle && (
           <>
             <div className="pp-list__subtitle">
               <span>
