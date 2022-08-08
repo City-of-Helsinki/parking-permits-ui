@@ -19,7 +19,7 @@ query Query {
     hasRefund
     vehicleChanged
     zoneChanged
-    temporaryVehicles {
+    activeTemporaryVehicle {
       id
       startTime
       endTime
