@@ -25,12 +25,15 @@ const useProfile = (): ProfileActions => {
   const hasApiToken = !isEmpty(apiTokenCtx?.getTokens());
   const profileLoaded = !isEmpty(profile);
 
-  const updateLanguage = (lang: string) =>
-    profileGqlClient.mutate<UpdateLanguageResult>({
-      mutation: loader('../graphql/updateLanguage.graphql'),
-      variables: { lang },
-      errorPolicy: 'all',
-    });
+  const updateLanguage = (lang: string) => {
+    if (profileGqlClient) {
+      profileGqlClient.mutate<UpdateLanguageResult>({
+        mutation: loader('../graphql/updateLanguage.graphql'),
+        variables: { lang },
+        errorPolicy: 'all',
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
