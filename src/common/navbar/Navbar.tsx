@@ -28,8 +28,7 @@ const Navbar = ({ showNavItems = false }: Props): React.ReactElement => {
   const { t, i18n } = useTranslation();
 
   const setLanguage = (code: string) => {
-    i18n.changeLanguage(code);
-    profileCtx?.updateLanguage(code);
+    i18n.changeLanguage(code).then(() => profileCtx?.updateLanguage(code));
   };
 
   const initialized = client?.isInitialized();
