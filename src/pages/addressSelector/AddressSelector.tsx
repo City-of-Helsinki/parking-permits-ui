@@ -44,6 +44,7 @@ const AddressSelector = (): React.ReactElement => {
   return (
     <div className="address-selector-component">
       <Hero
+        className={primaryAddress ? '' : 'no-address'}
         title={t(`${T_PATH}.title`, {
           firstName: profile?.firstName,
         })}
@@ -58,36 +59,40 @@ const AddressSelector = (): React.ReactElement => {
           {t(permitCtx?.getErrorMessage() || '')}
         </Notification>
       )}
-      <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
-      <div className="addresses">
-        {primaryAddress && (
-          <Address
-            isPrimary
-            disableSelection={!!validRegistrationNumbers?.length}
-            address={primaryAddress}
-            selectedAddress={selectedAddress}
-          />
-        )}
+      {primaryAddress && (
+        <>
+          <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
+          <div className="addresses">
+            {primaryAddress && (
+              <Address
+                isPrimary
+                disableSelection={!!validRegistrationNumbers?.length}
+                address={primaryAddress}
+                selectedAddress={selectedAddress}
+              />
+            )}
 
-        {otherAddress && (
-          <Address
-            isPrimary={false}
-            address={otherAddress}
-            disableSelection={!!validRegistrationNumbers?.length}
-            selectedAddress={selectedAddress}
-          />
-        )}
-      </div>
-      <div className="action-buttons">
-        <Button
-          className="action-btn"
-          onClick={() => navigate(ROUTES.PERMIT_PRICES)}
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
-          <IconArrowRight />
-        </Button>
-        <div />
-      </div>
+            {otherAddress && (
+              <Address
+                isPrimary={false}
+                address={otherAddress}
+                disableSelection={!!validRegistrationNumbers?.length}
+                selectedAddress={selectedAddress}
+              />
+            )}
+          </div>
+          <div className="action-buttons">
+            <Button
+              className="action-btn"
+              onClick={() => navigate(ROUTES.PERMIT_PRICES)}
+              theme="black">
+              <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
+              <IconArrowRight />
+            </Button>
+            <div />
+          </div>
+        </>
+      )}
     </div>
   );
 };
