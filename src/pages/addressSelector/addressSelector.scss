@@ -20,6 +20,9 @@
         margin-top: var(--spacing-s);
       }
     }
+    &.hasOnlyPrimaryAddress > div {
+      flex-basis: 100%;
+    }
     @include for-phone {
       flex-basis: 100%;
     }

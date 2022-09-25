@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Button, IconArrowRight, Notification } from 'hds-react';
 import { isEmpty } from 'lodash';
 import React, { useContext } from 'react';
@@ -62,10 +63,14 @@ const AddressSelector = (): React.ReactElement => {
       {primaryAddress && (
         <>
           <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
-          <div className="addresses">
+          <div
+            className={classNames('addresses', {
+              hasOnlyPrimaryAddress: !otherAddress,
+            })}>
             {primaryAddress && (
               <Address
                 isPrimary
+                showControl={!!otherAddress}
                 disableSelection={!!validRegistrationNumbers?.length}
                 address={primaryAddress}
                 selectedAddress={selectedAddress}
