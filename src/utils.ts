@@ -6,7 +6,7 @@ export const validateTime = (time: string): boolean =>
 export const combineDateAndTime = (date: Date, time: string): Date => {
   const dateString = `${
     date.getMonth() + 1
-  }/${date.getDay()}/${date.getFullYear()}`;
+  }/${date.getDate()}/${date.getFullYear()}`;
   return new Date(`${dateString} ${time}`);
 };
 
