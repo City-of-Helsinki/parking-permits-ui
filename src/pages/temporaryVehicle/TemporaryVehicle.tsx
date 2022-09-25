@@ -95,9 +95,12 @@ const TemporaryVehicle = (): React.ReactElement => {
           value={format(startDate, 'd.M.yyyy')}
           label={t(`${T_PATH}.startDate.label`)}
           language={(i18n?.language || 'fi') as 'fi' | 'sv' | 'en'}
-          onChange={(value: string, valueAsDate: Date) =>
-            setStartDate(valueAsDate)
-          }
+          onChange={(value: string, valueAsDate: Date) => {
+            setStartDate(valueAsDate);
+            if (endDate > addWeeks(valueAsDate, 2)) {
+              setEndDate(addWeeks(valueAsDate, 2));
+            }
+          }}
         />
         <TimeInput
           id="start-time-input"
