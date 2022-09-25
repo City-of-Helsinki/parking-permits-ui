@@ -1,6 +1,9 @@
 @import '../../assets/styles/mixin';
 
 .address-selector-component {
+  .no-address{
+    margin-top: 0;
+  }
   .addresses {
     display: flex;
     flex-wrap: wrap;
