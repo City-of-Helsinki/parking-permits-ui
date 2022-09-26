@@ -30,7 +30,7 @@
     "@typescript-eslint/no-unnecessary-type-assertion": "error",
     "sonarjs/prefer-immediate-return": "error",
     "sonarjs/no-duplicate-string": "error",
-    "import/no-namespace": "error",
+    "import/no-named-as-default": 0,
     "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
     "no-case-declarations": "off"
   },
