@@ -161,6 +161,8 @@
   "common.registrationNumber.RegistrationNumber.label": "Rekisterinumero",
   "common.stepper.Stepper.label": "Asukaspysäköintitunnus",
   "map.attribution.helsinki": "&copy; Helsingin, Espoon, Vantaan ja Kauniaisen kaupungit",
+  "pages.addressSelector.AddressSelector.notification.error.label": "Virheellinen osoite",
+  "pages.addressSelector.AddressSelector.notification.error.message": "Osoitteen täytyy sijaita Helsingissä.",
   "pages.addressSelector.AddressSelector.actionBtn.buyPermit": "Osta pysäkointitunnus",
   "pages.addressSelector.AddressSelector.notification.info.label": "Sinulla ei ole voimassa olevia pysäköintitunnuksia",
   "pages.addressSelector.AddressSelector.notification.info.message": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella voit ostaa pysäköintitunnuksen oheisille vyöhykkeille.",

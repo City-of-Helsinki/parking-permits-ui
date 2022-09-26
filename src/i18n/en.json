@@ -159,6 +159,8 @@
   "common.registrationNumber.RegistrationNumber.label": "Registration number",
   "common.stepper.Stepper.label": "Resident parking permit",
   "map.attribution.helsinki": "&copy; Cities of Helsinki, Espoo, Vantaa ja Kauniainen",
+  "pages.addressSelector.AddressSelector.notification.error.label": "Invalid address",
+  "pages.addressSelector.AddressSelector.notification.error.message": "The address must be in Helsinki.",
   "pages.addressSelector.AddressSelector.actionBtn.buyPermit": "Buy parking permit",
   "pages.addressSelector.AddressSelector.notification.info.label": "You do not have a valid parking permit",
   "pages.addressSelector.AddressSelector.notification.info.message": "Based on your personal information from the Population Register Center, you can purchase a parking permit for the adjacent zones.",
