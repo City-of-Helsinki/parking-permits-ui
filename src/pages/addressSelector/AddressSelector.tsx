@@ -45,27 +45,38 @@ const AddressSelector = (): React.ReactElement => {
   return (
     <div className="address-selector-component">
       <Hero
-        className={primaryAddress ? '' : 'no-address'}
+        className={primaryAddress || otherAddress ? '' : 'no-address'}
         title={t(`${T_PATH}.title`, {
           firstName: profile?.firstName,
         })}
       />
-      {permitCtx?.getStatus() !== 'error' && (
-        <Notification label={t(`${T_PATH}.notification.info.label`)}>
-          {t(`${T_PATH}.notification.info.message`)}
+      {!(primaryAddress || otherAddress) && (
+        <Notification
+          type="error"
+          label={t(`${T_PATH}.notification.error.label`)}>
+          {t(`${T_PATH}.notification.error.message`)}
         </Notification>
       )}
-      {permitCtx?.getStatus() === 'error' && (
-        <Notification type="error">
-          {t(permitCtx?.getErrorMessage() || '')}
-        </Notification>
-      )}
-      {primaryAddress && (
+      {permitCtx?.getStatus() !== 'error' &&
+        (primaryAddress || otherAddress) && (
+          <Notification label={t(`${T_PATH}.notification.info.label`)}>
+            {t(`${T_PATH}.notification.info.message`)}
+          </Notification>
+        )}
+      {permitCtx?.getStatus() === 'error' &&
+        (primaryAddress || otherAddress) && (
+          <Notification type="error">
+            {t(permitCtx?.getErrorMessage() || '')}
+          </Notification>
+        )}
+      {(primaryAddress || otherAddress) && (
         <>
           <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
           <div
             className={classNames('addresses', {
-              hasOnlyPrimaryAddress: !otherAddress,
+              hasOnlyOneAddress:
+                [otherAddress, primaryAddress].filter(add => !!add)?.length ===
+                1,
             })}>
             {primaryAddress && (
               <Address
@@ -80,6 +91,7 @@ const AddressSelector = (): React.ReactElement => {
             {otherAddress && (
               <Address
                 isPrimary={false}
+                showControl={!!primaryAddress}
                 address={otherAddress}
                 disableSelection={!!validRegistrationNumbers?.length}
                 selectedAddress={selectedAddress}

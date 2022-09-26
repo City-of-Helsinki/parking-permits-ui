@@ -159,6 +159,8 @@
   "common.registrationNumber.RegistrationNumber.label": "Registreringsnummer",
   "common.stepper.Stepper.label": "Parkeringstillstånd för bosatt",
   "map.attribution.helsinki": "&copy; Helsingfors, Esbo, Vanda och Grankulla städer",
+  "pages.addressSelector.AddressSelector.notification.error.label": "Ogiltig adress",
+  "pages.addressSelector.AddressSelector.notification.error.message": "Adressen måste vara i Helsingfors.",
   "pages.addressSelector.AddressSelector.actionBtn.buyPermit": "Köp parkeringstillstånd",
   "pages.addressSelector.AddressSelector.notification.info.label": "Du har inte ett giltigt parkeringstillstånd",
   "pages.addressSelector.AddressSelector.notification.info.message": "Baserat på din personliga information från befolkningsregistercentret kan du köpa ett parkeringstillstånd för angränsande zoner.",
