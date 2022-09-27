@@ -8,6 +8,7 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }} # disable for dependabot
     steps:
       - uses: actions/checkout@v2
         with:
