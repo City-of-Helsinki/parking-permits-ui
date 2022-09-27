@@ -1527,7 +1527,8 @@
 
 "@sentry/react@^7.13.0":
   version "7.13.0"
-  resolved "https://registry.npmjs.org/@sentry/react/-/react-7.13.0.tgz"
+  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-7.13.0.tgz#64fa5a2b944c977f75626c6208afa3478c13714c"
+  integrity sha512-ulvBmMiwt+4RXwnDkP9qNr7rMJIFE4QXuNxho5pIqWEU9q2656CoL5kau9f2TQQEBxNc9dR4QmUdGyzuEaYPIQ==
   dependencies:
     "@sentry/browser" "7.13.0"
     "@sentry/types" "7.13.0"
@@ -1537,7 +1538,8 @@
 
 "@sentry/tracing@^7.13.0":
   version "7.13.0"
-  resolved "https://registry.npmjs.org/@sentry/tracing/-/tracing-7.13.0.tgz"
+  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.13.0.tgz#521dc021dab78e37e29b0f90b01cb444337adfc4"
+  integrity sha512-/MKSd25rGv6Pc0FPBLXJifkfvSaYVPA8XUOLzVeDN0gl07h8AXli4qG9amTh/4Wb5h4dFpbcscOvW2VC+pxkIA==
   dependencies:
     "@sentry/hub" "7.13.0"
     "@sentry/types" "7.13.0"
