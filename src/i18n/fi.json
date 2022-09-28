@@ -201,7 +201,7 @@
   "pages.temporaryVehicle.TemporaryVehicle.endDate.label": "Tilapäisyyden päättymispäivä",
   "pages.temporaryVehicle.TemporaryVehicle.endTime.label": "Päättymisaika",
   "pages.temporaryVehicle.TemporaryVehicle.infoMessage1": "Valitun päättymispäivän jälkeen alkuperäisen ajoneuvon tiedot palautuvat tunnuksen tietoihin automaattisesti.",
-  "pages.temporaryVehicle.TemporaryVehicle.infoMessage2": "Tilapäisen ajoneuvon vaihto tunnuksen tietoihin on rajoitettu 2 kertaan 365 päivän ajanjaksolla. Tarvittaessa ole yhteydessä asiakaspalveluun.",
+  "pages.temporaryVehicle.TemporaryVehicle.infoMessage2": "Tilapäisten ajoneuvojen maksimimäärä on 2 kpl / 365 päivää. Ole yhteydessä asiakaspalveluun.",
   "pages.temporaryVehicle.TemporaryVehicle.registration.helpText": "Tilapäisyys voi olla voimassa enintään 14 vuorokautta.",
   "pages.temporaryVehicle.TemporaryVehicle.registration.label": "Tilapäisen ajoneuvon rekisterinumero",
   "pages.temporaryVehicle.TemporaryVehicle.startDate.label": "Tilapäisyyden alkamispäivä",
