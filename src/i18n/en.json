@@ -199,7 +199,7 @@
   "pages.temporaryVehicle.TemporaryVehicle.endDate.label": "Temporary end date",
   "pages.temporaryVehicle.TemporaryVehicle.endTime.label": "End Time",
   "pages.temporaryVehicle.TemporaryVehicle.infoMessage1": "After the selected end date, the information of the original vehicle will be restored to the ID information automatically.",
-  "pages.temporaryVehicle.TemporaryVehicle.infoMessage2": "Exchange of temporary vehicle ID information is limited to 2 times in a 365-day period. If necessary, contact customer service.",
+  "pages.temporaryVehicle.TemporaryVehicle.infoMessage2": "Can not have more than 2 temporary vehicles in 365 days from first one. Contact customer service for more info.",
   "pages.temporaryVehicle.TemporaryVehicle.registration.helpText": "Temporary registration can be valid for a maximum of 14 days.",
   "pages.temporaryVehicle.TemporaryVehicle.registration.label": "Temporary vehicle registration number",
   "pages.temporaryVehicle.TemporaryVehicle.startDate.label": "Temporary start date",
