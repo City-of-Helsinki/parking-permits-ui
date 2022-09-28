@@ -34,6 +34,14 @@ const LandingPage = (): React.ReactElement => {
     return <div>{t(`${T_PATH}.underAgeMessage`)}</div>;
   }
 
+  if (
+    profileCtx?.getStatus() === 'loaded' &&
+    !profile?.primaryAddress &&
+    !profile?.otherAddress
+  ) {
+    return <div>{t(`${T_PATH}.noValidAddress`)}</div>;
+  }
+
   if (permitCtx?.getStatus() === 'error') {
     return (
       <Notification type="error">

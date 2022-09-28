@@ -50,13 +50,6 @@ const AddressSelector = (): React.ReactElement => {
           firstName: profile?.firstName,
         })}
       />
-      {!(primaryAddress || otherAddress) && (
-        <Notification
-          type="error"
-          label={t(`${T_PATH}.notification.error.label`)}>
-          {t(`${T_PATH}.notification.error.message`)}
-        </Notification>
-      )}
       {permitCtx?.getStatus() !== 'error' &&
         (primaryAddress || otherAddress) && (
           <Notification label={t(`${T_PATH}.notification.info.label`)}>
