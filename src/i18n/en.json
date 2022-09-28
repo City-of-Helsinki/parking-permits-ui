@@ -166,6 +166,7 @@
   "pages.addressSelector.AddressSelector.title": "Hey {{firstName}}!",
   "pages.changeAddress.ChangeAddress.actionBtn.cancel": "Cancel",
   "pages.changeAddress.ChangeAddress.actionBtn.continue": "Continue",
+  "pages.changeAddress.ChangeAddress.notification.info.noDifferentZoneMessage": "Both primary and secondary address belongs to the same zone",
   "pages.durationSelector.DurationSelector.actionBtn.continue": "Continue",
   "pages.durationSelector.DurationSelector.actionBtn.selectRegistration": "Buy parking permit",
   "pages.durationSelector.DurationSelector.datePlaceHolder": "PP.KK.VVVV",

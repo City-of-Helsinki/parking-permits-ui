@@ -168,6 +168,7 @@
   "pages.addressSelector.AddressSelector.title": "Hei {{firstName}}!",
   "pages.changeAddress.ChangeAddress.actionBtn.cancel": "Peruuta",
   "pages.changeAddress.ChangeAddress.actionBtn.continue": "Jatka",
+  "pages.changeAddress.ChangeAddress.notification.info.noDifferentZoneMessage": "Sekä ensisijainen että toissijainen osoite kuuluvat samaan vyöhykkeeseen",
   "pages.durationSelector.DurationSelector.actionBtn.continue": "Jatka",
   "pages.durationSelector.DurationSelector.actionBtn.selectRegistration": "Palaa valitsemaan ajoneuvo",
   "pages.durationSelector.DurationSelector.datePlaceHolder": "PP.KK.VVVV",

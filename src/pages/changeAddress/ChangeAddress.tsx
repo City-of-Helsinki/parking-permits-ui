@@ -65,9 +65,7 @@ const ChangeAddress = (): React.ReactElement => {
   ) {
     return (
       <div className="change-address-component">
-        <Notification
-          type="info"
-          label={t(`${T_PATH}.notification.info.noDifferentZoneLabel`)}>
+        <Notification type="info">
           {t(`${T_PATH}.notification.info.noDifferentZoneMessage`)}
         </Notification>
       </div>
