@@ -5,5 +5,5 @@ import App from './App';
 it('renders without crashing', () => {
   <MemoryRouter>
     <App />
-  </MemoryRouter>
+  </MemoryRouter>;
 });
