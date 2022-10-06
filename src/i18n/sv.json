@@ -205,6 +205,8 @@
   "pages.temporaryVehicle.TemporaryVehicle.startTime.label": "Starttid",
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Ändring av användaradress",
   "pages.validPermit.ValidPermit.addressChanged.notification.message": "Baserat på informationen från Helsingfors-profilen har din adress ändrats och kräver därför en omedelbar åtgärd för att uppdatera din adressinformation. Annars upphör kontot automatiskt den {{date}} kl {{time}}.",
+  "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Tillståndet är ännu inte aktivt",
+  "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Tillstånd är betalt och väntar på att tillståndet ska vara aktivt.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Ändring av fordonsinformation",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Baserat på informationen från Traficom är du inte ägare eller ägare till fordonet som är kopplat till ditt konto. Vänligen uppdatera din fordonsinformation. Annars kommer kontot automatiskt löper ut den {{date}} kl. {{time}}.",
   "pages.validPermit.deleteOrder": "Ta bort beställning",
