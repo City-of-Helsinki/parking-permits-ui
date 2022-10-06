@@ -45,6 +45,7 @@ export type Permit = {
   canEndAfterCurrentPeriod: boolean;
   vehicleChanged: boolean;
   zoneChanged: boolean;
+  isOrderConfirmed: boolean;
 };
 
 export type Vehicle = {
