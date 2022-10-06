@@ -49,7 +49,9 @@ const ValidPermits = (): React.ReactElement => {
 
   const address = getAddress();
   const isProcessing = (permit: PermitModel) =>
-    permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.talpaOrderId;
+    (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
+      permit.talpaOrderId) ||
+    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed);
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
@@ -57,9 +59,27 @@ const ValidPermits = (): React.ReactElement => {
   return (
     <div className="valid-permit-component">
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
-      {validPermits.some(isProcessing) && (
-        <PurchaseNotification validPermits={validPermits} />
+      {validPermits.some(
+        permit =>
+          permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
+          permit.talpaOrderId
+      ) && <PurchaseNotification validPermits={validPermits} />}
+
+      {validPermits.some(
+        permit =>
+          permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed
+      ) && (
+        <Notification
+          type="alert"
+          className="waitingParkkihubi"
+          label={t(`${T_PATH}.waitingParkkihubi.notification.label`)}>
+          {t(`${T_PATH}.waitingParkkihubi.notification.message`, {
+            date: formatDate(new Date()),
+            time: format(endOfDay(new Date()), 'HH:mm'),
+          })}
+        </Notification>
       )}
+
       {validPermits.some(hasVehicleChanged) && (
         <Notification
           type="alert"

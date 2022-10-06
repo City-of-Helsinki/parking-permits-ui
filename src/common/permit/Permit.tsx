@@ -73,7 +73,9 @@ const Permit = ({
         )
       : '';
   const isProcessing = (permit: PermitModel) =>
-    permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.talpaOrderId;
+    (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
+      permit.talpaOrderId) ||
+    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed);
 
   const removeTemporaryVehicle = async (permitId: string) => {
     await removeTemporaryVehicleFromPermit(permitId).then(() => {
