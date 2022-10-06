@@ -18,6 +18,7 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
     hasRefund
     vehicleChanged
     zoneChanged
+    isOrderConfirmed
     activeTemporaryVehicle {
       id
       startTime
