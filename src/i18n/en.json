@@ -207,6 +207,8 @@
   "pages.temporaryVehicle.TemporaryVehicle.startTime.label": "Start Time",
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Change of user address",
   "pages.validPermit.ValidPermit.addressChanged.notification.message": "Based on the information provided by Helsinki profile, your address has been changed and thus requires an immediate action to update your address information. Otherwise the account will automatically expire on {{date}} at {{time}}.",
+  "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Permit not yet active",
+  "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Permit is paid and waiting for the permit to be active.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Change in vehicle information",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Based on the information provided by Traficom, you are not the owner or holder of the vehicle associated with your account. Please update your vehicle information. Otherwise the account will automatically expire on {{date}} at {{time}}.",
   "pages.validPermit.deleteOrder": "Delete order",

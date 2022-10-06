@@ -209,6 +209,8 @@
   "pages.temporaryVehicle.TemporaryVehicle.startTime.label": "Alkamisaika",
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Käyttäjän osoitteen muutos",
   "pages.validPermit.ValidPermit.addressChanged.notification.message": "Helsinki-profiilin antamien tietojen perusteella osoitteesi on muuttunut ja vaatii siten välittömiä toimenpiteitä osoitetietojesi päivittämiseksi. Muuten tili vanhenee automaattisesti {{date}} klo {{time}}.",
+  "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Lupa ei ole vielä voimassa",
+  "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Lupa on maksettu ja odottaa luvan voimaantuloa.",
   "pages.validPermit.ValidPermit.deleteOrder": "Päätä tilaus",
   "pages.validPermit.ValidPermit.newOrder": "Lisää toinen ajoneuvo",
   "pages.validPermit.ValidPermit.sectionLabel": "Pysäköintitunnuksesi",
