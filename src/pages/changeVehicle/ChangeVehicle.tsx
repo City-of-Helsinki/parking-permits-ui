@@ -5,6 +5,7 @@ import PriceChangePreview from '../../common/editPermits/PriceChangePreview';
 import Refund from '../../common/editPermits/Refund';
 import { getChangeTotal } from '../../common/editPermits/utils';
 import VehicleDetails from '../../common/editPermits/VehicleDetails';
+import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConsent';
 import { updatePermitVehicle } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
@@ -12,6 +13,7 @@ import {
   ParkingContractType,
   PermitPriceChanges,
   ROUTES,
+  Permit,
   Vehicle,
 } from '../../types';
 
@@ -34,6 +36,9 @@ const ChangeVehicle = (): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
   const profileCtx = useContext(UserProfileContext);
   const [vehicle, setVehicle] = useState<Vehicle>();
+
+  const updatePermitData = (payload: Partial<Permit>, permitId?: string) =>
+    permitCtx?.updatePermit(payload, permitId);
 
   const [step, setStep] = useState<ChangeVehicleStep>(
     ChangeVehicleStep.VEHICLE
@@ -115,6 +120,10 @@ const ChangeVehicle = (): React.ReactElement => {
 
   return (
     <div className="change-vehicle-component">
+      <LowEmissionConsent
+        permits={[permit]}
+        updatePermitData={updatePermitData}
+      />
       {step === ChangeVehicleStep.VEHICLE && (
         <VehicleDetails
           permit={permit}
