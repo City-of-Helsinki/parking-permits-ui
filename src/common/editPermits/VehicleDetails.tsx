@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  Checkbox,
   IconArrowLeft,
   IconArrowRight,
   LoadingSpinner,
@@ -23,6 +24,7 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, Vehicle } from '../../types';
 import { formatDate } from '../../utils';
 import './vehicleDetails.scss';
+import DiscountLabel from '../discountLabel/DiscountLabel';
 
 const T_PATH = 'common.editPermits.ChangeVehicle';
 
@@ -32,6 +34,8 @@ interface Props {
   onContinue: () => void;
   priceChangeMultiplier: number;
   setVehicle: Dispatch<SetStateAction<Vehicle | undefined>>;
+  lowEmissionChecked: boolean;
+  setLowEmissionChecked: Dispatch<SetStateAction<boolean>>;
 }
 
 const VehicleDetails: FC<Props> = ({
@@ -40,6 +44,8 @@ const VehicleDetails: FC<Props> = ({
   setVehicle,
   onContinue,
   priceChangeMultiplier,
+  lowEmissionChecked,
+  setLowEmissionChecked,
 }): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -95,43 +101,54 @@ const VehicleDetails: FC<Props> = ({
       </Button>
 
       {vehicle && (
-        <Card className="card">
-          <div className="car-details">
-            <div className="registration-number">
-              {vehicle.registrationNumber}
+        <>
+          <Card className="card">
+            <div className="car-details">
+              <div className="registration-number">
+                {vehicle.registrationNumber}
+              </div>
+              <div className="car-model">
+                {vehicle.manufacturer} {vehicle.model}
+              </div>
+              <div
+                className={`emission-level ${
+                  vehicle.isLowEmission ? 'low-emission' : 'high-emission'
+                }`}>
+                {t(
+                  `${T_PATH}.${
+                    vehicle.isLowEmission
+                      ? 'lowEmissionVehicle'
+                      : 'highEmissionVehicle'
+                  }`
+                )}
+              </div>
+              {permit &&
+                vehicle &&
+                permit.products.map(product => (
+                  <div key={uuidv4()} className="price">
+                    {permit.vehicle.isLowEmission !== vehicle.isLowEmission && (
+                      <div className="original invalid">{`${product.unitPrice} €/KK`}</div>
+                    )}
+                    <div className="offer">{`${
+                      product.unitPrice * priceChangeMultiplier
+                    } €/KK`}</div>
+                    <div>{`(${formatDate(product.startDate)} - ${formatDate(
+                      product.endDate
+                    )})`}</div>
+                  </div>
+                ))}
             </div>
-            <div className="car-model">
-              {vehicle.manufacturer} {vehicle.model}
-            </div>
-            <div
-              className={`emission-level ${
-                vehicle.isLowEmission ? 'low-emission' : 'high-emission'
-              }`}>
-              {t(
-                `${T_PATH}.${
-                  vehicle.isLowEmission
-                    ? 'lowEmissionVehicle'
-                    : 'highEmissionVehicle'
-                }`
-              )}
-            </div>
-            {permit &&
-              vehicle &&
-              permit.products.map(product => (
-                <div key={uuidv4()} className="price">
-                  {permit.vehicle.isLowEmission !== vehicle.isLowEmission && (
-                    <div className="original invalid">{`${product.unitPrice} €/KK`}</div>
-                  )}
-                  <div className="offer">{`${
-                    product.unitPrice * priceChangeMultiplier
-                  } €/KK`}</div>
-                  <div>{`(${formatDate(product.startDate)} - ${formatDate(
-                    product.endDate
-                  )})`}</div>
-                </div>
-              ))}
-          </div>
-        </Card>
+          </Card>
+          {vehicle.isLowEmission && (
+            <Checkbox
+              className="discount-checkbox"
+              id={uuidv4()}
+              checked={lowEmissionChecked}
+              label={<DiscountLabel />}
+              onChange={evt => setLowEmissionChecked(evt.target.checked)}
+            />
+          )}
+        </>
       )}
       <div className="action-buttons">
         <Button
