@@ -66,4 +66,8 @@
       }
     }
   }
+  .discount-checkbox {
+    user-select: none;
+    margin: var(--spacing-s) 0;
+  }
 }

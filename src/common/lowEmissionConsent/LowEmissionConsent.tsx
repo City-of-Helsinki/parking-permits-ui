@@ -1,25 +1,12 @@
-import { Checkbox, Link } from 'hds-react';
+import { Checkbox } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import { Permit } from '../../types';
 import './lowEmissionConsent.scss';
+import DiscountLabel from '../discountLabel/DiscountLabel';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
-
-const DiscountCheckboxLabel = (): React.ReactElement => {
-  const { t } = useTranslation();
-  const discountInfoUrl =
-    'https://www.hel.fi/helsinki/fi/kartat-ja-liikenne/pysakointi/vahapaastoisten_alennus';
-  return (
-    <>
-      <span>{t(`${T_PATH}.discount`)}</span>{' '}
-      <Link openInNewTab href={discountInfoUrl}>
-        {t(`${T_PATH}.readMore`)}
-      </Link>
-    </>
-  );
-};
 
 export interface Props {
   permits: Permit[];
@@ -39,7 +26,7 @@ const LowEmissionConsent = ({
           <div className="discount">
             {permits?.length > 1 && (
               <div className="discount-label">
-                <DiscountCheckboxLabel />
+                <DiscountLabel />
               </div>
             )}
 
@@ -63,7 +50,7 @@ const LowEmissionConsent = ({
                     permits?.length > 1 ? (
                       permit.vehicle.registrationNumber
                     ) : (
-                      <DiscountCheckboxLabel />
+                      <DiscountLabel />
                     )
                   }
                 />
