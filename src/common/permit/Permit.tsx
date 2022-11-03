@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { addMonths, format } from 'date-fns';
+import { format } from 'date-fns';
 import {
   Button,
   Card,
@@ -62,16 +62,6 @@ const Permit = ({
     )
   );
 
-  const getEndTime = (permit: PermitModel) =>
-    permit.startTime
-      ? format(
-          addMonths(
-            new Date(permit.startTime as string),
-            permit?.monthCount || 0
-          ),
-          dateFormat
-        )
-      : '';
   const isProcessing = (permit: PermitModel) =>
     (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
       permit.talpaOrderId) ||
@@ -134,7 +124,7 @@ const Permit = ({
                 {permit.contractType === ParkingContractType.OPEN_ENDED &&
                   t(`${T_PATH}.contractType`)}
                 {permit.contractType !== ParkingContractType.OPEN_ENDED &&
-                  getEndTime(permit)}
+                  format(new Date(permit.endTime as string), dateFormat)}
               </span>
             </div>
           </>
