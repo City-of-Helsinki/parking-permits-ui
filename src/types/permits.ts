@@ -52,7 +52,6 @@ export type Vehicle = {
   id: string;
   emission: number;
   isLowEmission: boolean;
-  powerType: string;
   manufacturer: string;
   model: string;
   productionYear: number;

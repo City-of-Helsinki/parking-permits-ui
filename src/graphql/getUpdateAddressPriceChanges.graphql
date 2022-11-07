@@ -4,7 +4,6 @@ query GetUpdateAddressPriceChanges($addressId: ID!) {
       id
       vehicle {
         id
-        powerType
         manufacturer
         model
         productionYear

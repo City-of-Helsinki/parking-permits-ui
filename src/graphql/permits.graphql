@@ -33,7 +33,6 @@ query Query {
     }
     vehicle {
       id
-      powerType
       model
       emission
       isLowEmission
