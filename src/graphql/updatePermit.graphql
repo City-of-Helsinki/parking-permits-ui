@@ -32,7 +32,6 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
     }
     vehicle {
       id
-      powerType
       model
       emission
       isLowEmission

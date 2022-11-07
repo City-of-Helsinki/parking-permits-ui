@@ -33,7 +33,6 @@ mutation Mutation($addressId: ID!, $registration: String!) {
     }
     vehicle {
       id
-      powerType
       model
       emission
       isLowEmission
