@@ -145,7 +145,9 @@ const usePermitState = (): PermitActions => {
     getPermits: () => permits,
     fetchPermits: (): Promise<void> => fetchPermits(),
     getDraftPermits: () =>
-      permits.filter(permit => permit.status === PermitStatus.DRAFT),
+      permits
+        .filter(permit => permit.status === PermitStatus.DRAFT)
+        .sort(a => (a.primaryVehicle ? -1 : 1)),
     getValidPermits: () =>
       permits.filter(
         permit =>
