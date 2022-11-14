@@ -47,9 +47,6 @@ const OrderReview: React.FC<OrderReviewProps> = ({
             email: profile.email,
           })}
         </Notification>
-        <Button className="open-confirmation-btn" theme="black">
-          {t(`${T_PATH}.openConfirmPage`)}
-        </Button>
         <div className="title">{t(`${T_PATH}.title`)}</div>
         <Permit
           address={address}

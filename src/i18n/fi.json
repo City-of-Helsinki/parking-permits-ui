@@ -46,7 +46,6 @@
   "common.editPermits.OrderReview.notification.info.orderSuccessMessage": "Pysäköintilupa on sähköinen ja pysäköintivalvonta tunnistaa voimassaolevan tunnuksen ajoneuvosi rekisterinumeron perusteella.",
   "common.editPermits.OrderReview.notification.info.orderSuccessTitle": "Tilaus onnistui",
   "common.editPermits.OrderReview.notification.info.pendingRefundTitle": "Palautus otettu käsittelyyn",
-  "common.editPermits.OrderReview.openConfirmPage": "Avaa vahvistusviesti",
   "common.editPermits.OrderReview.title": "Pysäköintitunnuksesi",
   "common.editPermits.PriceChangePreview.actionBtn.cancel": "Peruuta",
   "common.editPermits.PriceChangePreview.actionBtn.continue": "Continue",

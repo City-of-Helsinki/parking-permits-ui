@@ -46,7 +46,6 @@
   "common.editPermits.OrderReview.notification.info.orderSuccessMessage": "The parking permit is electronic and the parking control identifies a valid ID based on your vehicle's registration number.",
   "common.editPermits.OrderReview.notification.info.orderSuccessTitle": "Order Successful",
   "common.editPermits.OrderReview.notification.info.pendingRefundTitle": "Pending refund",
-  "common.editPermits.OrderReview.openConfirmPage": "Open confirmation page",
   "common.editPermits.OrderReview.title": "Parking permits",
   "common.editPermits.PriceChangePreview.actionBtn.cancel": "Cancel",
   "common.editPermits.PriceChangePreview.actionBtn.continue": "Continue",

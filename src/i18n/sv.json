@@ -46,7 +46,6 @@
   "common.editPermits.OrderReview.notification.info.orderSuccessMessage": "Parkeringstillståndet är elektroniskt och parkeringskontrollen identifierar ett giltigt ID baserat på ditt fordons registreringsnummer.",
   "common.editPermits.OrderReview.notification.info.orderSuccessTitle": "Prenumerationen lyckades",
   "common.editPermits.OrderReview.notification.info.pendingRefundTitle": "Retur väntar",
-  "common.editPermits.OrderReview.openConfirmPage": "Öppna bekräftelsemeddelande",
   "common.editPermits.OrderReview.title": "Ditt parkerings-ID",
   "common.editPermits.PriceChangePreview.actionBtn.cancel": "Avbryt",
   "common.editPermits.PriceChangePreview.actionBtn.continue": "Fortsätt",
