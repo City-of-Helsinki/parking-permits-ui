@@ -1,7 +1,7 @@
 import { intervalToDuration } from 'date-fns';
 import queryString from 'query-string';
 import React, { useContext, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PriceChangePreview from '../../common/editPermits/PriceChangePreview';
 import Refund from '../../common/editPermits/Refund';
 import { getChangeTotal } from '../../common/editPermits/utils';
@@ -16,6 +16,7 @@ import {
   UserProfile,
 } from '../../types';
 import './endPermit.scss';
+import { isOpenEndedPermitStarted } from '../../utils';
 
 const dateAsNumber = (date: Date | string): number => new Date(date).valueOf();
 
@@ -52,11 +53,8 @@ const EndPermit = (): React.ReactElement => {
 
   const permitCtx = useContext(PermitStateContext);
 
-  const validPermits = permitCtx?.getValidPermits();
+  const validPermits = permitCtx?.getValidPermits() || [];
   const profile = profileCtx?.getProfile() as UserProfile;
-  if (!validPermits?.length) {
-    return <Navigate to={ROUTES.BASE} />;
-  }
   const queryStr = queryString.parse(search);
   const { permitIds: ids, endType } = queryStr;
   const permitIds = typeof ids === 'string' ? [ids] : ids;
@@ -92,6 +90,17 @@ const EndPermit = (): React.ReactElement => {
         })),
     };
   });
+
+  if (
+    (isOpenEndedPermitStarted(validPermits) ||
+      !getChangeTotal(priceChangesList, 'priceChange')) &&
+    endPermitState === EndPermitStep.PRICE_PREVIEW
+  ) {
+    setTimeout(() =>
+      permitCtx?.endValidPermits(permitIds as string[], endType as string, '')
+    );
+    setEndPermitState(EndPermitStep.RESULT);
+  }
 
   return (
     <div className="end-permit-component">
