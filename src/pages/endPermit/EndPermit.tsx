@@ -93,6 +93,7 @@ const EndPermit = (): React.ReactElement => {
 
   if (
     (isOpenEndedPermitStarted(validPermits) ||
+      validPermits.some(p => !!p.endTime) ||
       !getChangeTotal(priceChangesList, 'priceChange')) &&
     endPermitState === EndPermitStep.PRICE_PREVIEW
   ) {
