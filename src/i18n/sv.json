@@ -71,7 +71,7 @@
   "common.endPermitDialog.EndPermitDialog.title": "Sluttillstånd",
   "common.endPermitResult.EndPermitResult.actionBtn.confirmationMsg": "Öppna bekräftelsemeddelande",
   "common.endPermitResult.EndPermitResult.actionBtn.logout": "Logga ut",
-  "common.endPermitResult.EndPermitResult.notification.first.message": "2 ID har avslutats.",
+  "common.endPermitResult.EndPermitResult.notification.first.message": "Tillståndet har avslutats.",
   "common.endPermitResult.EndPermitResult.notification.second.label": "Retur väntar",
   "common.endPermitResult.EndPermitResult.notification.second.message": "Vi har skickat ett bekräftelsemail till {{email}}. Du kan också kontrollera informationen nedan.",
   "common.footer.Footer.accessibility": "Tillgänglighet",

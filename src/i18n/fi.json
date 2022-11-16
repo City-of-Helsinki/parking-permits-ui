@@ -81,7 +81,7 @@
   "common.endPermitDialog.EndPermitDialog.title": "Tunnuksen päättäminen",
   "common.endPermitResult.EndPermitResult.actionBtn.confirmationMsg": "Avaa vahvistusviesti",
   "common.endPermitResult.EndPermitResult.actionBtn.logout": "Kirjaudu ulos",
-  "common.endPermitResult.EndPermitResult.notification.first.message": "2 tunnuksen voimassaolo päätetty onnistuneesti.",
+  "common.endPermitResult.EndPermitResult.notification.first.message": "Tunnus päätetty onnistuneesti.",
   "common.endPermitResult.EndPermitResult.notification.second.label": "Palautus otettu käsittelyyn",
   "common.endPermitResult.EndPermitResult.notification.second.message": "Olemme lähettäneet vahvistusviestin sähköpostiisi {{email}}. Voit tarkistaa tiedot myös alta.",
   "common.footer.Footer.accessibility": "Saavutettavuus",
