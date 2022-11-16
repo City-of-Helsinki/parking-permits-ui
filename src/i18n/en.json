@@ -72,7 +72,7 @@
   "common.endPermitDialog.EndPermitDialog.title": "End permit",
   "common.endPermitResult.EndPermitResult.actionBtn.confirmationMsg": "Open confirmation message",
   "common.endPermitResult.EndPermitResult.actionBtn.logout": "Log Out",
-  "common.endPermitResult.EndPermitResult.notification.first.message": "2 Permitss successfully terminated.",
+  "common.endPermitResult.EndPermitResult.notification.first.message": "Permit successfully ended.",
   "common.endPermitResult.EndPermitResult.notification.second.label": "Return pending",
   "common.footer.Footer.accessibility": "Accessibility",
   "common.footer.Footer.backToTop": "Back to top",
