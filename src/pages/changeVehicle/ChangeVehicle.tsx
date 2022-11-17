@@ -14,6 +14,7 @@ import {
   ROUTES,
   Vehicle,
 } from '../../types';
+import { dateAsNumber, getMonthCount } from '../../utils';
 
 enum PriceChangeType {
   HIGHER_PRICE = 2,
@@ -71,33 +72,40 @@ const ChangeVehicle = (): React.ReactElement => {
     await permitCtx?.fetchPermits();
     navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
   };
+  const multiplier = getMultiplier();
 
   const continueTo = async () => {
-    const multiplier = getMultiplier();
-    if (
-      step === ChangeVehicleStep.VEHICLE &&
-      multiplier === PriceChangeType.NO_CHANGE
-    ) {
-      await updateAndNavigateToOrderView();
-    }
-
-    if (
-      step === ChangeVehicleStep.VEHICLE &&
-      multiplier !== PriceChangeType.NO_CHANGE
-    ) {
+    if (step === ChangeVehicleStep.VEHICLE) {
       setPriceChangesList([
         {
           vehicle,
-          priceChanges: permit.products.map(product => ({
-            product: product.name,
-            previousPrice: product.unitPrice,
-            newPrice: product.unitPrice * multiplier,
-            priceChange: product.unitPrice * multiplier - product.unitPrice,
-            priceChangeVat: product.vat * multiplier,
-            startDate: product.startDate,
-            endDate: product.endDate,
-            monthCount: permit.monthsLeft,
-          })),
+          priceChanges: permit.products
+            .filter(
+              product => new Date().valueOf() <= dateAsNumber(product.endDate)
+            )
+            .map(product => ({
+              product: product.name,
+              previousPrice: product.unitPrice,
+              newPrice: product.unitPrice * multiplier,
+              priceChange:
+                multiplier === PriceChangeType.NO_CHANGE
+                  ? 0
+                  : product.unitPrice * multiplier * (multiplier < 1 ? -1 : 1),
+              priceChangeVat:
+                multiplier === PriceChangeType.NO_CHANGE
+                  ? 0
+                  : product.vat *
+                    product.unitPrice *
+                    multiplier *
+                    (multiplier < 1 ? -1 : 1),
+              startDate: product.startDate,
+              endDate: product.endDate,
+              monthCount: getMonthCount(
+                new Date(),
+                permit.startTime as string,
+                product
+              ),
+            })),
         },
       ]);
 
@@ -138,7 +146,13 @@ const ChangeVehicle = (): React.ReactElement => {
           className="price-change-preview"
           priceChangesList={priceChangesList}
           onCancel={() => setStep(ChangeVehicleStep.VEHICLE)}
-          onConfirm={() => setStep(ChangeVehicleStep.REFUND)}
+          onConfirm={() => {
+            if (multiplier === PriceChangeType.NO_CHANGE) {
+              updateAndNavigateToOrderView();
+            } else {
+              setStep(ChangeVehicleStep.REFUND);
+            }
+          }}
         />
       )}
       {step === ChangeVehicleStep.REFUND && (
