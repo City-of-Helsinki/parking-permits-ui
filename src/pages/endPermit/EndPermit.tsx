@@ -1,4 +1,3 @@
-import { intervalToDuration } from 'date-fns';
 import queryString from 'query-string';
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,40 +7,13 @@ import { getChangeTotal } from '../../common/editPermits/utils';
 import EndPermitResult from '../../common/endPermitResult/EndPermitResult';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
-import {
-  EndPermitStep,
-  PermitEndType,
-  Product,
-  ROUTES,
-  UserProfile,
-} from '../../types';
+import { EndPermitStep, PermitEndType, ROUTES, UserProfile } from '../../types';
 import './endPermit.scss';
-import { isOpenEndedPermitStarted } from '../../utils';
-
-const dateAsNumber = (date: Date | string): number => new Date(date).valueOf();
-
-const getMonthCount = (
-  permitEndStartDate: Date,
-  permitStartTime: string,
-  product: Product
-) => {
-  // It should consider the start time of the permit.
-  // Eg: If permit was bought and started just before the permitEndStartDate
-  // then it should be counted as a full month used and if the start date is in
-  // the future. It should refund the whole month.
-  if (
-    dateAsNumber(permitStartTime) > permitEndStartDate.valueOf() ||
-    dateAsNumber(product.startDate) > permitEndStartDate.valueOf()
-  ) {
-    return product.quantity;
-  }
-
-  const intervalDuration = intervalToDuration({
-    start: new Date(),
-    end: new Date(product.endDate),
-  });
-  return intervalDuration.months || 0;
-};
+import {
+  dateAsNumber,
+  getMonthCount,
+  isOpenEndedPermitStarted,
+} from '../../utils';
 
 const EndPermit = (): React.ReactElement => {
   const { search } = useLocation();
