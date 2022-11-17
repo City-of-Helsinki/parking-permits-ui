@@ -152,12 +152,12 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
                 <b>{t(`${T_PATH}.refundTotal`)}</b>
               </div>
               <div>
-                <b>{-priceChangeTotal} €</b>
+                <b>{-priceChangeTotal.toFixed(2)} €</b>
               </div>
             </div>
             <div className="row">
               <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-              <div>{-priceChangeVatTotal} €</div>
+              <div>{-priceChangeVatTotal.toFixed(2)} €</div>
             </div>
           </div>
         )}
