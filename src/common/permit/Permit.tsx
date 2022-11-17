@@ -66,6 +66,8 @@ const Permit = ({
     (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
       permit.talpaOrderId) ||
     (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed);
+  const hasTemporaryVehicle = (permit: PermitModel) =>
+    permit.activeTemporaryVehicle;
 
   const removeTemporaryVehicle = async (permitId: string) => {
     await removeTemporaryVehicleFromPermit(permitId).then(() => {
@@ -166,7 +168,10 @@ const Permit = ({
               <Button
                 className="permit-actions-buttons"
                 variant="supplementary"
-                disabled={permits.some(isProcessing)}
+                disabled={
+                  permits.some(isProcessing) ||
+                  permits.some(hasTemporaryVehicle)
+                }
                 style={{ margin: 'var(--spacing-xs) 0' }}
                 iconLeft={<IconAngleRight />}
                 onClick={() => navigate(ROUTES.CHANGE_ADDRESS)}>
@@ -192,7 +197,7 @@ const Permit = ({
             {getPermit(permit)}
             {showActionsButtons && (
               <div className="permit-action-btns">
-                {!permits.some(p => p.activeTemporaryVehicle) && (
+                {!permits.some(hasTemporaryVehicle) && (
                   <Button
                     variant="supplementary"
                     disabled={
