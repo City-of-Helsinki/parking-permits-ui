@@ -200,6 +200,7 @@ const ChangeAddress = (): React.ReactElement => {
           address={usedAddress}
           profile={profile}
           validPermits={validPermits}
+          hasRefundCreated={priceChangeTotal < 0}
         />
       )}
     </div>
