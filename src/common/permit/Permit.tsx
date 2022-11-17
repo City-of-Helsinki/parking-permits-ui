@@ -192,16 +192,18 @@ const Permit = ({
             {getPermit(permit)}
             {showActionsButtons && (
               <div className="permit-action-btns">
-                <Button
-                  variant="supplementary"
-                  disabled={
-                    permits.some(isProcessing) ||
-                    permits.some(hasAddressChanged)
-                  }
-                  onClick={() => setEditPermitId(permit.id)}
-                  iconLeft={<IconAngleRight />}>
-                  {t(`${T_PATH}.editVehicle`)}
-                </Button>
+                {!permits.some(p => p.activeTemporaryVehicle) && (
+                  <Button
+                    variant="supplementary"
+                    disabled={
+                      permits.some(isProcessing) ||
+                      permits.some(hasAddressChanged)
+                    }
+                    onClick={() => setEditPermitId(permit.id)}
+                    iconLeft={<IconAngleRight />}>
+                    {t(`${T_PATH}.editVehicle`)}
+                  </Button>
+                )}
                 {permits.length > 1 && index > 0 && (
                   <Button
                     variant="supplementary"
