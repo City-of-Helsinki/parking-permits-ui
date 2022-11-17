@@ -19,6 +19,7 @@ interface OrderReviewProps {
   address: UserAddress;
   profile: UserProfile;
   validPermits: PermitType[];
+  hasRefundCreated?: boolean;
 }
 
 const OrderReview: React.FC<OrderReviewProps> = ({
@@ -26,6 +27,7 @@ const OrderReview: React.FC<OrderReviewProps> = ({
   address,
   profile,
   validPermits,
+  hasRefundCreated,
 }: OrderReviewProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -39,14 +41,16 @@ const OrderReview: React.FC<OrderReviewProps> = ({
           label={t(`${T_PATH}.notification.info.orderSuccessTitle`)}>
           {t(`${T_PATH}.notification.info.orderSuccessMessage`)}
         </Notification>
-        <Notification
-          className="notification"
-          type="info"
-          label={t(`${T_PATH}.notification.info.pendingRefundTitle`)}>
-          {t(`${T_PATH}.notification.error.pendingRefundMessage`, {
-            email: profile.email,
-          })}
-        </Notification>
+        {hasRefundCreated && (
+          <Notification
+            className="notification"
+            type="info"
+            label={t(`${T_PATH}.notification.info.pendingRefundTitle`)}>
+            {t(`${T_PATH}.notification.error.pendingRefundMessage`, {
+              email: profile.email,
+            })}
+          </Notification>
+        )}
         <div className="title">{t(`${T_PATH}.title`)}</div>
         <Permit
           address={address}

@@ -56,6 +56,8 @@ const ValidPermits = (): React.ReactElement => {
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
+  const hasTemporaryVehicle = (permit: PermitModel) =>
+    !!permit.activeTemporaryVehicle;
 
   return (
     <div className="valid-permit-component">
@@ -120,7 +122,8 @@ const ValidPermits = (): React.ReactElement => {
             theme="black"
             disabled={
               validPermits.some(isProcessing) ||
-              validPermits.some(hasAddressChanged)
+              validPermits.some(hasAddressChanged) ||
+              validPermits.some(hasTemporaryVehicle)
             }
             iconLeft={<IconPlusCircle />}
             onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
@@ -129,11 +132,16 @@ const ValidPermits = (): React.ReactElement => {
         )}
         <Button
           className={classNames('action-btn hds-button-danger', {
-            processing: validPermits.some(isProcessing),
+            processing:
+              validPermits.some(isProcessing) ||
+              validPermits.some(hasTemporaryVehicle),
           })}
           variant="secondary"
           theme="black"
-          disabled={validPermits.some(isProcessing)}
+          disabled={
+            validPermits.some(isProcessing) ||
+            validPermits.some(hasTemporaryVehicle)
+          }
           iconLeft={<IconTrash className="trash-icon" />}
           onClick={() => setOpenEndPermitDialog(true)}>
           {t(`${T_PATH}.deleteOrder`)}
