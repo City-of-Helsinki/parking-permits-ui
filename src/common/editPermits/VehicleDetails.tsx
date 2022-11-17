@@ -57,7 +57,7 @@ const VehicleDetails: FC<Props> = ({
   const inputRegistration = (event: { target: { value: string } }) => {
     setError('');
     const { value } = event.target;
-    setTempRegistration(value);
+    setTempRegistration(value.toUpperCase());
     if (value && permitCtx?.permitExists(value)) {
       setError(t(`${T_PATH}.permitExistError`));
     }
