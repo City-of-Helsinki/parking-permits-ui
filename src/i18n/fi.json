@@ -79,7 +79,7 @@
   "common.endPermitDialog.EndPermitDialog.endAfterCurrentPeriod": "Päätä tunnus kuluvan kauden päätteeksi",
   "common.endPermitDialog.EndPermitDialog.endImmediately": "Päätä tunnus välittömästi",
   "common.endPermitDialog.EndPermitDialog.title": "Tunnuksen päättäminen",
-  "common.endPermitResult.EndPermitResult.actionBtn.confirmationMsg": "Avaa vahvistusviesti",
+  "common.endPermitResult.EndPermitResult.actionBtn.confirmationMsg": "Palaa etusivulle",
   "common.endPermitResult.EndPermitResult.actionBtn.logout": "Kirjaudu ulos",
   "common.endPermitResult.EndPermitResult.notification.first.message": "Tunnus päätetty onnistuneesti.",
   "common.endPermitResult.EndPermitResult.notification.second.label": "Palautus otettu käsittelyyn",
