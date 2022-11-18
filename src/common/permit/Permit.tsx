@@ -212,7 +212,10 @@ const Permit = ({
                 {permits.length > 1 && index > 0 && (
                   <Button
                     variant="supplementary"
-                    disabled={!!isProcessing(permit)}
+                    disabled={
+                      !!isProcessing(permit) ||
+                      permits.some(hasTemporaryVehicle)
+                    }
                     iconLeft={<IconAngleRight />}
                     onClick={() =>
                       setOpenEndPermitDialog({
