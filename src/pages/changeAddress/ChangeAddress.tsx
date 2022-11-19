@@ -137,14 +137,13 @@ const ChangeAddress = (): React.ReactElement => {
                         getPermitPriceTotal(item.priceChanges, 'priceChange'),
                       0
                     );
-                    if (changeTotal > 0) {
+                    const hasOpenEnded = validPermits.some(
+                      permit =>
+                        permit.contractType === ParkingContractType.OPEN_ENDED
+                    );
+                    if (changeTotal > 0 || hasOpenEnded) {
                       changeAddress(selectedAddress.id);
-                      const isAllOpenEnded = validPermits.every(
-                        permit =>
-                          permit.contractType === ParkingContractType.OPEN_ENDED
-                      );
-                      if (isAllOpenEnded)
-                        setStep(ChangeAddressStep.ORDER_REVIEW);
+                      if (hasOpenEnded) setStep(ChangeAddressStep.ORDER_REVIEW);
                     } else {
                       setStep(ChangeAddressStep.PRICE_PREVIEW);
                     }

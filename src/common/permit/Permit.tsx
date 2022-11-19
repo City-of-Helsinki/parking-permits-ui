@@ -28,6 +28,7 @@ import EditPermitDialog from '../editPermitDialog/EditPermitDialog';
 import EndPermitDialog from '../endPermitDialog/EndPermitDialog';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
+import { dateAsNumber } from '../../utils';
 
 const T_PATH = 'common.permit.Permit';
 
@@ -146,6 +147,15 @@ const Permit = ({
   };
   const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
+
+  const bothPermitWithSameContractType =
+    permits.every(p => p.contractType === ParkingContractType.OPEN_ENDED) ||
+    permits.every(p => p.contractType === ParkingContractType.FIXED_PERIOD);
+
+  const isAllPermitStarted = permits.every(
+    p => p.startTime && dateAsNumber(p.startTime) < new Date().valueOf()
+  );
+
   return (
     <div className="permit-component">
       {!hideMap && (
@@ -170,7 +180,9 @@ const Permit = ({
                 variant="supplementary"
                 disabled={
                   permits.some(isProcessing) ||
-                  permits.some(hasTemporaryVehicle)
+                  permits.some(hasTemporaryVehicle) ||
+                  !bothPermitWithSameContractType ||
+                  !isAllPermitStarted
                 }
                 style={{ margin: 'var(--spacing-xs) 0' }}
                 iconLeft={<IconAngleRight />}
