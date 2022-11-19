@@ -98,7 +98,7 @@ const Refund: React.FC<RefundProps> = ({
           iconLeft={<IconArrowLeft />}
           onClick={() => onCancel()}
           theme="black">
-          <span>{t(`${T_PATH}.actionBtn.skip`)}</span>
+          <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
         </Button>
       </div>
     </div>
