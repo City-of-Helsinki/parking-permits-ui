@@ -2,7 +2,7 @@
   "common.PurchaseNotification.notification.alert-2.label": "Permit 2 is not yet valid",
   "common.PurchaseNotification.notification.alert-2.message": "Payment is being processed. 2. The vehicle parking permit will take effect automatically once the payment has been processed.",
   "common.PurchaseNotification.notification.alert.label": "Permit not yet valid",
-  "common.PurchaseNotification.notification.alert.message": "Payment is being processed. The parking permit will take effect automatically once the payment has been processed.",
+  "common.PurchaseNotification.notification.alert.message": "Payment is being processed. The parking permit will take effect automatically once the payment has been processed. You can make changes only after the permit has become valid.",
   "common.PurchaseNotification.notification.success.label": "Order successful",
   "common.PurchaseNotification.notification.success.message": "The parking permit is electronic and the parking control identifies a valid permit based on your vehicle's registration number.",
   "common.accountDetail.AccountDetail.accountLabel": "Enter account number",

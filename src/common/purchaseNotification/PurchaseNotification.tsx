@@ -18,10 +18,12 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
     const orderIds = validPermits.map(permit => permit.talpaOrderId);
     const uniqueOrderIds = Array.from(new Set(orderIds));
     const isSecondary = uniqueOrderIds.length > 1;
-    const hasDrafts = validPermits.some(
-      permit => permit.status === PermitStatus.DRAFT
+    const isAlertType = validPermits.some(
+      permit =>
+        permit.status === PermitStatus.DRAFT ||
+        permit.status === PermitStatus.PAYMENT_IN_PROGRESS
     );
-    if (hasDrafts) {
+    if (isAlertType) {
       return {
         type: 'alert',
         label: t(
