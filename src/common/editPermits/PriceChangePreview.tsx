@@ -108,7 +108,6 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
     <div className={className}>
       <div className="title">{t(`${T_PATH}.title`)}</div>
       <div className="price-change-detail">
-        <div className="subtitle">{t(`${T_PATH}.subtitle`)}</div>
         {priceChangesList.map(({ permit, vehicle, priceChanges }) => (
           <div className="permit-price-changes" key={permit?.id || vehicle?.id}>
             <div className="vehicle">

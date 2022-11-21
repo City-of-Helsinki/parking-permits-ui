@@ -58,7 +58,7 @@
   "common.editPermits.PriceChangePreview.refundTotal": "Palautettava summa yhteensä",
   "common.editPermits.PriceChangePreview.refundTotalVat": "Sis. alv (24%)",
   "common.editPermits.PriceChangePreview.subtitle": "Uusi tilaus",
-  "common.editPermits.PriceChangePreview.title": "Tilauksen yhteenveto",
+  "common.editPermits.PriceChangePreview.title": "Yhteenveto",
   "common.editPermits.Refund.accountNumber": "Syötä tilinumero",
   "common.editPermits.Refund.actionBtn.continue": "Jatka",
   "common.editPermits.Refund.actionBtn.cancel": "Peruuta",
