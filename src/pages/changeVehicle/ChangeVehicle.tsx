@@ -14,7 +14,11 @@ import {
   ROUTES,
   Vehicle,
 } from '../../types';
-import { dateAsNumber, getMonthCount } from '../../utils';
+import {
+  dateAsNumber,
+  getMonthCount,
+  isOpenEndedPermitStarted,
+} from '../../utils';
 
 enum PriceChangeType {
   HIGHER_PRICE = 2,
@@ -122,6 +126,8 @@ const ChangeVehicle = (): React.ReactElement => {
           const { id: userId } = profileCtx.getProfile();
           window.open(`${checkoutUrl}?user=${userId}`, '_self');
         }
+      } else if (isOpenEndedPermitStarted([permit])) {
+        updateAndNavigateToOrderView();
       } else {
         setStep(ChangeVehicleStep.PRICE_PREVIEW);
       }
