@@ -138,7 +138,7 @@
   "common.refund.Refund.permit.endType": "Tunnuksen voimassaolo päättyy {{endType}}",
   "common.refund.Refund.permit.extraInfo": "* Hinnassa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",
   "common.refund.Refund.permit.fixed": "Määräaikainen {{month}} kk",
-  "common.refund.Refund.permit.monthlyPrice": "{{price}} € / KK",
+  "common.refund.Refund.permit.monthlyPrice": "{{price}} €/kk",
   "common.refund.Refund.permit.priceInfo": "{{monthsLeft}} kuukautta, {{monthlyPrice}} €/kk",
   "common.refund.Refund.permit.remaining": "Tilausta jäljellä*",
   "common.refund.Refund.permit.startDate": "Pysäköintitunnuksen alkamispäivä",

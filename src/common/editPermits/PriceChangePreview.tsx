@@ -6,7 +6,8 @@ import {
   PermitPriceChanges,
   Vehicle,
 } from '../../types/permits';
-import { formatDateDisplay, formatMonthlyPrice, formatVehicle } from '../utils';
+import { formatDateDisplay, formatVehicle } from '../utils';
+import { formatMonthlyPrice } from '../../utils';
 import './PriceChangePreview.scss';
 import { getPermitPriceTotal } from './utils';
 
