@@ -29,7 +29,7 @@ import {
   ROUTES,
   STEPPER,
 } from '../../types';
-import { formatDate } from '../../utils';
+import { formatDate, formatPrice } from '../../utils';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
@@ -95,7 +95,7 @@ const DurationSelector = (): React.ReactElement => {
     const originalPrice = (product: Product) => (
       <div className="original">{`${
         (isOpenEnded ? product.unitPrice : product.totalPrice) * 2
-      } €${isOpenEnded ? '/KK' : ''}`}</div>
+      } €${isOpenEnded ? '/kk' : ''}`}</div>
     );
     return (
       <div className="prices">
@@ -107,8 +107,10 @@ const DurationSelector = (): React.ReactElement => {
             <div style={{ marginRight: '4px' }}>Yht.</div>
             {isLowEmission && originalPrice(product)}
             <div className="offer">{`${
-              isOpenEnded ? product.unitPrice : product.totalPrice
-            } €${isOpenEnded ? '/KK' : ''}`}</div>
+              isOpenEnded
+                ? formatPrice(product.unitPrice)
+                : formatPrice(product.totalPrice)
+            } €${isOpenEnded ? '/kk' : ''}`}</div>
           </div>
         ))}
       </div>

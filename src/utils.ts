@@ -34,6 +34,12 @@ export function formatDateTimeDisplay(datetime: string | Date): string {
 export const formatDate = (date: string | Date): string =>
   format(typeof date === 'string' ? new Date(date) : date, 'd.M.yyyy');
 
+export const formatPrice = (price: number): string =>
+  parseFloat(price.toString()).toFixed(2);
+
+export const formatMonthlyPrice = (price: number): string =>
+  `${formatPrice(price)} €/kk`;
+
 export const isOpenEndedPermitStarted = (
   permits: Permit[]
 ): Permit | undefined =>

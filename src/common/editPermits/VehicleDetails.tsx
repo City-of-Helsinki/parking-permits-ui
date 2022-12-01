@@ -22,7 +22,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getVehicleInformation } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, Vehicle } from '../../types';
-import { formatDate } from '../../utils';
+import { formatDate, formatMonthlyPrice } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
 
@@ -127,11 +127,15 @@ const VehicleDetails: FC<Props> = ({
                 permit.products.map(product => (
                   <div key={uuidv4()} className="price">
                     {permit.vehicle.isLowEmission !== vehicle.isLowEmission && (
-                      <div className="original invalid">{`${product.unitPrice} €/KK`}</div>
+                      <div className="original invalid">
+                        {formatMonthlyPrice(product.unitPrice)}
+                      </div>
                     )}
-                    <div className="offer">{`${
-                      product.unitPrice * priceChangeMultiplier
-                    } €/KK`}</div>
+                    <div className="offer">
+                      {formatMonthlyPrice(
+                        product.unitPrice * priceChangeMultiplier
+                      )}
+                    </div>
                     <div>{`(${formatDate(product.startDate)} - ${formatDate(
                       product.endDate
                     )})`}</div>

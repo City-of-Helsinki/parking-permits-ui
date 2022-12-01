@@ -14,11 +14,6 @@ export function formatDateDisplay(datetime: string | Date): string {
   return dt.toLocaleDateString('fi');
 }
 
-export function formatMonthlyPrice(price: number): string {
-  const formattedPrice = parseFloat(price.toFixed(2));
-  return `${formattedPrice} €/kk`;
-}
-
 export function formatVehicle(vehicle: Vehicle): string {
   const { manufacturer, model, registrationNumber } = vehicle;
   return `${registrationNumber} ${manufacturer} ${model}`;
