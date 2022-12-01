@@ -214,7 +214,8 @@ const Permit = ({
                     variant="supplementary"
                     disabled={
                       permits.some(isProcessing) ||
-                      permits.some(hasAddressChanged)
+                      permits.some(hasAddressChanged) ||
+                      !isAllPermitStarted
                     }
                     onClick={() => setEditPermitId(permit.id)}
                     iconLeft={<IconAngleRight />}>
