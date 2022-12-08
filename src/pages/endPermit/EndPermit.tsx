@@ -9,11 +9,7 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { EndPermitStep, PermitEndType, ROUTES, UserProfile } from '../../types';
 import './endPermit.scss';
-import {
-  dateAsNumber,
-  getMonthCount,
-  isOpenEndedPermitStarted,
-} from '../../utils';
+import { dateAsNumber, getMonthCount } from '../../utils';
 
 const EndPermit = (): React.ReactElement => {
   const { search } = useLocation();
@@ -63,17 +59,13 @@ const EndPermit = (): React.ReactElement => {
     };
   });
 
-  if (
-    (isOpenEndedPermitStarted(validPermits) ||
-      validPermits.some(p => !!p.endTime) ||
-      !getChangeTotal(priceChangesList, 'priceChange')) &&
-    endPermitState === EndPermitStep.PRICE_PREVIEW
-  ) {
-    setTimeout(() =>
-      permitCtx?.endValidPermits(permitIds as string[], endType as string, '')
+  const endPermits = (accountNumber: string) => {
+    permitCtx?.endValidPermits(
+      permitIds as string[],
+      endType as string,
+      accountNumber
     );
-    setEndPermitState(EndPermitStep.RESULT);
-  }
+  };
 
   return (
     <div className="end-permit-component">
@@ -84,11 +76,7 @@ const EndPermit = (): React.ReactElement => {
           refundTotalVat={-getChangeTotal(priceChangesList, 'priceChangeVat')}
           onCancel={() => setEndPermitState(EndPermitStep.PRICE_PREVIEW)}
           onConfirm={accountNumber => {
-            permitCtx?.endValidPermits(
-              permitIds as string[],
-              endType as string,
-              accountNumber
-            );
+            endPermits(accountNumber);
             setEndPermitState(EndPermitStep.RESULT);
           }}
         />
@@ -98,11 +86,18 @@ const EndPermit = (): React.ReactElement => {
           className="price-change-preview"
           priceChangesList={priceChangesList}
           onCancel={() => navigate(ROUTES.VALID_PERMITS)}
-          onConfirm={() => setEndPermitState(EndPermitStep.REFUND)}
+          onConfirm={() => {
+            if (getChangeTotal(priceChangesList, 'priceChange')) {
+              setEndPermitState(EndPermitStep.REFUND);
+            } else {
+              endPermits('');
+              setEndPermitState(EndPermitStep.RESULT);
+            }
+          }}
         />
       )}
       {endPermitState === EndPermitStep.RESULT && (
-        <EndPermitResult getsRefund={getsRefund} email={profile.email} />
+        <EndPermitResult getsRefund={getsRefund} email={profile?.email} />
       )}
     </div>
   );
