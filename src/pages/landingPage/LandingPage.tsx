@@ -1,4 +1,4 @@
-import { Button, LoadingSpinner, Notification } from 'hds-react';
+import { Button, IconSignout, LoadingSpinner, Notification } from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
@@ -31,7 +31,20 @@ const LandingPage = (): React.ReactElement => {
     );
   }
   if (profile && profile.age < +allowedAgeLimit) {
-    return <div>{t(`${T_PATH}.underAgeMessage`)}</div>;
+    return (
+      <>
+        <Notification type="alert" label={t(`${T_PATH}.underAgeLabel`)}>
+          {t(`${T_PATH}.underAgeMessage`)}
+        </Notification>
+        <Button
+          className="logout-button"
+          theme="black"
+          iconLeft={<IconSignout />}
+          onClick={(): void => client?.logout()}>
+          {t(`${T_PATH}.logout`)}
+        </Button>
+      </>
+    );
   }
 
   if (
@@ -39,7 +52,20 @@ const LandingPage = (): React.ReactElement => {
     !profile?.primaryAddress &&
     !profile?.otherAddress
   ) {
-    return <div>{t(`${T_PATH}.noValidAddress`)}</div>;
+    return (
+      <>
+        <Notification type="alert" label={t(`${T_PATH}.noValidAddressLabel`)}>
+          {t(`${T_PATH}.noValidAddressMessage`)}
+        </Notification>
+        <Button
+          className="logout-button"
+          theme="black"
+          iconLeft={<IconSignout />}
+          onClick={(): void => client?.logout()}>
+          {t(`${T_PATH}.logout`)}
+        </Button>
+      </>
+    );
   }
 
   if (permitCtx?.getStatus() === 'error') {
