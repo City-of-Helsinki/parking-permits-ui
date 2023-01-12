@@ -124,10 +124,14 @@ const Permit = ({
               <span>
                 {format(new Date(permit.startTime as string), dateFormat)}
                 {' - '}
+                {permit.contractType === ParkingContractType.OPEN_ENDED
+                  ? format(
+                      new Date(permit.currentPeriodEndTime as string),
+                      dateFormat
+                    )
+                  : format(new Date(permit.endTime as string), dateFormat)}
                 {permit.contractType === ParkingContractType.OPEN_ENDED &&
-                  t(`${T_PATH}.contractType`)}
-                {permit.contractType !== ParkingContractType.OPEN_ENDED &&
-                  format(new Date(permit.endTime as string), dateFormat)}
+                  ' ' + t(`${T_PATH}.contractType`)}
               </span>
             </div>
           </>
