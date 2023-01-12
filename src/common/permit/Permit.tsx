@@ -131,7 +131,7 @@ const Permit = ({
                     )
                   : format(new Date(permit.endTime as string), dateFormat)}
                 {permit.contractType === ParkingContractType.OPEN_ENDED &&
-                  ' ' + t(`${T_PATH}.contractType`)}
+                  ` ${t(`${T_PATH}.contractType`)}`}
               </span>
             </div>
           </>
