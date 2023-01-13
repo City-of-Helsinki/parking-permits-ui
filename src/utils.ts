@@ -69,10 +69,15 @@ export const getMonthCount = (
     return product.quantity;
   }
 
+  if (!permitStartTime || !permitEndTime) {
+    return 0;
+  }
+
   const intervalDuration = intervalToDuration({
     start: new Date(),
     end: new Date(permitEndTime),
   });
+
   // eslint-disable-next-line no-magic-numbers
   return (intervalDuration.years || 0) * 12 + (intervalDuration.months || 0);
 };
