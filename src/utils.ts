@@ -55,7 +55,8 @@ export const dateAsNumber = (date: Date | string): number =>
 export const getMonthCount = (
   permitEndStartDate: Date,
   permitStartTime: string,
-  product: Product
+  product: Product,
+  permitEndTime: string
 ): number => {
   // It should consider the start time of the permit.
   // Eg: If permit was bought and started just before the permitEndStartDate
@@ -70,7 +71,8 @@ export const getMonthCount = (
 
   const intervalDuration = intervalToDuration({
     start: new Date(),
-    end: new Date(product.endDate),
+    end: new Date(permitEndTime),
   });
-  return intervalDuration.months || 0;
+  // eslint-disable-next-line no-magic-numbers
+  return (intervalDuration.years || 0) * 12 + (intervalDuration.months || 0);
 };

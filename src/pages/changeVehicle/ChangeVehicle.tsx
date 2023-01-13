@@ -107,7 +107,8 @@ const ChangeVehicle = (): React.ReactElement => {
               monthCount: getMonthCount(
                 new Date(),
                 permit.startTime as string,
-                product
+                product,
+                permit.endTime as string
               ),
             })),
         },

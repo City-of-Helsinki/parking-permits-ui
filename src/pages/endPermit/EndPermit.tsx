@@ -53,7 +53,8 @@ const EndPermit = (): React.ReactElement => {
           monthCount: getMonthCount(
             endingOfPermitStartDate,
             permit.startTime as string,
-            product
+            product,
+            permit.endTime as string
           ),
         })),
     };
