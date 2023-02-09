@@ -1,0 +1,73 @@
+@import '../../assets/styles/mixin';
+
+.vehicle-detail-component {
+  .registration-input {
+    @include for-desktop {
+      max-width: 50%;
+    }
+  }
+  .change-btn,
+  .error-notification {
+    margin-top: var(--spacing-s);
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-s);
+    @include for-desktop {
+      max-width: 50%;
+    }
+
+    .car-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .registration-number {
+      margin-bottom: var(--spacing-2-xs);
+      @include for-phone {
+        margin-top: var(--spacing-2-xs);
+      }
+    }
+    .registration-number,
+    .price .offer {
+      font-size: var(--fontsize-heading-s);
+      font-weight: bold;
+    }
+    .emission-level {
+      font-size: 0.75rem;
+      margin: var(--spacing-2-xs) 0;
+      padding: 6px 6px 4px;
+      border-radius: 16px;
+    }
+    .low-emission {
+      background: var(--color-fog);
+    }
+    .high-emission {
+      background: var(--color-black-20);
+    }
+    .price {
+      display: flex;
+      align-items: center;
+      margin: var(--spacing-2-xs) 0;
+      white-space: nowrap;
+      @include for-phone {
+        flex-direction: column;
+      }
+      & > div {
+        margin-right: var(--spacing-s);
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+      & > div.invalid {
+        text-decoration: line-through;
+      }
+    }
+  }
+  .discount-checkbox {
+    user-select: none;
+    margin: var(--spacing-s) 0;
+  }
+}

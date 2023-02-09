@@ -1,6 +1,9 @@
 @import '../../assets/styles/mixin';
 
 .address-selector-component {
+  .no-address{
+    margin-top: 0;
+  }
   .addresses {
     display: flex;
     flex-wrap: wrap;
@@ -16,6 +19,9 @@
       @include for-phone {
         margin-top: var(--spacing-s);
       }
+    }
+    &.hasOnlyOneAddress > div {
+      flex-basis: 100%;
     }
     @include for-phone {
       flex-basis: 100%;

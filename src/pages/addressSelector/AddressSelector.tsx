@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Button, IconArrowRight, Notification } from 'hds-react';
 import { isEmpty } from 'lodash';
 import React, { useContext } from 'react';
@@ -44,43 +45,64 @@ const AddressSelector = (): React.ReactElement => {
   return (
     <div className="address-selector-component">
       <Hero
+        className={primaryAddress || otherAddress ? '' : 'no-address'}
         title={t(`${T_PATH}.title`, {
           firstName: profile?.firstName,
         })}
       />
-      <Notification label={t(`${T_PATH}.notification.info.label`)}>
-        {t(`${T_PATH}.notification.info.message`)}
-      </Notification>
-      <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
-      <div className="addresses">
-        {primaryAddress && (
-          <Address
-            isPrimary
-            disableSelection={!!validRegistrationNumbers?.length}
-            address={primaryAddress}
-            selectedAddress={selectedAddress}
-          />
+      {permitCtx?.getStatus() !== 'error' &&
+        (primaryAddress || otherAddress) && (
+          <Notification label={t(`${T_PATH}.notification.info.label`)}>
+            {t(`${T_PATH}.notification.info.message`)}
+          </Notification>
         )}
+      {permitCtx?.getStatus() === 'error' &&
+        (primaryAddress || otherAddress) && (
+          <Notification type="error">
+            {t(permitCtx?.getErrorMessage() || '')}
+          </Notification>
+        )}
+      {(primaryAddress || otherAddress) && (
+        <>
+          <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
+          <div
+            className={classNames('addresses', {
+              hasOnlyOneAddress:
+                [otherAddress, primaryAddress].filter(add => !!add)?.length ===
+                1,
+            })}>
+            {primaryAddress && (
+              <Address
+                isPrimary
+                showControl={!!otherAddress}
+                disableSelection={!!validRegistrationNumbers?.length}
+                address={primaryAddress}
+                selectedAddress={selectedAddress}
+              />
+            )}
 
-        {otherAddress && (
-          <Address
-            isPrimary={false}
-            address={otherAddress}
-            disableSelection={!!validRegistrationNumbers?.length}
-            selectedAddress={selectedAddress}
-          />
-        )}
-      </div>
-      <div className="action-buttons">
-        <Button
-          className="action-btn"
-          onClick={() => navigate(ROUTES.PERMIT_PRICES)}
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
-          <IconArrowRight />
-        </Button>
-        <div />
-      </div>
+            {otherAddress && (
+              <Address
+                isPrimary={false}
+                showControl={!!primaryAddress}
+                address={otherAddress}
+                disableSelection={!!validRegistrationNumbers?.length}
+                selectedAddress={selectedAddress}
+              />
+            )}
+          </div>
+          <div className="action-buttons">
+            <Button
+              className="action-btn"
+              onClick={() => navigate(ROUTES.PERMIT_PRICES)}
+              theme="black">
+              <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
+              <IconArrowRight />
+            </Button>
+            <div />
+          </div>
+        </>
+      )}
     </div>
   );
 };

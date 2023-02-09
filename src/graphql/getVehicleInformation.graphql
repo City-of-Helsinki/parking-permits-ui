@@ -1,0 +1,11 @@
+mutation Mutation($registration: String!) {
+  getVehicleInformation(registration: $registration) {
+    id
+    model
+    emission
+    isLowEmission
+    manufacturer
+    productionYear
+    registrationNumber
+  }
+}

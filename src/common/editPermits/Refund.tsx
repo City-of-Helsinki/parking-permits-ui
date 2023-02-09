@@ -57,7 +57,23 @@ const Refund: React.FC<RefundProps> = ({
         id="account-number"
         label={t(`${T_PATH}.accountNumber`)}
         value={accountNumber}
-        onChange={e => setAccountNumber(e.target.value)}
+        onChange={e => {
+          const { target } = e;
+          let position = target.selectionEnd || 0;
+          const { length } = target.value;
+          target.value = target.value
+            .replace(/[^\dA-Z]/g, '')
+            .replace(/(.{4})/g, '$1 ')
+            .trim();
+          position +=
+            target.value.charAt(position - 1) === ' ' &&
+            target.value.charAt(length - 1) === ' ' &&
+            length !== target.value.length
+              ? 1
+              : 0;
+          target.selectionEnd = position;
+          setAccountNumber(e.target.value);
+        }}
         errorText={
           accountNumber && !isValidIBAN(accountNumber)
             ? t(`${T_PATH}.invalidAccountNumber`)
@@ -98,7 +114,7 @@ const Refund: React.FC<RefundProps> = ({
           iconLeft={<IconArrowLeft />}
           onClick={() => onCancel()}
           theme="black">
-          <span>{t(`${T_PATH}.actionBtn.skip`)}</span>
+          <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
         </Button>
       </div>
     </div>

@@ -1,4 +1,5 @@
 @import '../../assets/styles/mixin';
+
 .permit-component {
   display: flex;
   flex-direction: row;
@@ -16,7 +17,9 @@
       margin-left: 0;
       width: 100%;
     }
-    .processing {
+    .processing,
+    .vehicleChanged,
+    .addressChanged {
       background: var(--color-black-10);
     }
   }
@@ -71,8 +74,6 @@
     }
   }
   .divider {
-    border-top: 1px solid var(--color-black-20);
-    height: 1px;
     margin: var(--spacing-s) 0;
     width: 100%;
   }
@@ -83,6 +84,17 @@
     .message-text {
       margin-left: var(--spacing-s);
       font-size: var(--fontsize-body-m);
+    }
+  }
+  .invalid-title {
+    font-size: var(--fontsize-body-xl);
+    margin-top: var(--spacing-s);
+  }
+  .hasTemporary {
+    background: var(--color-black-10);
+    padding: var(--spacing-s);
+    .document-icon {
+      background: var(--color-black-40);
     }
   }
 }

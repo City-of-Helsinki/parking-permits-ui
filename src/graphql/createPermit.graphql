@@ -1,7 +1,8 @@
-mutation Mutation($zoneId: ID!, $registration: String!) {
-  createParkingPermit(zoneId: $zoneId, registration: $registration) {
+mutation Mutation($addressId: ID!, $registration: String!) {
+  createParkingPermit(addressId: $addressId, registration: $registration) {
     id
-    orderId
+    talpaOrderId
+    receiptUrl
     subscriptionId
     startType
     startTime
@@ -17,9 +18,21 @@ mutation Mutation($zoneId: ID!, $registration: String!) {
     canEndAfterCurrentPeriod
     hasRefund
     vehicleChanged
+    zoneChanged
+    isOrderConfirmed
+    activeTemporaryVehicle {
+      id
+      startTime
+      endTime
+      isActive
+      vehicle {
+        model
+        manufacturer
+        registrationNumber
+      }
+    }
     vehicle {
       id
-      powerType
       model
       emission
       isLowEmission
@@ -35,6 +48,7 @@ mutation Mutation($zoneId: ID!, $registration: String!) {
       location
     }
     products {
+      name
       vat
       endDate
       startDate

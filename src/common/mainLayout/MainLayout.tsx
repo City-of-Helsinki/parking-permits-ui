@@ -21,7 +21,7 @@ const MainLayout = (): React.ReactElement => {
   return (
     <div className="main-page">
       <div style={{ width: '100%' }}>
-        <Navbar showNavItems={!canShowStepper()} />
+        <Navbar />
         {canShowStepper() && (
           <Stepper style={{ background: 'var(--color-white)' }} />
         )}

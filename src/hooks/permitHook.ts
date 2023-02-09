@@ -137,12 +137,25 @@ const usePermitState = (): PermitActions => {
     getStatus: () => status,
     getStep: () => step,
     getSelectedAddress: () => selectedAddress,
+    permitExists: registration =>
+      permits.some(
+        p => p.vehicle.registrationNumber === registration.toUpperCase()
+      ),
     setSelectedAddress: userAddress => setSelectedAddress(userAddress),
     getPermits: () => permits,
+    fetchPermits: (): Promise<void> => fetchPermits(),
     getDraftPermits: () =>
-      permits.filter(permit => permit.status === PermitStatus.DRAFT),
+      permits
+        .filter(permit => permit.status === PermitStatus.DRAFT)
+        .sort(a => (a.primaryVehicle ? -1 : 1)),
     getValidPermits: () =>
-      permits.filter(permit => permit.status === PermitStatus.VALID),
+      permits.filter(
+        permit =>
+          [PermitStatus.VALID, PermitStatus.PAYMENT_IN_PROGRESS].includes(
+            permit.status
+          ) ||
+          (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed)
+      ),
     getChangeAddressPriceChanges,
     changeAddress: (addressId, iban) => changeAddressRequest(addressId, iban),
     setStep: count => setStep(count),

@@ -9,7 +9,7 @@ import {
 import React, { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { UserAddress, Zone } from '../../types';
+import { Permit, UserAddress } from '../../types';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import { formatAddress } from '../utils';
 import './address.scss';
@@ -41,6 +41,7 @@ interface Props {
   address: UserAddress;
   selectedAddress: UserAddress | undefined;
   disableSelection?: boolean;
+  setSelectedAddress?: (address: UserAddress) => void;
 }
 
 const Address: FC<Props> = ({
@@ -49,6 +50,7 @@ const Address: FC<Props> = ({
   address,
   selectedAddress,
   disableSelection = false,
+  setSelectedAddress,
 }): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
 
@@ -59,8 +61,8 @@ const Address: FC<Props> = ({
     permitCtx?.setSelectedAddress(userAddress);
     if (permitCtx?.getPermits().some(p => p.id)) {
       permitCtx?.updatePermit({
-        zoneId: userAddress.zone?.id,
-      } as Partial<Zone>);
+        addressId: userAddress.id,
+      } as Partial<Permit>);
     }
   };
   return (
@@ -78,7 +80,11 @@ const Address: FC<Props> = ({
             disabled={!address.zone || disableSelection}
             label={<AddressLabel isPrimary={isPrimary} address={address} />}
             checked={selectedAddress?.id === address.id}
-            onClick={() => updateAddressZone(address)}
+            onClick={() =>
+              setSelectedAddress
+                ? setSelectedAddress(address)
+                : updateAddressZone(address)
+            }
           />
           <ArrowIcon onClick={() => setOpenState(!openState)} />
         </div>
@@ -101,7 +107,13 @@ const Address: FC<Props> = ({
               {t(`${T_PATH}.notification.error.message`)}
             </Notification>
           )}
-          {address.zone && <ParkingZonesMap userAddress={address} zoom={13} />}
+          {address.zone && (
+            <ParkingZonesMap
+              userAddress={address}
+              zoom={13}
+              zone={address.zone}
+            />
+          )}
         </>
       )}
     </Card>

@@ -1,5 +1,5 @@
 import { ParkingContractType, ParkingStartType } from './enums';
-import { Permit, PermitPriceChanges } from './permits';
+import { Permit, PermitPriceChanges, Vehicle } from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
 export type GraphQLZone = Zone & {
@@ -34,12 +34,29 @@ export type endPermitQueryResult = {
   endParkingPermit: boolean;
 };
 
+export type addTemporaryVehicle = {
+  addTemporaryVehicle: boolean;
+};
+
+export type removeTemporaryVehicle = {
+  removeTemporaryVehicle: boolean;
+};
 export type UpdatePermitQueryResult = {
   updateParkingPermit: Permit;
 };
 
 export type CreatePermitQueryResult = {
   createParkingPermit: Permit;
+};
+
+export type GetVehicleInformationQueryResult = {
+  getVehicleInformation: Vehicle;
+};
+
+export type UpdatePermitVehicleQueryResult = {
+  updatePermitVehicle: {
+    checkoutUrl?: string;
+  };
 };
 
 export type REG_ACTION = {
@@ -62,5 +79,11 @@ export type ChangeAddressResult = {
   changeAddress: {
     success: boolean;
     checkoutUrl?: string;
+  };
+};
+
+export type UpdateLanguageResult = {
+  updateLanguage: {
+    language: string;
   };
 };

@@ -1,6 +1,7 @@
 mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
   updateParkingPermit(input: $input, permitId: $permitId) { id
-    orderId
+    talpaOrderId
+    receiptUrl
     subscriptionId
     startType
     startTime
@@ -16,9 +17,21 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
     canEndAfterCurrentPeriod
     hasRefund
     vehicleChanged
+    zoneChanged
+    isOrderConfirmed
+    activeTemporaryVehicle {
+      id
+      startTime
+      endTime
+      isActive
+      vehicle {
+        model
+        manufacturer
+        registrationNumber
+      }
+    }
     vehicle {
       id
-      powerType
       model
       emission
       isLowEmission
@@ -34,6 +47,7 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
       location
     }
     products {
+      name
       vat
       endDate
       startDate

@@ -112,7 +112,7 @@ const PermitType = ({
               onClick={() =>
                 updatePermitData({
                   startType: ParkingStartType.IMMEDIATELY,
-                  startTime: startOfDay(addDays(new Date(), 1)),
+                  startTime: new Date().toISOString(),
                 })
               }
             />

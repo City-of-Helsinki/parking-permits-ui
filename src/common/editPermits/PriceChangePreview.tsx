@@ -1,8 +1,13 @@
 import { Button, IconArrowLeft, IconArrowRight } from 'hds-react';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitPriceChangeItem, PermitPriceChanges } from '../../types/permits';
-import { formatDateDisplay, formatMonthlyPrice, formatVehicle } from '../utils';
+import {
+  PermitPriceChangeItem,
+  PermitPriceChanges,
+  Vehicle,
+} from '../../types/permits';
+import { formatDateDisplay, formatVehicle } from '../utils';
+import { formatMonthlyPrice } from '../../utils';
 import './PriceChangePreview.scss';
 import { getPermitPriceTotal } from './utils';
 
@@ -104,10 +109,11 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
     <div className={className}>
       <div className="title">{t(`${T_PATH}.title`)}</div>
       <div className="price-change-detail">
-        <div className="subtitle">{t(`${T_PATH}.subtitle`)}</div>
-        {priceChangesList.map(({ permit, priceChanges }) => (
-          <div className="permit-price-changes" key={permit.id}>
-            <div className="vehicle">{formatVehicle(permit.vehicle)}</div>
+        {priceChangesList.map(({ permit, vehicle, priceChanges }) => (
+          <div className="permit-price-changes" key={permit?.id || vehicle?.id}>
+            <div className="vehicle">
+              {formatVehicle((permit?.vehicle as Vehicle) || vehicle)}
+            </div>
             {priceChanges.map((priceChangeItem, index) => (
               <Fragment
                 key={`${priceChangeItem.product}-${priceChangeItem.startDate}`}>
@@ -146,12 +152,12 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
                 <b>{t(`${T_PATH}.refundTotal`)}</b>
               </div>
               <div>
-                <b>{-priceChangeTotal} €</b>
+                <b>{-priceChangeTotal.toFixed(2)} €</b>
               </div>
             </div>
             <div className="row">
               <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-              <div>{-priceChangeVatTotal} €</div>
+              <div>{-priceChangeVatTotal.toFixed(2)} €</div>
             </div>
           </div>
         )}

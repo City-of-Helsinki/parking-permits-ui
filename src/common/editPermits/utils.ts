@@ -1,4 +1,4 @@
-import { PermitPriceChangeItem } from '../../types';
+import { PermitPriceChangeItem, PermitPriceChanges } from '../../types';
 
 // eslint-disable-next-line import/prefer-default-export
 export function getPermitPriceTotal(
@@ -10,3 +10,12 @@ export function getPermitPriceTotal(
     0
   );
 }
+
+export const getChangeTotal = (
+  priceChangesList: PermitPriceChanges[],
+  priceType: 'newPrice' | 'previousPrice' | 'priceChange' | 'priceChangeVat'
+): number =>
+  priceChangesList.reduce(
+    (total, item) => total + getPermitPriceTotal(item.priceChanges, priceType),
+    0
+  );

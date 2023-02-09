@@ -1,42 +1,27 @@
 import { Navigation } from 'hds-react';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { matchPath, useLocation } from 'react-router-dom';
 import { ClientContext } from '../../client/ClientProvider';
+import { UserProfileContext } from '../../hooks/userProfileProvider';
 
 const T_PATH = 'common.navbar.Navbar';
 
-const LINKS = [
-  { url: '/', label: `${T_PATH}.frontPage` },
-  { url: '/receipts', label: `${T_PATH}.receipts` },
-  { url: '/messages', label: `${T_PATH}.messages` },
-  { url: '/profile', label: `${T_PATH}.ownProfile` },
-];
-
 const LANGUAGES = ['fi', 'sv', 'en'];
 
-export interface Props {
-  showNavItems?: boolean;
-}
-const Navbar = ({ showNavItems = false }: Props): React.ReactElement => {
+const Navbar = (): React.ReactElement => {
   const clientCtx = useContext(ClientContext);
   const client = clientCtx?.client;
   const authenticated = client?.isAuthenticated();
-  const location = useLocation();
+  const profileCtx = useContext(UserProfileContext);
   const { t, i18n } = useTranslation();
 
-  const [language, setLang] = useState<string>(LANGUAGES[0]);
   const setLanguage = (code: string) => {
-    i18n.changeLanguage(code);
-    setLang(code);
+    i18n.changeLanguage(code).then(() => profileCtx?.updateLanguage(code));
   };
 
   const initialized = client?.isInitialized();
   const user = client?.getUser();
   const userName = user ? `${user.given_name} ${user.family_name}` : '';
-
-  const isActiveLink = (path: string, currentPath: string): boolean =>
-    !!matchPath({ path }, currentPath);
 
   return (
     <>
@@ -45,20 +30,8 @@ const Navbar = ({ showNavItems = false }: Props): React.ReactElement => {
         menuToggleAriaLabel="menu"
         skipTo="#content"
         skipToContentLabel={t(`${T_PATH}.skipToContent`)}>
-        {showNavItems && authenticated && (
-          <Navigation.Row>
-            {LINKS.map(({ label, url }) => (
-              <Navigation.Item
-                key={url}
-                active={isActiveLink(url, location.pathname)}
-                href={url}
-                label={t(label)}
-              />
-            ))}
-          </Navigation.Row>
-        )}
         <Navigation.Actions>
-          <Navigation.LanguageSelector label={language.toUpperCase()}>
+          <Navigation.LanguageSelector label={i18n.language.toUpperCase()}>
             {LANGUAGES.map(lang => (
               <Navigation.Item
                 key={lang}

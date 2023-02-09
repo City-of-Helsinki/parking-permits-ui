@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { addMonths, format } from 'date-fns';
+import { format } from 'date-fns';
 import {
   Button,
   Card,
@@ -12,18 +12,23 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { removeTemporaryVehicleFromPermit } from '../../graphql/permitGqlClient';
 import {
   ParkingContractType,
   Permit as PermitModel,
+  PermitEditType,
   PermitEndType,
   PermitStatus,
   ROUTES,
   UserAddress,
 } from '../../types';
 import AddressLabel from '../addressLabel/AddressLabel';
+import DeleteTemporaryVehicleDialog from '../deleteTemporaryVehicleDialog/DeleteTemporaryVehicleDialog';
+import EditPermitDialog from '../editPermitDialog/EditPermitDialog';
 import EndPermitDialog from '../endPermitDialog/EndPermitDialog';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
+import { dateAsNumber } from '../../utils';
 
 const T_PATH = 'common.permit.Permit';
 
@@ -33,6 +38,7 @@ export interface Props {
   showActionsButtons?: boolean;
   hideMap?: boolean;
   showChangeAddressButtons?: boolean;
+  fetchPermits?: () => void;
 }
 
 const Permit = ({
@@ -41,10 +47,15 @@ const Permit = ({
   hideMap = false,
   showActionsButtons = false,
   showChangeAddressButtons = false,
+  fetchPermits,
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy HH:mm';
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [editPermitId, setEditPermitId] = useState<string | null>(null);
+  const [deleteTmpVehiclePermitId, setDeleteTmpVehiclePermitId] = useState<
+    string | null
+  >(null);
   const [openEndPermitDialog, setOpenEndPermitDialog] = useState(
     permits.reduce(
       (opened: { [k: string]: boolean }, p) => ({ ...opened, [p.id]: false }),
@@ -52,41 +63,83 @@ const Permit = ({
     )
   );
 
-  const getEndTime = (permit: PermitModel) =>
-    permit.startTime
-      ? format(
-          addMonths(
-            new Date(permit.startTime as string),
-            permit?.monthCount || 0
-          ),
-          dateFormat
-        )
-      : '';
   const isProcessing = (permit: PermitModel) =>
-    permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.orderId;
+    (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
+      permit.talpaOrderId) ||
+    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed);
+  const hasTemporaryVehicle = (permit: PermitModel) =>
+    permit.activeTemporaryVehicle;
+
+  const removeTemporaryVehicle = async (permitId: string) => {
+    await removeTemporaryVehicleFromPermit(permitId).then(() => {
+      if (fetchPermits) {
+        fetchPermits();
+      }
+    });
+  };
+
   const getPermit = (permit: PermitModel) => {
+    const activeTempVehicle = permit.activeTemporaryVehicle;
     const { registrationNumber, manufacturer, model } = permit.vehicle;
     return (
       <div className="pp-list" key={permit.vehicle.registrationNumber}>
-        <div className="pp-list__title">
-          <span
+        {activeTempVehicle && (
+          <>
+            <div className="pp-list__title">
+              <span
+                className={classNames('pp-list__title__icon document-icon')}>
+                <IconDocument className="icon" />
+              </span>
+              <span className="pp-list__title__text">{`${activeTempVehicle.vehicle.registrationNumber} ${activeTempVehicle.vehicle.manufacturer} ${activeTempVehicle.vehicle.model}`}</span>
+            </div>
+            <Button
+              className="permit-actions-buttons"
+              variant="supplementary"
+              disabled={permits.some(isProcessing)}
+              style={{ margin: 'var(--spacing-xs) 0' }}
+              iconLeft={<IconAngleRight />}
+              onClick={() => setDeleteTmpVehiclePermitId(permit.id)}>
+              {t(`${T_PATH}.deleteTemporaryVehicle`)}
+            </Button>
+          </>
+        )}
+        {activeTempVehicle && (
+          <p className="invalid-title">{t(`${T_PATH}.invalidPermit`)}</p>
+        )}
+        <div
+          className={classNames('pp-list__title', {
+            hasTemporary: activeTempVehicle,
+          })}>
+          <div
             className={classNames('pp-list__title__icon document-icon', {
               processing: isProcessing(permit),
             })}>
             <IconDocument className="icon" />
-          </span>
+          </div>
           <span className="pp-list__title__text">{`${registrationNumber} ${manufacturer} ${model}`}</span>
         </div>
-        <div className="pp-list__subtitle">
-          <span>
-            {format(new Date(permit.startTime as string), dateFormat)}
-            {' - '}
-            {permit.contractType === ParkingContractType.OPEN_ENDED &&
-              t(`${T_PATH}.contractType`)}
-            {permit.contractType !== ParkingContractType.OPEN_ENDED &&
-              getEndTime(permit)}
-          </span>
-        </div>
+        {!activeTempVehicle && (
+          <>
+            <div className="pp-list__subtitle">
+              <span>
+                {format(new Date(permit.startTime as string), dateFormat)}
+                {' - '}
+                {permit.contractType === ParkingContractType.OPEN_ENDED &&
+                !permit.endTime
+                  ? format(
+                      new Date(permit.currentPeriodEndTime as string),
+                      dateFormat
+                    )
+                  : format(new Date(permit.endTime as string), dateFormat)}
+                {permit.contractType === ParkingContractType.OPEN_ENDED &&
+                  ` ${t(`${T_PATH}.contractTypeOpenEnded`)}`}
+                {permit.contractType === ParkingContractType.FIXED_PERIOD &&
+                  ` ${t(`${T_PATH}.contractTypeFixedPeriod`)}`}
+              </span>
+            </div>
+          </>
+        )}
+
         {permit.vehicle.isLowEmission && (
           <div className="message">
             <IconCheckCircle
@@ -100,6 +153,16 @@ const Permit = ({
     );
   };
   const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
+  const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
+
+  const bothPermitWithSameContractType =
+    permits.every(p => p.contractType === ParkingContractType.OPEN_ENDED) ||
+    permits.every(p => p.contractType === ParkingContractType.FIXED_PERIOD);
+
+  const isAllPermitStarted = permits.every(
+    p => p.startTime && dateAsNumber(p.startTime) < new Date().valueOf()
+  );
+
   return (
     <div className="permit-component">
       {!hideMap && (
@@ -112,13 +175,22 @@ const Permit = ({
               : 'var(--color-white)',
           }}>
           <AddressLabel address={address} />
-          <ParkingZonesMap userAddress={address} zoom={13} />
+          <ParkingZonesMap
+            userAddress={address}
+            zoom={13}
+            zone={permits[0].parkingZone}
+          />
           {showActionsButtons && showChangeAddressButtons && (
             <div className="permit-action-btns">
               <Button
                 className="permit-actions-buttons"
                 variant="supplementary"
-                disabled={permits.some(isProcessing)}
+                disabled={
+                  permits.some(isProcessing) ||
+                  permits.some(hasTemporaryVehicle) ||
+                  !bothPermitWithSameContractType ||
+                  !isAllPermitStarted
+                }
                 style={{ margin: 'var(--spacing-xs) 0' }}
                 iconLeft={<IconAngleRight />}
                 onClick={() => navigate(ROUTES.CHANGE_ADDRESS)}>
@@ -136,22 +208,34 @@ const Permit = ({
           <Card
             className={classNames({
               processing: isProcessing(permit),
+              vehicleChanged: permit.vehicleChanged,
+              addressChanged: permit.zoneChanged,
             })}
             key={uuidv4()}
             style={{ marginTop: index > 0 ? 'var(--spacing-xs)' : '0' }}>
             {getPermit(permit)}
             {showActionsButtons && (
               <div className="permit-action-btns">
-                <Button
-                  variant="supplementary"
-                  disabled={permits.some(isProcessing)}
-                  iconLeft={<IconAngleRight />}>
-                  {t(`${T_PATH}.editVehicle`)}
-                </Button>
+                {!permits.some(hasTemporaryVehicle) && (
+                  <Button
+                    variant="supplementary"
+                    disabled={
+                      permits.some(isProcessing) ||
+                      permits.some(hasAddressChanged) ||
+                      !isAllPermitStarted
+                    }
+                    onClick={() => setEditPermitId(permit.id)}
+                    iconLeft={<IconAngleRight />}>
+                    {t(`${T_PATH}.editVehicle`)}
+                  </Button>
+                )}
                 {permits.length > 1 && index > 0 && (
                   <Button
                     variant="supplementary"
-                    disabled={!!isProcessing(permit)}
+                    disabled={
+                      !!isProcessing(permit) ||
+                      permits.some(hasTemporaryVehicle)
+                    }
                     iconLeft={<IconAngleRight />}
                     onClick={() =>
                       setOpenEndPermitDialog({
@@ -187,6 +271,31 @@ const Permit = ({
           </Card>
         ))}
       </div>
+      {editPermitId && (
+        <EditPermitDialog
+          isOpen={!!editPermitId}
+          permitId={editPermitId}
+          onCancel={() => setEditPermitId(null)}
+          onConfirm={(editType: PermitEditType, permitId) => {
+            setEditPermitId(null);
+            if (editType === PermitEditType.NEW) {
+              navigate(`/temporary-vehicle/${permitId}`);
+            } else {
+              navigate(`/change-vehicle/${permitId}`);
+            }
+          }}
+        />
+      )}
+      {deleteTmpVehiclePermitId && (
+        <DeleteTemporaryVehicleDialog
+          isOpen={!!deleteTmpVehiclePermitId}
+          onCancel={() => setDeleteTmpVehiclePermitId(null)}
+          onConfirm={() => {
+            setDeleteTmpVehiclePermitId(null);
+            removeTemporaryVehicle(deleteTmpVehiclePermitId);
+          }}
+        />
+      )}
     </div>
   );
 };

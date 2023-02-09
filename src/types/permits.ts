@@ -2,6 +2,7 @@ import { ParkingContractType, ParkingStartType, PermitStatus } from './enums';
 import { Zone } from './user';
 
 export interface Product {
+  name: string;
   vat: number;
   quantity: number;
   endDate: string;
@@ -11,9 +12,18 @@ export interface Product {
   lowEmissionDiscount: number;
 }
 
+export type TemporaryVehicle = {
+  id: string;
+  vehicle: Vehicle;
+  startTime: Date | string;
+  endTime: Date | string | null;
+  isActive: boolean;
+};
+
 export type Permit = {
   id: string;
-  orderId: string;
+  talpaOrderId: string;
+  receiptUrl: string;
   startType?: ParkingStartType;
   startTime?: Date | string;
   endTime?: Date | string | null;
@@ -21,6 +31,8 @@ export type Permit = {
   primaryVehicle: boolean;
   consentLowEmissionAccepted: boolean;
   vehicle: Vehicle;
+  activeTemporaryVehicle: TemporaryVehicle;
+  temporaryVehicles: TemporaryVehicle[];
   products: Product[];
   contractType: ParkingContractType;
   monthCount: number;
@@ -31,13 +43,15 @@ export type Permit = {
   hasRefund: boolean;
   monthlyPrice: number;
   canEndAfterCurrentPeriod: boolean;
+  vehicleChanged: boolean;
+  zoneChanged: boolean;
+  isOrderConfirmed: boolean;
 };
 
 export type Vehicle = {
   id: string;
   emission: number;
   isLowEmission: boolean;
-  powerType: string;
   manufacturer: string;
   model: string;
   productionYear: number;
@@ -60,6 +74,7 @@ export interface PermitPriceChangeItem {
 }
 
 export interface PermitPriceChanges {
-  permit: Pick<Permit, 'id' | 'vehicle'>;
+  permit?: Pick<Permit, 'id' | 'vehicle'>;
+  vehicle?: Vehicle;
   priceChanges: PermitPriceChangeItem[];
 }
