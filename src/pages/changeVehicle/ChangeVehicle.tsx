@@ -7,7 +7,6 @@ import { getChangeTotal } from '../../common/editPermits/utils';
 import VehicleDetails from '../../common/editPermits/VehicleDetails';
 import { updatePermitVehicle } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { UserProfileContext } from '../../hooks/userProfileProvider';
 import {
   ParkingContractType,
   PermitPriceChanges,
@@ -37,7 +36,6 @@ const ChangeVehicle = (): React.ReactElement => {
   const navigate = useNavigate();
   const params = useParams();
   const permitCtx = useContext(PermitStateContext);
-  const profileCtx = useContext(UserProfileContext);
   const [vehicle, setVehicle] = useState<Vehicle>();
   const [lowEmissionChecked, setLowEmissionChecked] = useState(false);
 
@@ -123,9 +121,8 @@ const ChangeVehicle = (): React.ReactElement => {
         await permitCtx?.fetchPermits();
         if (permit.contractType === ParkingContractType.OPEN_ENDED) {
           navigate(ROUTES.VALID_PERMITS);
-        } else if (checkoutUrl && profileCtx) {
-          const { id: userId } = profileCtx.getProfile();
-          window.open(`${checkoutUrl}?user=${userId}`, '_self');
+        } else if (checkoutUrl) {
+          window.open(`${checkoutUrl}`, '_self');
         }
       } else if (isOpenEndedPermitStarted([permit])) {
         updateAndNavigateToOrderView();

@@ -109,21 +109,21 @@ const usePermitState = (): PermitActions => {
     setStatus('loading');
     const order = await createOrder();
     if (order.checkoutUrl) {
-      window.open(`${order?.checkoutUrl}?user=${profile?.id}`, '_self');
+      window.open(`${order?.checkoutUrl}`, '_self');
     }
-  }, [profile]);
+  }, []);
 
   const changeAddressRequest = useCallback(
     async (addressId, iban) => {
       setStatus('loading');
       const { checkoutUrl } = await changeAddress(addressId, iban);
       if (checkoutUrl) {
-        window.open(`${checkoutUrl}?user=${profile?.id}`, '_self');
+        window.open(`${checkoutUrl}`, '_self');
       } else {
         await fetchPermits();
       }
     },
-    [fetchPermits, profile]
+    [fetchPermits]
   );
 
   useEffect(() => {
