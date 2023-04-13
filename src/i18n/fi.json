@@ -192,6 +192,7 @@
   "pages.permitPrices.PermitPrices.lowEmissionLabel": "Haluatko alennuksen pysäkointisovelluksissa?",
   "pages.permitPrices.PermitPrices.lowEmissionVehicle": "Vähäpäästöinen ajoneuvo",
   "pages.permitPrices.PermitPrices.permitInfo": "Ensisijainen tunnus on normaalihintainen, 2. tunnuksen hinta on 1,5-kertainen. Vähäpäästöiset ajoneuvot saavat 50 prosentin alennuksen.",
+  "pages.permitPrices.PermitPrices.price": "hinta",
   "pages.profilePage.ProfilePage.apiError": "Api access tokenin lataus epäonnistui",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.frontPage": "Palaa etusivulle",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.logout": "Kirjaudu ulos",

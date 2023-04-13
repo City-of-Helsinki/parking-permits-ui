@@ -58,9 +58,12 @@ const PermitPrices = (): React.ReactElement => {
               </div>
             )}
             <div className="offer">{formatMonthlyPrice(product.unitPrice)}</div>
-            <div>{`(${formatDate(product.startDate)} - ${formatDate(
-              product.endDate
-            )})`}</div>
+            <div>
+              ({t(`${T_PATH}.price`)}
+              {` ${formatDate(product.startDate)} - ${formatDate(
+                product.endDate
+              )})`}
+            </div>
           </div>
         ))}
       </>

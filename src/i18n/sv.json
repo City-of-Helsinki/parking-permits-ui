@@ -189,6 +189,7 @@
   "pages.permitPrices.PermitPrices.lowEmissionLabel": "Vill du ha rabatt på parkeringsapplikationer?",
   "pages.permitPrices.PermitPrices.lowEmissionVehicle": "Fordon med låga utsläpp",
   "pages.permitPrices.PermitPrices.permitInfo": "Primär ID är normalpriset, priset för andra ID är 1,5 gånger. Fordon med låga utsläpp får 50 % rabatt.",
+  "pages.permitPrices.PermitPrices.price": "pris",
   "pages.profilePage.ProfilePage.apiError": "Api-åtkomsttoken kunde inte laddas",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.frontPage": "Återgå till hemsidan",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.logout": "Logga ut",

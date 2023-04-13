@@ -191,6 +191,7 @@
   "pages.permitPrices.PermitPrices.lowEmissionLabel": "Want a discount on parking applications?",
   "pages.permitPrices.PermitPrices.lowEmissionVehicle": "Low-emission vehicle",
   "pages.permitPrices.PermitPrices.permitInfo": "The primary permit is the normal price, the price of the secondary permit is 1.5 times. Low-emission vehicles receive a 50% discount.",
+  "pages.permitPrices.PermitPrices.price": "price",
   "pages.profilePage.ProfilePage.apiError": "Api access token failed to load",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.frontPage": "Return to Home Page",
   "pages.purchasedOverview.PurchasedOverview.actionBtn.logout": "Log Out",
