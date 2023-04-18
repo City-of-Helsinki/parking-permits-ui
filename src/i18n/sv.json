@@ -53,6 +53,7 @@
   "common.editPermits.Refund.actionBtn.continue": "Fortsätt",
   "common.editPermits.Refund.actionBtn.cancel": "Avbryt",
   "common.editPermits.Refund.cityCustomerService": "Kundtjänst för stadsmiljö",
+  "common.editPermits.Refund.validAccountNumber": "Giltigt kontonummer",
   "common.editPermits.Refund.invalidAccountNumber": "Ogiltigt kontonummer",
   "common.editPermits.Refund.nonFinAcccount": "Om du har ett icke-finskt kontonummer, kontakta kundtjänst.",
   "common.editPermits.Refund.openingHourAndContactInfo": "Visa öppettider och kontaktinformation",

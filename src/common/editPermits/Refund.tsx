@@ -79,6 +79,11 @@ const Refund: React.FC<RefundProps> = ({
             ? t(`${T_PATH}.invalidAccountNumber`)
             : undefined
         }
+        successText={
+          accountNumber && isValidIBAN(accountNumber)
+            ? t(`${T_PATH}.validAccountNumber`)
+            : undefined
+        }
       />
       <div className="account-info">
         <div className="account-info-icon">
@@ -104,7 +109,9 @@ const Refund: React.FC<RefundProps> = ({
           type="submit"
           className="action-btn"
           iconRight={<IconArrowRight />}
-          onClick={() => onConfirm(accountNumber)}
+          onClick={() =>
+            onConfirm(isValidIBAN(accountNumber) ? accountNumber : '')
+          }
           theme="black">
           <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
         </Button>

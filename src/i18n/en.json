@@ -54,6 +54,7 @@
   "common.editPermits.Refund.actionBtn.continue": "Continue",
   "common.editPermits.Refund.actionBtn.cancel": "Cancel",
   "common.editPermits.Refund.cityCustomerService": "Urban Environment Division, Customer Services",
+  "common.editPermits.Refund.validAccountNumber": "Valid account number",
   "common.editPermits.Refund.invalidAccountNumber": "Invalid account number",
   "common.editPermits.Refund.nonFinAcccount": "If you have a non-Finnish account number, please contact customer service.",
   "common.editPermits.Refund.openingHourAndContactInfo": "View opening hours and contact information",

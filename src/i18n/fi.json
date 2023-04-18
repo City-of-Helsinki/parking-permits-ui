@@ -63,6 +63,7 @@
   "common.editPermits.Refund.actionBtn.continue": "Jatka",
   "common.editPermits.Refund.actionBtn.cancel": "Peruuta",
   "common.editPermits.Refund.cityCustomerService": "Kaupunkiympäristön asiakaspalvelu",
+  "common.editPermits.Refund.validAccountNumber": "Tilinumero tarkistettu",
   "common.editPermits.Refund.invalidAccountNumber": "Virheellinen tilinumero",
   "common.editPermits.Refund.nonFinAcccount": "Jos sinulla on muu kuin suomalainen tilinumero, ota yhteyttä asiakaspalveluun.",
   "common.editPermits.Refund.openingHourAndContactInfo": "Katso aukioloajat ja yhteystiedot",
