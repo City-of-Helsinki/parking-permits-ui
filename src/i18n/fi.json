@@ -212,11 +212,11 @@
   "pages.validPermit.ValidPermit.addressChanged.notification.message": "Helsinki-profiilin antamien tietojen perusteella osoitteesi on muuttunut ja vaatii siten välittömiä toimenpiteitä osoitetietojesi päivittämiseksi. Muuten tili vanhenee automaattisesti {{date}} klo {{time}}.",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Lupa ei ole vielä voimassa",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Lupa on maksettu ja odottaa luvan voimaantuloa.",
+  "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Muutos ajoneuvon tiedoissa",
+  "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Traficomista saatujen tietojen perusteella et ole tunnukseesi liitetyn ajoneuvon omistaja tai haltija. Päivitä ajoneuvon tiedot. Muutoin tunnuksen voimassaolo päättyy automaattisesti {{date}} klo {{time}}.",
   "pages.validPermit.ValidPermit.deleteOrder": "Päätä tilaus",
   "pages.validPermit.ValidPermit.newOrder": "Lisää toinen ajoneuvo",
   "pages.validPermit.ValidPermit.sectionLabel": "Pysäköintitunnuksesi",
-  "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Muutos ajoneuvon tiedoissa",
-  "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Traficomista saatujen tietojen perusteella et ole tunnukseesi liitetyn ajoneuvon omistaja tai haltija. Päivitä ajoneuvon tiedot. Muutoin tunnuksen voimassaolo päättyy automaattisesti {{date}} klo {{time}}.",
   "pages.vehicleSelector.VehicleSelector.label": "Pysäköintialue",
   "pages.vehicleSelector.VehicleSelector.noOfVehicleInformation": "Voit lisätä pysäköintitunnukseen yhden tai enintään kahden ajoneuvon tiedot.",
   "pages.vehicleSelector.VehicleSelector.sectionLabel": "Ajoneuvon tiedot"

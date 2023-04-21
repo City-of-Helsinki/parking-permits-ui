@@ -213,9 +213,9 @@
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Permit is paid and waiting for the permit to be active.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Change in vehicle information",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Based on the information provided by Traficom, you are not the owner or holder of the vehicle associated with your account. Please update your vehicle information. Otherwise the account will automatically expire on {{date}} at {{time}}.",
-  "pages.validPermit.deleteOrder": "Delete order",
-  "pages.validPermit.newOrder": "Add another vehicle",
-  "pages.validPermit.sectionLabel": "Your parking permit",
+  "pages.validPermit.ValidPermit.deleteOrder": "Delete order",
+  "pages.validPermit.ValidPermit.newOrder": "Add another vehicle",
+  "pages.validPermit.ValidPermit.sectionLabel": "Your parking permit",
   "pages.vehicleSelector.VehicleSelector.label": "Resident Parking Zone",
   "pages.vehicleSelector.VehicleSelector.noOfVehicleInformation": "You can add information for one or up to two vehicles to the parking permit.",
   "pages.vehicleSelector.VehicleSelector.sectionLabel": "Vehicle information"
