@@ -116,6 +116,7 @@ const ChangeAddress = (): React.ReactElement => {
                 showControl={selectableAddresses.length > 1}
                 selectedAddress={selectedAddress}
                 setSelectedAddress={setSelectedAddress}
+                addressLabel=""
               />
             ))}
           </div>

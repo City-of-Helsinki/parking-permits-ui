@@ -31,6 +31,8 @@ export type UserProfile = {
   language: string;
   phoneNumber: string;
   primaryAddress: UserAddress;
+  fullPrimaryAddress: string;
   otherAddress: UserAddress;
+  fullOtherAddress: string;
   token: string;
 };

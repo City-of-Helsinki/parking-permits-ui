@@ -29,6 +29,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
         isPrimary={false}
         address={address}
         selectedAddress={address}
+        addressLabel=''
       />
       <div className="action-buttons">
         <Button

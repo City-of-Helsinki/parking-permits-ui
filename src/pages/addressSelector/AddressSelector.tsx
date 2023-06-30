@@ -78,6 +78,7 @@ const AddressSelector = (): React.ReactElement => {
                 disableSelection={!!validRegistrationNumbers?.length}
                 address={primaryAddress}
                 selectedAddress={selectedAddress}
+                addressLabel={profile.fullPrimaryAddress}
               />
             )}
 
@@ -88,6 +89,7 @@ const AddressSelector = (): React.ReactElement => {
                 address={otherAddress}
                 disableSelection={!!validRegistrationNumbers?.length}
                 selectedAddress={selectedAddress}
+                addressLabel={profile.fullOtherAddress}
               />
             )}
           </div>

@@ -8,6 +8,7 @@ query {
     email
     phoneNumber
     language
+    fullPrimaryAddress
     primaryAddress {
       id
       streetName
@@ -26,6 +27,7 @@ query {
         location
       }
     }
+    fullOtherAddress
     otherAddress {
       id
       streetName
