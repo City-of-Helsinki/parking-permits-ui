@@ -31,8 +31,10 @@ export type UserProfile = {
   language: string;
   phoneNumber: string;
   primaryAddress: UserAddress;
-  fullPrimaryAddress: string;
+  primaryAddressApartment: string;
+  primaryAddressApartmentSv: string;
   otherAddress: UserAddress;
-  fullOtherAddress: string;
+  otherAddressApartment: string;
+  otherAddressApartmentSv: string;
   token: string;
 };

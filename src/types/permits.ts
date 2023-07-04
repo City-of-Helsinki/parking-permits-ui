@@ -46,6 +46,8 @@ export type Permit = {
   vehicleChanged: boolean;
   zoneChanged: boolean;
   isOrderConfirmed: boolean;
+  addressApartment: string;
+  addressApartmentSv: string;
 };
 
 export type Vehicle = {

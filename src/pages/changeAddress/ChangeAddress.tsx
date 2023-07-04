@@ -25,7 +25,8 @@ enum ChangeAddressStep {
 const T_PATH = 'pages.changeAddress.ChangeAddress';
 
 const ChangeAddress = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
   const navigate = useNavigate();
   const [step, setStep] = useState<ChangeAddressStep>(
     ChangeAddressStep.ADDRESS
@@ -50,19 +51,20 @@ const ChangeAddress = (): React.ReactElement => {
     return <Navigate to={ROUTES.BASE} />;
   }
 
-  const { primaryAddress, otherAddress } = profile;
+  const {
+    primaryAddress,
+    otherAddress,
+    primaryAddressApartment,
+    primaryAddressApartmentSv,
+    otherAddressApartment,
+    otherAddressApartmentSv,
+  } = profile;
   const primaryAddressZoneId = primaryAddress.zone?.id;
   const otherAddressZoneId = otherAddress.zone?.id;
 
   // Cannot update address if there's no other address
   // or the zone information is unavailable from address
-  // or the two address are in the same zone
-  if (
-    !otherAddress ||
-    !primaryAddressZoneId ||
-    !otherAddressZoneId ||
-    primaryAddressZoneId === otherAddressZoneId
-  ) {
+  if (!otherAddress || !primaryAddressZoneId || !otherAddressZoneId) {
     return (
       <div className="change-address-component">
         <Notification type="info">
@@ -87,6 +89,15 @@ const ChangeAddress = (): React.ReactElement => {
 
   if (!selectedAddress && notUsedAddress) {
     setSelectedAddress(notUsedAddress);
+  }
+
+  let addressApartment = '';
+  if (selectedAddress === primaryAddress) {
+    addressApartment =
+      lang === 'sv' ? primaryAddressApartmentSv : primaryAddressApartment;
+  } else {
+    addressApartment =
+      lang === 'sv' ? otherAddressApartmentSv : otherAddressApartment;
   }
 
   const priceChangeTotal = priceChangesList.reduce(
@@ -116,7 +127,7 @@ const ChangeAddress = (): React.ReactElement => {
                 showControl={selectableAddresses.length > 1}
                 selectedAddress={selectedAddress}
                 setSelectedAddress={setSelectedAddress}
-                addressLabel=""
+                addressApartment={addressApartment}
               />
             ))}
           </div>

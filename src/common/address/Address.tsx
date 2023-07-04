@@ -11,17 +11,23 @@ import { useTranslation } from 'react-i18next';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, UserAddress } from '../../types';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
+import { formatAddress } from '../utils';
 import './address.scss';
 
 const T_PATH = 'common.address.Address';
 
 interface AddressHeaderProps {
   isPrimary: boolean;
-  addressLabel: string;
+  address: UserAddress;
+  addressApartment: string;
 }
 
-const AddressLabel: FC<AddressHeaderProps> = ({ isPrimary, addressLabel }) => {
-  const { t } = useTranslation();
+const AddressLabel: FC<AddressHeaderProps> = ({
+  isPrimary,
+  address,
+  addressApartment,
+}) => {
+  const { t, i18n } = useTranslation();
   return (
     <div className="address__headers">
       <span className="address__headers__sub_header">
@@ -29,7 +35,7 @@ const AddressLabel: FC<AddressHeaderProps> = ({ isPrimary, addressLabel }) => {
           ? t(`${T_PATH}.permanentAddress`)
           : t(`${T_PATH}.temporaryAddress`)}
       </span>
-      <span>{addressLabel}</span>
+      <span>{formatAddress(address, addressApartment, i18n.language)}</span>
     </div>
   );
 };
@@ -40,7 +46,7 @@ interface Props {
   address: UserAddress;
   selectedAddress: UserAddress | undefined;
   disableSelection?: boolean;
-  addressLabel: string;
+  addressApartment: string;
   setSelectedAddress?: (address: UserAddress) => void;
 }
 
@@ -50,7 +56,7 @@ const Address: FC<Props> = ({
   address,
   selectedAddress,
   disableSelection = false,
-  addressLabel,
+  addressApartment,
   setSelectedAddress,
 }): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
@@ -80,7 +86,11 @@ const Address: FC<Props> = ({
             value={address.id}
             disabled={!address.zone || disableSelection}
             label={
-              <AddressLabel isPrimary={isPrimary} addressLabel={addressLabel} />
+              <AddressLabel
+                isPrimary={isPrimary}
+                address={address}
+                addressApartment={addressApartment}
+              />
             }
             checked={selectedAddress?.id === address.id}
             onClick={() =>
@@ -94,7 +104,11 @@ const Address: FC<Props> = ({
       )}
       {!showControl && (
         <div className="address">
-          <AddressLabel isPrimary={isPrimary} addressLabel={addressLabel} />
+          <AddressLabel
+            isPrimary={isPrimary}
+            address={address}
+            addressApartment={addressApartment}
+          />
         </div>
       )}
       <div className="zone_type">
