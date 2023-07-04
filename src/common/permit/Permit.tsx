@@ -50,7 +50,8 @@ const Permit = ({
   fetchPermits,
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy HH:mm';
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
   const navigate = useNavigate();
   const [editPermitId, setEditPermitId] = useState<string | null>(null);
   const [deleteTmpVehiclePermitId, setDeleteTmpVehiclePermitId] = useState<
@@ -174,7 +175,14 @@ const Permit = ({
               ? 'var(--color-black-10)'
               : 'var(--color-white)',
           }}>
-          <AddressLabel address={address} />
+          <AddressLabel
+            address={address}
+            addressApartment={
+              lang === 'sv'
+                ? permits[0].addressApartmentSv
+                : permits[0].addressApartment
+            }
+          />
           <ParkingZonesMap
             userAddress={address}
             zoom={13}

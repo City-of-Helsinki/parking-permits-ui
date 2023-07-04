@@ -20,6 +20,8 @@ query Query {
     vehicleChanged
     zoneChanged
     isOrderConfirmed
+    addressApartment
+    addressApartmentSv
     activeTemporaryVehicle {
       id
       startTime
