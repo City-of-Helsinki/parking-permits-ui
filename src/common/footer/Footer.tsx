@@ -42,13 +42,13 @@ const Footer = (): React.ReactElement => {
             label={t(`${T_PATH}.icon.instagram.label`)}
           />
           <HDSFooter.Item
-            icon={<IconTwitter />}
+            icon={<IconFacebook />}
             target="_blank"
             href="https://www.facebook.com/kaupunkiymparisto"
             label={t(`${T_PATH}.icon.facebook.label`)}
           />
           <HDSFooter.Item
-            icon={<IconFacebook />}
+            icon={<IconTwitter />}
             target="_blank"
             href="https://twitter.com/HelsinkiKymp"
             label={t(`${T_PATH}.icon.twitter.label`)}
