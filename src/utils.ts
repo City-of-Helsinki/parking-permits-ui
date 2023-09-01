@@ -1,5 +1,30 @@
+import { GraphQLError } from 'graphql';
 import { format, intervalToDuration } from 'date-fns';
-import { ParkingContractType, Permit, Product } from './types';
+import {
+  ParkingContractType,
+  ParkingPermitError,
+  Permit,
+  Product,
+} from './types';
+
+export const formatErrors = (
+  errors: ParkingPermitError[] | readonly GraphQLError[] | string[] | string,
+  defaultError = 'common.genericError'
+): string => {
+  // normalizes errors into single string.
+  if (!errors) {
+    return defaultError;
+  }
+  if (typeof errors === 'string') {
+    return errors;
+  }
+  if (typeof errors?.map === 'function') {
+    return errors
+      .map(e => (typeof e !== 'string' && e?.message) || e || defaultError)
+      .join('\n');
+  }
+  return defaultError;
+};
 
 export const validateTime = (time: string): boolean =>
   /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(time);

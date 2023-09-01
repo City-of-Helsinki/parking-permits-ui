@@ -20,6 +20,7 @@
   "common.address.Address.temporaryAddress": "Tillfällig adress",
   "common.addressLabel.permanentAddress": "Permanent adress",
   "common.addressLabel.temporaryAddress": "Tillfällig adress",
+  "common.genericError": "Något gick fel. Försök igen senare.",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.cancel": "Avbryt",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.continue": "Fortsätt",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.message": "Original fordonsdata kommer att returneras till ID-data.",

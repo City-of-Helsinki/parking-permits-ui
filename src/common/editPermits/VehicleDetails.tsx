@@ -22,7 +22,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getVehicleInformation } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, Vehicle } from '../../types';
-import { formatDate, formatMonthlyPrice } from '../../utils';
+import { formatDate, formatErrors, formatMonthlyPrice } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
 
@@ -68,9 +68,7 @@ const VehicleDetails: FC<Props> = ({
     setError('');
     await getVehicleInformation(tempRegistration)
       .then(setVehicle)
-      .catch(errors =>
-        setError(errors?.map((e: { message: string }) => e?.message).join('\n'))
-      );
+      .catch(errors => setError(formatErrors(errors)));
     setLoading(false);
   }, [setVehicle, tempRegistration]);
 

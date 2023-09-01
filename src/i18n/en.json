@@ -27,6 +27,7 @@
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.title": "Delete temporary vehicle",
   "common.discountLabel.DiscountLabel.discount": "I would also like to receive a 50 % discount on other off-street parking when paying with parking apps.",
   "common.discountLabel.DiscountLabel.readMore": "Read more.",
+  "common.genericError": "Something went wrong. Try again later.",
   "common.editPermitDialog.EditPermitDialog.actionBtn.cancel": "Cancel",
   "common.editPermitDialog.EditPermitDialog.actionBtn.continue": "Continue",
   "common.editPermitDialog.EditPermitDialog.newVehicle": "Change the token's vehicle permanently. The change may affect the price of the token.",
