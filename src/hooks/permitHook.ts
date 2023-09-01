@@ -18,7 +18,7 @@ import {
   UserAddress,
   Zone,
 } from '../types';
-import { getEnv } from '../utils';
+import { getEnv, formatErrors } from '../utils';
 import { UserProfileContext } from './userProfileProvider';
 
 const usePermitState = (): PermitActions => {
@@ -35,15 +35,7 @@ const usePermitState = (): PermitActions => {
 
   const onError = (errors: ParkingPermitError[] | string | string[]) => {
     setStatus('error');
-    if (!errors) {
-      return setError('Some thing went wrong');
-    }
-    if (typeof errors === 'string') {
-      return setError(errors);
-    }
-    return setError(
-      errors?.map(e => (typeof e !== 'string' && e?.message) || e).join('\n')
-    );
+    setError(formatErrors(errors));
   };
 
   const fetchPermits = useCallback(async () => {

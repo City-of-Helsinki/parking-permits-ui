@@ -20,6 +20,7 @@
   "common.address.Address.temporaryAddress": "Tilapäinen osoite",
   "common.addressLabel.permanentAddress": "Pysyvä osoite",
   "common.addressLabel.temporaryAddress": "Tilapäinen osoite",
+  "common.genericError": "Jokin meni pieleen. Kokeile hetken kuluttua uudelleen.",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.cancel": "Peruuta",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.continue": "Jatka",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.message": "Alkuperäisen ajoneuvon tiedot palautetaan tunnuksen tietoihin.",

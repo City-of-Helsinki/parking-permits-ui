@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { addTemporaryVehicleToPermit } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { ROUTES } from '../../types';
-import { combineDateAndTime, validateTime } from '../../utils';
+import { combineDateAndTime, formatErrors, validateTime } from '../../utils';
 import './temporaryVehicle.scss';
 
 const T_PATH = 'pages.temporaryVehicle.TemporaryVehicle';
@@ -63,7 +63,7 @@ const TemporaryVehicle = (): React.ReactElement => {
         navigate(ROUTES.VALID_PERMITS);
       })
       .catch(err => {
-        setError(err?.map((e: { message: string }) => e.message)?.join());
+        setError(formatErrors(err));
       });
     setLoading(false);
   };
