@@ -3,6 +3,7 @@ query Query {
     id
     talpaOrderId
     receiptUrl
+    checkoutUrl
     subscriptionId
     startType
     startTime
