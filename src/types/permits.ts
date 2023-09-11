@@ -24,6 +24,7 @@ export type Permit = {
   id: string;
   talpaOrderId: string;
   receiptUrl: string;
+  checkoutUrl: string;
   startType?: ParkingStartType;
   startTime?: Date | string;
   endTime?: Date | string | null;
