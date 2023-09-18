@@ -25,7 +25,6 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
-  Product,
   ROUTES,
   STEPPER,
 } from '../../types';
@@ -88,15 +87,9 @@ const DurationSelector = (): React.ReactElement => {
   };
 
   const getPrices = (permit: PermitModel) => {
-    const { isLowEmission } = permit.vehicle;
     const { contractType, products } = permit;
     const isOpenEnded = contractType === ParkingContractType.OPEN_ENDED;
 
-    const originalPrice = (product: Product) => (
-      <div className="original">{`${
-        (isOpenEnded ? product.unitPrice : product.totalPrice) * 2
-      } €${isOpenEnded ? '/kk' : ''}`}</div>
-    );
     return (
       <div className="prices">
         {products.map(product => (
@@ -104,13 +97,20 @@ const DurationSelector = (): React.ReactElement => {
             <div>{`(${formatDate(product.startDate)} - ${formatDate(
               product.endDate
             )})`}</div>
-            <div style={{ marginRight: '4px' }}>Yht.</div>
-            {isLowEmission && originalPrice(product)}
-            <div className="offer">{`${
-              isOpenEnded
-                ? formatPrice(product.unitPrice)
-                : formatPrice(product.totalPrice)
-            } €${isOpenEnded ? '/kk' : ''}`}</div>
+            <div style={{ marginRight: '4px' }}>
+              {t('pages.durationSelector.DurationSelector.total')}
+            </div>
+            <div className="offer">
+              {`${
+                isOpenEnded
+                  ? formatPrice(product.unitPrice)
+                  : formatPrice(product.totalPrice)
+              } €${
+                isOpenEnded
+                  ? t('pages.durationSelector.DurationSelector.perMonth')
+                  : ''
+              }`}
+            </div>
           </div>
         ))}
       </div>
@@ -157,11 +157,10 @@ const DurationSelector = (): React.ReactElement => {
         </>
       )}
       <div className="section-label">
-        {t(
-          `${T_PATH}.${
-            validPermits?.length ? 'secondPermitLabel' : 'sectionLabel'
-          }`
-        )}
+        {t(`
+          ${T_PATH}.${
+          validPermits?.length ? 'secondPermitLabel' : 'sectionLabel'
+        }`)}
       </div>
       {permitCtx?.getStatus() === 'error' && (
         <Notification type="error">

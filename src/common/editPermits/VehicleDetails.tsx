@@ -124,11 +124,6 @@ const VehicleDetails: FC<Props> = ({
                 vehicle &&
                 permit.products.map(product => (
                   <div key={uuidv4()} className="price">
-                    {permit.vehicle.isLowEmission !== vehicle.isLowEmission && (
-                      <div className="original invalid">
-                        {formatMonthlyPrice(product.unitPrice)}
-                      </div>
-                    )}
                     <div className="offer">
                       {formatMonthlyPrice(
                         product.unitPrice * priceChangeMultiplier

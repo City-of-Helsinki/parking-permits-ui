@@ -172,6 +172,8 @@
   "pages.addressSelector.AddressSelector.title": "Hej {{firstName}}!",
   "pages.changeAddress.ChangeAddress.actionBtn.cancel": "Avbryt",
   "pages.changeAddress.ChangeAddress.actionBtn.continue": "Fortsätt",
+  "pages.durationSelector.DurationSelector.total": "Total",
+  "pages.durationSelector.DurationSelector.perMonth": "pm.",
   "pages.durationSelector.DurationSelector.actionBtn.continue": "Fortsätt",
   "pages.durationSelector.DurationSelector.actionBtn.selectRegistration": "Köp parkeringstillstånd",
   "pages.durationSelector.DurationSelector.datePlaceHolder": "PP.KK.VVVV",
