@@ -7,6 +7,10 @@ import {
   Product,
 } from './types';
 
+const PC_100 = 100;
+
+type TranslateFunction = (name: string) => string;
+
 export const formatErrors = (
   errors: ParkingPermitError[] | readonly GraphQLError[] | string[] | string,
   defaultError = 'common.genericError'
@@ -60,10 +64,13 @@ export const formatDate = (date: string | Date): string =>
   format(typeof date === 'string' ? new Date(date) : date, 'd.M.yyyy');
 
 export const formatPrice = (price: number): string =>
-  parseFloat(price.toString()).toFixed(2);
+  // ensure accurate rounding e.g. 90.955 -> 90.96
+  (Math.round(price * PC_100) / PC_100).toFixed(2);
 
-export const formatMonthlyPrice = (price: number): string =>
-  `${formatPrice(price)} €/kk`;
+export const formatMonthlyPrice = (
+  price: number,
+  t: TranslateFunction
+): string => `${formatPrice(price)} ${t('common.pricePerMonth')}`;
 
 export const isOpenEndedPermitStarted = (
   permits: Permit[]
