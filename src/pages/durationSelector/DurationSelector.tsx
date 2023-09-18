@@ -28,7 +28,7 @@ import {
   ROUTES,
   STEPPER,
 } from '../../types';
-import { formatDate, formatPrice } from '../../utils';
+import { formatDate, formatMonthlyPrice, formatPrice } from '../../utils';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
@@ -101,15 +101,9 @@ const DurationSelector = (): React.ReactElement => {
               {t('pages.durationSelector.DurationSelector.total')}
             </div>
             <div className="offer">
-              {`${
-                isOpenEnded
-                  ? formatPrice(product.unitPrice)
-                  : formatPrice(product.totalPrice)
-              } €${
-                isOpenEnded
-                  ? t('pages.durationSelector.DurationSelector.perMonth')
-                  : ''
-              }`}
+              {isOpenEnded
+                ? formatMonthlyPrice(product.unitPrice, t)
+                : `${formatPrice(product.totalPrice)} €`}
             </div>
           </div>
         ))}

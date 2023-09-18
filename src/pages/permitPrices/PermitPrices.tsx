@@ -47,7 +47,9 @@ const PermitPrices = (): React.ReactElement => {
     <>
       {permit.products.map(product => (
         <div key={uuidv4()} className="price">
-          <div className="offer">{formatMonthlyPrice(product.unitPrice)}</div>
+          <div className="offer">
+            {formatMonthlyPrice(product.unitPrice, t)}
+          </div>
           <div>
             ({t(`${T_PATH}.price`)}
             {` ${formatDate(product.startDate)} - ${formatDate(

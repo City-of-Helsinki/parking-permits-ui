@@ -126,7 +126,8 @@ const VehicleDetails: FC<Props> = ({
                   <div key={uuidv4()} className="price">
                     <div className="offer">
                       {formatMonthlyPrice(
-                        product.unitPrice * priceChangeMultiplier
+                        product.unitPrice * priceChangeMultiplier,
+                        t
                       )}
                     </div>
                     <div>{`(${formatDate(product.startDate)} - ${formatDate(

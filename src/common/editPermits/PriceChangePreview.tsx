@@ -35,8 +35,11 @@ const PriceChangeItem: React.FC<PriceChangeItemProps> = ({
     permitPriceChangeItem;
   const monthlyPriceLabel =
     type === PriceChangeType.HIGHER_PRICE
-      ? `${formatMonthlyPrice(priceChange)} (${formatMonthlyPrice(newPrice)})`
-      : formatMonthlyPrice(newPrice);
+      ? `${formatMonthlyPrice(priceChange, t)} (${formatMonthlyPrice(
+          newPrice,
+          t
+        )})`
+      : formatMonthlyPrice(newPrice, t);
   return (
     <div className={className}>
       <div className="row">
@@ -57,7 +60,7 @@ const PriceChangeItem: React.FC<PriceChangeItemProps> = ({
           {t(`${T_PATH}.priceChangeItemTotalLabel`, { count: monthCount })}
         </div>
         <div>
-          <b>{formatMonthlyPrice(newPrice * monthCount)}</b>
+          <b>{formatMonthlyPrice(newPrice * monthCount, t)}</b>
         </div>
       </div>
     </div>
