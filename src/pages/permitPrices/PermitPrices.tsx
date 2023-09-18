@@ -43,32 +43,21 @@ const PermitPrices = (): React.ReactElement => {
     permitCtx?.clearErrorMessage();
   };
 
-  const getPrices = (permit: Permit) => {
-    const { isLowEmission } = permit.vehicle;
-    return (
-      <>
-        {permit.products.map(product => (
-          <div key={uuidv4()} className="price">
-            {isLowEmission && (
-              <div
-                className={classNames('original', {
-                  invalid: isLowEmission,
-                })}>
-                {formatMonthlyPrice(product.unitPrice * 2)}
-              </div>
-            )}
-            <div className="offer">{formatMonthlyPrice(product.unitPrice)}</div>
-            <div>
-              ({t(`${T_PATH}.price`)}
-              {` ${formatDate(product.startDate)} - ${formatDate(
-                product.endDate
-              )})`}
-            </div>
+  const getPrices = (permit: Permit) => (
+    <>
+      {permit.products.map(product => (
+        <div key={uuidv4()} className="price">
+          <div className="offer">{formatMonthlyPrice(product.unitPrice)}</div>
+          <div>
+            ({t(`${T_PATH}.price`)}
+            {` ${formatDate(product.startDate)} - ${formatDate(
+              product.endDate
+            )})`}
           </div>
-        ))}
-      </>
-    );
-  };
+        </div>
+      ))}
+    </>
+  );
 
   return (
     <div className="permit-prices-component">
