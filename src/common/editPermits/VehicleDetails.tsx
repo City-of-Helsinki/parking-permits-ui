@@ -22,7 +22,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { getVehicleInformation } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, Vehicle } from '../../types';
-import { formatDate, formatErrors, formatMonthlyPrice } from '../../utils';
+import {
+  formatPermitStartDate,
+  formatPermitEndDate,
+  formatErrors,
+  formatMonthlyPrice,
+} from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
 
@@ -130,8 +135,14 @@ const VehicleDetails: FC<Props> = ({
                         t
                       )}
                     </div>
-                    <div>{`(${formatDate(product.startDate)} - ${formatDate(
-                      product.endDate
+                    <div>{`(${formatPermitStartDate(
+                      permit.products,
+                      product,
+                      permit
+                    )} - ${formatPermitEndDate(
+                      permit.products,
+                      product,
+                      permit
                     )})`}</div>
                   </div>
                 ))}
