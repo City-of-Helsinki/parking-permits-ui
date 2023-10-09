@@ -28,7 +28,12 @@ import {
   ROUTES,
   STEPPER,
 } from '../../types';
-import { formatDate, formatMonthlyPrice, formatPrice } from '../../utils';
+import {
+  formatPermitStartDate,
+  formatPermitEndDate,
+  formatMonthlyPrice,
+  formatPrice,
+} from '../../utils';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
@@ -89,14 +94,15 @@ const DurationSelector = (): React.ReactElement => {
   const getPrices = (permit: PermitModel) => {
     const { contractType, products } = permit;
     const isOpenEnded = contractType === ParkingContractType.OPEN_ENDED;
-
     return (
       <div className="prices">
         {products.map(product => (
           <div key={uuidv4()} className="price">
-            <div>{`(${formatDate(product.startDate)} - ${formatDate(
-              product.endDate
-            )})`}</div>
+            <div>{`(${formatPermitStartDate(
+              products,
+              product,
+              permit
+            )} - ${formatPermitEndDate(products, product, permit)})`}</div>
             <div style={{ marginRight: '4px' }}>
               {t('pages.durationSelector.DurationSelector.total')}
             </div>

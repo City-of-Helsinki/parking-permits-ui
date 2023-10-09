@@ -72,6 +72,30 @@ export const formatMonthlyPrice = (
   t: TranslateFunction
 ): string => `${formatPrice(price)} ${t('common.pricePerMonth')}`;
 
+export const formatPermitStartDate = (
+  products: Product[],
+  product: Product,
+  permit: Permit
+): string => {
+  let date = product.startDate;
+  if (product === products.at(0)) {
+    date = permit.startTime as string;
+  }
+  return formatDate(date);
+};
+
+export const formatPermitEndDate = (
+  products: Product[],
+  product: Product,
+  permit: Permit
+): string => {
+  let date = product.endDate;
+  if (product === products.at(-1)) {
+    date = permit.endTime as string;
+  }
+  return formatDate(date);
+};
+
 export const isOpenEndedPermitStarted = (
   permits: Permit[]
 ): Permit | undefined =>
