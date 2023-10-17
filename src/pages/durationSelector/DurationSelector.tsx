@@ -40,7 +40,8 @@ const MAX_MONTH = 12;
 const T_PATH = 'pages.durationSelector.DurationSelector';
 
 const DurationSelector = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t: gt } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: T_PATH });
   const permitCtx = useContext(PermitStateContext);
   const navigate = useNavigate();
   const [orderRequest, setOrderRequest] = useState<boolean>(false);
@@ -103,12 +104,10 @@ const DurationSelector = (): React.ReactElement => {
               product,
               permit
             )} - ${formatPermitEndDate(products, product, permit)})`}</div>
-            <div style={{ marginRight: '4px' }}>
-              {t('pages.durationSelector.DurationSelector.total')}
-            </div>
+            <div style={{ marginRight: '4px' }}>{t('total')}</div>
             <div className="offer">
               {isOpenEnded
-                ? formatMonthlyPrice(product.unitPrice, t)
+                ? formatMonthlyPrice(product.unitPrice, gt)
                 : `${formatPrice(product.totalPrice)} €`}
             </div>
           </div>
@@ -144,23 +143,18 @@ const DurationSelector = (): React.ReactElement => {
     <div className="duration-selector-component">
       <div className="zone__type">
         <div className="zone__type__symbol">{address.zone?.name}</div>
-        <div className="zone__type__label">
-          {t(`${T_PATH}.residentParkingZone`)}
-        </div>
+        <div className="zone__type__label">{t('residentParkingZone')}</div>
       </div>
       {!!validPermits?.length && (
         <>
           <div className="section-label">
-            {t(`${T_PATH}.validPermitCount`, { count: validPermits.length })}
+            {t('validPermitCount', { count: validPermits.length })}
           </div>
           <Permit permits={validPermits} address={address} hideMap />
         </>
       )}
       <div className="section-label">
-        {t(`
-          ${T_PATH}.${
-          validPermits?.length ? 'secondPermitLabel' : 'sectionLabel'
-        }`)}
+        {t(validPermits?.length ? 'secondPermitLabel' : 'sectionLabel')}
       </div>
       {permitCtx?.getStatus() === 'error' && (
         <Notification type="error">
@@ -181,7 +175,7 @@ const DurationSelector = (): React.ReactElement => {
               <div className="car-info">
                 {draftPermits.length > 1 && (
                   <div className="permit-count">
-                    {t(`${T_PATH}.permitCount`, { count: index + 1 })}
+                    {t('permitCount', { count: index + 1 })}
                   </div>
                 )}
                 <div className="car-details">{getCarDetails(permit)}</div>
@@ -190,14 +184,14 @@ const DurationSelector = (): React.ReactElement => {
             </div>
             {mainPermitToUpdate.contractType ===
               ParkingContractType.OPEN_ENDED && (
-              <div>{t(`${T_PATH}.openEndedAssistiveText`)}</div>
+              <div>{t('openEndedAssistiveText')}</div>
             )}
 
             {mainPermitToUpdate.contractType ===
               ParkingContractType.FIXED_PERIOD && (
               <div className="time-period with-bottom-border">
                 <div className={classNames(`assistive-text`)}>
-                  {t(`${T_PATH}.fixedPeriodAssistiveText`, {
+                  {t('fixedPeriodAssistiveText', {
                     max: getMaxMonth(permit),
                   })}
                 </div>
@@ -205,7 +199,7 @@ const DurationSelector = (): React.ReactElement => {
                   style={{ maxWidth: '250px' }}
                   className="month-selection"
                   id={uuidv4()}
-                  helperText={t(`${T_PATH}.monthSelectionHelpText`, {
+                  helperText={t('monthSelectionHelpText', {
                     max: getMaxMonth(permit),
                   })}
                   label=""
@@ -228,7 +222,7 @@ const DurationSelector = (): React.ReactElement => {
             )}
           </Card>
           <div className="price-info hide-in-desktop">
-            <div>{t(`${T_PATH}.permitPrice`)}</div>
+            <div>{t('permitPrice')}</div>
             {getPrices(permit)}
           </div>
         </div>
@@ -242,7 +236,7 @@ const DurationSelector = (): React.ReactElement => {
           {orderRequest && <LoadingSpinner small />}
           {!orderRequest && (
             <>
-              <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
+              <span>{t('actionBtn.continue')}</span>
               <IconArrowRight />
             </>
           )}
@@ -254,7 +248,7 @@ const DurationSelector = (): React.ReactElement => {
           variant="secondary"
           iconLeft={<IconArrowLeft />}
           onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
-          <span>{t(`${T_PATH}.actionBtn.selectRegistration`)}</span>
+          <span>{t('actionBtn.selectRegistration')}</span>
         </Button>
       </div>
     </div>
