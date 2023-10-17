@@ -3,13 +3,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Permit, PermitStatus } from '../../types';
 
-const T_PATH = 'common.PurchaseNotification';
+const T_PATH = 'common.PurchaseNotification.notification';
 
 export interface Props {
   validPermits: Permit[];
 }
 const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: T_PATH });
   const checkoutUrls = Array.from(
     new Set(
       validPermits
@@ -31,31 +31,32 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
     const uniqueOrderIds = Array.from(new Set(orderIds));
     const isSecondary = uniqueOrderIds.length > 1;
     const isPayment = checkoutUrls.length > 0;
-    const isAlertType = validPermits.some(
+    const isAlert = validPermits.some(
       permit =>
         permit.status === PermitStatus.DRAFT ||
         permit.status === PermitStatus.PAYMENT_IN_PROGRESS
     );
-    if (isAlertType) {
-      let translationPath = `${T_PATH}.notification.alert`;
+
+    let keyPrefix: string;
+
+    if (isAlert) {
+      keyPrefix = 'alert';
+
+      if (isSecondary) {
+        keyPrefix += '-2';
+      }
 
       if (isPayment) {
-        translationPath += '.payment';
+        keyPrefix += '.payment';
       }
-      if (isSecondary) {
-        translationPath += '-2';
-      }
-
-      return {
-        type: 'alert',
-        label: t(`${translationPath}.label`),
-        message: t(`${translationPath}.message`),
-      };
+    } else {
+      keyPrefix = 'success';
     }
+
     return {
-      type: 'success',
-      label: t(`${T_PATH}.notification.success.label`),
-      message: t(`${T_PATH}.notification.success.message`),
+      type: isAlert ? 'alert' : 'success',
+      label: t(`${keyPrefix}.label`),
+      message: t(`${keyPrefix}.message`),
     };
   };
 
@@ -83,7 +84,7 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
               display: 'inline-flex',
               alignItems: 'center',
             }}>
-            {t(`${T_PATH}.notification.completeOrder`)}
+            {t('completeOrder')}
             <IconLinkExternal style={{ marginLeft: 'var(--spacing-xs)' }} />
           </a>
         </div>
