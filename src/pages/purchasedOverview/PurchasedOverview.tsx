@@ -18,7 +18,7 @@ const PurchasedOverview = (): React.ReactElement => {
   const location = useLocation();
   const clientCtx = useContext(ClientContext);
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: T_PATH });
 
   if (!clientCtx || clientCtx.client.getStatus() === 'UNAUTHORIZED') {
     return <Navigate to={ROUTES.LANDING} />;
@@ -47,30 +47,30 @@ const PurchasedOverview = (): React.ReactElement => {
         permit.id === queryStr.permitId
     );
 
+  const permits = getCurrentPurchasedPermits();
+  const firstPurchasedPermit = first(permits);
+  const receiptUrl = firstPurchasedPermit?.receiptUrl;
+
   const showReceipt = () => {
-    const firstPurchasedPermit = first(getCurrentPurchasedPermits());
-    if (firstPurchasedPermit?.receiptUrl) {
-      window.open(`${firstPurchasedPermit.receiptUrl}`, '_self');
+    if (receiptUrl) {
+      window.open(receiptUrl, '_self');
     }
   };
 
   return (
     <div className="purchased-overview-component">
       <PurchaseNotification validPermits={validPermits} />
-      {selectedAddress && getCurrentPurchasedPermits() && (
+      {selectedAddress && receiptUrl && (
         <>
           <Button
             theme="black"
             variant="secondary"
-            onClick={() => showReceipt()}
+            onClick={showReceipt}
             className="download-receipt">
             <IconDocument />
-            <span>{t(`${T_PATH}.btn.receipt`)}</span>
+            <span>{t('btn.receipt')}</span>
           </Button>
-          <Permit
-            address={selectedAddress}
-            permits={getCurrentPurchasedPermits()}
-          />
+          <Permit address={selectedAddress} permits={permits} />
         </>
       )}
       <div className="action-buttons">
@@ -78,7 +78,7 @@ const PurchasedOverview = (): React.ReactElement => {
           className="action-btn"
           theme="black"
           onClick={() => navigate(ROUTES.VALID_PERMITS)}>
-          <span>{t(`${T_PATH}.actionBtn.frontPage`)}</span>
+          <span>{t('actionBtn.frontPage')}</span>
         </Button>
 
         <Button
@@ -87,7 +87,7 @@ const PurchasedOverview = (): React.ReactElement => {
           variant="secondary"
           onClick={(): void => client.logout()}>
           <IconSignout />
-          <span>{t(`${T_PATH}.actionBtn.logout`)}</span>
+          <span>{t('actionBtn.logout')}</span>
         </Button>
       </div>
     </div>
