@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { endOfDay, format } from 'date-fns';
+import { endOfDay, format, compareAsc } from 'date-fns';
 import { Button, IconPlusCircle, IconTrash, Notification } from 'hds-react';
 import { first } from 'lodash';
 import React, { useContext, useState } from 'react';
@@ -58,6 +58,32 @@ const ValidPermits = (): React.ReactElement => {
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
+
+  const canEndAfterCurrentPeriod =
+    first(validPermits)?.canEndAfterCurrentPeriod ?? false;
+
+  const permitStartsInFuture = (): boolean => {
+    const startTime = first(validPermits)?.startTime;
+    return !!startTime && compareAsc(new Date(startTime), new Date()) > 0;
+  };
+
+  const confirmDeleteOrder = (endType: PermitEndType): void => {
+    navigate({
+      pathname: ROUTES.END_PERMITS,
+      search: `?${createSearchParams({
+        permitIds: validPermits?.map(p => p.id),
+        endType,
+      })}`,
+    });
+  };
+
+  const deleteOrder = (): void => {
+    if (!canEndAfterCurrentPeriod || permitStartsInFuture()) {
+      confirmDeleteOrder(PermitEndType.IMMEDIATELY);
+    } else {
+      setOpenEndPermitDialog(true);
+    }
+  };
 
   return (
     <div className="valid-permit-component">
@@ -143,7 +169,7 @@ const ValidPermits = (): React.ReactElement => {
             validPermits.some(hasTemporaryVehicle)
           }
           iconLeft={<IconTrash className="trash-icon" />}
-          onClick={() => setOpenEndPermitDialog(true)}>
+          onClick={deleteOrder}>
           {t(`${T_PATH}.deleteOrder`)}
         </Button>
         <EndPermitDialog
@@ -151,19 +177,9 @@ const ValidPermits = (): React.ReactElement => {
           currentPeriodEndTime={
             first(validPermits)?.currentPeriodEndTime as string
           }
-          canEndAfterCurrentPeriod={
-            first(validPermits)?.canEndAfterCurrentPeriod || false
-          }
+          canEndAfterCurrentPeriod={canEndAfterCurrentPeriod}
           onCancel={() => setOpenEndPermitDialog(false)}
-          onConfirm={(endType: PermitEndType) =>
-            navigate({
-              pathname: ROUTES.END_PERMITS,
-              search: `?${createSearchParams({
-                permitIds: validPermits?.map(p => p.id),
-                endType,
-              })}`,
-            })
-          }
+          onConfirm={(endType: PermitEndType) => confirmDeleteOrder(endType)}
         />
       </div>
     </div>
