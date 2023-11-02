@@ -7,7 +7,7 @@ import {
   Vehicle,
 } from '../../types/permits';
 import { formatDateDisplay, formatVehicle } from '../utils';
-import { formatMonthlyPrice } from '../../utils';
+import { formatMonthlyPrice, formatPrice } from '../../utils';
 import './PriceChangePreview.scss';
 import { getPermitPriceTotal } from './utils';
 
@@ -21,25 +21,18 @@ enum PriceChangeType {
 
 interface PriceChangeItemProps {
   className?: string;
-  type: PriceChangeType;
   permitPriceChangeItem: PermitPriceChangeItem;
 }
 
 const PriceChangeItem: React.FC<PriceChangeItemProps> = ({
   className,
-  type,
   permitPriceChangeItem,
 }: PriceChangeItemProps) => {
   const { t } = useTranslation();
-  const { product, newPrice, priceChange, startDate, endDate, monthCount } =
+  const { product, newPrice, startDate, endDate, monthCount } =
     permitPriceChangeItem;
-  const monthlyPriceLabel =
-    type === PriceChangeType.HIGHER_PRICE
-      ? `${formatMonthlyPrice(priceChange, t)} (${formatMonthlyPrice(
-          newPrice,
-          t
-        )})`
-      : formatMonthlyPrice(newPrice, t);
+
+  const monthlyPriceLabel = formatMonthlyPrice(newPrice, t);
   return (
     <div className={className}>
       <div className="row">
@@ -60,7 +53,7 @@ const PriceChangeItem: React.FC<PriceChangeItemProps> = ({
           {t(`${T_PATH}.priceChangeItemTotalLabel`, { count: monthCount })}
         </div>
         <div>
-          <b>{formatMonthlyPrice(newPrice * monthCount, t)}</b>
+          <b>{formatPrice(newPrice * monthCount)} &euro;</b>
         </div>
       </div>
     </div>
@@ -73,6 +66,16 @@ export interface PriceChangePreviewProps {
   onConfirm: () => void;
   onCancel: () => void;
 }
+
+const getPriceChangeType = (priceChangeTotal: number): PriceChangeType => {
+  if (priceChangeTotal > 0) {
+    return PriceChangeType.HIGHER_PRICE;
+  }
+  if (priceChangeTotal < 0) {
+    return PriceChangeType.LOWER_PRICE;
+  }
+  return PriceChangeType.NO_CHANGE;
+};
 
 const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
   className,
@@ -100,14 +103,7 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
       total + getPermitPriceTotal(item.priceChanges, 'priceChangeVat'),
     0
   );
-  let priceChangeType = PriceChangeType.NO_CHANGE;
-  if (priceChangeTotal > 0) {
-    priceChangeType = PriceChangeType.HIGHER_PRICE;
-  } else if (priceChangeTotal < 0) {
-    priceChangeType = PriceChangeType.LOWER_PRICE;
-  } else {
-    priceChangeType = PriceChangeType.NO_CHANGE;
-  }
+  const priceChangeType = getPriceChangeType(priceChangeTotal);
   return (
     <div className={className}>
       <div className="title">{t(`${T_PATH}.title`)}</div>
@@ -123,7 +119,6 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
                 {index !== 0 && <div className="divider" />}
                 <PriceChangeItem
                   className="price-change-item"
-                  type={priceChangeType}
                   permitPriceChangeItem={priceChangeItem}
                 />
               </Fragment>
@@ -133,16 +128,16 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
         <div className="total-info">
           <div className="row">
             <div>{t(`${T_PATH}.newOrderTotal`)}</div>
-            <div>{newPriceTotal} €</div>
+            <div>{formatPrice(newPriceTotal)} &euro;</div>
           </div>
           <div className="row">
             <div>{t(`${T_PATH}.previousOrderRemaining`)}</div>
-            <div>{-previousPriceRemaining} €</div>
+            <div>{formatPrice(-previousPriceRemaining)} &euro;</div>
           </div>
           <div className="divider" />
           <div className="row">
             <div>{t(`${T_PATH}.priceDifference`)}</div>
-            <div>{priceChangeTotal} €</div>
+            <div>{formatPrice(priceChangeTotal)} &euro;</div>
           </div>
           <div className="row">
             <div>{t(`${T_PATH}.priceCalcDescription`)}</div>
@@ -155,12 +150,12 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
                 <b>{t(`${T_PATH}.refundTotal`)}</b>
               </div>
               <div>
-                <b>{-priceChangeTotal.toFixed(2)} €</b>
+                <b>{formatPrice(-priceChangeTotal)} &euro;</b>
               </div>
             </div>
             <div className="row">
               <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-              <div>{-priceChangeVatTotal.toFixed(2)} €</div>
+              <div>{formatPrice(-priceChangeVatTotal)} &euro;</div>
             </div>
           </div>
         )}
