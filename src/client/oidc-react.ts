@@ -77,7 +77,7 @@ export function createOidcClient(): Client {
   }
   const clientConfig = getClientConfig();
   const oidcConfig: UserManagerSettings = {
-    userStore: new WebStorageStateStore({ store: window.localStorage }),
+    userStore: new WebStorageStateStore({ store: window.sessionStorage }),
     authority: clientConfig.authority,
     automaticSilentRenew: clientConfig.automaticSilentRenew,
     client_id: clientConfig.clientId,
