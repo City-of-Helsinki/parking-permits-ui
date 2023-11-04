@@ -14,7 +14,10 @@
   .permit-price-changes {
     .vehicle {
       font-size: var(--fontsize-body-l);
-      font-weight: bold;
+      font-weight: bold; 
+    }
+    .vehicle-copyright {
+      font-size: var(--fontsize-body-s);
       margin-bottom: var(--spacing-s);
     }
     .price-change-item {

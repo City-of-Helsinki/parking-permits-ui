@@ -21,8 +21,6 @@
     }
   }
   .header {
-    padding-bottom: var(--spacing-s);
-    border-bottom: 2px solid var(--color-black-20);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,6 +37,11 @@
         font-weight: bolder;
       }
     }
+  }
+  .vehicle-copyright {
+    font-size: var(--fontsize-body-s);
+    padding-bottom: var(--spacing-2-xs);
+    border-bottom: 2px solid var(--color-black-20);
   }
   .card {
     border-top: 4px solid var(--color-coat-of-arms);

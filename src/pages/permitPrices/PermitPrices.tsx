@@ -116,6 +116,9 @@ const PermitPrices = (): React.ReactElement => {
                     )}
                   </div>
                   {getPrices(permit)}
+                  <div className="vehicle-copyright">
+                    © {t(`${T_PATH}.vehicleCopyright`)}
+                  </div>
                 </div>
               </Card>
               <div className="action-delete">
