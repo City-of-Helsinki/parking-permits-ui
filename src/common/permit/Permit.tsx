@@ -198,8 +198,12 @@ const Permit = ({
             })}>
             <IconDocument className="icon" />
           </div>
-
-          <span className="pp-list__title__text">{`${registrationNumber} ${manufacturer} ${model}`}</span>
+          <div className="pp-list__title__text">
+            {`${registrationNumber} ${manufacturer} ${model}`}
+            <div className="pp-list__title__vehicle-copyright">
+              © {t(`${T_PATH}.vehicleCopyright`)}
+            </div>
+          </div>
         </div>
 
         {permitTimes.map(({ startTime, endTime }) => (

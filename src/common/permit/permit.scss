@@ -40,6 +40,11 @@
         font-weight: bold;
         margin-left: 12px;
       }
+      &__vehicle-copyright {
+        line-height: var(--lineheight-m);
+        font-weight: normal;
+        font-size: var(--fontsize-body-s);
+      }
       &__icon {
         width: 36px;
         height: 36px;
