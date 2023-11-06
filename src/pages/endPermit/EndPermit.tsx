@@ -9,7 +9,7 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { EndPermitStep, PermitEndType, ROUTES, UserProfile } from '../../types';
 import './endPermit.scss';
-import { dateAsNumber, getMonthCount } from '../../utils';
+import { dateAsNumber, diffMonths } from '../../utils';
 
 const EndPermit = (): React.ReactElement => {
   const { search } = useLocation();
@@ -48,14 +48,11 @@ const EndPermit = (): React.ReactElement => {
           newPrice: product.unitPrice,
           priceChange: product.unitPrice,
           priceChangeVat: product.vat * product.unitPrice,
-          startDate: product.startDate,
-          endDate: product.endDate,
-          monthCount: getMonthCount(
-            endingOfPermitStartDate,
-            permit.startTime as string,
-            product,
-            permit.endTime as string
-          ),
+          startDate: permit.startTime,
+          endDate: permit.endTime,
+          monthCount:
+            diffMonths(permit.startTime as string, endingOfPermitStartDate) ||
+            1,
         })),
     };
   });

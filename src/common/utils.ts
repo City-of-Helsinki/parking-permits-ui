@@ -13,8 +13,15 @@ export const formatAddress = (
   return `${addressStreet} ${streetNumber} ${addressApartment}, ${postalCode} ${addressCity}`;
 };
 
-export function formatDateDisplay(datetime: string | Date): string {
-  const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
+export function formatDateDisplay(
+  datetime: string | Date | undefined | null
+): string {
+  let dt = datetime;
+  if (!dt) {
+    dt = new Date();
+  } else if (typeof dt === 'string') {
+    dt = new Date(dt);
+  }
   return dt.toLocaleDateString('fi');
 }
 

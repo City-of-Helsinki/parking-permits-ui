@@ -71,8 +71,8 @@ export interface PermitPriceChangeItem {
   newPrice: number;
   priceChange: number;
   priceChangeVat: number;
-  startDate: string;
-  endDate: string;
+  startDate: string | Date | undefined | null;
+  endDate: string | Date | undefined | null;
   monthCount: number;
 }
 
