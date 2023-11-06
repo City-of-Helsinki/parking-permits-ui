@@ -108,12 +108,30 @@ export const isOpenEndedPermitStarted = (
 export const dateAsNumber = (date: Date | string): number =>
   new Date(date).valueOf();
 
+export const diffMonths = (
+  startTime: Date | string,
+  endTime: Date | string
+): number => {
+  if (!startTime || !endTime) {
+    return 0;
+  }
+
+  const intervalDuration = intervalToDuration({
+    start: new Date(startTime),
+    end: new Date(endTime),
+  });
+
+  // eslint-disable-next-line no-magic-numbers
+  return (intervalDuration.years || 0) * 12 + (intervalDuration.months || 0);
+};
+
 export const getMonthCount = (
   permitEndStartDate: Date,
   permitStartTime: string,
   product: Product,
   permitEndTime: string
 ): number => {
+  // DEPRECATED: use diffMonths instead.
   // It should consider the start time of the permit.
   // Eg: If permit was bought and started just before the permitEndStartDate
   // then it should be counted as a full month used and if the start date is in
