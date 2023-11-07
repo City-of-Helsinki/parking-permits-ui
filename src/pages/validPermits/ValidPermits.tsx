@@ -11,6 +11,7 @@ import PurchaseNotification from '../../common/purchaseNotification/PurchaseNoti
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import {
+  ParkingContractType,
   Permit as PermitModel,
   PermitEndType,
   PermitStatus,
@@ -58,6 +59,8 @@ const ValidPermits = (): React.ReactElement => {
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
+  const isOpenEndedPermit = (permit: PermitModel) =>
+    permit.contractType === ParkingContractType.OPEN_ENDED;
 
   const canEndAfterCurrentPeriod =
     first(validPermits)?.canEndAfterCurrentPeriod ?? false;
@@ -141,7 +144,7 @@ const ValidPermits = (): React.ReactElement => {
         />
       )}
       <div className="action-buttons">
-        {validPermits.length === 1 && (
+        {validPermits.length === 1 && !validPermits.some(isOpenEndedPermit) && (
           <Button
             className="action-btn"
             variant="secondary"
