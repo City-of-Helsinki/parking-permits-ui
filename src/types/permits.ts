@@ -1,6 +1,7 @@
 import { ParkingContractType, ParkingStartType, PermitStatus } from './enums';
 import { Zone } from './user';
 
+export type MaybeDate = Date | string | undefined | null;
 export interface Product {
   name: string;
   vat: number;
@@ -15,8 +16,8 @@ export interface Product {
 export type TemporaryVehicle = {
   id: string;
   vehicle: Vehicle;
-  startTime: Date | string;
-  endTime: Date | string | null;
+  startTime: MaybeDate;
+  endTime: MaybeDate;
   isActive: boolean;
 };
 
@@ -26,8 +27,8 @@ export type Permit = {
   receiptUrl: string;
   checkoutUrl: string;
   startType?: ParkingStartType;
-  startTime?: Date | string;
-  endTime?: Date | string | null;
+  startTime?: MaybeDate;
+  endTime?: MaybeDate;
   status: PermitStatus;
   primaryVehicle: boolean;
   consentLowEmissionAccepted: boolean;
@@ -71,8 +72,8 @@ export interface PermitPriceChangeItem {
   newPrice: number;
   priceChange: number;
   priceChangeVat: number;
-  startDate: string | Date | undefined | null;
-  endDate: string | Date | undefined | null;
+  startDate: MaybeDate;
+  endDate: MaybeDate;
   monthCount: number;
 }
 

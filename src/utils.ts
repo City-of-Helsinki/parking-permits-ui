@@ -4,6 +4,7 @@ import {
   ParkingContractType,
   ParkingPermitError,
   Permit,
+  MaybeDate,
   Product,
 } from './types';
 
@@ -30,6 +31,16 @@ export const formatErrors = (
   return defaultError;
 };
 
+export const normalizeDateValue = (value: MaybeDate): Date => {
+  if (!value) {
+    return new Date();
+  }
+  if (typeof value === 'string') {
+    return new Date(value);
+  }
+  return value;
+};
+
 export const validateTime = (time: string): boolean =>
   /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(time);
 
@@ -53,15 +64,15 @@ export function getBooleanEnv(key: string): boolean {
   return ['true', '1'].includes(val);
 }
 
-export function formatDateTimeDisplay(datetime: string | Date): string {
-  const dt = typeof datetime === 'string' ? new Date(datetime) : datetime;
+export function formatDateTimeDisplay(datetime: MaybeDate): string {
+  const dt = normalizeDateValue(datetime);
   const dateStr = dt.toLocaleDateString('fi');
   const timeStr = dt.toLocaleTimeString('fi');
   return `${dateStr}, ${timeStr}`;
 }
 
-export const formatDate = (date: string | Date): string =>
-  format(typeof date === 'string' ? new Date(date) : date, 'd.M.yyyy');
+export const formatDate = (date: MaybeDate): string =>
+  format(normalizeDateValue(date), 'd.M.yyyy');
 
 export const formatPrice = (price: number): string =>
   // ensure accurate rounding e.g. 90.955 -> 90.96
@@ -88,13 +99,7 @@ export const formatPermitEndDate = (
   products: Product[],
   product: Product,
   permit: Permit
-): string => {
-  let date = product.endDate;
-  if (product === products.at(-1)) {
-    date = permit.endTime as string;
-  }
-  return formatDate(date);
-};
+): string => formatDate(permit.endTime);
 
 export const isOpenEndedPermitStarted = (
   permits: Permit[]
@@ -105,20 +110,20 @@ export const isOpenEndedPermitStarted = (
       new Date(p.startTime as string).valueOf() < new Date().valueOf()
   );
 
-export const dateAsNumber = (date: Date | string): number =>
-  new Date(date).valueOf();
+export const dateAsNumber = (date: MaybeDate): number =>
+  normalizeDateValue(date).valueOf();
 
 export const diffMonths = (
-  startTime: Date | string,
-  endTime: Date | string
+  startTime: MaybeDate,
+  endTime: MaybeDate
 ): number => {
   if (!startTime || !endTime) {
     return 0;
   }
 
   const intervalDuration = intervalToDuration({
-    start: new Date(startTime),
-    end: new Date(endTime),
+    start: normalizeDateValue(startTime),
+    end: normalizeDateValue(endTime),
   });
 
   // eslint-disable-next-line no-magic-numbers
