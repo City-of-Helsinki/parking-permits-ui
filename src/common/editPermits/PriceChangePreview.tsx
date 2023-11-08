@@ -1,6 +1,7 @@
 import { Button, IconArrowLeft, IconArrowRight } from 'hds-react';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
+import { uniqueId } from 'lodash';
 import {
   PermitPriceChangeItem,
   PermitPriceChanges,
@@ -63,6 +64,7 @@ const PriceChangeItem: React.FC<PriceChangeItemProps> = ({
 export interface PriceChangePreviewProps {
   className?: string;
   priceChangesList: PermitPriceChanges[];
+  isRefund?: boolean;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -80,6 +82,7 @@ const getPriceChangeType = (priceChangeTotal: number): PriceChangeType => {
 const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
   className,
   priceChangesList,
+  isRefund,
   onConfirm,
   onCancel,
 }: PriceChangePreviewProps) => {
@@ -104,18 +107,19 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
     0
   );
   const priceChangeType = getPriceChangeType(priceChangeTotal);
+  const refundable =
+    isRefund || priceChangeType === PriceChangeType.LOWER_PRICE;
   return (
     <div className={className}>
       <div className="title">{t(`${T_PATH}.title`)}</div>
       <div className="price-change-detail">
         {priceChangesList.map(({ permit, vehicle, priceChanges }) => (
-          <div className="permit-price-changes" key={permit?.id || vehicle?.id}>
+          <div className="permit-price-changes" key={uniqueId()}>
             <div className="vehicle">
               {formatVehicle((permit?.vehicle as Vehicle) || vehicle)}
             </div>
             {priceChanges.map((priceChangeItem, index) => (
-              <Fragment
-                key={`${priceChangeItem.product}-${priceChangeItem.startDate}`}>
+              <Fragment key={uniqueId()}>
                 {index !== 0 && <div className="divider" />}
                 <PriceChangeItem
                   className="price-change-item"
@@ -125,25 +129,27 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
             ))}
           </div>
         ))}
-        <div className="total-info">
-          <div className="row">
-            <div>{t(`${T_PATH}.newOrderTotal`)}</div>
-            <div>{formatPrice(newPriceTotal)} &euro;</div>
+        {!isRefund && (
+          <div className="total-info">
+            <div className="row">
+              <div>{t(`${T_PATH}.newOrderTotal`)}</div>
+              <div>{formatPrice(newPriceTotal)} &euro;</div>
+            </div>
+            <div className="row">
+              <div>{t(`${T_PATH}.previousOrderRemaining`)}</div>
+              <div>{formatPrice(-previousPriceRemaining)} &euro;</div>
+            </div>
+            <div className="divider" />
+            <div className="row">
+              <div>{t(`${T_PATH}.priceDifference`)}</div>
+              <div>{formatPrice(priceChangeTotal)} &euro;</div>
+            </div>
+            <div className="row">
+              <div>{t(`${T_PATH}.priceCalcDescription`)}</div>
+            </div>
           </div>
-          <div className="row">
-            <div>{t(`${T_PATH}.previousOrderRemaining`)}</div>
-            <div>{formatPrice(-previousPriceRemaining)} &euro;</div>
-          </div>
-          <div className="divider" />
-          <div className="row">
-            <div>{t(`${T_PATH}.priceDifference`)}</div>
-            <div>{formatPrice(priceChangeTotal)} &euro;</div>
-          </div>
-          <div className="row">
-            <div>{t(`${T_PATH}.priceCalcDescription`)}</div>
-          </div>
-        </div>
-        {priceChangeType === PriceChangeType.LOWER_PRICE && (
+        )}
+        {refundable && (
           <div className="refund">
             <div className="row">
               <div>
@@ -153,10 +159,12 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
                 <b>{formatPrice(-priceChangeTotal)} &euro;</b>
               </div>
             </div>
-            <div className="row">
-              <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-              <div>{formatPrice(-priceChangeVatTotal)} &euro;</div>
-            </div>
+            {!isRefund && (
+              <div className="row">
+                <div>{t(`${T_PATH}.refundTotalVat`)}</div>
+                <div>{formatPrice(-priceChangeVatTotal)} &euro;</div>
+              </div>
+            )}
           </div>
         )}
       </div>

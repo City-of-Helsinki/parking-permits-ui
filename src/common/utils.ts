@@ -1,5 +1,6 @@
 import { extractIBAN } from 'ibantools';
-import { UserAddress, Vehicle } from '../types';
+import { UserAddress, Vehicle, MaybeDate } from '../types';
+import { normalizeDateValue } from '../utils';
 
 export const formatAddress = (
   address: UserAddress,
@@ -13,16 +14,8 @@ export const formatAddress = (
   return `${addressStreet} ${streetNumber} ${addressApartment}, ${postalCode} ${addressCity}`;
 };
 
-export function formatDateDisplay(
-  datetime: string | Date | undefined | null
-): string {
-  let dt = datetime;
-  if (!dt) {
-    dt = new Date();
-  } else if (typeof dt === 'string') {
-    dt = new Date(dt);
-  }
-  return dt.toLocaleDateString('fi');
+export function formatDateDisplay(datetime: MaybeDate): string {
+  return normalizeDateValue(datetime).toLocaleDateString('fi');
 }
 
 export function formatVehicle(vehicle: Vehicle): string {
