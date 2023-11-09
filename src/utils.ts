@@ -4,6 +4,7 @@ import {
   ParkingContractType,
   ParkingPermitError,
   Permit,
+  ProductDates,
   MaybeDate,
   Product,
 } from './types';
@@ -159,4 +160,34 @@ export const getMonthCount = (
 
   // eslint-disable-next-line no-magic-numbers
   return (intervalDuration.years || 0) * 12 + (intervalDuration.months || 0);
+};
+
+// return permit products which end later than the permit end time
+export const upcomingProducts = (permit: Permit): Array<Product> =>
+  permit.products.filter(
+    product =>
+      dateAsNumber(product.endDate) > dateAsNumber(permit.currentPeriodEndTime)
+  );
+
+export const calcProductDates = (
+  product: Product,
+  permit: Permit
+): ProductDates => {
+  const { startDate: productStartTime, endDate: productEndTime } = product;
+  const { startTime: permitStartTime, endTime: permitEndTime } = permit;
+
+  const startDate =
+    dateAsNumber(productStartTime) > dateAsNumber(permitStartTime)
+      ? productStartTime
+      : permitStartTime;
+
+  const endDate =
+    dateAsNumber(productEndTime) < dateAsNumber(permitEndTime)
+      ? productEndTime
+      : permitEndTime;
+  return {
+    startDate,
+    endDate,
+    monthCount: diffMonths(startDate, endDate) || 1,
+  };
 };
