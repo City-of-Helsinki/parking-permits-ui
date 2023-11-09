@@ -21,6 +21,12 @@ export type TemporaryVehicle = {
   isActive: boolean;
 };
 
+export type ProductDates = {
+  startDate: MaybeDate;
+  endDate: MaybeDate;
+  monthCount: number;
+};
+
 export type Permit = {
   id: string;
   talpaOrderId: string;
