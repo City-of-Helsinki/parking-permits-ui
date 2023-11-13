@@ -23,10 +23,11 @@ import { getVehicleInformation } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, Vehicle } from '../../types';
 import {
-  formatPermitStartDate,
-  formatPermitEndDate,
+  formatDate,
   formatErrors,
   formatMonthlyPrice,
+  getPermitStartDate,
+  getPermitEndDate,
 } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
@@ -135,15 +136,10 @@ const VehicleDetails: FC<Props> = ({
                         t
                       )}
                     </div>
-                    <div>{`(${formatPermitStartDate(
-                      permit.products,
-                      product,
-                      permit
-                    )} - ${formatPermitEndDate(
-                      permit.products,
-                      product,
-                      permit
-                    )})`}</div>
+                    <div>
+                      {formatDate(getPermitStartDate(product, permit))}-
+                      {formatDate(getPermitEndDate(product, permit))}
+                    </div>
                   </div>
                 ))}
               <div className="vehicle-copyright">
