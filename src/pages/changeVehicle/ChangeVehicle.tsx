@@ -12,11 +12,12 @@ import {
   PermitPriceChanges,
   ROUTES,
   Vehicle,
+  Permit,
 } from '../../types';
 import {
-  dateAsNumber,
-  getMonthCount,
+  upcomingProducts,
   isOpenEndedPermitStarted,
+  calcProductDates,
 } from '../../utils';
 
 enum PriceChangeType {
@@ -31,6 +32,37 @@ enum ChangeVehicleStep {
   PRICE_PREVIEW,
   REFUND,
 }
+
+const getMultiplier = (
+  vehicle: Vehicle | undefined,
+  permit: Permit
+): PriceChangeType => {
+  if (!vehicle) return PriceChangeType.NO_CHANGE;
+  const { isLowEmission: currentState } = permit.vehicle;
+  const { isLowEmission: newState } = vehicle;
+  if (currentState !== newState) {
+    return currentState && !newState
+      ? PriceChangeType.HIGHER_PRICE
+      : PriceChangeType.LOWER_PRICE;
+  }
+  return PriceChangeType.NO_CHANGE;
+};
+
+const getPriceChange = (
+  multiplier: PriceChangeType,
+  basePrice: number
+): number => {
+  switch (multiplier) {
+    case PriceChangeType.LOWER_PRICE:
+      return basePrice * PriceChangeType.LOWER_PRICE * -1;
+
+    case PriceChangeType.HIGHER_PRICE:
+      return basePrice * PriceChangeType.HIGHER_PRICE;
+
+    default:
+      return 0;
+  }
+};
 
 const ChangeVehicle = (): React.ReactElement => {
   const navigate = useNavigate();
@@ -52,18 +84,6 @@ const ChangeVehicle = (): React.ReactElement => {
     return <Navigate to={ROUTES.VALID_PERMITS} />;
   }
 
-  const getMultiplier = (): number => {
-    if (!vehicle) return PriceChangeType.NO_CHANGE;
-    const { isLowEmission: currentState } = permit.vehicle;
-    const { isLowEmission: newState } = vehicle;
-    if (currentState !== newState) {
-      return currentState && !newState
-        ? PriceChangeType.HIGHER_PRICE
-        : PriceChangeType.LOWER_PRICE;
-    }
-    return PriceChangeType.NO_CHANGE;
-  };
-
   const updateAndNavigateToOrderView = async (accountNumber?: string) => {
     await updatePermitVehicle(
       permit.id,
@@ -74,41 +94,25 @@ const ChangeVehicle = (): React.ReactElement => {
     await permitCtx?.fetchPermits();
     navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
   };
-  const multiplier = getMultiplier();
+  const multiplier = getMultiplier(vehicle, permit);
 
   const continueTo = async () => {
+    console.log('STEP!!!', step);
     if (step === ChangeVehicleStep.VEHICLE) {
       setPriceChangesList([
         {
           vehicle,
-          priceChanges: permit.products
-            .filter(
-              product => new Date().valueOf() <= dateAsNumber(product.endDate)
-            )
-            .map(product => ({
-              product: product.name,
-              previousPrice: product.unitPrice,
-              newPrice: product.unitPrice * multiplier,
-              priceChange:
-                multiplier === PriceChangeType.NO_CHANGE
-                  ? 0
-                  : product.unitPrice * multiplier * (multiplier < 1 ? -1 : 1),
-              priceChangeVat:
-                multiplier === PriceChangeType.NO_CHANGE
-                  ? 0
-                  : product.vat *
-                    product.unitPrice *
-                    multiplier *
-                    (multiplier < 1 ? -1 : 1),
-              startDate: product.startDate,
-              endDate: product.endDate,
-              monthCount: getMonthCount(
-                new Date(),
-                permit.startTime as string,
-                product,
-                permit.endTime as string
-              ),
-            })),
+          priceChanges: upcomingProducts(permit).map(product => ({
+            product: product.name,
+            previousPrice: product.unitPrice,
+            newPrice: product.unitPrice * multiplier,
+            priceChange: getPriceChange(multiplier, product.unitPrice),
+            priceChangeVat: getPriceChange(
+              multiplier,
+              product.vat * product.unitPrice
+            ),
+            ...calcProductDates(product, permit),
+          })),
         },
       ]);
 
@@ -134,12 +138,13 @@ const ChangeVehicle = (): React.ReactElement => {
 
   return (
     <div className="change-vehicle-component">
+      CHANGING VEHICLE {step}
       {step === ChangeVehicleStep.VEHICLE && (
         <VehicleDetails
           permit={permit}
           vehicle={vehicle}
           setVehicle={setVehicle}
-          priceChangeMultiplier={getMultiplier()}
+          priceChangeMultiplier={multiplier}
           onContinue={continueTo}
           lowEmissionChecked={lowEmissionChecked}
           setLowEmissionChecked={setLowEmissionChecked}
