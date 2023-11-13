@@ -137,7 +137,6 @@ const ChangeVehicle = (): React.ReactElement => {
 
   return (
     <div className="change-vehicle-component">
-      CHANGING VEHICLE {step}
       {step === ChangeVehicleStep.VEHICLE && (
         <VehicleDetails
           permit={permit}
@@ -153,6 +152,7 @@ const ChangeVehicle = (): React.ReactElement => {
         <PriceChangePreview
           className="price-change-preview"
           priceChangesList={priceChangesList}
+          isRefund={multiplier === PriceChangeType.LOWER_PRICE}
           onCancel={() => setStep(ChangeVehicleStep.VEHICLE)}
           onConfirm={() => {
             if (multiplier === PriceChangeType.NO_CHANGE) {

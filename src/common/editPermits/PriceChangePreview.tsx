@@ -162,7 +162,7 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
               <div>
                 <b>
                   {formatPrice(
-                    isLowerPriceChange ? -priceChangeTotal : priceChangeTotal
+                    isRefund ? Math.abs(priceChangeTotal) : priceChangeTotal
                   )}{' '}
                   &euro;
                 </b>
@@ -171,7 +171,7 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
             {!isRefund && (
               <div className="row">
                 <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-                <div>{formatPrice(-priceChangeVatTotal)} &euro;</div>
+                <div>{formatPrice(priceChangeVatTotal)} &euro;</div>
               </div>
             )}
           </div>

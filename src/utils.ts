@@ -114,6 +114,30 @@ export const isOpenEndedPermitStarted = (
 export const dateAsNumber = (date: MaybeDate): number =>
   normalizeDateValue(date).valueOf();
 
+export const getPermitStartDate = (
+  product: Product,
+  permit: Permit
+): MaybeDate => {
+  const { startDate: productStartTime } = product;
+  const { startTime: permitStartTime } = permit;
+
+  return dateAsNumber(productStartTime) > dateAsNumber(permitStartTime)
+    ? productStartTime
+    : permitStartTime;
+};
+
+export const getPermitEndDate = (
+  product: Product,
+  permit: Permit
+): MaybeDate => {
+  const { endDate: productEndTime } = product;
+  const { endTime: permitEndTime } = permit;
+
+  return dateAsNumber(productEndTime) < dateAsNumber(permitEndTime)
+    ? productEndTime
+    : permitEndTime;
+};
+
 export const diffMonths = (
   startTime: MaybeDate,
   endTime: MaybeDate
@@ -173,18 +197,8 @@ export const calcProductDates = (
   product: Product,
   permit: Permit
 ): ProductDates => {
-  const { startDate: productStartTime, endDate: productEndTime } = product;
-  const { startTime: permitStartTime, endTime: permitEndTime } = permit;
-
-  const startDate =
-    dateAsNumber(productStartTime) > dateAsNumber(permitStartTime)
-      ? productStartTime
-      : permitStartTime;
-
-  const endDate =
-    dateAsNumber(productEndTime) < dateAsNumber(permitEndTime)
-      ? productEndTime
-      : permitEndTime;
+  const startDate = getPermitStartDate(product, permit);
+  const endDate = getPermitEndDate(product, permit);
   return {
     startDate,
     endDate,
