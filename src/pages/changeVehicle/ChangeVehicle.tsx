@@ -97,7 +97,6 @@ const ChangeVehicle = (): React.ReactElement => {
   const multiplier = getMultiplier(vehicle, permit);
 
   const continueTo = async () => {
-    console.log('STEP!!!', step);
     if (step === ChangeVehicleStep.VEHICLE) {
       setPriceChangesList([
         {

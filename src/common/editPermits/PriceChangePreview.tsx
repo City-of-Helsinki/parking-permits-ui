@@ -107,8 +107,9 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
     0
   );
   const priceChangeType = getPriceChangeType(priceChangeTotal);
-  const refundable =
-    isRefund || priceChangeType === PriceChangeType.LOWER_PRICE;
+  const isLowerPriceChange = priceChangeType === PriceChangeType.LOWER_PRICE;
+  const refundable = isRefund || isLowerPriceChange;
+
   return (
     <div className={className}>
       <div className="title">{t(`${T_PATH}.title`)}</div>
@@ -159,7 +160,12 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
                 <b>{t(`${T_PATH}.refundTotal`)}</b>
               </div>
               <div>
-                <b>{formatPrice(-priceChangeTotal)} &euro;</b>
+                <b>
+                  {formatPrice(
+                    isLowerPriceChange ? -priceChangeTotal : priceChangeTotal
+                  )}{' '}
+                  &euro;
+                </b>
               </div>
             </div>
             {!isRefund && (
