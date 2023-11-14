@@ -28,6 +28,7 @@ import {
   formatMonthlyPrice,
   getPermitStartDate,
   getPermitEndDate,
+  calcProductUnitPrice,
 } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
@@ -38,7 +39,6 @@ interface Props {
   permit: Permit;
   vehicle: Vehicle | undefined;
   onContinue: () => void;
-  priceChangeMultiplier: number;
   setVehicle: Dispatch<SetStateAction<Vehicle | undefined>>;
   lowEmissionChecked: boolean;
   setLowEmissionChecked: Dispatch<SetStateAction<boolean>>;
@@ -49,7 +49,6 @@ const VehicleDetails: FC<Props> = ({
   vehicle,
   setVehicle,
   onContinue,
-  priceChangeMultiplier,
   lowEmissionChecked,
   setLowEmissionChecked,
 }): React.ReactElement => {
@@ -132,7 +131,7 @@ const VehicleDetails: FC<Props> = ({
                   <div key={uuidv4()} className="price">
                     <div className="offer">
                       {formatMonthlyPrice(
-                        product.unitPrice * priceChangeMultiplier,
+                        calcProductUnitPrice(product, vehicle.isLowEmission),
                         t
                       )}
                     </div>

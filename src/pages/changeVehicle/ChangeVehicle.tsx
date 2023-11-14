@@ -9,15 +9,19 @@ import { updatePermitVehicle } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
+  PermitPriceChangeItem,
   PermitPriceChanges,
   ROUTES,
   Vehicle,
+  Product,
   Permit,
 } from '../../types';
 import {
   upcomingProducts,
   isOpenEndedPermitStarted,
   calcProductDates,
+  calcProductUnitPrice,
+  calcProductUnitVatPrice,
 } from '../../utils';
 
 enum PriceChangeType {
@@ -33,7 +37,7 @@ enum ChangeVehicleStep {
   REFUND,
 }
 
-const getMultiplier = (
+const getPriceChangeType = (
   vehicle: Vehicle | undefined,
   permit: Permit
 ): PriceChangeType => {
@@ -46,22 +50,6 @@ const getMultiplier = (
       : PriceChangeType.LOWER_PRICE;
   }
   return PriceChangeType.NO_CHANGE;
-};
-
-const getPriceChange = (
-  multiplier: PriceChangeType,
-  basePrice: number
-): number => {
-  switch (multiplier) {
-    case PriceChangeType.LOWER_PRICE:
-      return basePrice * PriceChangeType.LOWER_PRICE * -1;
-
-    case PriceChangeType.HIGHER_PRICE:
-      return basePrice * PriceChangeType.HIGHER_PRICE;
-
-    default:
-      return 0;
-  }
 };
 
 const ChangeVehicle = (): React.ReactElement => {
@@ -94,28 +82,34 @@ const ChangeVehicle = (): React.ReactElement => {
     await permitCtx?.fetchPermits();
     navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
   };
-  const multiplier = getMultiplier(vehicle, permit);
+  const priceChangeType = getPriceChangeType(vehicle, permit);
+  const isLowEmission = vehicle?.isLowEmission;
+
+  const getPriceChangeItem = (product: Product): PermitPriceChangeItem => {
+    const previousPrice = calcProductUnitPrice(product, false);
+    const previousVatPrice = calcProductUnitVatPrice(product, false);
+    const newPrice = calcProductUnitPrice(product, isLowEmission);
+    const newVatPrice = calcProductUnitVatPrice(product, isLowEmission);
+    return {
+      newPrice,
+      previousPrice,
+      product: product.name,
+      priceChange: newPrice - previousPrice,
+      priceChangeVat: newVatPrice - previousVatPrice,
+      ...calcProductDates(product, permit),
+    };
+  };
 
   const continueTo = async () => {
     if (step === ChangeVehicleStep.VEHICLE) {
       setPriceChangesList([
         {
           vehicle,
-          priceChanges: upcomingProducts(permit).map(product => ({
-            product: product.name,
-            previousPrice: product.unitPrice,
-            newPrice: product.unitPrice * multiplier,
-            priceChange: getPriceChange(multiplier, product.unitPrice),
-            priceChangeVat: getPriceChange(
-              multiplier,
-              product.vat * product.unitPrice
-            ),
-            ...calcProductDates(product, permit),
-          })),
+          priceChanges: upcomingProducts(permit).map(getPriceChangeItem),
         },
       ]);
 
-      if (multiplier === PriceChangeType.HIGHER_PRICE) {
+      if (priceChangeType === PriceChangeType.HIGHER_PRICE) {
         const { checkoutUrl } = await updatePermitVehicle(
           permit.id,
           vehicle?.id,
@@ -142,7 +136,6 @@ const ChangeVehicle = (): React.ReactElement => {
           permit={permit}
           vehicle={vehicle}
           setVehicle={setVehicle}
-          priceChangeMultiplier={multiplier}
           onContinue={continueTo}
           lowEmissionChecked={lowEmissionChecked}
           setLowEmissionChecked={setLowEmissionChecked}
@@ -152,10 +145,10 @@ const ChangeVehicle = (): React.ReactElement => {
         <PriceChangePreview
           className="price-change-preview"
           priceChangesList={priceChangesList}
-          isRefund={multiplier === PriceChangeType.LOWER_PRICE}
+          isRefund={priceChangeType === PriceChangeType.LOWER_PRICE}
           onCancel={() => setStep(ChangeVehicleStep.VEHICLE)}
           onConfirm={() => {
-            if (multiplier === PriceChangeType.NO_CHANGE) {
+            if (priceChangeType === PriceChangeType.NO_CHANGE) {
               updateAndNavigateToOrderView();
             } else {
               setStep(ChangeVehicleStep.REFUND);
