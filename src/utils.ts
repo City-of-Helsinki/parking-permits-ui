@@ -114,6 +114,28 @@ export const isOpenEndedPermitStarted = (
 export const dateAsNumber = (date: MaybeDate): number =>
   normalizeDateValue(date).valueOf();
 
+export const calcProductUnitPrice = (
+  product: Product,
+  isLowEmission?: boolean,
+  isVat?: boolean
+): number => {
+  // returns modified unit price if low-emission vehicle, otherwise returns full price
+  const { unitPrice, lowEmissionDiscount, vat } = product;
+
+  const basePrice = isVat ? unitPrice * vat : unitPrice;
+
+  if (isLowEmission && lowEmissionDiscount) {
+    return basePrice - basePrice * lowEmissionDiscount;
+  }
+
+  return basePrice;
+};
+
+export const calcProductUnitVatPrice = (
+  product: Product,
+  isLowEmission?: boolean
+): number => calcProductUnitPrice(product, isLowEmission, true);
+
 export const getPermitStartDate = (
   product: Product,
   permit: Permit
