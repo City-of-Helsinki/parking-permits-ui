@@ -158,8 +158,8 @@ const ChangeVehicle = (): React.ReactElement => {
       )}
       {step === ChangeVehicleStep.REFUND && (
         <Refund
-          refundTotal={-getChangeTotal(priceChangesList, 'priceChange')}
-          refundTotalVat={-getChangeTotal(priceChangesList, 'priceChangeVat')}
+          refundTotal={getChangeTotal(priceChangesList, 'priceChange')}
+          refundTotalVat={getChangeTotal(priceChangesList, 'priceChangeVat')}
           onCancel={() => setStep(ChangeVehicleStep.PRICE_PREVIEW)}
           onConfirm={updateAndNavigateToOrderView}
         />

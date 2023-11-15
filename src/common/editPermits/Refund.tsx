@@ -9,6 +9,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isValidIBAN } from '../utils';
+import { formatPrice } from '../../utils';
 import './Refund.scss';
 
 const T_PATH = 'common.editPermits.Refund';
@@ -42,11 +43,11 @@ const Refund: React.FC<RefundProps> = ({
       <div className="refund-info">
         <div className="row">
           <div>{t(`${T_PATH}.refundTotal`)}</div>
-          <div>{parseFloat(refundTotal.toFixed(2))} €</div>
+          <div>{formatPrice(Math.abs(refundTotal))} €</div>
         </div>
         <div className="row">
           <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-          <div>{parseFloat(refundTotalVat.toFixed(2))} €</div>
+          <div>{formatPrice(Math.abs(refundTotalVat))} €</div>
         </div>
       </div>
       <div className="refund-description">
