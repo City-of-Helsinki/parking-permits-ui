@@ -10,6 +10,8 @@ export interface Product {
   startDate: string;
   unitPrice: number;
   totalPrice: number;
+  basePrice: number;
+  discountPrice: number;
   lowEmissionDiscount: number;
 }
 
