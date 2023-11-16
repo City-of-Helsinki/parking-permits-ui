@@ -120,15 +120,11 @@ export const calcProductUnitPrice = (
   isVat?: boolean
 ): number => {
   // returns modified unit price if low-emission vehicle, otherwise returns full price
-  const { unitPrice, lowEmissionDiscount, vat } = product;
+  const { basePrice, discountPrice, vat } = product;
 
-  const basePrice = isVat ? unitPrice * vat : unitPrice;
+  const price = isLowEmission ? discountPrice : basePrice;
 
-  if (isLowEmission && lowEmissionDiscount) {
-    return basePrice - basePrice * lowEmissionDiscount;
-  }
-
-  return basePrice;
+  return isVat ? price * vat : price;
 };
 
 export const calcProductUnitVatPrice = (
