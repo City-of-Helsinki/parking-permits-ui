@@ -249,7 +249,7 @@ const DurationSelector = (): React.ReactElement => {
           variant="secondary"
           iconLeft={<IconArrowLeft />}
           onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
-          <span>{t('actionBtn.selectRegistration')}</span>
+          <span>{t('actionBtn.back')}</span>
         </Button>
       </div>
     </div>

@@ -148,7 +148,8 @@ const PermitPrices = (): React.ReactElement => {
         <Button
           theme="black"
           className="action-btn"
-          onClick={() => navigateTo(ROUTES.DURATION_SELECTOR)}>
+          onClick={() => navigateTo(ROUTES.DURATION_SELECTOR)}
+          disabled={!registrations?.length}>
           <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
           <IconArrowRight />
         </Button>
@@ -158,8 +159,8 @@ const PermitPrices = (): React.ReactElement => {
           theme="black"
           variant="secondary"
           iconLeft={<IconArrowLeft />}
-          onClick={() => navigateTo(ROUTES.ADDRESS)}>
-          <span>{t(`${T_PATH}.actionBtn.gotoAddressSelection`)}</span>
+          onClick={() => navigateTo(ROUTES.LANDING)}>
+          <span>{t(`${T_PATH}.actionBtn.back`)}</span>
         </Button>
       </div>
     </div>
