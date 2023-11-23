@@ -11,6 +11,7 @@ import {
   UpdateLanguageResult,
   UserProfile,
 } from '../types';
+import { formatErrors } from '../utils';
 import { ApiAccessTokenContext } from './apiAccessTokenProvider';
 import { getGqlClient } from './utils';
 
@@ -46,7 +47,7 @@ const useProfile = (): ProfileActions => {
         });
       if (result.errors) {
         setStatus('error');
-        setError(result.errors.map(err => err.message).join('\n'));
+        setError(formatErrors(result.errors));
       } else {
         setError(undefined);
         const { profile: userProfile } = result.data;

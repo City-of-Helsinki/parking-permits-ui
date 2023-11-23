@@ -43,29 +43,23 @@ const PermitPrices = (): React.ReactElement => {
     permitCtx?.clearErrorMessage();
   };
 
-  const getPrices = (permit: Permit) => {
-    const { isLowEmission } = permit.vehicle;
-    return (
-      <>
-        {permit.products.map(product => (
-          <div key={uuidv4()} className="price">
-            {isLowEmission && (
-              <div
-                className={classNames('original', {
-                  invalid: isLowEmission,
-                })}>
-                {formatMonthlyPrice(product.unitPrice * 2)}
-              </div>
-            )}
-            <div className="offer">{formatMonthlyPrice(product.unitPrice)}</div>
-            <div>{`(${formatDate(product.startDate)} - ${formatDate(
-              product.endDate
-            )})`}</div>
+  const getPrices = (permit: Permit) => (
+    <>
+      {permit.products.map(product => (
+        <div key={uuidv4()} className="price">
+          <div className="offer">
+            {formatMonthlyPrice(product.unitPrice, t)}
           </div>
-        ))}
-      </>
-    );
-  };
+          <div>
+            ({t(`${T_PATH}.price`)}
+            {` ${formatDate(product.startDate)} - ${formatDate(
+              product.endDate
+            )})`}
+          </div>
+        </div>
+      ))}
+    </>
+  );
 
   return (
     <div className="permit-prices-component">
@@ -122,6 +116,9 @@ const PermitPrices = (): React.ReactElement => {
                     )}
                   </div>
                   {getPrices(permit)}
+                  <div className="vehicle-copyright">
+                    © {t(`${T_PATH}.vehicleCopyright`)}
+                  </div>
                 </div>
               </Card>
               <div className="action-delete">
@@ -151,7 +148,8 @@ const PermitPrices = (): React.ReactElement => {
         <Button
           theme="black"
           className="action-btn"
-          onClick={() => navigateTo(ROUTES.DURATION_SELECTOR)}>
+          onClick={() => navigateTo(ROUTES.DURATION_SELECTOR)}
+          disabled={!registrations?.length}>
           <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
           <IconArrowRight />
         </Button>
@@ -161,8 +159,8 @@ const PermitPrices = (): React.ReactElement => {
           theme="black"
           variant="secondary"
           iconLeft={<IconArrowLeft />}
-          onClick={() => navigateTo(ROUTES.ADDRESS)}>
-          <span>{t(`${T_PATH}.actionBtn.gotoAddressSelection`)}</span>
+          onClick={() => navigateTo(ROUTES.LANDING)}>
+          <span>{t(`${T_PATH}.actionBtn.back`)}</span>
         </Button>
       </div>
     </div>

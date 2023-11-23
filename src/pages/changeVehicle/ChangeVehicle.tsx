@@ -7,17 +7,21 @@ import { getChangeTotal } from '../../common/editPermits/utils';
 import VehicleDetails from '../../common/editPermits/VehicleDetails';
 import { updatePermitVehicle } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { UserProfileContext } from '../../hooks/userProfileProvider';
 import {
   ParkingContractType,
+  PermitPriceChangeItem,
   PermitPriceChanges,
   ROUTES,
   Vehicle,
+  Product,
+  Permit,
 } from '../../types';
 import {
-  dateAsNumber,
-  getMonthCount,
+  upcomingProducts,
   isOpenEndedPermitStarted,
+  calcProductDates,
+  calcProductUnitPrice,
+  calcProductUnitVatPrice,
 } from '../../utils';
 
 enum PriceChangeType {
@@ -33,11 +37,25 @@ enum ChangeVehicleStep {
   REFUND,
 }
 
+const getPriceChangeType = (
+  vehicle: Vehicle | undefined,
+  permit: Permit
+): PriceChangeType => {
+  if (!vehicle) return PriceChangeType.NO_CHANGE;
+  const { isLowEmission: currentState } = permit.vehicle;
+  const { isLowEmission: newState } = vehicle;
+  if (currentState !== newState) {
+    return currentState && !newState
+      ? PriceChangeType.HIGHER_PRICE
+      : PriceChangeType.LOWER_PRICE;
+  }
+  return PriceChangeType.NO_CHANGE;
+};
+
 const ChangeVehicle = (): React.ReactElement => {
   const navigate = useNavigate();
   const params = useParams();
   const permitCtx = useContext(PermitStateContext);
-  const profileCtx = useContext(UserProfileContext);
   const [vehicle, setVehicle] = useState<Vehicle>();
   const [lowEmissionChecked, setLowEmissionChecked] = useState(false);
 
@@ -54,18 +72,6 @@ const ChangeVehicle = (): React.ReactElement => {
     return <Navigate to={ROUTES.VALID_PERMITS} />;
   }
 
-  const getMultiplier = (): number => {
-    if (!vehicle) return PriceChangeType.NO_CHANGE;
-    const { isLowEmission: currentState } = permit.vehicle;
-    const { isLowEmission: newState } = vehicle;
-    if (currentState !== newState) {
-      return currentState && !newState
-        ? PriceChangeType.HIGHER_PRICE
-        : PriceChangeType.LOWER_PRICE;
-    }
-    return PriceChangeType.NO_CHANGE;
-  };
-
   const updateAndNavigateToOrderView = async (accountNumber?: string) => {
     await updatePermitVehicle(
       permit.id,
@@ -76,45 +82,34 @@ const ChangeVehicle = (): React.ReactElement => {
     await permitCtx?.fetchPermits();
     navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
   };
-  const multiplier = getMultiplier();
+  const priceChangeType = getPriceChangeType(vehicle, permit);
+  const isLowEmission = vehicle?.isLowEmission;
+
+  const getPriceChangeItem = (product: Product): PermitPriceChangeItem => {
+    const previousPrice = calcProductUnitPrice(product, false);
+    const previousVatPrice = calcProductUnitVatPrice(product, false);
+    const newPrice = calcProductUnitPrice(product, isLowEmission);
+    const newVatPrice = calcProductUnitVatPrice(product, isLowEmission);
+    return {
+      newPrice,
+      previousPrice,
+      product: product.name,
+      priceChange: newPrice - previousPrice,
+      priceChangeVat: newVatPrice - previousVatPrice,
+      ...calcProductDates(product, permit),
+    };
+  };
 
   const continueTo = async () => {
     if (step === ChangeVehicleStep.VEHICLE) {
       setPriceChangesList([
         {
           vehicle,
-          priceChanges: permit.products
-            .filter(
-              product => new Date().valueOf() <= dateAsNumber(product.endDate)
-            )
-            .map(product => ({
-              product: product.name,
-              previousPrice: product.unitPrice,
-              newPrice: product.unitPrice * multiplier,
-              priceChange:
-                multiplier === PriceChangeType.NO_CHANGE
-                  ? 0
-                  : product.unitPrice * multiplier * (multiplier < 1 ? -1 : 1),
-              priceChangeVat:
-                multiplier === PriceChangeType.NO_CHANGE
-                  ? 0
-                  : product.vat *
-                    product.unitPrice *
-                    multiplier *
-                    (multiplier < 1 ? -1 : 1),
-              startDate: product.startDate,
-              endDate: product.endDate,
-              monthCount: getMonthCount(
-                new Date(),
-                permit.startTime as string,
-                product,
-                permit.endTime as string
-              ),
-            })),
+          priceChanges: upcomingProducts(permit).map(getPriceChangeItem),
         },
       ]);
 
-      if (multiplier === PriceChangeType.HIGHER_PRICE) {
+      if (priceChangeType === PriceChangeType.HIGHER_PRICE) {
         const { checkoutUrl } = await updatePermitVehicle(
           permit.id,
           vehicle?.id,
@@ -123,9 +118,8 @@ const ChangeVehicle = (): React.ReactElement => {
         await permitCtx?.fetchPermits();
         if (permit.contractType === ParkingContractType.OPEN_ENDED) {
           navigate(ROUTES.VALID_PERMITS);
-        } else if (checkoutUrl && profileCtx) {
-          const { id: userId } = profileCtx.getProfile();
-          window.open(`${checkoutUrl}?user=${userId}`, '_self');
+        } else if (checkoutUrl) {
+          window.open(`${checkoutUrl}`, '_self');
         }
       } else if (isOpenEndedPermitStarted([permit])) {
         updateAndNavigateToOrderView();
@@ -142,7 +136,6 @@ const ChangeVehicle = (): React.ReactElement => {
           permit={permit}
           vehicle={vehicle}
           setVehicle={setVehicle}
-          priceChangeMultiplier={getMultiplier()}
           onContinue={continueTo}
           lowEmissionChecked={lowEmissionChecked}
           setLowEmissionChecked={setLowEmissionChecked}
@@ -152,9 +145,10 @@ const ChangeVehicle = (): React.ReactElement => {
         <PriceChangePreview
           className="price-change-preview"
           priceChangesList={priceChangesList}
+          isRefund={priceChangeType === PriceChangeType.LOWER_PRICE}
           onCancel={() => setStep(ChangeVehicleStep.VEHICLE)}
           onConfirm={() => {
-            if (multiplier === PriceChangeType.NO_CHANGE) {
+            if (priceChangeType === PriceChangeType.NO_CHANGE) {
               updateAndNavigateToOrderView();
             } else {
               setStep(ChangeVehicleStep.REFUND);
@@ -164,8 +158,8 @@ const ChangeVehicle = (): React.ReactElement => {
       )}
       {step === ChangeVehicleStep.REFUND && (
         <Refund
-          refundTotal={-getChangeTotal(priceChangesList, 'priceChange')}
-          refundTotalVat={-getChangeTotal(priceChangesList, 'priceChangeVat')}
+          refundTotal={getChangeTotal(priceChangesList, 'priceChange')}
+          refundTotalVat={getChangeTotal(priceChangesList, 'priceChangeVat')}
           onCancel={() => setStep(ChangeVehicleStep.PRICE_PREVIEW)}
           onConfirm={updateAndNavigateToOrderView}
         />

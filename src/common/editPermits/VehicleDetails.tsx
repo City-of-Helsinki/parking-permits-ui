@@ -22,7 +22,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { getVehicleInformation } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, Vehicle } from '../../types';
-import { formatDate, formatMonthlyPrice } from '../../utils';
+import {
+  formatDate,
+  formatErrors,
+  formatMonthlyPrice,
+  getPermitStartDate,
+  getPermitEndDate,
+  calcProductUnitPrice,
+} from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
 
@@ -32,7 +39,6 @@ interface Props {
   permit: Permit;
   vehicle: Vehicle | undefined;
   onContinue: () => void;
-  priceChangeMultiplier: number;
   setVehicle: Dispatch<SetStateAction<Vehicle | undefined>>;
   lowEmissionChecked: boolean;
   setLowEmissionChecked: Dispatch<SetStateAction<boolean>>;
@@ -43,7 +49,6 @@ const VehicleDetails: FC<Props> = ({
   vehicle,
   setVehicle,
   onContinue,
-  priceChangeMultiplier,
   lowEmissionChecked,
   setLowEmissionChecked,
 }): React.ReactElement => {
@@ -68,9 +73,7 @@ const VehicleDetails: FC<Props> = ({
     setError('');
     await getVehicleInformation(tempRegistration)
       .then(setVehicle)
-      .catch(errors =>
-        setError(errors?.map((e: { message: string }) => e?.message).join('\n'))
-      );
+      .catch(errors => setError(formatErrors(errors)));
     setLoading(false);
   }, [setVehicle, tempRegistration]);
 
@@ -126,21 +129,21 @@ const VehicleDetails: FC<Props> = ({
                 vehicle &&
                 permit.products.map(product => (
                   <div key={uuidv4()} className="price">
-                    {permit.vehicle.isLowEmission !== vehicle.isLowEmission && (
-                      <div className="original invalid">
-                        {formatMonthlyPrice(product.unitPrice)}
-                      </div>
-                    )}
                     <div className="offer">
                       {formatMonthlyPrice(
-                        product.unitPrice * priceChangeMultiplier
+                        calcProductUnitPrice(product, vehicle.isLowEmission),
+                        t
                       )}
                     </div>
-                    <div>{`(${formatDate(product.startDate)} - ${formatDate(
-                      product.endDate
-                    )})`}</div>
+                    <div>
+                      {formatDate(getPermitStartDate(product, permit))}-
+                      {formatDate(getPermitEndDate(product, permit))}
+                    </div>
                   </div>
                 ))}
+              <div className="vehicle-copyright">
+                © {t(`${T_PATH}.vehicleCopyright`)}
+              </div>
             </div>
           </Card>
           {vehicle.isLowEmission && (

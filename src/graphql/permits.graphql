@@ -3,6 +3,7 @@ query Query {
     id
     talpaOrderId
     receiptUrl
+    checkoutUrl
     subscriptionId
     startType
     startTime
@@ -20,6 +21,8 @@ query Query {
     vehicleChanged
     zoneChanged
     isOrderConfirmed
+    addressApartment
+    addressApartmentSv
     activeTemporaryVehicle {
       id
       startTime
@@ -53,6 +56,8 @@ query Query {
       endDate
       startDate
       unitPrice
+      basePrice
+      discountPrice
       totalPrice
       quantity
       lowEmissionDiscount

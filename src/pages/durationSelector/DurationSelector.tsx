@@ -25,18 +25,23 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
-  Product,
   ROUTES,
   STEPPER,
 } from '../../types';
-import { formatDate, formatPrice } from '../../utils';
+import {
+  formatPermitStartDate,
+  formatPermitEndDate,
+  formatMonthlyPrice,
+  formatPrice,
+} from '../../utils';
 import './durationSelector.scss';
 
 const MAX_MONTH = 12;
 const T_PATH = 'pages.durationSelector.DurationSelector';
 
 const DurationSelector = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t: gt } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: T_PATH });
   const permitCtx = useContext(PermitStateContext);
   const navigate = useNavigate();
   const [orderRequest, setOrderRequest] = useState<boolean>(false);
@@ -88,29 +93,23 @@ const DurationSelector = (): React.ReactElement => {
   };
 
   const getPrices = (permit: PermitModel) => {
-    const { isLowEmission } = permit.vehicle;
     const { contractType, products } = permit;
     const isOpenEnded = contractType === ParkingContractType.OPEN_ENDED;
-
-    const originalPrice = (product: Product) => (
-      <div className="original">{`${
-        (isOpenEnded ? product.unitPrice : product.totalPrice) * 2
-      } €${isOpenEnded ? '/kk' : ''}`}</div>
-    );
     return (
       <div className="prices">
         {products.map(product => (
           <div key={uuidv4()} className="price">
-            <div>{`(${formatDate(product.startDate)} - ${formatDate(
-              product.endDate
-            )})`}</div>
-            <div style={{ marginRight: '4px' }}>Yht.</div>
-            {isLowEmission && originalPrice(product)}
-            <div className="offer">{`${
-              isOpenEnded
-                ? formatPrice(product.unitPrice)
-                : formatPrice(product.totalPrice)
-            } €${isOpenEnded ? '/kk' : ''}`}</div>
+            <div>{`(${formatPermitStartDate(
+              products,
+              product,
+              permit
+            )} - ${formatPermitEndDate(products, product, permit)})`}</div>
+            <div style={{ marginRight: '4px' }}>{t('total')}</div>
+            <div className="offer">
+              {isOpenEnded
+                ? formatMonthlyPrice(product.unitPrice, gt)
+                : `${formatPrice(product.totalPrice)} €`}
+            </div>
           </div>
         ))}
       </div>
@@ -144,24 +143,18 @@ const DurationSelector = (): React.ReactElement => {
     <div className="duration-selector-component">
       <div className="zone__type">
         <div className="zone__type__symbol">{address.zone?.name}</div>
-        <div className="zone__type__label">
-          {t(`${T_PATH}.residentParkingZone`)}
-        </div>
+        <div className="zone__type__label">{t('residentParkingZone')}</div>
       </div>
       {!!validPermits?.length && (
         <>
           <div className="section-label">
-            {t(`${T_PATH}.validPermitCount`, { count: validPermits.length })}
+            {t('validPermitCount', { count: validPermits.length })}
           </div>
           <Permit permits={validPermits} address={address} hideMap />
         </>
       )}
       <div className="section-label">
-        {t(
-          `${T_PATH}.${
-            validPermits?.length ? 'secondPermitLabel' : 'sectionLabel'
-          }`
-        )}
+        {t(validPermits?.length ? 'secondPermitLabel' : 'sectionLabel')}
       </div>
       {permitCtx?.getStatus() === 'error' && (
         <Notification type="error">
@@ -182,23 +175,24 @@ const DurationSelector = (): React.ReactElement => {
               <div className="car-info">
                 {draftPermits.length > 1 && (
                   <div className="permit-count">
-                    {t(`${T_PATH}.permitCount`, { count: index + 1 })}
+                    {t('permitCount', { count: index + 1 })}
                   </div>
                 )}
                 <div className="car-details">{getCarDetails(permit)}</div>
               </div>
               <div className="hide-in-mobile">{getPrices(permit)}</div>
             </div>
+            <div className="vehicle-copyright">© {t('vehicleCopyright')}</div>
             {mainPermitToUpdate.contractType ===
               ParkingContractType.OPEN_ENDED && (
-              <div>{t(`${T_PATH}.openEndedAssistiveText`)}</div>
+              <div>{t('openEndedAssistiveText')}</div>
             )}
 
             {mainPermitToUpdate.contractType ===
               ParkingContractType.FIXED_PERIOD && (
               <div className="time-period with-bottom-border">
                 <div className={classNames(`assistive-text`)}>
-                  {t(`${T_PATH}.fixedPeriodAssistiveText`, {
+                  {t('fixedPeriodAssistiveText', {
                     max: getMaxMonth(permit),
                   })}
                 </div>
@@ -206,7 +200,7 @@ const DurationSelector = (): React.ReactElement => {
                   style={{ maxWidth: '250px' }}
                   className="month-selection"
                   id={uuidv4()}
-                  helperText={t(`${T_PATH}.monthSelectionHelpText`, {
+                  helperText={t('monthSelectionHelpText', {
                     max: getMaxMonth(permit),
                   })}
                   label=""
@@ -229,7 +223,7 @@ const DurationSelector = (): React.ReactElement => {
             )}
           </Card>
           <div className="price-info hide-in-desktop">
-            <div>{t(`${T_PATH}.permitPrice`)}</div>
+            <div>{t('permitPrice')}</div>
             {getPrices(permit)}
           </div>
         </div>
@@ -243,7 +237,7 @@ const DurationSelector = (): React.ReactElement => {
           {orderRequest && <LoadingSpinner small />}
           {!orderRequest && (
             <>
-              <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
+              <span>{t('actionBtn.continue')}</span>
               <IconArrowRight />
             </>
           )}
@@ -255,7 +249,7 @@ const DurationSelector = (): React.ReactElement => {
           variant="secondary"
           iconLeft={<IconArrowLeft />}
           onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
-          <span>{t(`${T_PATH}.actionBtn.selectRegistration`)}</span>
+          <span>{t('actionBtn.back')}</span>
         </Button>
       </div>
     </div>

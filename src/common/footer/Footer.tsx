@@ -11,20 +11,13 @@ const T_PATH = 'common.footer.Footer';
 
 const Footer = (): React.ReactElement => {
   const { t } = useTranslation();
-  const FOOTER_COLOR = 'var(--color-white)';
   return (
-    <HDSFooter
-      theme={{
-        '--footer-background': 'var(--color-black)',
-        '--footer-color': FOOTER_COLOR,
-        '--footer-divider-color': FOOTER_COLOR,
-        '--footer-focus-outline-color': FOOTER_COLOR,
-      }}>
+    <HDSFooter theme="dark">
       <HDSFooter.Navigation>
         <HDSFooter.Item
           target="_blank"
           href="https://www.hel.fi/static/liitteet/kaupunkiymparisto/liikenne-ja-kartat/pysakointi/pysakointitunnusten-ohjeet.pdf"
-          label={t(`${T_PATH}.termsOfParkingCode`)}
+          label={t(`${T_PATH}.termsOfParkingPermit`)}
         />
         <HDSFooter.Item
           href="mailto:kymp.pysakointitunnus@hel.fi"
@@ -44,27 +37,40 @@ const Footer = (): React.ReactElement => {
         <HDSFooter.SoMe>
           <HDSFooter.Item
             icon={<IconInstagram />}
+            target="_blank"
+            href="https://www.instagram.com/kaupunkiymparisto"
             label={t(`${T_PATH}.icon.instagram.label`)}
           />
           <HDSFooter.Item
-            icon={<IconTwitter />}
+            icon={<IconFacebook />}
+            target="_blank"
+            href="https://www.facebook.com/kaupunkiymparisto"
             label={t(`${T_PATH}.icon.facebook.label`)}
           />
           <HDSFooter.Item
-            icon={<IconFacebook />}
+            icon={<IconTwitter />}
+            target="_blank"
+            href="https://twitter.com/HelsinkiKymp"
             label={t(`${T_PATH}.icon.twitter.label`)}
           />
         </HDSFooter.SoMe>
       </HDSFooter.Utilities>
       <HDSFooter.Base copyrightHolder={t(`${T_PATH}.copyright`)}>
-        <HDSFooter.Item label={t('www.hel.fi')} />
+        <HDSFooter.Item
+          target="_blank"
+          href="https://www.hel.fi/fi/kaupunkiymparisto-ja-liikenne/pysakointi"
+          label={t(`${T_PATH}.parkingInfo`)}
+        />
         <HDSFooter.Item
           target="_blank"
           href="https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Maksullisen%20pys%C3%A4k%C3%B6innin%20ja%20pys%C3%A4k%C3%B6intitunnusten%20asiakasrekisteri.pdf"
           label={t(`${T_PATH}.registryDescription`)}
         />
-        <HDSFooter.Item label={t(`${T_PATH}.privacy`)} />
-        <HDSFooter.Item label={t(`${T_PATH}.accessibility`)} />
+        <HDSFooter.Item
+          target="_blank"
+          href="https://www.hel.fi/fi/paatoksenteko-ja-hallinto/tietoa-helsingista/tietosuoja-ja-tiedonhallinta/tietosuoja"
+          label={t(`${T_PATH}.dataProtection`)}
+        />
       </HDSFooter.Base>
     </HDSFooter>
   );

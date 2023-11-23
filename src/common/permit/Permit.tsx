@@ -41,6 +41,8 @@ export interface Props {
   fetchPermits?: () => void;
 }
 
+type PermitTimes = { startTime: Date; endTime: Date };
+
 const Permit = ({
   permits,
   address,
@@ -50,7 +52,8 @@ const Permit = ({
   fetchPermits,
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy HH:mm';
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
   const navigate = useNavigate();
   const [editPermitId, setEditPermitId] = useState<string | null>(null);
   const [deleteTmpVehiclePermitId, setDeleteTmpVehiclePermitId] = useState<
@@ -78,9 +81,74 @@ const Permit = ({
     });
   };
 
+  const getPermitTimes = (permit: PermitModel): Array<PermitTimes> => {
+    const {
+      startTime,
+      endTime,
+      currentPeriodEndTime,
+      contractType,
+      activeTemporaryVehicle,
+    } = permit;
+
+    const permitStartTime = startTime ? new Date(startTime) : null;
+
+    let permitEndTime = endTime ? new Date(endTime) : null;
+
+    if (
+      !permitEndTime &&
+      contractType === ParkingContractType.OPEN_ENDED &&
+      !!currentPeriodEndTime
+    ) {
+      permitEndTime = new Date(currentPeriodEndTime);
+    }
+
+    if (!permitStartTime || !permitEndTime) {
+      return [];
+    }
+
+    if (
+      !activeTemporaryVehicle?.startTime ||
+      !activeTemporaryVehicle?.endTime
+    ) {
+      return [{ startTime: permitStartTime, endTime: permitEndTime }];
+    }
+    const tempStartTime = new Date(activeTemporaryVehicle.startTime);
+    const tempEndTime = new Date(activeTemporaryVehicle.endTime);
+
+    if (tempStartTime > permitEndTime || tempEndTime < permitStartTime) {
+      return [{ startTime: permitStartTime, endTime: permitEndTime }];
+    }
+
+    const permitTimes = [
+      { startTime: permitStartTime, endTime: tempStartTime },
+    ];
+
+    if (permitEndTime > tempEndTime) {
+      permitTimes.push({ startTime: tempEndTime, endTime: permitEndTime });
+    }
+
+    return permitTimes;
+  };
+
+  const getContractType = (permit: PermitModel): string => {
+    const { contractType } = permit;
+
+    if (contractType === ParkingContractType.OPEN_ENDED) {
+      return ` ${t(`${T_PATH}.contractTypeOpenEnded`)}`;
+    }
+
+    if (contractType === ParkingContractType.FIXED_PERIOD) {
+      return `  ${t(`${T_PATH}.contractTypeFixedPeriod`)}`;
+    }
+
+    return '';
+  };
+
   const getPermit = (permit: PermitModel) => {
     const activeTempVehicle = permit.activeTemporaryVehicle;
     const { registrationNumber, manufacturer, model } = permit.vehicle;
+    const permitTimes = getPermitTimes(permit);
+    const contractType = getContractType(permit);
     return (
       <div className="pp-list" key={permit.vehicle.registrationNumber}>
         {activeTempVehicle && (
@@ -91,6 +159,19 @@ const Permit = ({
                 <IconDocument className="icon" />
               </span>
               <span className="pp-list__title__text">{`${activeTempVehicle.vehicle.registrationNumber} ${activeTempVehicle.vehicle.manufacturer} ${activeTempVehicle.vehicle.model}`}</span>
+            </div>
+            <div className="pp-list__subtitle">
+              <span>
+                {format(
+                  new Date(activeTempVehicle.startTime as string),
+                  dateFormat
+                )}
+                {' - '}
+                {format(
+                  new Date(activeTempVehicle.endTime as string),
+                  dateFormat
+                )}
+              </span>
             </div>
             <Button
               className="permit-actions-buttons"
@@ -106,9 +187,10 @@ const Permit = ({
         {activeTempVehicle && (
           <p className="invalid-title">{t(`${T_PATH}.invalidPermit`)}</p>
         )}
+
         <div
           className={classNames('pp-list__title', {
-            hasTemporary: activeTempVehicle,
+            hasTemporary: true,
           })}>
           <div
             className={classNames('pp-list__title__icon document-icon', {
@@ -116,29 +198,24 @@ const Permit = ({
             })}>
             <IconDocument className="icon" />
           </div>
-          <span className="pp-list__title__text">{`${registrationNumber} ${manufacturer} ${model}`}</span>
-        </div>
-        {!activeTempVehicle && (
-          <>
-            <div className="pp-list__subtitle">
-              <span>
-                {format(new Date(permit.startTime as string), dateFormat)}
-                {' - '}
-                {permit.contractType === ParkingContractType.OPEN_ENDED &&
-                !permit.endTime
-                  ? format(
-                      new Date(permit.currentPeriodEndTime as string),
-                      dateFormat
-                    )
-                  : format(new Date(permit.endTime as string), dateFormat)}
-                {permit.contractType === ParkingContractType.OPEN_ENDED &&
-                  ` ${t(`${T_PATH}.contractTypeOpenEnded`)}`}
-                {permit.contractType === ParkingContractType.FIXED_PERIOD &&
-                  ` ${t(`${T_PATH}.contractTypeFixedPeriod`)}`}
-              </span>
+          <div className="pp-list__title__text">
+            {`${registrationNumber} ${manufacturer} ${model}`}
+            <div className="pp-list__title__vehicle-copyright">
+              © {t(`${T_PATH}.vehicleCopyright`)}
             </div>
-          </>
-        )}
+          </div>
+        </div>
+
+        {permitTimes.map(({ startTime, endTime }) => (
+          <div className="pp-list__subtitle" key={startTime.toUTCString()}>
+            <span>
+              {format(startTime, dateFormat)}
+              {' - '}
+              {format(endTime, dateFormat)}
+              {contractType}
+            </span>
+          </div>
+        ))}
 
         {permit.vehicle.isLowEmission && (
           <div className="message">
@@ -174,7 +251,14 @@ const Permit = ({
               ? 'var(--color-black-10)'
               : 'var(--color-white)',
           }}>
-          <AddressLabel address={address} />
+          <AddressLabel
+            address={address}
+            addressApartment={
+              lang === 'sv'
+                ? permits[0].addressApartmentSv
+                : permits[0].addressApartment
+            }
+          />
           <ParkingZonesMap
             userAddress={address}
             zoom={13}

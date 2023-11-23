@@ -14,7 +14,8 @@ import './addressSelector.scss';
 const T_PATH = 'pages.addressSelector.AddressSelector';
 
 const AddressSelector = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
   const navigate = useNavigate();
   const profileCtx = useContext(UserProfileContext);
   const permitCtx = useContext(PermitStateContext);
@@ -78,6 +79,11 @@ const AddressSelector = (): React.ReactElement => {
                 disableSelection={!!validRegistrationNumbers?.length}
                 address={primaryAddress}
                 selectedAddress={selectedAddress}
+                addressApartment={
+                  lang === 'sv'
+                    ? profile.primaryAddressApartmentSv
+                    : profile.primaryAddressApartment
+                }
               />
             )}
 
@@ -88,6 +94,11 @@ const AddressSelector = (): React.ReactElement => {
                 address={otherAddress}
                 disableSelection={!!validRegistrationNumbers?.length}
                 selectedAddress={selectedAddress}
+                addressApartment={
+                  lang === 'sv'
+                    ? profile.otherAddressApartmentSv
+                    : profile.otherAddressApartment
+                }
               />
             )}
           </div>

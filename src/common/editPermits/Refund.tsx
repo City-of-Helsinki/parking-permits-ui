@@ -9,6 +9,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isValidIBAN } from '../utils';
+import { formatPrice } from '../../utils';
 import './Refund.scss';
 
 const T_PATH = 'common.editPermits.Refund';
@@ -42,11 +43,11 @@ const Refund: React.FC<RefundProps> = ({
       <div className="refund-info">
         <div className="row">
           <div>{t(`${T_PATH}.refundTotal`)}</div>
-          <div>{parseFloat(refundTotal.toFixed(2))} €</div>
+          <div>{formatPrice(Math.abs(refundTotal))} €</div>
         </div>
         <div className="row">
           <div>{t(`${T_PATH}.refundTotalVat`)}</div>
-          <div>{parseFloat(refundTotalVat.toFixed(2))} €</div>
+          <div>{formatPrice(Math.abs(refundTotalVat))} €</div>
         </div>
       </div>
       <div className="refund-description">
@@ -79,6 +80,11 @@ const Refund: React.FC<RefundProps> = ({
             ? t(`${T_PATH}.invalidAccountNumber`)
             : undefined
         }
+        successText={
+          accountNumber && isValidIBAN(accountNumber)
+            ? t(`${T_PATH}.validAccountNumber`)
+            : undefined
+        }
       />
       <div className="account-info">
         <div className="account-info-icon">
@@ -104,7 +110,9 @@ const Refund: React.FC<RefundProps> = ({
           type="submit"
           className="action-btn"
           iconRight={<IconArrowRight />}
-          onClick={() => onConfirm(accountNumber)}
+          onClick={() =>
+            onConfirm(isValidIBAN(accountNumber) ? accountNumber : '')
+          }
           theme="black">
           <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
         </Button>

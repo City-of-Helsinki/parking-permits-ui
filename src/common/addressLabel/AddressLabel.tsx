@@ -8,9 +8,13 @@ const T_PATH = 'common.addressLabel';
 
 interface AddressHeaderProps {
   address: UserAddress;
+  addressApartment: string;
 }
 
-const AddressLabel: FC<AddressHeaderProps> = ({ address: userAddress }) => {
+const AddressLabel: FC<AddressHeaderProps> = ({
+  address: userAddress,
+  addressApartment: apartment,
+}) => {
   const { t, i18n } = useTranslation();
   return (
     <div className="address-label-component">
@@ -22,7 +26,7 @@ const AddressLabel: FC<AddressHeaderProps> = ({ address: userAddress }) => {
               ? t(`${T_PATH}.permanentAddress`)
               : t(`${T_PATH}.temporaryAddress`)}
           </span>
-          <span>{formatAddress(userAddress, i18n.language)}</span>
+          <span>{formatAddress(userAddress, apartment, i18n.language)}</span>
         </div>
       </div>
     </div>

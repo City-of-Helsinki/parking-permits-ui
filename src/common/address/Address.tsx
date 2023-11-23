@@ -19,9 +19,14 @@ const T_PATH = 'common.address.Address';
 interface AddressHeaderProps {
   isPrimary: boolean;
   address: UserAddress;
+  addressApartment: string;
 }
 
-const AddressLabel: FC<AddressHeaderProps> = ({ isPrimary, address }) => {
+const AddressLabel: FC<AddressHeaderProps> = ({
+  isPrimary,
+  address,
+  addressApartment,
+}) => {
   const { t, i18n } = useTranslation();
   return (
     <div className="address__headers">
@@ -30,7 +35,7 @@ const AddressLabel: FC<AddressHeaderProps> = ({ isPrimary, address }) => {
           ? t(`${T_PATH}.permanentAddress`)
           : t(`${T_PATH}.temporaryAddress`)}
       </span>
-      <span>{formatAddress(address, i18n.language)}</span>
+      <span>{formatAddress(address, addressApartment, i18n.language)}</span>
     </div>
   );
 };
@@ -41,6 +46,7 @@ interface Props {
   address: UserAddress;
   selectedAddress: UserAddress | undefined;
   disableSelection?: boolean;
+  addressApartment: string;
   setSelectedAddress?: (address: UserAddress) => void;
 }
 
@@ -50,6 +56,7 @@ const Address: FC<Props> = ({
   address,
   selectedAddress,
   disableSelection = false,
+  addressApartment,
   setSelectedAddress,
 }): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
@@ -78,7 +85,13 @@ const Address: FC<Props> = ({
             name={address.id}
             value={address.id}
             disabled={!address.zone || disableSelection}
-            label={<AddressLabel isPrimary={isPrimary} address={address} />}
+            label={
+              <AddressLabel
+                isPrimary={isPrimary}
+                address={address}
+                addressApartment={addressApartment}
+              />
+            }
             checked={selectedAddress?.id === address.id}
             onClick={() =>
               setSelectedAddress
@@ -91,7 +104,11 @@ const Address: FC<Props> = ({
       )}
       {!showControl && (
         <div className="address">
-          <AddressLabel isPrimary={isPrimary} address={address} />
+          <AddressLabel
+            isPrimary={isPrimary}
+            address={address}
+            addressApartment={addressApartment}
+          />
         </div>
       )}
       <div className="zone_type">

@@ -20,6 +20,8 @@ mutation Mutation($addressId: ID!, $registration: String!) {
     vehicleChanged
     zoneChanged
     isOrderConfirmed
+    addressApartment
+    addressApartmentSv
     activeTemporaryVehicle {
       id
       startTime
