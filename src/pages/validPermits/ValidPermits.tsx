@@ -18,7 +18,7 @@ import {
   ROUTES,
   UserAddress,
 } from '../../types';
-import { formatDate } from '../../utils';
+import { formatDate, isPermitEditable } from '../../utils';
 import './validPermits.scss';
 
 const T_PATH = 'pages.validPermit.ValidPermit';
@@ -88,6 +88,8 @@ const ValidPermits = (): React.ReactElement => {
     }
   };
 
+  const showActionsButtons = validPermits.some(isPermitEditable);
+
   return (
     <div className="valid-permit-component">
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
@@ -138,7 +140,7 @@ const ValidPermits = (): React.ReactElement => {
         <Permit
           address={address}
           permits={validPermits}
-          showActionsButtons
+          showActionsButtons={showActionsButtons}
           showChangeAddressButtons={addresses.length > 1}
           fetchPermits={permitCtx?.fetchPermits}
         />
