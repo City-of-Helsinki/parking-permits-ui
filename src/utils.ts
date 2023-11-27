@@ -211,6 +211,19 @@ export const upcomingProducts = (permit: Permit): Array<Product> =>
       dateAsNumber(product.endDate) > dateAsNumber(permit.currentPeriodEndTime)
   );
 
+// checks that permit vehicle or address can be changed
+export const isPermitEditable = (permit: Permit): boolean => {
+  if (permit.contractType === ParkingContractType.FIXED_PERIOD) {
+    return true;
+  }
+  const interval = intervalToDuration({
+    start: new Date(),
+    end: normalizeDateValue(permit.currentPeriodEndTime),
+  });
+
+  return (interval.days ?? 0) > 3;
+};
+
 export const calcProductDates = (
   product: Product,
   permit: Permit
