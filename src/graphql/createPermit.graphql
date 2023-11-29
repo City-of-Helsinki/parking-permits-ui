@@ -31,6 +31,7 @@ mutation Mutation($addressId: ID!, $registration: String!) {
         model
         manufacturer
         registrationNumber
+        restrictions
       }
     }
     vehicle {
@@ -41,6 +42,7 @@ mutation Mutation($addressId: ID!, $registration: String!) {
       manufacturer
       productionYear
       registrationNumber
+      restrictions
     }
     parkingZone {
       id
