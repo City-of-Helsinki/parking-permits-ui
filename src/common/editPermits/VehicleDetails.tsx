@@ -84,6 +84,7 @@ const VehicleDetails: FC<Props> = ({
           {t(error || '')}
         </Notification>
       )}
+
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       <TextInput
         id={uuidv4()}
@@ -102,7 +103,6 @@ const VehicleDetails: FC<Props> = ({
         {!loading && t(`${T_PATH}.changeBtn`)}
         {loading && <LoadingSpinner small />}
       </Button>
-
       {vehicle && (
         <>
           <Card className="card">

@@ -32,6 +32,7 @@ query Query {
         model
         manufacturer
         registrationNumber
+        restrictions
       }
     }
     vehicle {
@@ -42,6 +43,7 @@ query Query {
       manufacturer
       productionYear
       registrationNumber
+      restrictions
     }
     parkingZone {
       id
