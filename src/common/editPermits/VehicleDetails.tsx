@@ -29,6 +29,7 @@ import {
   getPermitStartDate,
   getPermitEndDate,
   calcProductUnitPrice,
+  getRestrictions,
 } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
@@ -77,6 +78,8 @@ const VehicleDetails: FC<Props> = ({
     setLoading(false);
   }, [setVehicle, tempRegistration]);
 
+  const restrictions = vehicle ? getRestrictions(vehicle, t) : [];
+
   return (
     <div className="vehicle-detail-component">
       {error && (
@@ -84,6 +87,17 @@ const VehicleDetails: FC<Props> = ({
           {t(error || '')}
         </Notification>
       )}
+
+      {restrictions.map(restriction => (
+        <Notification
+          key={restriction}
+          type="info"
+          className="info-notification restriction"
+          label={t('common.restrictions.label')}>
+          <div>{t('common.restrictions.text', { restriction })}</div>
+          <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
+        </Notification>
+      ))}
 
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
       <TextInput
