@@ -17,27 +17,10 @@ import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConse
 import RegistrationNumber from '../../common/registrationNumber/RegistrationNumber';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, STEPPER } from '../../types';
-import { formatDate, formatMonthlyPrice } from '../../utils';
+import { formatDate, formatMonthlyPrice, getRestrictions } from '../../utils';
 import './permitPrices.scss';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
-
-type Restrictions = {
-  [key: string]: string;
-};
-
-const RESTRICTIONS: Restrictions = {
-  '03': 'driving_ban',
-  '07': 'compulsory_inspection_neglected',
-  '10': 'periodic_inspection_rejected',
-  '11': 'vehicle_stolen',
-  '20': 'vehicle_deregistered',
-  '22': 'vehicle_tax_due',
-  '23': 'vehicle_prohibited_to_use_additional_tax',
-  '24': 'old_vehicle_diesel_due',
-  '25': 'registration_plates_confiscated',
-  '34': 'driving_ban_registration_plates_confiscated',
-};
 
 const PermitPrices = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -62,13 +45,8 @@ const PermitPrices = (): React.ReactElement => {
   };
 
   const restrictions = permits
-    .map(permit => permit?.vehicle?.restrictions || [])
-    .flat()
-    .map((code: string): string => {
-      const translation = RESTRICTIONS[code] ?? null;
-      return translation ? t(`common.restrictions.${translation}`) : '';
-    })
-    .filter(Boolean);
+    .map(permit => getRestrictions(permit.vehicle, t))
+    .flat();
 
   const getPrices = (permit: Permit) => (
     <>
