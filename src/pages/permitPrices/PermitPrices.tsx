@@ -6,6 +6,7 @@ import {
   IconArrowRight,
   IconMinusCircle,
   RadioButton,
+  Notification,
 } from 'hds-react';
 import { sortBy } from 'lodash';
 import React, { useContext } from 'react';
@@ -21,12 +22,29 @@ import './permitPrices.scss';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
 
+type Restrictions = {
+  [key: string]: string;
+};
+
+const RESTRICTIONS: Restrictions = {
+  '03': 'driving_ban',
+  '07': 'compulsory_inspection_neglected',
+  '10': 'periodic_inspection_rejected',
+  '11': 'vehicle_stolen',
+  '20': 'vehicle_deregistered',
+  '22': 'vehicle_tax_due',
+  '23': 'vehicle_prohibited_to_use_additional_tax',
+  '24': 'old_vehicle_diesel_due',
+  '25': 'registration_plates_confiscated',
+  '34': 'driving_ban_registration_plates_confiscated',
+};
+
 const PermitPrices = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const permitCtx = useContext(PermitStateContext);
 
-  const permits = permitCtx?.getDraftPermits();
+  const permits = permitCtx?.getDraftPermits() ?? [];
   const registrations = permits?.map(p => p.vehicle.registrationNumber);
   const currentStep = permitCtx?.getStep();
 
@@ -42,6 +60,15 @@ const PermitPrices = (): React.ReactElement => {
     navigate(route);
     permitCtx?.clearErrorMessage();
   };
+
+  const restrictions = permits
+    .map(permit => permit?.vehicle?.restrictions || [])
+    .flat()
+    .map((code: string): string => {
+      const translation = RESTRICTIONS[code] ?? null;
+      return translation ? t(`common.restrictions.${translation}`) : '';
+    })
+    .filter(Boolean);
 
   const getPrices = (permit: Permit) => (
     <>
@@ -63,6 +90,20 @@ const PermitPrices = (): React.ReactElement => {
 
   return (
     <div className="permit-prices-component">
+      {restrictions.length > 0 && (
+        <div className="permit-info">
+          {restrictions.map(restriction => (
+            <Notification
+              key={restriction}
+              type="info"
+              className="info-notification restriction"
+              label={t('common.restrictions.label')}>
+              <div>{t('common.restrictions.text', { restriction })}</div>
+              <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
+            </Notification>
+          ))}
+        </div>
+      )}
       <div className="not-in-phone">
         <RegistrationNumber />
         <div className="permit-info">{t(`${T_PATH}.permitInfo`)}</div>

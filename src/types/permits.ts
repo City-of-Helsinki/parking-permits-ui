@@ -68,6 +68,7 @@ export type Vehicle = {
   model: string;
   productionYear: number;
   registrationNumber: string;
+  restrictions: Array<string>;
 };
 
 export type TalpaOrder = {
