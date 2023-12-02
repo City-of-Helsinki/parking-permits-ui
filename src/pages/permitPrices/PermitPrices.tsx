@@ -17,7 +17,7 @@ import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConse
 import RegistrationNumber from '../../common/registrationNumber/RegistrationNumber';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, STEPPER } from '../../types';
-import { formatDate, formatMonthlyPrice, getRestrictions } from '../../utils';
+import { formatMonthlyPrice, getRestrictions } from '../../utils';
 import './permitPrices.scss';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
@@ -54,12 +54,6 @@ const PermitPrices = (): React.ReactElement => {
         <div key={uuidv4()} className="price">
           <div className="offer">
             {formatMonthlyPrice(product.unitPrice, t)}
-          </div>
-          <div>
-            ({t(`${T_PATH}.price`)}
-            {` ${formatDate(product.startDate)} - ${formatDate(
-              product.endDate
-            )})`}
           </div>
         </div>
       ))}
