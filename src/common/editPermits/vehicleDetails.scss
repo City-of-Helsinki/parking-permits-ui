@@ -34,6 +34,9 @@
       font-size: var(--fontsize-heading-s);
       font-weight: bold;
     }
+    .restriction {
+      margin-bottom: var(--spacing-s);
+    }
     .emission-level {
       font-size: 0.75rem;
       margin: var(--spacing-2-xs) 0;

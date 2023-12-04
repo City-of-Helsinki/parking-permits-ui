@@ -7,12 +7,29 @@ import {
   ProductDates,
   MaybeDate,
   Product,
+  Vehicle,
 } from './types';
 
 const PC_100 = 100;
 
 type TranslateFunction = (name: string) => string;
 
+type Restrictions = {
+  [key: string]: string;
+};
+
+const RESTRICTIONS: Restrictions = {
+  '03': 'driving_ban',
+  '07': 'compulsory_inspection_neglected',
+  '10': 'periodic_inspection_rejected',
+  '11': 'vehicle_stolen',
+  '20': 'vehicle_deregistered',
+  '22': 'vehicle_tax_due',
+  '23': 'vehicle_prohibited_to_use_additional_tax',
+  '24': 'old_vehicle_diesel_due',
+  '25': 'registration_plates_confiscated',
+  '34': 'driving_ban_registration_plates_confiscated',
+};
 export const formatErrors = (
   errors: ParkingPermitError[] | readonly GraphQLError[] | string[] | string,
   defaultError = 'common.genericError'
@@ -211,6 +228,19 @@ export const upcomingProducts = (permit: Permit): Array<Product> =>
       dateAsNumber(product.endDate) > dateAsNumber(permit.currentPeriodEndTime)
   );
 
+// checks that permit vehicle or address can be changed
+export const isPermitEditable = (permit: Permit): boolean => {
+  if (permit.contractType === ParkingContractType.FIXED_PERIOD) {
+    return true;
+  }
+  const interval = intervalToDuration({
+    start: new Date(),
+    end: normalizeDateValue(permit.currentPeriodEndTime),
+  });
+
+  return (interval.days ?? 0) > 3;
+};
+
 export const calcProductDates = (
   product: Product,
   permit: Permit
@@ -223,3 +253,14 @@ export const calcProductDates = (
     monthCount: diffMonths(startDate, endDate) || 1,
   };
 };
+
+export const getRestrictions = (
+  vehicle: Vehicle,
+  t: TranslateFunction
+): Array<string> =>
+  (vehicle.restrictions ?? [])
+    .map((code: string): string => {
+      const translation = RESTRICTIONS[code] ?? null;
+      return translation ? t(`common.restrictions.${translation}`) : '';
+    })
+    .filter(Boolean);

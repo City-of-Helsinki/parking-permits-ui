@@ -38,6 +38,7 @@ export interface Props {
   showActionsButtons?: boolean;
   hideMap?: boolean;
   showChangeAddressButtons?: boolean;
+
   fetchPermits?: () => void;
 }
 
@@ -49,6 +50,7 @@ const Permit = ({
   hideMap = false,
   showActionsButtons = false,
   showChangeAddressButtons = false,
+
   fetchPermits,
 }: Props): React.ReactElement => {
   const dateFormat = 'd.M.yyyy HH:mm';

@@ -18,7 +18,6 @@ import {
 } from '../../types';
 import {
   upcomingProducts,
-  isOpenEndedPermitStarted,
   calcProductDates,
   calcProductUnitPrice,
   calcProductUnitVatPrice,
@@ -90,6 +89,7 @@ const ChangeVehicle = (): React.ReactElement => {
     const previousVatPrice = calcProductUnitVatPrice(product, false);
     const newPrice = calcProductUnitPrice(product, isLowEmission);
     const newVatPrice = calcProductUnitVatPrice(product, isLowEmission);
+
     return {
       newPrice,
       previousPrice,
@@ -121,8 +121,6 @@ const ChangeVehicle = (): React.ReactElement => {
         } else if (checkoutUrl) {
           window.open(`${checkoutUrl}`, '_self');
         }
-      } else if (isOpenEndedPermitStarted([permit])) {
-        updateAndNavigateToOrderView();
       } else {
         setStep(ChangeVehicleStep.PRICE_PREVIEW);
       }

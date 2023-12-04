@@ -6,6 +6,7 @@ import {
   IconArrowRight,
   IconMinusCircle,
   RadioButton,
+  Notification,
 } from 'hds-react';
 import { sortBy } from 'lodash';
 import React, { useContext } from 'react';
@@ -16,7 +17,7 @@ import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConse
 import RegistrationNumber from '../../common/registrationNumber/RegistrationNumber';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, STEPPER } from '../../types';
-import { formatDate, formatMonthlyPrice } from '../../utils';
+import { formatMonthlyPrice, getRestrictions } from '../../utils';
 import './permitPrices.scss';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
@@ -26,7 +27,7 @@ const PermitPrices = (): React.ReactElement => {
   const navigate = useNavigate();
   const permitCtx = useContext(PermitStateContext);
 
-  const permits = permitCtx?.getDraftPermits();
+  const permits = permitCtx?.getDraftPermits() ?? [];
   const registrations = permits?.map(p => p.vehicle.registrationNumber);
   const currentStep = permitCtx?.getStep();
 
@@ -43,18 +44,16 @@ const PermitPrices = (): React.ReactElement => {
     permitCtx?.clearErrorMessage();
   };
 
+  const restrictions = permits
+    .map(permit => getRestrictions(permit.vehicle, t))
+    .flat();
+
   const getPrices = (permit: Permit) => (
     <>
       {permit.products.map(product => (
         <div key={uuidv4()} className="price">
           <div className="offer">
             {formatMonthlyPrice(product.unitPrice, t)}
-          </div>
-          <div>
-            ({t(`${T_PATH}.price`)}
-            {` ${formatDate(product.startDate)} - ${formatDate(
-              product.endDate
-            )})`}
           </div>
         </div>
       ))}
@@ -63,6 +62,20 @@ const PermitPrices = (): React.ReactElement => {
 
   return (
     <div className="permit-prices-component">
+      {restrictions.length > 0 && (
+        <div className="permit-info">
+          {restrictions.map(restriction => (
+            <Notification
+              key={restriction}
+              type="info"
+              className="info-notification restriction"
+              label={t('common.restrictions.label')}>
+              <div>{t('common.restrictions.text', { restriction })}</div>
+              <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
+            </Notification>
+          ))}
+        </div>
+      )}
       <div className="not-in-phone">
         <RegistrationNumber />
         <div className="permit-info">{t(`${T_PATH}.permitInfo`)}</div>

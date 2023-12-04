@@ -30,6 +30,7 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
         model
         manufacturer
         registrationNumber
+        restrictions
       }
     }
     vehicle {
@@ -40,6 +41,7 @@ mutation Mutation($input: ParkingPermitInput!, $permitId: ID) {
       manufacturer
       productionYear
       registrationNumber
+      restrictions
     }
     parkingZone {
       id
