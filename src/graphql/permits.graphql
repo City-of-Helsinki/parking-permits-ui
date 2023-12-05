@@ -15,6 +15,7 @@ query Query {
     monthCount
     monthsLeft
     currentPeriodEndTime
+    canBeRefunded
     canEndImmediately
     canEndAfterCurrentPeriod
     hasRefund

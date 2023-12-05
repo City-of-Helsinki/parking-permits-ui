@@ -52,6 +52,7 @@ export type Permit = {
   canEndImmediately: boolean;
   hasRefund: boolean;
   monthlyPrice: number;
+  canBeRefunded: boolean;
   canEndAfterCurrentPeriod: boolean;
   vehicleChanged: boolean;
   zoneChanged: boolean;
