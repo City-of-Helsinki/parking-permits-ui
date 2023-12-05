@@ -121,8 +121,10 @@ const ChangeVehicle = (): React.ReactElement => {
         } else if (checkoutUrl) {
           window.open(`${checkoutUrl}`, '_self');
         }
-      } else {
+      } else if (permit.canBeRefunded) {
         setStep(ChangeVehicleStep.PRICE_PREVIEW);
+      } else {
+        updateAndNavigateToOrderView();
       }
     }
   };

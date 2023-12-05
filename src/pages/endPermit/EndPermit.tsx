@@ -48,14 +48,16 @@ const EndPermit = (): React.ReactElement => {
 
     ({
       vehicle: permit.vehicle,
-      priceChanges: upcomingProducts(permit).map(product => ({
-        product: product.name,
-        previousPrice: product.unitPrice,
-        newPrice: product.unitPrice,
-        priceChange: product.unitPrice,
-        priceChangeVat: product.vat * product.unitPrice,
-        ...calcProductDates(product, permit),
-      })),
+      priceChanges: permit.canBeRefunded
+        ? upcomingProducts(permit).map(product => ({
+            product: product.name,
+            previousPrice: product.unitPrice,
+            newPrice: product.unitPrice,
+            priceChange: product.unitPrice,
+            priceChangeVat: product.vat * product.unitPrice,
+            ...calcProductDates(product, permit),
+          }))
+        : [],
     })
   );
 
