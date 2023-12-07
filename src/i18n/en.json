@@ -254,5 +254,6 @@
   "pages.validPermit.ValidPermit.sectionLabel": "Your parking permit",
   "pages.vehicleSelector.VehicleSelector.label": "Resident Parking Zone",
   "pages.vehicleSelector.VehicleSelector.noOfVehicleInformation": "You can add information for one or up to two vehicles to the parking permit.",
-  "pages.vehicleSelector.VehicleSelector.sectionLabel": "Vehicle information"
+  "pages.vehicleSelector.VehicleSelector.sectionLabel": "Vehicle information",
+  "pages.vehicleSelector.VehicleSelector.vehicleCopyright": "Vehicle information - Transport register, Traficom"
 }

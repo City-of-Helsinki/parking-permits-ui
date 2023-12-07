@@ -244,5 +244,6 @@
   "pages.validPermit.ValidPermit.sectionLabel": "Pysäköintitunnuksesi",
   "pages.vehicleSelector.VehicleSelector.label": "Pysäköintialue",
   "pages.vehicleSelector.VehicleSelector.noOfVehicleInformation": "Voit lisätä pysäköintitunnukseen yhden tai enintään kahden ajoneuvon tiedot.",
-  "pages.vehicleSelector.VehicleSelector.sectionLabel": "Ajoneuvon tiedot"
+  "pages.vehicleSelector.VehicleSelector.sectionLabel": "Ajoneuvon tiedot",
+  "pages.vehicleSelector.VehicleSelector.vehicleCopyright": "Ajoneuvon tiedot - Liikenneasioidenrekisteri, Traficom"
 }

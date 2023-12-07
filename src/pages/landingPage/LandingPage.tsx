@@ -26,7 +26,7 @@ const LandingPage = (): React.ReactElement => {
   if (profileCtx?.getStatus() === 'error') {
     return (
       <Notification type="error">
-        {t(profileCtx?.getErrorMessage() || '')}
+        {profileCtx?.getErrorMessage() || ''}
       </Notification>
     );
   }
