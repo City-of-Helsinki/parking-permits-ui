@@ -18,6 +18,7 @@ import {
 } from '../../types';
 import {
   upcomingProducts,
+  canBeRefunded,
   calcProductDates,
   calcProductUnitPrice,
   calcProductUnitVatPrice,
@@ -121,7 +122,7 @@ const ChangeVehicle = (): React.ReactElement => {
         } else if (checkoutUrl) {
           window.open(`${checkoutUrl}`, '_self');
         }
-      } else if (permit.canBeRefunded) {
+      } else if (canBeRefunded(permit)) {
         setStep(ChangeVehicleStep.PRICE_PREVIEW);
       } else {
         updateAndNavigateToOrderView();

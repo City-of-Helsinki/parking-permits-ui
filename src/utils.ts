@@ -264,3 +264,6 @@ export const getRestrictions = (
       return translation ? t(`common.restrictions.${translation}`) : '';
     })
     .filter(Boolean);
+
+export const canBeRefunded = (permit: Permit): boolean =>
+  permit.canBeRefunded && permit.totalRefundAmount > 0;

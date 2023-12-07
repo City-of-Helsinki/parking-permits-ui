@@ -9,7 +9,7 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { EndPermitStep, ROUTES, UserProfile } from '../../types';
 import './endPermit.scss';
-import { calcProductDates, upcomingProducts } from '../../utils';
+import { calcProductDates, canBeRefunded, upcomingProducts } from '../../utils';
 
 const EndPermit = (): React.ReactElement => {
   const { search } = useLocation();
@@ -48,7 +48,7 @@ const EndPermit = (): React.ReactElement => {
 
     ({
       vehicle: permit.vehicle,
-      priceChanges: permit.canBeRefunded
+      priceChanges: canBeRefunded(permit)
         ? upcomingProducts(permit).map(product => ({
             product: product.name,
             previousPrice: product.unitPrice,
