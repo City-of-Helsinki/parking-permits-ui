@@ -18,6 +18,7 @@ query Query {
     canBeRefunded
     canEndImmediately
     canEndAfterCurrentPeriod
+    totalRefundAmount
     hasRefund
     vehicleChanged
     zoneChanged
