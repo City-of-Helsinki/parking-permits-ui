@@ -252,5 +252,6 @@
   "pages.validPermit.ValidPermit.sectionLabel": "Ditt parkeringstillstånd",
   "pages.vehicleSelector.VehicleSelector.label": "Boendeparkeringstecken område",
   "pages.vehicleSelector.VehicleSelector.noOfVehicleInformation": "Du kan lägga till information för ett eller upp till två fordon i parkeringskoden.",
-  "pages.vehicleSelector.VehicleSelector.sectionLabel": "Fordonsinformation"
+  "pages.vehicleSelector.VehicleSelector.sectionLabel": "Fordonsinformation",
+  "pages.vehicleSelector.VehicleSelector.vehicleCopyright": "Fordonsuppgifter - Trafik- och transportregistret, Traficom"
 }
