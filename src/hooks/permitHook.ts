@@ -48,9 +48,7 @@ const usePermitState = (): PermitActions => {
           setSelectedAddress(
             profileCtx
               ?.getAddresses()
-              .find(
-                address => address?.zone?.id === userPermits[0].parkingZone.id
-              )
+              .find(address => address?.id === userPermits[0].address.id)
           );
         } else if (!selectedAddress) {
           setSelectedAddress(profileCtx?.getAddresses()[0]);

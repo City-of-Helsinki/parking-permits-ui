@@ -1,5 +1,5 @@
 import { ParkingContractType, ParkingStartType, PermitStatus } from './enums';
-import { Zone } from './user';
+import { UserAddress, Zone } from './user';
 
 export type MaybeDate = Date | string | undefined | null;
 export interface Product {
@@ -58,6 +58,7 @@ export type Permit = {
   vehicleChanged: boolean;
   zoneChanged: boolean;
   isOrderConfirmed: boolean;
+  address: UserAddress;
   addressApartment: string;
   addressApartmentSv: string;
 };

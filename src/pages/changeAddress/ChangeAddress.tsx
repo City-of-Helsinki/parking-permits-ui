@@ -59,12 +59,12 @@ const ChangeAddress = (): React.ReactElement => {
     otherAddressApartment,
     otherAddressApartmentSv,
   } = profile;
-  const primaryAddressZoneId = primaryAddress.zone?.id;
-  const otherAddressZoneId = otherAddress.zone?.id;
+  const primaryAddressId = primaryAddress.id;
+  const otherAddressId = otherAddress.id;
 
   // Cannot update address if there's no other address
   // or the zone information is unavailable from address
-  if (!otherAddress || !primaryAddressZoneId || !otherAddressZoneId) {
+  if (!otherAddress || !primaryAddressId || !otherAddressId) {
     return (
       <div className="change-address-component">
         <Notification type="info">
@@ -74,16 +74,15 @@ const ChangeAddress = (): React.ReactElement => {
     );
   }
 
-  const currentZoneId = validPermits[0].parkingZone.id;
+  const currentAddressId = validPermits[0].address.id;
   const [usedAddress, notUsedAddress] =
-    primaryAddressZoneId === currentZoneId
+    primaryAddressId === currentAddressId
       ? [primaryAddress, otherAddress]
       : [otherAddress, primaryAddress];
 
-  const selectableAddresses = [
-    primaryAddressZoneId,
-    otherAddressZoneId,
-  ].includes(currentZoneId)
+  const selectableAddresses = [primaryAddressId, otherAddressId].includes(
+    currentAddressId
+  )
     ? [notUsedAddress]
     : [primaryAddress, otherAddress];
 

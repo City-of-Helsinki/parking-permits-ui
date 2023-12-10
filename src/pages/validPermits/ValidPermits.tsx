@@ -44,7 +44,7 @@ const ValidPermits = (): React.ReactElement => {
   const getAddress = (): UserAddress | undefined => {
     const firstPermit = first(validPermits);
     const permitAddress = addresses.find(
-      add => add.zone?.id === firstPermit?.parkingZone.id
+      add => add.id === firstPermit?.address.id
     );
     return permitAddress || addresses.find(add => add.primary);
   };

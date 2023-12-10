@@ -47,6 +47,9 @@ query Query {
       registrationNumber
       restrictions
     }
+    address {
+      id
+    }
     parkingZone {
       id
       name
