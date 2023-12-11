@@ -120,7 +120,7 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
               {formatVehicle((permit?.vehicle as Vehicle) || vehicle)}
             </div>
             <div className="vehicle-copyright">
-              © {t(`${T_PATH}.vehicleCopyright`)}
+              {t(`${T_PATH}.vehicleCopyright`)}
             </div>
             {priceChanges.map((priceChangeItem, index) => (
               <Fragment key={uniqueId()}>
