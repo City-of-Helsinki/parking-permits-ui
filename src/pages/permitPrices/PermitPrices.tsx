@@ -71,9 +71,7 @@ const PermitPrices = (): React.ReactElement => {
               className="info-notification restriction"
               label={t('common.restrictions.label')}>
               <div>{t('common.restrictions.text', { restriction })}</div>
-              <div>
-                © {t('pages.permitPrices.PermitPrices.vehicleCopyright')}
-              </div>
+              <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
             </Notification>
           ))}
         </div>
@@ -132,7 +130,7 @@ const PermitPrices = (): React.ReactElement => {
                   </div>
                   {getPrices(permit)}
                   <div className="vehicle-copyright">
-                    © {t(`${T_PATH}.vehicleCopyright`)}
+                    {t(`${T_PATH}.vehicleCopyright`)}
                   </div>
                 </div>
               </Card>

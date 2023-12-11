@@ -203,7 +203,7 @@ const Permit = ({
           <div className="pp-list__title__text">
             {`${registrationNumber} ${manufacturer} ${model}`}
             <div className="pp-list__title__vehicle-copyright">
-              © {t(`${T_PATH}.vehicleCopyright`)}
+              {t(`${T_PATH}.vehicleCopyright`)}
             </div>
           </div>
         </div>
