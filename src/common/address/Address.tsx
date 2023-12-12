@@ -119,7 +119,7 @@ const Address: FC<Props> = ({
           {!address.zone && (
             <Notification
               className="address-warning"
-              type="error"
+              type="alert"
               label={t(`${T_PATH}.notification.error.label`)}>
               {t(`${T_PATH}.notification.error.message`)}
             </Notification>
