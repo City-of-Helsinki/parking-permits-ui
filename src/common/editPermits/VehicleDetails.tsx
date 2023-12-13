@@ -85,7 +85,7 @@ const VehicleDetails: FC<Props> = ({
       {error && (
         <Notification type="error" className="error-notification">
           {t(error || '')}
-          <div>© {t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
+          <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
         </Notification>
       )}
 
@@ -96,7 +96,7 @@ const VehicleDetails: FC<Props> = ({
           className="info-notification restriction"
           label={t('common.restrictions.label')}>
           <div>{t('common.restrictions.text', { restriction })}</div>
-          <div>© {t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
+          <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
         </Notification>
       ))}
 
@@ -157,7 +157,7 @@ const VehicleDetails: FC<Props> = ({
                   </div>
                 ))}
               <div className="vehicle-copyright">
-                © {t(`${T_PATH}.vehicleCopyright`)}
+                {t(`${T_PATH}.vehicleCopyright`)}
               </div>
             </div>
           </Card>
