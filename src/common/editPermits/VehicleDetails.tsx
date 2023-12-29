@@ -85,7 +85,6 @@ const VehicleDetails: FC<Props> = ({
       {error && (
         <Notification type="error" className="error-notification">
           {t(error || '')}
-          <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
         </Notification>
       )}
 
