@@ -30,7 +30,6 @@ const VehicleSelector = (): React.ReactElement => {
       {permitCtx?.getStatus() === 'error' && (
         <Notification type="error" className="error-notification">
           {t(permitCtx?.getErrorMessage() || '')}
-          <div>{t(`${T_PATH}.vehicleCopyright`)}</div>
         </Notification>
       )}
       <Outlet />
