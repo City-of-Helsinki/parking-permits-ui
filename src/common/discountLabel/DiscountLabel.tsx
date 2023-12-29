@@ -7,7 +7,7 @@ const T_PATH = 'common.discountLabel.DiscountLabel';
 const DiscountLabel = (): React.ReactElement => {
   const { t } = useTranslation();
   const discountInfoUrl =
-    'https://www.hel.fi/helsinki/fi/kartat-ja-liikenne/pysakointi/vahapaastoisten_alennus';
+    'https://www.hel.fi/fi/kaupunkiymparisto-ja-liikenne/pysakointi/pysakointipaikat-hinnat-ja-maksutavat/vahapaastoisten-autojen-pysakointimaksujen-alennus';
   return (
     <>
       <span>{t(`${T_PATH}.discount`)}</span>{' '}
