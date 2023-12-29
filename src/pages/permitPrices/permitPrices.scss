@@ -19,6 +19,9 @@
   .restriction {
     margin-bottom: var(--spacing-s);
   }
+  .error-notification {
+    white-space: pre;
+  }
   .offer-container {
     display: flex;
     justify-content: space-between;
