@@ -131,6 +131,12 @@ export const isOpenEndedPermitStarted = (
 export const dateAsNumber = (date: MaybeDate): number =>
   normalizeDateValue(date).valueOf();
 
+export const calcNetPrice = (grossPrice: number, vatRate: number): number =>
+  grossPrice ? grossPrice / (1 + (vatRate || 0)) : 0;
+
+export const calcVatPrice = (grossPrice: number, vatRate: number): number =>
+  grossPrice ? grossPrice - calcNetPrice(grossPrice, vatRate) : 0;
+
 export const calcProductUnitPrice = (
   product: Product,
   isLowEmission?: boolean,
@@ -141,7 +147,7 @@ export const calcProductUnitPrice = (
 
   const price = isLowEmission ? discountPrice : basePrice;
 
-  return isVat ? price * vat : price;
+  return isVat ? calcVatPrice(price, vat) : price;
 };
 
 export const calcProductUnitVatPrice = (
