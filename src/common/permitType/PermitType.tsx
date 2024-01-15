@@ -23,12 +23,20 @@ const T_PATH = 'common.permitType.PermitType';
 export interface Props {
   primaryPermit: Permit;
   mainPermitToUpdate: Permit;
+  isContractTypeChecked: boolean;
+  isStartTypeChecked: boolean;
   updatePermitData: (payload: Partial<Permit>, permitId?: string) => void;
+  updateContractType: (payload: Partial<Permit>, permitId?: string) => void;
+  updateStartType: (payload: Partial<Permit>, permitId?: string) => void;
 }
 const PermitType = ({
   primaryPermit,
   mainPermitToUpdate,
+  isContractTypeChecked,
+  isStartTypeChecked,
   updatePermitData,
+  updateContractType,
+  updateStartType,
 }: Props): React.ReactElement => {
   const { t, i18n } = useTranslation();
 
@@ -60,10 +68,10 @@ const PermitType = ({
               }
               checked={
                 mainPermitToUpdate.contractType ===
-                ParkingContractType.OPEN_ENDED
+                  ParkingContractType.OPEN_ENDED && isContractTypeChecked
               }
               onClick={() =>
-                updatePermitData({
+                updateContractType({
                   contractType: ParkingContractType.OPEN_ENDED,
                   monthCount: 1,
                 })
@@ -87,10 +95,10 @@ const PermitType = ({
               label={t(`${T_PATH}.fixedPeriod`)}
               checked={
                 mainPermitToUpdate.contractType ===
-                ParkingContractType.FIXED_PERIOD
+                  ParkingContractType.FIXED_PERIOD && isContractTypeChecked
               }
               onClick={() =>
-                updatePermitData({
+                updateContractType({
                   contractType: ParkingContractType.FIXED_PERIOD,
                 })
               }
@@ -107,10 +115,11 @@ const PermitType = ({
               value={ParkingStartType.IMMEDIATELY}
               label={t(`${T_PATH}.immediately`)}
               checked={
-                mainPermitToUpdate.startType === ParkingStartType.IMMEDIATELY
+                mainPermitToUpdate.startType === ParkingStartType.IMMEDIATELY &&
+                isStartTypeChecked
               }
               onClick={() =>
-                updatePermitData({
+                updateStartType({
                   startType: ParkingStartType.IMMEDIATELY,
                   startTime: new Date().toISOString(),
                 })
@@ -126,9 +135,12 @@ const PermitType = ({
               id={uuidv4()}
               value={ParkingStartType.FROM}
               label={t(`${T_PATH}.startDate`)}
-              checked={mainPermitToUpdate.startType === ParkingStartType.FROM}
+              checked={
+                mainPermitToUpdate.startType === ParkingStartType.FROM &&
+                isStartTypeChecked
+              }
               onClick={() =>
-                updatePermitData({
+                updateStartType({
                   startType: ParkingStartType.FROM,
                   startTime: startOfDay(addDays(new Date(), 1)),
                 })

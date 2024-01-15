@@ -25,6 +25,7 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
   Permit as PermitModel,
+  PermitStatus,
   ROUTES,
   STEPPER,
 } from '../../types';
@@ -45,6 +46,10 @@ const DurationSelector = (): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
   const navigate = useNavigate();
   const [orderRequest, setOrderRequest] = useState<boolean>(false);
+  const [contractTypeChecked, setContractTypeChecked] =
+    useState<boolean>(false);
+  const [startTypeChecked, setStartTypeChecked] = useState<boolean>(false);
+
   const draftPermits = permitCtx?.getDraftPermits();
   const validPermits = permitCtx?.getValidPermits();
 
@@ -63,6 +68,11 @@ const DurationSelector = (): React.ReactElement => {
     [otherPermit] = draftPermits;
   }
   const mainPermitToUpdate = validPermits?.length ? otherPermit : primaryPermit;
+
+  const isDraft = mainPermitToUpdate?.status === PermitStatus.DRAFT;
+  const isContractTypeChecked = !isDraft || contractTypeChecked;
+  const isStartTypeChecked = !isDraft || startTypeChecked;
+  const isChecked = isContractTypeChecked && isStartTypeChecked;
 
   if (!address) {
     return <Navigate to={ROUTES.ADDRESS} />;
@@ -85,7 +95,25 @@ const DurationSelector = (): React.ReactElement => {
   const updatePermitData = (
     payload: Partial<PermitModel>,
     permitId: string | undefined
-  ) => permitCtx?.updatePermit(payload, permitId);
+  ) => {
+    permitCtx?.updatePermit(payload, permitId);
+  };
+
+  const updateContractType = (
+    payload: Partial<PermitModel>,
+    permitId: string | undefined
+  ) => {
+    updatePermitData(payload, permitId);
+    setContractTypeChecked(true);
+  };
+
+  const updateStartType = (
+    payload: Partial<PermitModel>,
+    permitId: string | undefined
+  ) => {
+    updatePermitData(payload, permitId);
+    setStartTypeChecked(true);
+  };
 
   const getCarDetails = (permit: PermitModel) => {
     const { registrationNumber, manufacturer, model } = permit.vehicle;
@@ -166,6 +194,10 @@ const DurationSelector = (): React.ReactElement => {
           primaryPermit={primaryPermit}
           mainPermitToUpdate={mainPermitToUpdate}
           updatePermitData={updatePermitData}
+          updateContractType={updateContractType}
+          updateStartType={updateStartType}
+          isContractTypeChecked={isContractTypeChecked}
+          isStartTypeChecked={isStartTypeChecked}
         />
       )}
       {orderBy(draftPermits, 'primaryVehicle', 'desc').map((permit, index) => (
@@ -233,7 +265,7 @@ const DurationSelector = (): React.ReactElement => {
           theme="black"
           className="action-btn"
           onClick={() => sendPurchaseOrderRequest()}
-          disabled={!registrationNumbers?.length || orderRequest}>
+          disabled={!registrationNumbers?.length || orderRequest || !isChecked}>
           {orderRequest && <LoadingSpinner small />}
           {!orderRequest && (
             <>
