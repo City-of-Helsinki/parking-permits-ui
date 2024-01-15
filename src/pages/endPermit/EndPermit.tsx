@@ -9,7 +9,12 @@ import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { EndPermitStep, ROUTES, UserProfile } from '../../types';
 import './endPermit.scss';
-import { calcProductDates, canBeRefunded, upcomingProducts } from '../../utils';
+import {
+  calcProductDates,
+  canBeRefunded,
+  upcomingProducts,
+  calcVatPrice,
+} from '../../utils';
 
 const EndPermit = (): React.ReactElement => {
   const { search } = useLocation();
@@ -54,7 +59,7 @@ const EndPermit = (): React.ReactElement => {
             previousPrice: product.unitPrice,
             newPrice: product.unitPrice,
             priceChange: product.unitPrice,
-            priceChangeVat: product.vat * product.unitPrice,
+            priceChangeVat: calcVatPrice(product.unitPrice, product.vat),
             ...calcProductDates(product, permit),
           }))
         : [],
