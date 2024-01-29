@@ -182,7 +182,9 @@ const DurationSelector = (): React.ReactElement => {
               </div>
               <div className="hide-in-mobile">{getPrices(permit)}</div>
             </div>
-            <div className="vehicle-copyright">{t('vehicleCopyright')}</div>
+            {permit.vehicle.updatedFromTraficomOn && (
+              <div className="vehicle-copyright">{t('vehicleCopyright')}</div>
+            )}
             {mainPermitToUpdate.contractType ===
               ParkingContractType.OPEN_ENDED && (
               <div>{t('openEndedAssistiveText')}</div>

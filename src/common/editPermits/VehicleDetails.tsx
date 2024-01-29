@@ -155,9 +155,11 @@ const VehicleDetails: FC<Props> = ({
                     </div>
                   </div>
                 ))}
-              <div className="vehicle-copyright">
-                {t(`${T_PATH}.vehicleCopyright`)}
-              </div>
+              {vehicle.updatedFromTraficomOn && (
+                <div className="vehicle-copyright">
+                  {t(`${T_PATH}.vehicleCopyright`)}
+                </div>
+              )}
             </div>
           </Card>
           {vehicle.isLowEmission && (

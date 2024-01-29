@@ -71,6 +71,7 @@ export type Vehicle = {
   model: string;
   productionYear: number;
   registrationNumber: string;
+  updatedFromTraficomOn: MaybeDate;
   restrictions: Array<string>;
 };
 
