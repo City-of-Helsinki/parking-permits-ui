@@ -34,6 +34,7 @@ query Query {
         model
         manufacturer
         registrationNumber
+        updatedFromTraficomOn
         restrictions
       }
     }
@@ -45,6 +46,7 @@ query Query {
       manufacturer
       productionYear
       registrationNumber
+      updatedFromTraficomOn
       restrictions
     }
     address {
