@@ -7,6 +7,7 @@ mutation Mutation($registration: String!) {
     manufacturer
     productionYear
     registrationNumber
+    updatedFromTraficomOn
     restrictions
   }
 }

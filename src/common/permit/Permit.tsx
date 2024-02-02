@@ -148,7 +148,8 @@ const Permit = ({
 
   const getPermit = (permit: PermitModel) => {
     const activeTempVehicle = permit.activeTemporaryVehicle;
-    const { registrationNumber, manufacturer, model } = permit.vehicle;
+    const { registrationNumber, manufacturer, model, updatedFromTraficomOn } =
+      permit.vehicle;
     const permitTimes = getPermitTimes(permit);
     const contractType = getContractType(permit);
     return (
@@ -202,9 +203,11 @@ const Permit = ({
           </div>
           <div className="pp-list__title__text">
             {`${registrationNumber} ${manufacturer} ${model}`}
-            <div className="pp-list__title__vehicle-copyright">
-              {t(`${T_PATH}.vehicleCopyright`)}
-            </div>
+            {updatedFromTraficomOn && (
+              <div className="pp-list__title__vehicle-copyright">
+                {t(`${T_PATH}.vehicleCopyright`)}
+              </div>
+            )}
           </div>
         </div>
 
