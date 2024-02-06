@@ -315,6 +315,11 @@ const Permit = ({
                     {t(`${T_PATH}.editVehicle`)}
                   </Button>
                 )}
+                {permit.canExtendPermit && (
+                  <Button variant="supplementary" iconLeft={<IconAngleRight />}>
+                    {t(`${T_PATH}.extendPermit`)}
+                  </Button>
+                )}
                 {permits.length > 1 && index > 0 && (
                   <Button
                     variant="supplementary"
