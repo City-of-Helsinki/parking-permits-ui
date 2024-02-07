@@ -1,0 +1,5 @@
+mutation ExtendPermit($permitId: ID!, $mountCount: Number) {
+  extendPermit(permitId: $permitId, mountCount: $monthCount) {
+    checkoutUrl
+  }
+}

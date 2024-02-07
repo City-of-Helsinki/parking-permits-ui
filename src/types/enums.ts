@@ -14,6 +14,7 @@ export enum ROUTES {
   CHANGE_ADDRESS = '/change-address',
   CHANGE_VEHICLE = '/change-vehicle/:permitId',
   TEMPORARY_VEHICLE = '/temporary-vehicle/:permitId',
+  EXTEND_PERMIT = '/extend-permit/:permitId',
 }
 
 export enum STEPPER {

@@ -8,6 +8,7 @@ import {
   createOrderQueryResult,
   CreatePermitQueryResult,
   DeletePermitQueryResult,
+  ExtendPermitResult,
   endPermitQueryResult,
   GetUpdateAddressPriceChangesResult,
   GetVehicleInformationQueryResult,
@@ -52,6 +53,27 @@ class PermitGqlClient {
     return Promise.reject(result.errors);
   }
 }
+export const extendPermit = (
+  permitId: string,
+  monthCount: number
+): Promise<string> => {
+  const client = new PermitGqlClient(loader('../graphql/extendPermit.graphql'));
+  const variables = { permitId, monthCount };
+  return client
+    .mutate<ExtendPermitResult>(variables)
+    .then(res => res.checkoutUrl);
+};
+
+export const getExtendedPriceList = (
+  permitId: string,
+  monthCount: number
+): Promise<ExtendedPriceList> => {
+  const client = new PermitGqlClient(
+    loader('../graphql/getExtendedPriceList.graphql')
+  );
+  const variables = { permitId, monthCount };
+  return client.query<PermitExtendedQueryResult>(variables);
+};
 
 export const getAllPermits = (): Promise<PermitQueryResult['getPermits']> => {
   const LOADER = loader('../graphql/permits.graphql');

@@ -316,7 +316,10 @@ const Permit = ({
                   </Button>
                 )}
                 {permit.canExtendPermit && (
-                  <Button variant="supplementary" iconLeft={<IconAngleRight />}>
+                  <Button
+                    variant="supplementary"
+                    iconLeft={<IconAngleRight />}
+                    onClick={() => navigate(`/extend-permit/${permit.id}`)}>
                     {t(`${T_PATH}.extendPermit`)}
                   </Button>
                 )}
