@@ -59,6 +59,10 @@ export type UpdatePermitVehicleQueryResult = {
   };
 };
 
+export type ExtendPermitResult = {
+  checkoutUrl: string;
+};
+
 export type REG_ACTION = {
   id: string;
   key: string;
