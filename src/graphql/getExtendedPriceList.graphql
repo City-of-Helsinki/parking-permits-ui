@@ -1,5 +1,5 @@
 query getExtendedPriceList($permitId: ID!, $monthCount: Int!) {
-    PermitExtendedPriceResult {
+    getExtendedPriceList(permitId: $permitId, monthCount: $monthCount) {
         startDate
         endDate
         vat

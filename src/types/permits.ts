@@ -95,3 +95,12 @@ export interface PermitPriceChanges {
   vehicle?: Vehicle;
   priceChanges: PermitPriceChangeItem[];
 }
+
+export interface ExtendedPriceListItem {
+  price: number;
+  netPrice: number;
+  vatPrice: number;
+  vat: number;
+  startDate: MaybeDate;
+  endDate: MaybeDate;
+}
