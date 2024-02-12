@@ -21,11 +21,12 @@ import {
   getExtendedPriceList,
   extendPermit,
 } from '../../graphql/permitGqlClient';
+import './extendPermit.scss';
 
 const MAX_MONTHS = 12;
 
 // TBD use own Path
-const T_PATH = 'pages.durationSelector.DurationSelector';
+const T_PATH = 'pages.extendPermit.ExtendPermit';
 
 const ExtendPermit = (): React.ReactElement => {
   const { t } = useTranslation('translation', { keyPrefix: T_PATH });
@@ -68,10 +69,10 @@ const ExtendPermit = (): React.ReactElement => {
         window.open(`${checkoutUrl}`, '_self');
       } else {
         setLoading(false);
-        setError('Something went wrong...');
+        setError(t('error'));
       }
     }
-  }, [permit, monthCount]);
+  }, [permit, monthCount, t]);
 
   if (!permit) {
     return <Navigate to={ROUTES.VALID_PERMITS} />;
@@ -87,57 +88,53 @@ const ExtendPermit = (): React.ReactElement => {
           <div>{`(${formatDate(item.startDate)} - ${formatDate(
             item.endDate
           )})`}</div>
-          <div style={{ marginRight: '4px' }}>{t('total')}</div>
           <div className="offer">{`${formatPrice(item.price)} €`}</div>
         </div>
       ))}
-      {priceList.length > 1 && (
-        <div className="price">
-          <div style={{ marginRight: '4px' }}>{t('total')}</div>
-          <div className="offer">{`${formatPrice(
-            getTotalPrice(priceList)
-          )} €`}</div>
-        </div>
-      )}
+
+      <div className="price">
+        <div style={{ marginRight: '4px' }}>{t('total')}</div>
+        <div className="offer">{`${formatPrice(
+          getTotalPrice(priceList)
+        )} €`}</div>
+      </div>
     </div>
   );
 
   return (
-    <div className="duration-selector-component">
+    <div className="extend-permit-component">
       <Card className="card">
         <div className="header" style={{ fontWeight: 'bolder' }}>
-          Pidennä pysäköinnin voimassoloaika
+          {t('header')}
+        </div>
+
+        {error && (
+          <Notification type="error" className="error-notification">
+            {t(error || '')}
+          </Notification>
+        )}
+        <div>
+          <NumberInput
+            style={{ maxWidth: '250px' }}
+            className="month-selection"
+            id={uuidv4()}
+            helperText={t('monthSelectionHelpText', {
+              max: MAX_MONTHS,
+            })}
+            label=""
+            min={1}
+            step={1}
+            max={MAX_MONTHS}
+            defaultValue={monthCount}
+            disabled={isLoading}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+              updateMonthCount(parseInt(e.target.value || '0', 10));
+            }}
+          />
         </div>
       </Card>
-      {error && (
-        <Notification type="error" className="error-notification">
-          {t(error || '')}
-        </Notification>
-      )}
-      <div>
-        <NumberInput
-          style={{ maxWidth: '250px' }}
-          className="month-selection"
-          id={uuidv4()}
-          helperText={t('monthSelectionHelpText', {
-            max: MAX_MONTHS,
-          })}
-          label="Kuukaudet"
-          min={1}
-          step={1}
-          max={MAX_MONTHS}
-          defaultValue={monthCount}
-          disabled={isLoading}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-            updateMonthCount(parseInt(e.target.value || '0', 10));
-          }}
-        />
-      </div>
       {prices.length > 0 && (
-        <div className="price-info">
-          <div>{t('permitPrice')}</div>
-          {getPrices(prices)}
-        </div>
+        <div className="price-info">{getPrices(prices)}</div>
       )}
       <div className="action-buttons">
         <Button
