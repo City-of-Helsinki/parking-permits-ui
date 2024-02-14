@@ -19,6 +19,7 @@ query Query {
     canEndImmediately
     canEndAfterCurrentPeriod
     canExtendPermit
+    hasPendingExtensionRequest
     totalRefundAmount
     hasRefund
     vehicleChanged

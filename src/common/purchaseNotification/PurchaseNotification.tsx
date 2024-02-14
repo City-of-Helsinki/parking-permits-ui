@@ -16,7 +16,8 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
         .filter(
           permit =>
             !!permit.checkoutUrl &&
-            permit.status === PermitStatus.PAYMENT_IN_PROGRESS
+            (permit.status === PermitStatus.PAYMENT_IN_PROGRESS ||
+              permit.hasPendingExtensionRequest)
         )
         .map(permit => permit.checkoutUrl)
     )
@@ -34,7 +35,8 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
     const isAlert = validPermits.some(
       permit =>
         permit.status === PermitStatus.DRAFT ||
-        permit.status === PermitStatus.PAYMENT_IN_PROGRESS
+        permit.status === PermitStatus.PAYMENT_IN_PROGRESS ||
+        permit.hasPendingExtensionRequest
     );
 
     let keyPrefix: string;

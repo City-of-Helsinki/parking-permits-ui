@@ -53,7 +53,8 @@ const ValidPermits = (): React.ReactElement => {
   const isProcessing = (permit: PermitModel) =>
     (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
       permit.talpaOrderId) ||
-    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed);
+    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed) ||
+    permit.hasPendingExtensionRequest;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
@@ -88,16 +89,20 @@ const ValidPermits = (): React.ReactElement => {
     }
   };
 
-  const showActionsButtons = validPermits.some(isPermitEditable);
+  const isPaymentPending = validPermits.some(
+    permit =>
+      (permit.status === PermitStatus.PAYMENT_IN_PROGRESS ||
+        permit.hasPendingExtensionRequest) &&
+      permit.talpaOrderId
+  );
+
+  const showActionsButtons =
+    validPermits.some(isPermitEditable) && !isPaymentPending;
 
   return (
     <div className="valid-permit-component">
       <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
-      {validPermits.some(
-        permit =>
-          permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
-          permit.talpaOrderId
-      ) && <PurchaseNotification validPermits={validPermits} />}
+      {isPaymentPending && <PurchaseNotification validPermits={validPermits} />}
 
       {validPermits.some(
         permit =>
