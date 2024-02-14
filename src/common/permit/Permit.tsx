@@ -232,6 +232,7 @@ const Permit = ({
     );
   };
   const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
+
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
 
   const bothPermitWithSameContractType =
