@@ -52,6 +52,7 @@ export type Permit = {
   currentPeriodEndTime: Date | string;
   canEndImmediately: boolean;
   canExtendPermit: boolean;
+  maxExtensionMonthCount: number;
   hasPendingExtensionRequest: boolean;
   hasRefund: boolean;
   monthlyPrice: number;
