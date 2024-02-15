@@ -319,7 +319,7 @@ const Permit = ({
                     {t(`${T_PATH}.editVehicle`)}
                   </Button>
                 )}
-                {permit.canExtendPermit && (
+                {permit.canExtendPermit && permit.maxExtensionMonthCount > 0 && (
                   <Button
                     variant="supplementary"
                     iconLeft={<IconAngleRight />}

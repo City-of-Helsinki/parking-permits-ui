@@ -23,8 +23,6 @@ import {
 } from '../../graphql/permitGqlClient';
 import './extendPermit.scss';
 
-const MAX_MONTHS = 12;
-
 // TBD use own Path
 const T_PATH = 'pages.extendPermit.ExtendPermit';
 
@@ -119,12 +117,12 @@ const ExtendPermit = (): React.ReactElement => {
             className="month-selection"
             id={uuidv4()}
             helperText={t('monthSelectionHelpText', {
-              max: MAX_MONTHS,
+              max: permit.maxExtensionMonthCount,
             })}
             label=""
             min={1}
             step={1}
-            max={MAX_MONTHS}
+            max={permit.maxExtensionMonthCount}
             defaultValue={monthCount}
             disabled={isLoading}
             onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {

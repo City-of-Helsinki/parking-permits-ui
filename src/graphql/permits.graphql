@@ -19,6 +19,7 @@ query Query {
     canEndImmediately
     canEndAfterCurrentPeriod
     canExtendPermit
+    maxExtensionMonthCount
     hasPendingExtensionRequest
     totalRefundAmount
     hasRefund
