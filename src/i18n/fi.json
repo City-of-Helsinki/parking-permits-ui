@@ -247,7 +247,7 @@
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Lupa on maksettu ja odottaa luvan voimaantuloa.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Muutos ajoneuvon tiedoissa",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Traficomista saatujen tietojen perusteella et ole tunnukseesi liitetyn ajoneuvon omistaja tai haltija. Päivitä ajoneuvon tiedot. Muutoin tunnuksen voimassaolo päättyy automaattisesti {{date}} klo {{time}}.",
-  "pages.validPermit.ValidPermit.deleteOrder": "Päätä tilaus",
+  "pages.validPermit.ValidPermit.deleteOrder": "Irtisano pysäköintitunnus",
   "pages.validPermit.ValidPermit.newOrder": "Lisää toinen ajoneuvo",
   "pages.validPermit.ValidPermit.sectionLabel": "Pysäköintitunnuksesi",
   "pages.vehicleSelector.VehicleSelector.label": "Pysäköintialue",
