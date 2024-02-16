@@ -1,5 +1,10 @@
 import { ParkingContractType, ParkingStartType } from './enums';
-import { Permit, PermitPriceChanges, Vehicle } from './permits';
+import {
+  ExtendedPriceListItem,
+  Permit,
+  PermitPriceChanges,
+  Vehicle,
+} from './permits';
 import { UserAddress, UserProfile, Zone } from './user';
 
 export type GraphQLZone = Zone & {
@@ -59,6 +64,14 @@ export type UpdatePermitVehicleQueryResult = {
   };
 };
 
+export type ExtendPermitResult = {
+  checkoutUrl: string;
+};
+
+export type ExtendPermitQueryResult = {
+  extendParkingPermit: ExtendPermitResult;
+};
+
 export type REG_ACTION = {
   id: string;
   key: string;
@@ -86,4 +99,8 @@ export type UpdateLanguageResult = {
   updateLanguage: {
     language: string;
   };
+};
+
+export type ExtendedPriceListQueryResult = {
+  getExtendedPriceList: ExtendedPriceListItem[];
 };

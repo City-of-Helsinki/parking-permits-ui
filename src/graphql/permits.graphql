@@ -18,6 +18,9 @@ query Query {
     canBeRefunded
     canEndImmediately
     canEndAfterCurrentPeriod
+    canExtendPermit
+    maxExtensionMonthCount
+    hasPendingExtensionRequest
     totalRefundAmount
     hasRefund
     vehicleChanged

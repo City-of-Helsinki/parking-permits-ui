@@ -1,0 +1,5 @@
+mutation ExtendParkingPermit($permitId: ID!, $monthCount: Int) {
+  extendParkingPermit(permitId: $permitId, monthCount: $monthCount) {
+    checkoutUrl
+  }
+}

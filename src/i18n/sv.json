@@ -239,7 +239,7 @@
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Tillståndet är betalt och väntar på att tillståndet ska bli aktivt.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Ändring av fordonsinformation",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.message": "Baserat på informationen från Traficom är du inte ägare eller innehavare till fordonet som är kopplat till ditt konto. Vänligen uppdatera din fordonsinformation. Annars kommer kontot automatiskt att upphöra ut den {{date}} kl. {{time}}.",
-  "pages.validPermit.ValidPermit.deleteOrder": "Avsluta beställning",
+  "pages.validPermit.ValidPermit.deleteOrder": "Sluta parkeringstillstånd",
   "pages.validPermit.ValidPermit.newOrder": "Lägg till ett annat fordon",
   "pages.validPermit.ValidPermit.sectionLabel": "Ditt parkeringstillstånd",
   "pages.vehicleSelector.VehicleSelector.label": "Boendeparkeringstecken område",

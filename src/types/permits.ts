@@ -51,6 +51,9 @@ export type Permit = {
   totalRefundAmount: number;
   currentPeriodEndTime: Date | string;
   canEndImmediately: boolean;
+  canExtendPermit: boolean;
+  maxExtensionMonthCount: number;
+  hasPendingExtensionRequest: boolean;
   hasRefund: boolean;
   monthlyPrice: number;
   canBeRefunded: boolean;
@@ -94,4 +97,13 @@ export interface PermitPriceChanges {
   permit?: Pick<Permit, 'id' | 'vehicle'>;
   vehicle?: Vehicle;
   priceChanges: PermitPriceChangeItem[];
+}
+
+export interface ExtendedPriceListItem {
+  price: number;
+  netPrice: number;
+  vatPrice: number;
+  vat: number;
+  startDate: MaybeDate;
+  endDate: MaybeDate;
 }

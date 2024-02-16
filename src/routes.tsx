@@ -6,6 +6,7 @@ import ChangeAddress from './pages/changeAddress/ChangeAddress';
 import ChangeVehicle from './pages/changeVehicle/ChangeVehicle';
 import DurationSelector from './pages/durationSelector/DurationSelector';
 import EndPermit from './pages/endPermit/EndPermit';
+import ExtendPermit from './pages/extendPermit/ExtendPermit';
 import LandingPage from './pages/landingPage/LandingPage';
 import PermitPrices from './pages/permitPrices/PermitPrices';
 import ProfilePage from './pages/profilePage/ProfilePage';
@@ -34,6 +35,7 @@ const routes = [
       { path: ROUTES.END_PERMITS, element: <EndPermit /> },
       { path: ROUTES.CHANGE_ADDRESS, element: <ChangeAddress /> },
       { path: ROUTES.CHANGE_VEHICLE, element: <ChangeVehicle /> },
+      { path: ROUTES.EXTEND_PERMIT, element: <ExtendPermit /> },
       { path: ROUTES.TEMPORARY_VEHICLE, element: <TemporaryVehicle /> },
       { path: ROUTES.BASE, element: <Navigate to={ROUTES.LANDING} /> },
       { path: '*', element: <Navigate to={ROUTES.LANDING} /> },

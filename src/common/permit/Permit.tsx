@@ -235,6 +235,7 @@ const Permit = ({
     );
   };
   const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
+
   const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
 
   const bothPermitWithSameContractType =
@@ -316,6 +317,14 @@ const Permit = ({
                     onClick={() => setEditPermitId(permit.id)}
                     iconLeft={<IconAngleRight />}>
                     {t(`${T_PATH}.editVehicle`)}
+                  </Button>
+                )}
+                {permit.canExtendPermit && permit.maxExtensionMonthCount > 0 && (
+                  <Button
+                    variant="supplementary"
+                    iconLeft={<IconAngleRight />}
+                    onClick={() => navigate(`/extend-permit/${permit.id}`)}>
+                    {t(`${T_PATH}.extendPermit`)}
                   </Button>
                 )}
                 {permits.length > 1 && index > 0 && (
