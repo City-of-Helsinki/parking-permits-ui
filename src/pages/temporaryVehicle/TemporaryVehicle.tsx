@@ -1,4 +1,4 @@
-import { addDays, addWeeks, format } from 'date-fns';
+import { addWeeks, format } from 'date-fns';
 import {
   Button,
   Card,
@@ -89,7 +89,7 @@ const TemporaryVehicle = (): React.ReactElement => {
         <DateInput
           id="date-input-start-time"
           className="date-input"
-          minDate={addDays(new Date(), 1)}
+          minDate={new Date()}
           maxDate={addWeeks(new Date(), 2)}
           initialMonth={new Date()}
           value={format(startDate, 'd.M.yyyy')}
@@ -115,7 +115,7 @@ const TemporaryVehicle = (): React.ReactElement => {
         <DateInput
           id="date-input-end-time"
           className="date-input"
-          minDate={addDays(startDate, 1)}
+          minDate={startDate}
           maxDate={addWeeks(startDate, 2)}
           initialMonth={startDate}
           value={format(endDate, 'd.M.yyyy')}
