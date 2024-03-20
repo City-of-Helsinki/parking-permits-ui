@@ -322,14 +322,6 @@ const Permit = ({
                     {t(`${T_PATH}.editVehicle`)}
                   </Button>
                 )}
-                {updateCardUrl && (
-                  <Button
-                    variant="supplementary"
-                    onClick={() => navigate(updateCardUrl)}
-                    iconLeft={<IconAngleRight />}>
-                    {t(`${T_PATH}.updateCard`)}
-                  </Button>
-                )}
                 {permit.canExtendPermit && permit.maxExtensionMonthCount > 0 && (
                   <Button
                     variant="supplementary"
@@ -375,6 +367,16 @@ const Permit = ({
                     })
                   }
                 />
+              </div>
+            )}
+            {updateCardUrl && (
+              <div className="permit-action-btns">
+                <Button
+                  variant="supplementary"
+                  onClick={() => window.open(updateCardUrl, '_self')}
+                  iconLeft={<IconAngleRight />}>
+                  {t(`${T_PATH}.updateCard`)}
+                </Button>
               </div>
             )}
           </Card>
