@@ -118,6 +118,7 @@
   "common.permit.Permit.deleteTemporaryVehicle": "Ta bort tillfälligt fordon",
   "common.permit.Permit.discount": "Du har rätt till rabatt på gatuparkering när du betalar med mobilappar.",
   "common.permit.Permit.editVehicle": "Redigera fordonsinformation",
+  "common.permit.Permit.updateCard": "Redigera kreditkortsinformation",
   "common.permit.Permit.endTime": "Slutar",
   "common.permit.Permit.invalidPermit": "Inte i kraft",
   "common.permit.Permit.label": "Ditt parkeringstillstånd",

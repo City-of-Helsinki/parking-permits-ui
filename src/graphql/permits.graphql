@@ -4,6 +4,7 @@ query Query {
     talpaOrderId
     receiptUrl
     checkoutUrl
+    updateCardUrl
     subscriptionId
     startType
     startTime
