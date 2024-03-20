@@ -118,6 +118,7 @@
   "common.permit.Permit.deleteTemporaryVehicle": "Poista tilapäinen ajoneuvo",
   "common.permit.Permit.discount": "Olet oikeutettu alennettuun kadunvarsipysäköintiin mobiilisovelluksilla maksaessasi.",
   "common.permit.Permit.editVehicle": "Muokkaa ajoneuvon tietoja",
+  "common.permit.Permit.updateCard": "Muokkaa luottokortin tietoja",
   "common.permit.Permit.extendPermit": "Jatka pysäköintitunnuksen voimassaoloa",
   "common.permit.Permit.endTime": "Päättyy",
   "common.permit.Permit.invalidPermit": "Ei voimassa",

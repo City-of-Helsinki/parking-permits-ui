@@ -246,6 +246,9 @@ const Permit = ({
     p => p.startTime && dateAsNumber(p.startTime) < new Date().valueOf()
   );
 
+  const updateCardUrl = permits.filter(p => !!p.updateCardUrl)[0]
+    ?.updateCardUrl;
+
   return (
     <div className="permit-component">
       {!hideMap && (
@@ -317,6 +320,14 @@ const Permit = ({
                     onClick={() => setEditPermitId(permit.id)}
                     iconLeft={<IconAngleRight />}>
                     {t(`${T_PATH}.editVehicle`)}
+                  </Button>
+                )}
+                {updateCardUrl && (
+                  <Button
+                    variant="supplementary"
+                    onClick={() => navigate(updateCardUrl)}
+                    iconLeft={<IconAngleRight />}>
+                    {t(`${T_PATH}.updateCard`)}
                   </Button>
                 )}
                 {permit.canExtendPermit && permit.maxExtensionMonthCount > 0 && (
