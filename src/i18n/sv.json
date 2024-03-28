@@ -167,7 +167,7 @@
   "common.refund.Refund.vat": "Inkl. moms (24%)",
   "common.refund.Refund.zone": "Parkeringsområde {{zone}}",
   "common.registrationNumber.RegistrationNumber.btn": "Lägg till fordon",
-  "common.registrationNumber.RegistrationNumber.helpText": "Ange ett registernummer i taget",
+  "common.registrationNumber.RegistrationNumber.helpText": "Ange ett registernummer i taget. Använd format ABC-123.",
   "common.registrationNumber.RegistrationNumber.label": "Registernummer",
   "common.restrictions.label": "Fordonet har en restriktionsnotifikation",
   "common.restrictions.text": "Traficom har följande restriktionsnotifikation för detta fordon: {{restriction}}. Du kan fortfarande fortsätta med köpet av detta parkeringstillstånd.",

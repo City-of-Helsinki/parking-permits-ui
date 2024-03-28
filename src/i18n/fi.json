@@ -168,7 +168,7 @@
   "common.refund.Refund.vat": "Sis. alv (24%)",
   "common.refund.Refund.zone": "Pysäköintialue {{zone}}",
   "common.registrationNumber.RegistrationNumber.btn": "Lisää ajoneuvo",
-  "common.registrationNumber.RegistrationNumber.helpText": "Syötä yksi rekisterinumero kerrallaan",
+  "common.registrationNumber.RegistrationNumber.helpText": "Syötä yksi rekisterinumero kerrallaan. Käytä muotoa ABC-123.",
   "common.registrationNumber.RegistrationNumber.label": "Rekisterinumero",
   "common.restrictions.label": "Ajoneuvolla on rajoitustieto",
   "common.restrictions.text": "Traficom ilmoittaa ajoneuvolle seuraavan rajoitustiedon: {{restriction}}. Voit ilmoituksesta huolimatta jatkaa pysäköintitunnuksen ostamista.",

@@ -167,7 +167,7 @@
   "common.refund.Refund.vat": "Incl. VAT (24%)",
   "common.refund.Refund.zone": "Parking Area {{zone}}",
   "common.registrationNumber.RegistrationNumber.btn": "Add vehicle",
-  "common.registrationNumber.RegistrationNumber.helpText": "Enter one registration number at a time",
+  "common.registrationNumber.RegistrationNumber.helpText": "Enter one registration number at a time. Use form ABC-123.",
   "common.registrationNumber.RegistrationNumber.label": "Registration number",
   "common.restrictions.label": "Vehicle has a restriction notification",
   "common.restrictions.text": "Traficom has the following restriction notification for this vehicle: {{restriction}}. You may still continue with the purchase of this parking permit.",
