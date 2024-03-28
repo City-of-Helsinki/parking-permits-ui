@@ -246,6 +246,9 @@ const Permit = ({
     p => p.startTime && dateAsNumber(p.startTime) < new Date().valueOf()
   );
 
+  const updateCardUrl = permits.filter(p => !!p.updateCardUrl)[0]
+    ?.updateCardUrl;
+
   return (
     <div className="permit-component">
       {!hideMap && (
@@ -364,6 +367,16 @@ const Permit = ({
                     })
                   }
                 />
+              </div>
+            )}
+            {updateCardUrl && (
+              <div className="permit-action-btns">
+                <Button
+                  variant="supplementary"
+                  onClick={() => window.open(updateCardUrl, '_self')}
+                  iconLeft={<IconAngleRight />}>
+                  {t(`${T_PATH}.updateCard`)}
+                </Button>
               </div>
             )}
           </Card>
