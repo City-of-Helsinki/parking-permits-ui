@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import { format, intervalToDuration } from 'date-fns';
+import { format, intervalToDuration, addMonths } from 'date-fns';
 import {
   ParkingContractType,
   ParkingPermitError,
@@ -196,6 +196,27 @@ export const diffMonths = (
   return (intervalDuration.years || 0) * 12 + (intervalDuration.months || 0);
 };
 
+export const diffMonthsCeil = (
+  startTime: MaybeDate,
+  endTime: MaybeDate
+): number => {
+  if (!startTime || !endTime) {
+    return 0;
+  }
+
+  const intervalDuration = intervalToDuration({
+    start: normalizeDateValue(startTime),
+    end: normalizeDateValue(endTime),
+  });
+
+  // eslint-disable-next-line no-magic-numbers
+  const months =
+    // eslint-disable-next-line no-magic-numbers
+    (intervalDuration.years ?? 0) * 12 + (intervalDuration.months ?? 0);
+
+  return (intervalDuration.days ?? 0) > 0 ? months + 1 : months;
+};
+
 export const getMonthCount = (
   permitEndStartDate: Date,
   permitStartTime: string,
@@ -257,6 +278,34 @@ export const calcProductDates = (
     startDate,
     endDate,
     monthCount: diffMonths(startDate, endDate) || 1,
+  };
+};
+
+export const calcProductDatesForRefund = (
+  product: Product,
+  permit: Permit
+): ProductDates => {
+  const monthsUsed = permit.monthCount - permit.monthsLeft;
+  const productStartDate = getPermitStartDate(product, permit);
+
+  const minStartTime =
+    monthsUsed > 0
+      ? addMonths(normalizeDateValue(permit.startTime), monthsUsed)
+      : productStartDate;
+
+  const startDate =
+    dateAsNumber(productStartDate) > dateAsNumber(minStartTime)
+      ? productStartDate
+      : minStartTime;
+
+  const endDate = getPermitEndDate(product, permit);
+
+  const monthCount = diffMonthsCeil(startDate, endDate);
+
+  return {
+    startDate,
+    endDate,
+    monthCount,
   };
 };
 

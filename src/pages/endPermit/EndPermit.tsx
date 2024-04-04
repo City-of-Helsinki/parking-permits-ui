@@ -10,7 +10,7 @@ import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { EndPermitStep, ROUTES, UserProfile } from '../../types';
 import './endPermit.scss';
 import {
-  calcProductDates,
+  calcProductDatesForRefund,
   canBeRefunded,
   upcomingProducts,
   calcVatPrice,
@@ -60,7 +60,7 @@ const EndPermit = (): React.ReactElement => {
             newPrice: product.unitPrice,
             priceChange: product.unitPrice,
             priceChangeVat: calcVatPrice(product.unitPrice, product.vat),
-            ...calcProductDates(product, permit),
+            ...calcProductDatesForRefund(product, permit),
           }))
         : [],
     })
