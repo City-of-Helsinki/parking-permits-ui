@@ -242,7 +242,7 @@
   "pages.temporaryVehicle.TemporaryVehicle.startDate.label": "Start date",
   "pages.temporaryVehicle.TemporaryVehicle.startTime.label": "Start Time",
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Change of user address",
-  "pages.validPermit.ValidPermit.addressChanged.notification.message": "Based on the information provided by Helsinki profile, your address has been changed and thus requires an immediate action to update your address information. Otherwise the account will automatically expire on {{date}} at {{time}}.",
+  "pages.validPermit.ValidPermit.addressChanged.notification.message": "Based on the information provided in your Helsinki profile, your address has changed. Please contact Customer Services to update your address details: kymp.pysakointi@hel.fi or +358 9 310 22 111. Otherwise, the resident parking permit will automatically expire at {{time}} {{date}}.",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Permit not yet active",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Permit is paid and waiting for the permit to be active.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Change in vehicle information",
