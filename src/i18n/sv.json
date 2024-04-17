@@ -130,7 +130,7 @@
   "common.permitType.PermitType.immediately": "Börja omedelbart",
   "common.permitType.PermitType.immediatelyAssistiveText": "Parkeringstillståndet träder i kraft så snart betalningen har bekräftats.",
   "common.permitType.PermitType.openEnded": "Månadstillstånd med kontinuerlig debitering",
-  "common.permitType.PermitType.openEndedAssistiveText": "Priset på parkeringtillståndet och rätten att få tillståndet granskas och debiteras varje månad. Ett tillfälligt tillstånd kräver kortbetalning och lagring av kortinformationen för kontinuerlig girering.",
+  "common.permitType.PermitType.openEndedAssistiveText": "Priset på parkeringtillståndet och rätten att få tillståndet granskas och debiteras varje månad. Debiteringen sker tre dagar innan parkeringstillståndet löper ut. Ett tillfälligt tillstånd kräver kortbetalning och lagring av kortinformationen för kontinuerlig girering.",
   "common.permitType.PermitType.parkingDurationType.label": "Typ av beställning",
   "common.permitType.PermitType.sameAsFirstPermitNotification": "Måste vara samma som 1:a tillståndet",
   "common.permitType.PermitType.startDate": "Från",
