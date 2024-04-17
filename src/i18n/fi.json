@@ -131,7 +131,7 @@
   "common.permitType.PermitType.immediately": "Alkaa heti",
   "common.permitType.PermitType.immediatelyAssistiveText": "Tunnuksen voimassaolo alkaa heti siitä kellonajasta kun maksu on vahvistettu.",
   "common.permitType.PermitType.openEnded": "Jatkuvaveloitteinen kuukausitunnus",
-  "common.permitType.PermitType.openEndedAssistiveText": "Pysäköintitunnuksen hinta ja oikeus tunnuksen saamiseen tarkistetaan ja veloitetaan kuukausittain. Toistaiseksi voimassa oleva tunnus edellyttää korttimaksua ja kortin tietojen tallentamista jatkuvaa veloitusta varten.",
+  "common.permitType.PermitType.openEndedAssistiveText": "Pysäköintitunnuksen hinta ja oikeus tunnuksen saamiseen tarkistetaan ja veloitetaan kuukausittain. Veloitus tehdään kolme päivää ennen pysäköintikauden päättymistä. Toistaiseksi voimassa oleva tunnus edellyttää korttimaksua ja kortin tietojen tallentamista jatkuvaa veloitusta varten.",
   "common.permitType.PermitType.parkingDurationType.label": "Tilauksen tyyppi",
   "common.permitType.PermitType.sameAsFirstPermitNotification": "Tulee olla sama kuin 1. tunnuksessa",
   "common.permitType.PermitType.startDate": "Alkaen",

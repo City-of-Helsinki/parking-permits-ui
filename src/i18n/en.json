@@ -130,7 +130,7 @@
   "common.permitType.PermitType.immediately": "Start immediately",
   "common.permitType.PermitType.immediatelyAssistiveText": "The permit will take effect as soon as the payment is confirmed.",
   "common.permitType.PermitType.openEnded": "Continuous charge",
-  "common.permitType.PermitType.openEndedAssistiveText": "The price of the parking permit and the terms for receiving a permit are reviewed and charged monthly. A subscription for a permit requires a card payment and the storage of card information for continuous charging.",
+  "common.permitType.PermitType.openEndedAssistiveText": "The price of the parking permit and the terms for receiving a permit are reviewed and charged monthly. The charge is made three days before the end of the parking permit. A subscription for a permit requires a card payment and the storage of card information for continuous charging.",
   "common.permitType.PermitType.parkingDurationType.label": "Duration type",
   "common.permitType.PermitType.sameAsFirstPermitNotification": "Must be the same as 1st permit",
   "common.permitType.PermitType.startDate": "From",
