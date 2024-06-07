@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -22,7 +21,7 @@ if (
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
     environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
-    integrations: [new BrowserTracing()],
+    integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 1.0,
   });
 }

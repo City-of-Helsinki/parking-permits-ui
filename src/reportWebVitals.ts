@@ -1,14 +1,14 @@
-import { ReportHandler } from 'web-vitals';
+import { ReportCallback } from 'web-vitals';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const reportWebVitals = (onPerfEntry?: ReportHandler) => {
+const reportWebVitals = (onPerfEntry?: ReportCallback) => {
   if (onPerfEntry) {
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS(onPerfEntry);
-      getFID(onPerfEntry);
-      getFCP(onPerfEntry);
-      getLCP(onPerfEntry);
-      getTTFB(onPerfEntry);
+    import('web-vitals').then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
+      onCLS(onPerfEntry);
+      onFID(onPerfEntry);
+      onFCP(onPerfEntry);
+      onLCP(onPerfEntry);
+      onTTFB(onPerfEntry);
     });
   }
 };
