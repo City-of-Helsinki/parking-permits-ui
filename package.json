@@ -1,6 +1,6 @@
 {
   "name": "parking-permits-ui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "format": "prettier --write \"**/*.+(tsx|ts|json|scss|md)\"",
     "prettier": "prettier",
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts build",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "test:coverage": "yarn test --coverage --watchAll=false",
     "eject": "react-scripts eject"
