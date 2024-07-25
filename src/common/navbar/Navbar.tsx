@@ -1,4 +1,11 @@
-import { Navigation } from 'hds-react';
+import {
+  Header,
+  Logo,
+  logoFi,
+  LanguageOption,
+  IconSignin,
+  IconSignout,
+} from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClientContext } from '../../client/ClientProvider';
@@ -6,56 +13,59 @@ import { UserProfileContext } from '../../hooks/userProfileProvider';
 
 const T_PATH = 'common.navbar.Navbar';
 
-const LANGUAGES = ['fi', 'sv', 'en'];
-
 const Navbar = (): React.ReactElement => {
   const clientCtx = useContext(ClientContext);
   const client = clientCtx?.client;
   const authenticated = client?.isAuthenticated();
+  const initialized = client?.isInitialized();
   const profileCtx = useContext(UserProfileContext);
   const { t, i18n } = useTranslation();
 
-  const setLanguage = (code: string) => {
+  const languages: LanguageOption[] = [
+    { label: 'Suomi', value: 'fi', isPrimary: true },
+    { label: 'Svenska', value: 'sv', isPrimary: true },
+    { label: 'English', value: 'en', isPrimary: true },
+  ];
+
+  const languageChangedStateAction = (code: string) => {
     i18n.changeLanguage(code).then(() => profileCtx?.updateLanguage(code));
   };
 
-  const initialized = client?.isInitialized();
-  const user = client?.getUser();
-  const userName = user ? `${user.given_name} ${user.family_name}` : '';
-
   return (
     <>
-      <Navigation
-        title={t(`${T_PATH}.title`)}
-        menuToggleAriaLabel="menu"
-        skipTo="#content"
-        skipToContentLabel={t(`${T_PATH}.skipToContent`)}>
-        <Navigation.Actions>
-          <Navigation.LanguageSelector label={i18n.language.toUpperCase()}>
-            {LANGUAGES.map(lang => (
-              <Navigation.Item
-                key={lang}
-                label={t(`${T_PATH}.lang.${lang}`)}
-                lang={lang}
-                onClick={(): void => setLanguage(lang)}
-              />
-            ))}
-          </Navigation.LanguageSelector>
-          {initialized && (
-            <Navigation.User
-              authenticated={authenticated}
+      <Header
+        onDidChangeLanguage={languageChangedStateAction}
+        languages={languages}>
+        <Header.ActionBar
+          frontPageLabel={t(`${T_PATH}.title`)}
+          title={t(`${T_PATH}.title`)}
+          titleAriaLabel={t(`${T_PATH}.title`)}
+          titleHref="https://hel.fi"
+          logo={<Logo src={logoFi} alt="City of Helsinki" />}
+          logoAriaLabel={t(`${T_PATH}.title`)}>
+          <Header.SimpleLanguageOptions
+            languages={[languages[0], languages[1], languages[2]]}
+          />
+
+          {initialized && !authenticated && (
+            <Header.ActionBarButton
               label={t(`${T_PATH}.action.login`)}
-              onSignIn={(): void => client?.login()}
-              userName={userName}>
-              <Navigation.Item
-                onClick={(): void => client?.logout()}
-                variant="secondary"
-                label={t(`${T_PATH}.action.logout`)}
-              />
-            </Navigation.User>
+              fixedRightPosition
+              icon={<IconSignin />}
+              onClick={(): void => client?.login()}
+            />
           )}
-        </Navigation.Actions>
-      </Navigation>
+
+          {initialized && authenticated && (
+            <Header.ActionBarButton
+              label={t(`${T_PATH}.action.logout`)}
+              fixedRightPosition
+              icon={<IconSignout />}
+              onClick={(): void => client?.logout()}
+            />
+          )}
+        </Header.ActionBar>
+      </Header>
     </>
   );
 };
