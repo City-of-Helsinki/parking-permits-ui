@@ -175,6 +175,9 @@ const PermitType = ({
               startTime: valueAsDate,
             })
           }
+          crossOrigin={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         />
       </div>
     </Card>

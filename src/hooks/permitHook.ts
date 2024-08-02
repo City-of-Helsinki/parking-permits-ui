@@ -80,7 +80,7 @@ const usePermitState = (): PermitActions => {
   );
 
   const deletePermit = useCallback(
-    async permitId => {
+    async (permitId: string) => {
       setStatus('loading');
       deleteDraftPermit(permitId).then(fetchPermits).catch(onError);
     },
@@ -88,7 +88,7 @@ const usePermitState = (): PermitActions => {
   );
 
   const endValidPermits = useCallback(
-    async (permitIds, endType, iban) => {
+    async (permitIds: string[], endType: string, iban: string) => {
       setStatus('loading');
       endPermits(permitIds, endType, iban).then(fetchPermits).catch(onError);
     },
@@ -104,7 +104,7 @@ const usePermitState = (): PermitActions => {
   }, []);
 
   const changeAddressRequest = useCallback(
-    async (addressId, iban) => {
+    async (addressId: string, iban: string | undefined) => {
       setStatus('loading');
       const { checkoutUrl } = await changeAddress(addressId, iban);
       if (checkoutUrl) {

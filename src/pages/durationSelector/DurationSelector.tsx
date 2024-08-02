@@ -252,6 +252,9 @@ const DurationSelector = (): React.ReactElement => {
                       parseInt(e.target.value || '0', 10)
                     );
                   }}
+                  crossOrigin={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
                 />
               </div>
             )}
