@@ -1,4 +1,4 @@
-import { GraphQLError } from 'graphql';
+import { GraphQLFormattedError } from 'graphql';
 import { format, intervalToDuration, addMonths } from 'date-fns';
 import {
   ParkingContractType,
@@ -31,7 +31,11 @@ const RESTRICTIONS: Restrictions = {
   '34': 'driving_ban_registration_plates_confiscated',
 };
 export const formatErrors = (
-  errors: ParkingPermitError[] | readonly GraphQLError[] | string[] | string,
+  errors:
+    | ParkingPermitError[]
+    | readonly GraphQLFormattedError[]
+    | string[]
+    | string,
   defaultError = 'common.genericError'
 ): string => {
   // normalizes errors into single string.
