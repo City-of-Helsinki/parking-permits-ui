@@ -1,5 +1,5 @@
 # ===============================================
-FROM node:18.20-slim as appbase
+FROM public.ecr.aws/docker/library/node:18.20.4-slim as appbase
 # ===============================================
 
 # Yarn
