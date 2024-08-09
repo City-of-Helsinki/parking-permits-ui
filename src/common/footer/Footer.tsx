@@ -76,6 +76,11 @@ const Footer = (): React.ReactElement => {
           href="https://www.hel.fi/fi/paatoksenteko-ja-hallinto/tietoa-helsingista/tietosuoja-ja-tiedonhallinta/tietosuoja"
           label={t(`${T_PATH}.dataProtection`)}
         />
+        <HDSFooter.Link
+          target="_blank"
+          href="https://www.hel.fi/static/liitteet/kaupunkiymparisto/saavutettavuusselosteet/fi/pysakointitunnusten-verkkokauppa-saavutettavuusseloste.pdf"
+          label={t(`${T_PATH}.accessibility`)}
+        />
       </HDSFooter.Base>
     </HDSFooter>
   );
