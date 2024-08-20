@@ -369,7 +369,7 @@ const Permit = ({
                 />
               </div>
             )}
-            {updateCardUrl && (
+            {updateCardUrl && permit.contractType !== 'FIXED_PERIOD' && (
               <div className="permit-action-btns">
                 <Button
                   variant="supplementary"
