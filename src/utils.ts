@@ -105,6 +105,9 @@ export const formatMonthlyPrice = (
   t: TranslateFunction
 ): string => `${formatPrice(price)} ${t('common.pricePerMonth')}`;
 
+export const dateAsNumber = (date: MaybeDate): number =>
+  normalizeDateValue(date).valueOf();
+
 export const formatPermitStartDate = (
   products: Product[],
   product: Product,
@@ -114,6 +117,18 @@ export const formatPermitStartDate = (
   if (product === products.at(0)) {
     date = permit.startTime as string;
   }
+  if (
+    permit.startTime &&
+    permit.endTime &&
+    permit.endTime < product.endDate &&
+    products.length > 1
+  ) {
+    const startDate = Math.max(
+      dateAsNumber(product.startDate),
+      dateAsNumber(permit.startTime)
+    );
+    return formatDate(new Date(startDate));
+  }
   return formatDate(date);
 };
 
@@ -121,7 +136,21 @@ export const formatPermitEndDate = (
   products: Product[],
   product: Product,
   permit: Permit
-): string => formatDate(permit.endTime);
+): string => {
+  if (
+    permit.endTime &&
+    permit.endTime > product.endDate &&
+    products.length > 1
+  ) {
+    const endDate = Math.min(
+      dateAsNumber(product.endDate),
+      dateAsNumber(permit.endTime)
+    );
+
+    return formatDate(new Date(endDate));
+  }
+  return formatDate(permit.endTime);
+};
 
 export const isOpenEndedPermitStarted = (
   permits: Permit[]
@@ -131,9 +160,6 @@ export const isOpenEndedPermitStarted = (
       p.contractType === ParkingContractType.OPEN_ENDED &&
       new Date(p.startTime as string).valueOf() < new Date().valueOf()
   );
-
-export const dateAsNumber = (date: MaybeDate): number =>
-  normalizeDateValue(date).valueOf();
 
 export const calcNetPrice = (grossPrice: number, vatRate: number): number =>
   grossPrice ? grossPrice / (1 + (vatRate || 0)) : 0;
