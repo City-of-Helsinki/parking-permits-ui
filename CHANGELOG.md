@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-08-30
+
+### Added
+
+- Add changelog to project ([e60e16f](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e60e16fd4403ff80a45c1657dd9aee6c4aee2a57))
+- Add accessibility report to footer ([7a78c6e](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7a78c6e87af778966f814f4d17e64d996c206210))
+
+### Changed
+
+- Update Azure CI-settings ([15c5fb0](https://github.com/City-of-Helsinki/parking-permits-ui/commit/15c5fb013dc49043b6200e842e5e5bfc6789b44e))
+- Update hds-react ([67d8972](https://github.com/City-of-Helsinki/parking-permits-ui/commit/67d897245cdbf0718d394699c1c579d8616b62d4))
+- Update react to version 18 ([f5001fd](https://github.com/City-of-Helsinki/parking-permits-ui/commit/f5001fdb6c7ffe8c2e6199737c9662dcfc934b57))
+- Update packages ([092cdac](https://github.com/City-of-Helsinki/parking-permits-ui/commit/092cdacf3617da320b7d91b9c9ed2b23c6bff6dd))
+- Use AWS ECR Docker image repository ([904104d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/904104d712c1d6f849551521069e1c2a72b022f4))
+- Update VAT-texts ([0af17e0](https://github.com/City-of-Helsinki/parking-permits-ui/commit/0af17e01887ed698b6b5a2b4bcca438266e57ccb))
+
+### Fixed
+
+- Hide payment info edit option for fixed permits ([0ccad3e](https://github.com/City-of-Helsinki/parking-permits-ui/commit/0ccad3e07ed14156eb0f1e68ef9a496073ce75dd))
+- Show correct product end and start dates when price changes ([dcb8161](https://github.com/City-of-Helsinki/parking-permits-ui/commit/dcb8161466a5dca576c0f3c8b5fead9091958dff))
+
+### Removed
+
+- Remove obsolete Docker Compose version ([8282c6c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8282c6c3e2a3ae4b57e38b25c7f2dd764c90b05d))
+
 ## [1.0.0] - 2024-05-22
 
 * Bootstart react app by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/1
