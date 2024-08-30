@@ -101,6 +101,9 @@ const TemporaryVehicle = (): React.ReactElement => {
               setEndDate(addWeeks(valueAsDate, 2));
             }
           }}
+          crossOrigin={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         />
         <TimeInput
           id="start-time-input"
@@ -111,6 +114,9 @@ const TemporaryVehicle = (): React.ReactElement => {
           value={startTime}
           invalid={!validateTime(startTime)}
           onChange={evt => setStartTime(evt.target.value)}
+          crossOrigin={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         />
         <DateInput
           id="date-input-end-time"
@@ -124,6 +130,9 @@ const TemporaryVehicle = (): React.ReactElement => {
           onChange={(value: string, valueAsDate: Date) =>
             setEndDate(valueAsDate)
           }
+          crossOrigin={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         />
         <TimeInput
           id="end-time-input"
@@ -134,6 +143,9 @@ const TemporaryVehicle = (): React.ReactElement => {
           value={endTime}
           invalid={!validateTime(endTime)}
           onChange={evt => setEndTime(evt.target.value)}
+          crossOrigin={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         />
         <p>{t(`${T_PATH}.infoMessage1`)}</p>
       </Card>

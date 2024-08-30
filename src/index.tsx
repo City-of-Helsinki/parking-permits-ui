@@ -1,7 +1,6 @@
 import * as Sentry from '@sentry/react';
-import { BrowserTracing } from '@sentry/tracing';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './assets/styles/main.scss';
@@ -22,12 +21,16 @@ if (
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
     environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
-    integrations: [new BrowserTracing()],
+    integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 1.0,
   });
 }
 
-ReactDOM.render(
+const container = document.getElementById('root');
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(container!);
+
+root.render(
   <BrowserRouter>
     <HandleCallback>
       <ClientProvider>
@@ -40,8 +43,7 @@ ReactDOM.render(
         </ApiAccessTokenProvider>
       </ClientProvider>
     </HandleCallback>
-  </BrowserRouter>,
-  document.getElementById('root')
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

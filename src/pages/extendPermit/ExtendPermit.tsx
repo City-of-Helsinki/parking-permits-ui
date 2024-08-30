@@ -128,6 +128,9 @@ const ExtendPermit = (): React.ReactElement => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
               updateMonthCount(parseInt(e.target.value || '0', 10));
             }}
+            crossOrigin={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
           />
         </div>
       </Card>

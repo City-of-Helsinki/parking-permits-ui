@@ -119,7 +119,7 @@ export const deleteDraftPermit = (
 };
 
 export const endPermits = (
-  permitIds: string,
+  permitIds: string[],
   endType: string,
   iban: string
 ): Promise<endPermitQueryResult['endParkingPermit']> => {

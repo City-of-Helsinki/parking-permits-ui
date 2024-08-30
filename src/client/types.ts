@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type User = Record<string, string | number | boolean>;
 export type Token = string | undefined;
 export type JWTPayload = Record<string, string>;
@@ -143,6 +145,7 @@ export interface ClientProps {
    * Path for exchanging tokens. Leave blank to use default keycloak path realms/<realm>/protocol/openid-connect/token
    */
   tokenExchangePath?: string;
+  children?: React.ReactNode;
 }
 
 export type EventHandlers = {

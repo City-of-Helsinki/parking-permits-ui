@@ -1,9 +1,9 @@
 # ===============================================
-FROM node:14-slim as appbase
+FROM public.ecr.aws/docker/library/node:18.20.4-slim as appbase
 # ===============================================
 
 # Yarn
-ENV YARN_VERSION 1.22.10
+ENV YARN_VERSION 1.22.22
 RUN yarn policies set-version $YARN_VERSION
 
 WORKDIR /app

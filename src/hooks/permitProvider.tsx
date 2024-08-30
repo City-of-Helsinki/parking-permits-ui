@@ -6,7 +6,11 @@ export const PermitStateContext = React.createContext<PermitActions | null>(
   null
 );
 
-export const PermitProvider: FC<unknown> = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const PermitProvider: FC<Props> = ({ children }) => {
   const actions = usePermitState();
   return (
     <PermitStateContext.Provider value={actions}>

@@ -6,7 +6,11 @@ export const UserProfileContext = React.createContext<ProfileActions | null>(
   null
 );
 
-export const UserProfileProvider: FC<unknown> = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const UserProfileProvider: FC<Props> = ({ children }) => {
   const actions = userProfileHook();
   return (
     <UserProfileContext.Provider value={actions}>
