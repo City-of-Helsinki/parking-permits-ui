@@ -3,21 +3,17 @@ import {
   Logo,
   logoFi,
   LanguageOption,
-  IconSignin,
-  IconSignout,
+  WithAuthentication,
 } from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ClientContext } from '../../client/ClientProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
+import Login from '../auth/Login';
+import Logout from '../auth/Logout';
 
 const T_PATH = 'common.navbar.Navbar';
 
 const Navbar = (): React.ReactElement => {
-  const clientCtx = useContext(ClientContext);
-  const client = clientCtx?.client;
-  const authenticated = client?.isAuthenticated();
-  const initialized = client?.isInitialized();
   const profileCtx = useContext(UserProfileContext);
   const { t, i18n } = useTranslation();
 
@@ -46,24 +42,10 @@ const Navbar = (): React.ReactElement => {
           <Header.SimpleLanguageOptions
             languages={[languages[0], languages[1], languages[2]]}
           />
-
-          {initialized && !authenticated && (
-            <Header.ActionBarButton
-              label={t(`${T_PATH}.action.login`)}
-              fixedRightPosition
-              icon={<IconSignin />}
-              onClick={(): void => client?.login()}
-            />
-          )}
-
-          {initialized && authenticated && (
-            <Header.ActionBarButton
-              label={t(`${T_PATH}.action.logout`)}
-              fixedRightPosition
-              icon={<IconSignout />}
-              onClick={(): void => client?.logout()}
-            />
-          )}
+          <WithAuthentication
+            AuthorisedComponent={Logout}
+            UnauthorisedComponent={Login}
+          />
         </Header.ActionBar>
       </Header>
     </>

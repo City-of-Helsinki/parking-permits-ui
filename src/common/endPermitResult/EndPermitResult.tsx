@@ -1,8 +1,7 @@
-import { Button, IconSignout, Notification } from 'hds-react';
-import React, { useContext } from 'react';
+import { Button, IconSignout, Notification, useOidcClient } from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ClientContext } from '../../client/ClientProvider';
 import { ROUTES } from '../../types';
 
 const T_PATH = 'common.endPermitResult.EndPermitResult';
@@ -14,7 +13,7 @@ export interface Props {
 
 const EndPermitResult = ({ getsRefund, email }: Props): React.ReactElement => {
   const { t } = useTranslation();
-  const clientCtx = useContext(ClientContext);
+  const { logout } = useOidcClient();
   const navigate = useNavigate();
 
   return (
@@ -44,7 +43,7 @@ const EndPermitResult = ({ getsRefund, email }: Props): React.ReactElement => {
           className="action-btn"
           theme="black"
           variant="secondary"
-          onClick={(): void => clientCtx?.client.logout()}>
+          onClick={() => logout()}>
           <IconSignout />
           <span>{t(`${T_PATH}.actionBtn.logout`)}</span>
         </Button>

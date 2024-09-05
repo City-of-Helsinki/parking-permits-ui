@@ -1,10 +1,15 @@
-import { Button, IconDocument, IconSignout, LoadingSpinner } from 'hds-react';
+import {
+  Button,
+  IconDocument,
+  IconSignout,
+  LoadingSpinner,
+  useOidcClient,
+} from 'hds-react';
 import { first } from 'lodash';
 import queryString from 'query-string';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { ClientContext } from '../../client/ClientProvider';
 import Permit from '../../common/permit/Permit';
 import PurchaseNotification from '../../common/purchaseNotification/PurchaseNotification';
 import { PermitStateContext } from '../../hooks/permitProvider';
@@ -16,11 +21,11 @@ const T_PATH = 'pages.purchasedOverview.PurchasedOverview';
 const PurchasedOverview = (): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
   const location = useLocation();
-  const clientCtx = useContext(ClientContext);
+  const { logout, isAuthenticated } = useOidcClient();
   const navigate = useNavigate();
   const { t } = useTranslation('translation', { keyPrefix: T_PATH });
 
-  if (!clientCtx || clientCtx.client.getStatus() === 'UNAUTHORIZED') {
+  if (!isAuthenticated()) {
     return <Navigate to={ROUTES.LANDING} />;
   }
 
@@ -28,7 +33,6 @@ const PurchasedOverview = (): React.ReactElement => {
     return <LoadingSpinner style={{ marginLeft: '50%' }} small />;
   }
 
-  const client = clientCtx?.client;
   const queryStr = queryString.parse(location.search);
   const selectedAddress = permitCtx.getSelectedAddress();
   const currentStep = permitCtx.getStep();
@@ -85,7 +89,7 @@ const PurchasedOverview = (): React.ReactElement => {
           className="action-btn"
           theme="black"
           variant="secondary"
-          onClick={(): void => client.logout()}>
+          onClick={() => logout()}>
           <IconSignout />
           <span>{t('actionBtn.logout')}</span>
         </Button>
