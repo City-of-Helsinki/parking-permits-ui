@@ -15,6 +15,7 @@ import TemporaryVehicle from './pages/temporaryVehicle/TemporaryVehicle';
 import ValidPermits from './pages/validPermits/ValidPermits';
 import VehicleSelector from './pages/vehicleSelector/VehicleSelector';
 import { ROUTES } from './types';
+import HandleCallback from './client/HandleCallback';
 
 const routes = [
   {
@@ -38,6 +39,7 @@ const routes = [
       { path: ROUTES.EXTEND_PERMIT, element: <ExtendPermit /> },
       { path: ROUTES.TEMPORARY_VEHICLE, element: <TemporaryVehicle /> },
       { path: ROUTES.BASE, element: <Navigate to={ROUTES.LANDING} /> },
+      { path: ROUTES.CALLBACK, element: <HandleCallback /> },
       { path: '*', element: <Navigate to={ROUTES.LANDING} /> },
     ],
   },
