@@ -37,7 +37,7 @@ const ValidPermits = (): React.ReactElement => {
     return <Navigate to={ROUTES.BASE} />;
   }
 
-  const { primaryAddress, otherAddress } = profile;
+  const { firstName, primaryAddress, otherAddress } = profile;
   const allAddresses = [primaryAddress, otherAddress];
   const addresses = allAddresses.filter(a => a !== null && a !== undefined);
 
@@ -98,7 +98,9 @@ const ValidPermits = (): React.ReactElement => {
 
   return (
     <div className="valid-permit-component">
-      <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
+      <div className="section-label">
+        {t(`${T_PATH}.sectionLabel`)}, {firstName}
+      </div>
       {isPaymentPending && <PurchaseNotification validPermits={validPermits} />}
 
       {validPermits.some(
