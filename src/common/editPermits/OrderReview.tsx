@@ -50,7 +50,9 @@ const OrderReview: React.FC<OrderReviewProps> = ({
             })}
           </Notification>
         )}
-        <div className="title">{t(`${T_PATH}.title`)}</div>
+        <div className="title">
+          {t(`${T_PATH}.title`)}, {profile.firstName}
+        </div>
         <Permit
           address={address}
           permits={validPermits}
