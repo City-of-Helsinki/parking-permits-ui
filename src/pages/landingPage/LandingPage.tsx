@@ -54,7 +54,8 @@ const LandingPage = (): React.ReactElement => {
   if (
     profileCtx?.getStatus() === 'loaded' &&
     !profile?.primaryAddress &&
-    !profile?.otherAddress
+    !profile?.otherAddress &&
+    !validPermits?.length
   ) {
     return (
       <>

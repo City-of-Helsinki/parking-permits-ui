@@ -43,10 +43,7 @@ const ValidPermits = (): React.ReactElement => {
 
   const getAddress = (): UserAddress | undefined => {
     const firstPermit = first(validPermits);
-    const permitAddress = addresses.find(
-      add => add.id === firstPermit?.address.id
-    );
-    return permitAddress || addresses.find(add => add.primary);
+    return firstPermit?.address;
   };
 
   const address = getAddress();
@@ -57,7 +54,7 @@ const ValidPermits = (): React.ReactElement => {
     permit.hasPendingExtensionRequest;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
-  const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
+  const hasAddressChanged = (permit: PermitModel) => permit.addressChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
   const isOpenEndedPermit = (permit: PermitModel) =>

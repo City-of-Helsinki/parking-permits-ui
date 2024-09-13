@@ -60,7 +60,7 @@ export type Permit = {
   canBeRefunded: boolean;
   canEndAfterCurrentPeriod: boolean;
   vehicleChanged: boolean;
-  zoneChanged: boolean;
+  addressChanged: boolean;
   isOrderConfirmed: boolean;
   address: UserAddress;
   addressApartment: string;

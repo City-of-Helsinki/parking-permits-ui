@@ -236,7 +236,7 @@ const Permit = ({
   };
   const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
 
-  const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
+  const hasAddressChanged = (permit: PermitModel) => permit.addressChanged;
 
   const bothPermitWithSameContractType =
     permits.every(p => p.contractType === ParkingContractType.OPEN_ENDED) ||
@@ -302,7 +302,7 @@ const Permit = ({
             className={classNames({
               processing: isProcessing(permit),
               vehicleChanged: permit.vehicleChanged,
-              addressChanged: permit.zoneChanged,
+              addressChanged: permit.addressChanged,
             })}
             key={uuidv4()}
             style={{ marginTop: index > 0 ? 'var(--spacing-xs)' : '0' }}>

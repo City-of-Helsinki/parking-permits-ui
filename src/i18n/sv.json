@@ -242,7 +242,7 @@
   "pages.temporaryVehicle.TemporaryVehicle.startDate.label": "Startdatum för tillfällig period",
   "pages.temporaryVehicle.TemporaryVehicle.startTime.label": "Starttid",
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Ändring av använderns adress",
-  "pages.validPermit.ValidPermit.addressChanged.notification.message": "Baserat på informationen i din Helsingforsprofil har din adress ändrats. Kontakta kundtjänsten för att uppdatera dina adressuppgifter: kymp.pysakointi@hel.fi eller +358 9 310 22 111. I annat fall upphör boendeparkeringstillståndet automatiskt att gälla kl. {{time}} {{date}}.",
+  "pages.validPermit.ValidPermit.addressChanged.notification.message": "Baserat på informationen i din Myndigheten för digitalisering och befolkningsdata har din adress ändrats. Kontakta kundtjänsten för att uppdatera dina adressuppgifter: kymp.pysakointitunnus@hel.fi eller +358 9 310 22111. I annat fall upphör boendeparkeringstillståndet automatiskt att gälla kl. {{time}} {{date}}.",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Tillståndet är ännu inte aktivt",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Tillståndet är betalt och väntar på att tillståndet ska bli aktivt.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Ändring av fordonsinformation",

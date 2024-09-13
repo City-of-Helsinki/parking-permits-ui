@@ -25,7 +25,7 @@ query Query {
     totalRefundAmount
     hasRefund
     vehicleChanged
-    zoneChanged
+    addressChanged
     isOrderConfirmed
     addressApartment
     addressApartmentSv
@@ -55,6 +55,21 @@ query Query {
     }
     address {
       id
+      streetName
+      streetNumber
+      streetNameSv
+      city
+      citySv
+      postalCode
+      location
+      primary
+      zone {
+        id
+        name
+        description
+        descriptionSv
+        location
+      }
     }
     parkingZone {
       id
