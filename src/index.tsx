@@ -4,9 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './assets/styles/main.scss';
-import { ClientProvider } from './client/ClientProvider';
-import HandleCallback from './client/HandleCallback';
-import { ApiAccessTokenProvider } from './hooks/apiAccessTokenProvider';
+import HDSLoginProvider from './client/LoginProvider';
 import { PermitProvider } from './hooks/permitProvider';
 import { UserProfileProvider } from './hooks/userProfileProvider';
 import './i18n/i18n';
@@ -32,17 +30,13 @@ const root = createRoot(container!);
 
 root.render(
   <BrowserRouter>
-    <HandleCallback>
-      <ClientProvider>
-        <ApiAccessTokenProvider>
-          <UserProfileProvider>
-            <PermitProvider>
-              <App />
-            </PermitProvider>
-          </UserProfileProvider>
-        </ApiAccessTokenProvider>
-      </ClientProvider>
-    </HandleCallback>
+    <HDSLoginProvider>
+      <UserProfileProvider>
+        <PermitProvider>
+          <App />
+        </PermitProvider>
+      </UserProfileProvider>
+    </HDSLoginProvider>
   </BrowserRouter>
 );
 

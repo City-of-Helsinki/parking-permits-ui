@@ -37,16 +37,13 @@ const ValidPermits = (): React.ReactElement => {
     return <Navigate to={ROUTES.BASE} />;
   }
 
-  const { primaryAddress, otherAddress } = profile;
+  const { firstName, primaryAddress, otherAddress } = profile;
   const allAddresses = [primaryAddress, otherAddress];
   const addresses = allAddresses.filter(a => a !== null && a !== undefined);
 
   const getAddress = (): UserAddress | undefined => {
     const firstPermit = first(validPermits);
-    const permitAddress = addresses.find(
-      add => add.id === firstPermit?.address.id
-    );
-    return permitAddress || addresses.find(add => add.primary);
+    return firstPermit?.address;
   };
 
   const address = getAddress();
@@ -57,7 +54,7 @@ const ValidPermits = (): React.ReactElement => {
     permit.hasPendingExtensionRequest;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
-  const hasAddressChanged = (permit: PermitModel) => permit.zoneChanged;
+  const hasAddressChanged = (permit: PermitModel) => permit.addressChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
   const isOpenEndedPermit = (permit: PermitModel) =>
@@ -101,7 +98,9 @@ const ValidPermits = (): React.ReactElement => {
 
   return (
     <div className="valid-permit-component">
-      <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
+      <div className="section-label">
+        {t(`${T_PATH}.sectionLabel`)}, {firstName}
+      </div>
       {isPaymentPending && <PurchaseNotification validPermits={validPermits} />}
 
       {validPermits.some(
