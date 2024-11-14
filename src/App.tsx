@@ -2,11 +2,11 @@ import { CookieModal } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRoutes } from 'react-router-dom';
-import { setHDSClientConfig } from './client';
-import HDSLoginConfig from './client/config';
+import { setClientConfig } from './client';
+import clientConfig from './client/config';
 import routes from './routes';
 
-setHDSClientConfig(HDSLoginConfig);
+setClientConfig(clientConfig);
 
 function App(): React.ReactElement {
   const { t, i18n } = useTranslation();

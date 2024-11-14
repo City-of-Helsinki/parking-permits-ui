@@ -1,8 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core/types';
 import { loader } from 'graphql.macro';
 import { isEmpty } from 'lodash';
-import { getApiTokensFromStorage } from 'hds-react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import { GraphQLClient } from '../graphql/graphqlClient';
@@ -13,23 +12,18 @@ import {
   UserProfile,
 } from '../types';
 import { formatErrors } from '../utils';
+import { ApiAccessTokenContext } from './apiAccessTokenProvider';
 import { getGqlClient } from './utils';
-import { useIsAuthorizationReady } from '../client/useIsAuthReady';
 
 const useProfile = (): ProfileActions => {
-  const tokens = getApiTokensFromStorage();
-  const [isLoginReady, loginInProgress] = useIsAuthorizationReady();
+  const apiTokenCtx = useContext(ApiAccessTokenContext);
   const profileGqlClient = getGqlClient() as GraphQLClient;
   const { i18n } = useTranslation();
   const [status, setStatus] = useState<FetchStatus>('waiting');
   const [profile, setProfile] = useState<UserProfile | undefined>(undefined);
   const [error, setError] = useState<ApiFetchError>();
 
-  let hasApiToken = false;
-  if (tokens) {
-    hasApiToken = true;
-  }
-
+  const hasApiToken = !isEmpty(apiTokenCtx?.getTokens());
   const profileLoaded = !isEmpty(profile);
 
   const updateLanguage = (lang: string) => {
@@ -65,14 +59,7 @@ const useProfile = (): ProfileActions => {
     if (hasApiToken && !profileLoaded) {
       fetchProfile();
     }
-  }, [
-    profileGqlClient,
-    hasApiToken,
-    profileLoaded,
-    i18n,
-    isLoginReady,
-    loginInProgress,
-  ]);
+  }, [profileGqlClient, hasApiToken, profileLoaded, i18n]);
 
   return {
     getProfile: () => profile,
