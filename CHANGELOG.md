@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-11-14
+
+### Added
+
+- Add customer first name to main titles ([e25ee5c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e25ee5c2a52941d63cd6292d739f2ee3aa2e8ca3))
+
+### Changed
+
+- Convert to use HDS login component ([853aa10](https://github.com/City-of-Helsinki/parking-permits-ui/commit/853aa10980f72d44c8502e7a2cf429814270a456))
+- Update change address functionality ([ab5716f](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ab5716f502cdc519d109ad8aed9725073069bae8))
+
+### Removed
+
+- Remove unused typings ([c31f1b1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c31f1b1b8be35552f6e4311c9c7038fdb63a9f40))
+
 ## [1.1.0] - 2024-08-30
 
 ### Added
