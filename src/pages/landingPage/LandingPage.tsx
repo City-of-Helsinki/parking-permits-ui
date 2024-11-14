@@ -1,8 +1,13 @@
-import { Button, IconSignout, LoadingSpinner, Notification } from 'hds-react';
+import {
+  Button,
+  IconSignout,
+  LoadingSpinner,
+  Notification,
+  useOidcClient,
+} from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
-import { ClientContext } from '../../client/ClientProvider';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { ROUTES } from '../../types';
@@ -13,13 +18,12 @@ const T_PATH = 'pages.landingPage.LandingPage';
 
 const LandingPage = (): React.ReactElement => {
   const { t } = useTranslation();
-  const clientCtx = useContext(ClientContext);
+  const { login, logout, isAuthenticated } = useOidcClient();
   const permitCtx = useContext(PermitStateContext);
   const profileCtx = useContext(UserProfileContext);
   const permitStatus = permitCtx?.getStatus();
   const validPermits = permitCtx?.getValidPermits();
-  const client = clientCtx?.client;
-  const authenticated = client?.isAuthenticated();
+  const authenticated = isAuthenticated();
   const profile = profileCtx?.getProfile();
   const allowedAgeLimit = getEnv('REACT_APP_ALLOWED_AGE_LIMIT');
 
@@ -40,7 +44,7 @@ const LandingPage = (): React.ReactElement => {
           className="logout-button"
           theme="black"
           iconLeft={<IconSignout />}
-          onClick={(): void => client?.logout()}>
+          onClick={() => logout()}>
           {t(`${T_PATH}.logout`)}
         </Button>
       </>
@@ -62,7 +66,7 @@ const LandingPage = (): React.ReactElement => {
           className="logout-button"
           theme="black"
           iconLeft={<IconSignout />}
-          onClick={(): void => client?.logout()}>
+          onClick={() => logout()}>
           {t(`${T_PATH}.logout`)}
         </Button>
       </>
@@ -89,7 +93,7 @@ const LandingPage = (): React.ReactElement => {
       {authenticated && <LoadingSpinner style={{ marginLeft: '50%' }} small />}
       {!authenticated && (
         <Button
-          onClick={client?.login}
+          onClick={() => login()}
           className="login-button"
           size="small"
           theme="black">

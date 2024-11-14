@@ -1,8 +1,7 @@
-import { Button, IconSignout, Notification } from 'hds-react';
-import React, { useContext } from 'react';
+import { Button, IconSignout, Notification, useOidcClient } from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { ClientContext } from '../../client/ClientProvider';
 import {
   Permit as PermitType,
   ROUTES,
@@ -31,7 +30,7 @@ const OrderReview: React.FC<OrderReviewProps> = ({
 }: OrderReviewProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const clientCtx = useContext(ClientContext);
+  const { logout } = useOidcClient();
   return (
     <div className={className}>
       <div className="review-detail">
@@ -73,7 +72,7 @@ const OrderReview: React.FC<OrderReviewProps> = ({
           className="action-btn"
           variant="secondary"
           iconLeft={<IconSignout />}
-          onClick={() => clientCtx?.client.logout()}
+          onClick={() => logout()}
           theme="black">
           <span>{t(`${T_PATH}.actionBtn.logout`)}</span>
         </Button>
