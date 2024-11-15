@@ -23,7 +23,7 @@ function envValueToBoolean(
 const HDSLoginConfig: LoginProviderProps = {
   userManagerSettings: {
     authority: process.env.REACT_APP_OIDC_REALM
-      ? `${process.env.REACT_APP_OIDC_URL}/realms/${process.env.REACT_APP_OIDC_REALM}`
+      ? `${process.env.REACT_APP_OIDC_URL}/auth/realms/${process.env.REACT_APP_OIDC_REALM}`
       : String(process.env.REACT_APP_OIDC_URL),
     client_id: String(process.env.REACT_APP_OIDC_CLIENT_ID),
     scope: process.env.REACT_APP_OIDC_SCOPE,
@@ -43,7 +43,15 @@ const HDSLoginConfig: LoginProviderProps = {
     ),
   },
   apiTokensClientSettings: {
-    url: `${process.env.REACT_APP_OIDC_URL}${process.env.REACT_APP_OIDC_TOKEN_EXCHANGE_PATH}`,
+    url: `${process.env.REACT_APP_OIDC_URL}/auth/realms/${process.env.REACT_APP_OIDC_REALM}${process.env.REACT_APP_OIDC_TOKEN_EXCHANGE_PATH}`,
+    queryProps: {
+      grantType: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+      permission: '#access',
+    },
+    audiences: [
+      String(process.env.REACT_APP_TOKEN_KEY),
+      String(process.env.REACT_APP_PROFILE_TOKEN_KEY),
+    ],
     maxRetries: 10,
     retryInterval: 1000,
   },
