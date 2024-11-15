@@ -35,14 +35,6 @@ const EndPermitDialog = ({
           {t(`${T_PATH}.choosePermitEndType`)}
         </div>
         <RadioButton
-          id="endImmediately"
-          name="endType"
-          label={t(`${T_PATH}.endImmediately`)}
-          value={PermitEndType.IMMEDIATELY}
-          checked={endType === PermitEndType.IMMEDIATELY}
-          onChange={e => setEndType(e.target.value as PermitEndType)}
-        />
-        <RadioButton
           id="endAfterCurrentPeriod"
           name="endType"
           disabled={!canEndAfterCurrentPeriod}
@@ -54,6 +46,14 @@ const EndPermitDialog = ({
         <div className="currentPeriodEndTime">
           {formatDateTimeDisplay(currentPeriodEndTime)}
         </div>
+        <RadioButton
+          id="endImmediately"
+          name="endType"
+          label={t(`${T_PATH}.endImmediately`)}
+          value={PermitEndType.IMMEDIATELY}
+          checked={endType === PermitEndType.IMMEDIATELY}
+          onChange={e => setEndType(e.target.value as PermitEndType)}
+        />
       </Dialog.Content>
       <Dialog.ActionButtons>
         <Button
