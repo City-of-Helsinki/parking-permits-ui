@@ -8,8 +8,8 @@ let gqlClient: GraphQLClient;
 export function getGqlClient(): GraphQLClient | undefined {
   if (!gqlClient) {
     const tokens = getApiTokensFromStorage();
-    const parkingPermitsTokenKey = getEnv('REACT_APP_PARKING_PERMITS_AUDIENCE');
-    const profileTokenKey = getEnv('REACT_APP_PROFILE_AUDIENCE');
+    const parkingPermitsTokenKey = getEnv('REACT_APP_TOKEN_KEY');
+    const profileTokenKey = getEnv('REACT_APP_PROFILE_TOKEN_KEY');
 
     if (!tokens) {
       return undefined;

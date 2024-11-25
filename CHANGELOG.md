@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2024-11-25
+
+### Added
+
+- Add missing swedish translations ([ad4ecde](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ad4ecdefced0bd839b9b37b1245975099624239c))
+
+### Changed
+
+- Switch order of radio buttons ([f5d7c5e](https://github.com/City-of-Helsinki/parking-permits-ui/commit/f5d7c5ed319cfaf994fa67ec19c08fd8df6184ed))
+- Switch to use Keycloak ([8370d97](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8370d97d9f820d64052b2afe3a1bfcee4150ee2b))
+
+### Fixed
+
+- Fix silent renew so token renewing is handled without issues ([3e937c1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/3e937c15a5a1e7469c0bf3455b642fb7c8fd050b))
+
 ## [1.2.0] - 2024-11-14
 
 ### Added
