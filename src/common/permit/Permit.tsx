@@ -71,7 +71,8 @@ const Permit = ({
   const isProcessing = (permit: PermitModel) =>
     (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
       permit.talpaOrderId) ||
-    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed);
+    (permit.status === (PermitStatus.DRAFT || PermitStatus.PRELIMINARY) &&
+      permit.isOrderConfirmed);
   const hasTemporaryVehicle = (permit: PermitModel) =>
     permit.activeTemporaryVehicle;
 

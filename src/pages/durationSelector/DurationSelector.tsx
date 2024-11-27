@@ -69,7 +69,9 @@ const DurationSelector = (): React.ReactElement => {
   }
   const mainPermitToUpdate = validPermits?.length ? otherPermit : primaryPermit;
 
-  const isDraft = mainPermitToUpdate?.status === PermitStatus.DRAFT;
+  const isDraft =
+    mainPermitToUpdate?.status === PermitStatus.DRAFT ||
+    PermitStatus.PRELIMINARY;
   const isContractTypeChecked = !isDraft || contractTypeChecked;
   const isStartTypeChecked = !isDraft || startTypeChecked;
   const isChecked = isContractTypeChecked && isStartTypeChecked;
