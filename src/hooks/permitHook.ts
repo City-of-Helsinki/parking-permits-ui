@@ -136,7 +136,11 @@ const usePermitState = (): PermitActions => {
     fetchPermits: (): Promise<void> => fetchPermits(),
     getDraftPermits: () =>
       permits
-        .filter(permit => permit.status === PermitStatus.DRAFT)
+        .filter(
+          permit =>
+            permit.status === PermitStatus.DRAFT ||
+            permit.status === PermitStatus.PRELIMINARY
+        )
         .sort(a => (a.primaryVehicle ? -1 : 1)),
     getValidPermits: () =>
       permits.filter(
@@ -144,7 +148,9 @@ const usePermitState = (): PermitActions => {
           [PermitStatus.VALID, PermitStatus.PAYMENT_IN_PROGRESS].includes(
             permit.status
           ) ||
-          (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed)
+          ((permit.status === PermitStatus.DRAFT ||
+            permit.status === PermitStatus.PRELIMINARY) &&
+            permit.isOrderConfirmed)
       ),
     getChangeAddressPriceChanges,
     changeAddress: (addressId, iban) => changeAddressRequest(addressId, iban),
