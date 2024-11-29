@@ -13,8 +13,8 @@ import {
   UserProfile,
 } from '../types';
 import { formatErrors } from '../utils';
-import { getGqlClient } from './utils';
 import { useIsAuthorizationReady } from '../client/useIsAuthReady';
+import { getGqlClient } from './graphqlClientModule';
 
 const useProfile = (): ProfileActions => {
   const tokens = getApiTokensFromStorage();
