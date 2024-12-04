@@ -126,6 +126,7 @@
   "common.permit.Permit.discount": "You are entitled to reduced street parking with mobile apps when you pay.",
   "common.permit.Permit.editVehicle": "Edit vehicle information",
   "common.permit.Permit.updateCard": "Edit payment card details",
+  "common.permit.Permit.extendPermit": "Extend parking permit",
   "common.permit.Permit.endTime": "End",
   "common.permit.Permit.invalidPermit": "Invalid permit",
   "common.permit.Permit.label": "Your parking permit",
