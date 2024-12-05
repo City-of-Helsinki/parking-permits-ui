@@ -87,6 +87,7 @@ const useProfile = (): ProfileActions => {
       }
       return error;
     },
+    getLanguage: () => profile?.language,
     updateLanguage,
   } as ProfileActions;
 };
