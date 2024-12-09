@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2024-12-09
+
+### Added
+
+- Add support for webshop permit preliminary status ([2efc9c4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2efc9c4303230eefffd8958320593c3839d3688c))
+
+### Changed
+
+- Update HDS to 3.11 ([bda8008](https://github.com/City-of-Helsinki/parking-permits-ui/commit/bda8008c4c63269d38241ae3a96b94783e16a182))
+- (apollo-client) ApolloClient as a Login module ([9dbc315](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9dbc31548efaa496670dd9d5db22d37fb8b70265))
+- (apollo-client) Add the module to LoginContext ([9ee7b2a](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9ee7b2aec4375d3178fa28fb74963e0a8d42fcb6))
+- (apollo-client) Replace usages of the old ApolloClient ([9571e10](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9571e10b76e748d49fdc667a81026a6a05bd7e4c))
+- Add missing translations ([725a0df](https://github.com/City-of-Helsinki/parking-permits-ui/commit/725a0dfda510e96d92cf1a7d38b5c33d6de7523a))
+
 ## [1.3.0] - 2024-11-25
 
 ### Added

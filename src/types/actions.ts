@@ -11,6 +11,7 @@ export type ProfileActions = {
   clear: () => Promise<void>;
   getErrorMessage: () => string | undefined;
   getResultErrorMessage: () => string | undefined;
+  getLanguage: () => string | undefined;
   updateLanguage: (lang: string) => Promise<UpdateLanguageResult>;
 };
 

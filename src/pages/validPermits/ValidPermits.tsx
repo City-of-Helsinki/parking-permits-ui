@@ -50,7 +50,9 @@ const ValidPermits = (): React.ReactElement => {
   const isProcessing = (permit: PermitModel) =>
     (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
       permit.talpaOrderId) ||
-    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed) ||
+    ((permit.status === PermitStatus.DRAFT ||
+      permit.status === PermitStatus.PRELIMINARY) &&
+      permit.isOrderConfirmed) ||
     permit.hasPendingExtensionRequest;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
@@ -105,7 +107,9 @@ const ValidPermits = (): React.ReactElement => {
 
       {validPermits.some(
         permit =>
-          permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed
+          (permit.status === PermitStatus.DRAFT ||
+            permit.status === PermitStatus.PRELIMINARY) &&
+          permit.isOrderConfirmed
       ) && (
         <Notification
           type="alert"
