@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2024-12-19
+
+### Fixed
+
+- Disable month selection until start time is selected ([c3cd509](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c3cd50947d3a411f2b42de0e3379221d8a71aad7))
+
 ## [1.4.0] - 2024-12-09
 
 ### Added

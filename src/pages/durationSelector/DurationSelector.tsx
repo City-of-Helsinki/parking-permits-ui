@@ -246,7 +246,7 @@ const DurationSelector = (): React.ReactElement => {
                   defaultValue={permit?.monthCount}
                   disabled={
                     mainPermitToUpdate.contractType !==
-                    ParkingContractType.FIXED_PERIOD
+                      ParkingContractType.FIXED_PERIOD || !startTypeChecked
                   }
                   onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                     updateMonthCount(
