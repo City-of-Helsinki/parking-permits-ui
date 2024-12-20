@@ -1,4 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
+import { useAuthenticatedUser } from 'hds-react';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import {
   changeAddress,
@@ -30,7 +31,7 @@ const usePermitState = (): PermitActions => {
     UserAddress | undefined
   >(undefined);
   const [error, setError] = useState<ApiFetchError>();
-
+  const user = useAuthenticatedUser();
   const profile = profileCtx?.getProfile();
 
   const onError = (errors: ParkingPermitError[] | string | string[]) => {
@@ -97,11 +98,12 @@ const usePermitState = (): PermitActions => {
 
   const createOrderRequest = useCallback(async () => {
     setStatus('loading');
+    const profileUser = user?.profile?.sub;
     const order = await createOrder();
     if (order.checkoutUrl) {
-      window.open(`${order?.checkoutUrl}`, '_self');
+      window.open(`${order?.checkoutUrl}?user=${profileUser}`, '_self');
     }
-  }, []);
+  }, [user]);
 
   const changeAddressRequest = useCallback(
     async (addressId: string, iban: string | undefined) => {

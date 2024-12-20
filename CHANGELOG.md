@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.2] - 2024-12-20
+
+### Changed
+
+- Add user parameter to Talpa order creation request ([a1c48a9](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a1c48a92ebcb72af2c6e04f4ca46a6f1110cc669))
+
 ## [1.4.1] - 2024-12-19
 
 ### Fixed
