@@ -34,6 +34,9 @@ const EndPermitDialog = ({
         <div className="chooseEndTypeLabel">
           {t(`${T_PATH}.choosePermitEndType`)}
         </div>
+        <div className="chooseEndTypeLabel">
+          {t(`${T_PATH}.choosePermitEndTypeInfo`)}
+        </div>
         <RadioButton
           id="endAfterCurrentPeriod"
           name="endType"
