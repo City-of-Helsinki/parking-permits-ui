@@ -83,7 +83,7 @@
   "common.editPermits.SelectAddress.actionBtn.continue": "Fortsätt",
   "common.editPermits.SelectAddress.title": "Bekräfta ny adress",
   "common.endPermitDialog.EndPermitDialog.cancel": "Avbryt",
-  "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Välj när tillståndet upphör",
+  "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Välj när tillståndet upphör (återbetalningar genereras automatiskt för de återstående betalda månaderna av tillståndet):",
   "common.endPermitDialog.EndPermitDialog.continue": "Fortsätt",
   "common.endPermitDialog.EndPermitDialog.endAfterCurrentPeriod": "Avsluta tillståndet efter pågående period",
   "common.endPermitDialog.EndPermitDialog.endImmediately": "Avsluta tillstånd omedelbart",

@@ -83,7 +83,7 @@
   "common.editPermits.SelectAddress.actionBtn.continue": "Continue",
   "common.editPermits.SelectAddress.title": "Confirm new address",
   "common.endPermitDialog.EndPermitDialog.cancel": "Cancel",
-  "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Choose when the permit is ended",
+  "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Choose when the permit is ended (refunds will be generated automatically for the remaining paid months of the permit):)",
   "common.endPermitDialog.EndPermitDialog.continue": "Continue",
   "common.endPermitDialog.EndPermitDialog.endAfterCurrentPeriod": "End permit after current period",
   "common.endPermitDialog.EndPermitDialog.endImmediately": "End permit immediately",

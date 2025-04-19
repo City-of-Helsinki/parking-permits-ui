@@ -83,7 +83,7 @@
   "common.editPermits.SelectAddress.actionBtn.continue": "Jatka",
   "common.editPermits.SelectAddress.title": "Vahvista uusi osoite",
   "common.endPermitDialog.EndPermitDialog.cancel": "Peruuta",
-  "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Valitsen milloin tunnuksen voimassaolo päättyy",
+  "common.endPermitDialog.EndPermitDialog.choosePermitEndType": "Valitse milloin tunnuksen voimassaolo päättyy (kokonaisista tunnuksen jäljellä olevista maksetuista kuukausista muodostetaan palautukset automaattisesti):",
   "common.endPermitDialog.EndPermitDialog.continue": "Jatka",
   "common.endPermitDialog.EndPermitDialog.endAfterCurrentPeriod": "Päätä tunnus kuluvan kauden päätteeksi",
   "common.endPermitDialog.EndPermitDialog.endImmediately": "Päätä tunnus välittömästi",
