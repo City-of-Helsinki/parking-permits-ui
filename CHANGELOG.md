@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.3] - 2025-04-28
+
+### Changed
+
+- Update permit end dialog fi/sv/en-messages ([5609b1b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5609b1b5d96141f047c2b545e67b2ea6297be37d))
+- Update date format ([6322e67](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6322e6788862e0c1154cf89a0818f5d15ff84ba1))
+
 ## [1.4.2] - 2024-12-20
 
 ### Changed
