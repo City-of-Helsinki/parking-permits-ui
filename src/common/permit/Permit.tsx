@@ -189,7 +189,7 @@ const Permit = ({
           </>
         )}
         {activeTempVehicle && (
-          <p className="invalid-title">{t(`${T_PATH}.invalidPermit`)}</p>
+          <p className="actual-title">{t(`${T_PATH}.actualVehicle`)}</p>
         )}
 
         <div

@@ -129,7 +129,7 @@
   "common.permit.Permit.updateCard": "Edit payment card details",
   "common.permit.Permit.extendPermit": "Extend parking permit",
   "common.permit.Permit.endTime": "End",
-  "common.permit.Permit.invalidPermit": "Invalid permit",
+  "common.permit.Permit.actualVehicle": "Actual vehicle",
   "common.permit.Permit.label": "Your parking permit",
   "common.permit.Permit.parkingZone": "Resident Parking Zone",
   "common.permit.Permit.removeSecondaryVehicle": "Remove secondary vehicle",
