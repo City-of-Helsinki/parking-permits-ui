@@ -129,7 +129,7 @@
   "common.permit.Permit.updateCard": "Muokkaa maksukortin tietoja",
   "common.permit.Permit.extendPermit": "Jatka pysäköintitunnuksen voimassaoloa",
   "common.permit.Permit.endTime": "Päättyy",
-  "common.permit.Permit.invalidPermit": "Ei voimassa",
+  "common.permit.Permit.actualVehicle": "Varsinainen ajoneuvo",
   "common.permit.Permit.label": "Pysäköintitunnuksesi",
   "common.permit.Permit.parkingZone": "Pysäköintialue",
   "common.permit.Permit.removeSecondaryVehicle": "Poista toinen ajoneuvo",
