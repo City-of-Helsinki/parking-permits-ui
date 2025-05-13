@@ -132,6 +132,15 @@ export const formatPermitStartDate = (
   return formatDate(date);
 };
 
+export const minDate = (firstDate: MaybeDate, secondDate: MaybeDate): Date => {
+  if (!firstDate || !secondDate) {
+    return new Date();
+  }
+  return dateAsNumber(firstDate) < dateAsNumber(secondDate)
+    ? normalizeDateValue(firstDate)
+    : normalizeDateValue(secondDate);
+};
+
 export const formatPermitEndDate = (
   products: Product[],
   product: Product,

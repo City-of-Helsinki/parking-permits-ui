@@ -19,7 +19,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { addTemporaryVehicleToPermit } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { ROUTES } from '../../types';
-import { combineDateAndTime, formatErrors, validateTime } from '../../utils';
+import {
+  combineDateAndTime,
+  formatErrors,
+  minDate,
+  validateTime,
+} from '../../utils';
 import './temporaryVehicle.scss';
 
 const T_PATH = 'pages.temporaryVehicle.TemporaryVehicle';
@@ -90,7 +95,7 @@ const TemporaryVehicle = (): React.ReactElement => {
           id="date-input-start-time"
           className="date-input"
           minDate={new Date()}
-          maxDate={addWeeks(new Date(), 2)}
+          maxDate={minDate(addWeeks(startDate, 2), permit.endTime)}
           initialMonth={new Date()}
           value={format(startDate, 'd.M.yyyy')}
           label={t(`${T_PATH}.startDate.label`)}
@@ -122,7 +127,7 @@ const TemporaryVehicle = (): React.ReactElement => {
           id="date-input-end-time"
           className="date-input"
           minDate={startDate}
-          maxDate={addWeeks(startDate, 2)}
+          maxDate={minDate(addWeeks(startDate, 2), permit.endTime)}
           initialMonth={startDate}
           value={format(endDate, 'd.M.yyyy')}
           label={t(`${T_PATH}.endDate.label`)}
