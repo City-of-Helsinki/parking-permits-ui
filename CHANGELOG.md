@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.4] - 2025-05-15
+
+### Changed
+
+- Update temporary vehicle title text ([38ca8f6](https://github.com/City-of-Helsinki/parking-permits-ui/commit/38ca8f609ff585bcb7570664fdc12af6b66b81cc))
+
+### Fixed
+
+- Limit temp vehicle max dates to permit maxes ([1ad0caf](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1ad0caf8decfb93c5e31ecef69dfff2f8f99eaa7))
+
 ## [1.4.3] - 2025-04-28
 
 ### Changed
