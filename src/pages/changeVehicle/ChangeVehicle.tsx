@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import PriceChangePreview from '../../common/editPermits/PriceChangePreview';
 import Refund from '../../common/editPermits/Refund';
@@ -23,6 +24,7 @@ import {
   calcProductUnitPrice,
   calcProductUnitVatPrice,
 } from '../../utils';
+import { ErrorStateContext } from '../../hooks/errorProvider';
 
 enum PriceChangeType {
   HIGHER_PRICE = 2,
@@ -52,15 +54,32 @@ const getPriceChangeType = (
   return PriceChangeType.NO_CHANGE;
 };
 
+const T_PATH = 'common.editPermits.ChangeVehicle';
+
 const ChangeVehicle = (): React.ReactElement => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const params = useParams();
+  // NOTE: error-related state value and setter are
+  // passed to ErrorContext which wraps VehicleDetails,
+  // this is to have both components share a single error message
+  // which is also settable by both components.
+  const [error, setError] = useState('');
+
   const permitCtx = useContext(PermitStateContext);
   const [vehicle, setVehicle] = useState<Vehicle>();
   const [lowEmissionChecked, setLowEmissionChecked] = useState(false);
 
   const [step, setStep] = useState<ChangeVehicleStep>(
     ChangeVehicleStep.VEHICLE
+  );
+
+  const errorState = useMemo(
+    () => ({
+      error,
+      setError,
+    }),
+    [error, setError]
   );
 
   const [priceChangesList, setPriceChangesList] = useState<
@@ -73,14 +92,22 @@ const ChangeVehicle = (): React.ReactElement => {
   }
 
   const updateAndNavigateToOrderView = async (accountNumber?: string) => {
+    let updateSuccessful = true;
     await updatePermitVehicle(
       permit.id,
       vehicle?.id,
       lowEmissionChecked,
       accountNumber
-    );
+    ).catch(() => {
+      updateSuccessful = false;
+      setError(t(`${T_PATH}.permitExistError`));
+    });
+
     await permitCtx?.fetchPermits();
-    navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
+
+    if (updateSuccessful) {
+      navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
+    }
   };
   const priceChangeType = getPriceChangeType(vehicle, permit);
   const isLowEmission = vehicle?.isLowEmission;
@@ -111,12 +138,27 @@ const ChangeVehicle = (): React.ReactElement => {
       ]);
 
       if (priceChangeType === PriceChangeType.HIGHER_PRICE) {
-        const { checkoutUrl } = await updatePermitVehicle(
+        let updateSuccessful = true;
+
+        const updateResult = await updatePermitVehicle(
           permit.id,
           vehicle?.id,
           lowEmissionChecked
+        ).then(
+          result => result,
+          () => {
+            updateSuccessful = false;
+            setError(t(`${T_PATH}.permitExistError`));
+          }
         );
+
+        if (!updateSuccessful) {
+          return;
+        }
+
         await permitCtx?.fetchPermits();
+
+        const checkoutUrl = updateResult?.checkoutUrl;
         if (permit.contractType === ParkingContractType.OPEN_ENDED) {
           navigate(ROUTES.VALID_PERMITS);
         } else if (checkoutUrl) {
@@ -132,16 +174,18 @@ const ChangeVehicle = (): React.ReactElement => {
 
   return (
     <div className="change-vehicle-component">
-      {step === ChangeVehicleStep.VEHICLE && (
-        <VehicleDetails
-          permit={permit}
-          vehicle={vehicle}
-          setVehicle={setVehicle}
-          onContinue={continueTo}
-          lowEmissionChecked={lowEmissionChecked}
-          setLowEmissionChecked={setLowEmissionChecked}
-        />
-      )}
+      <ErrorStateContext.Provider value={errorState}>
+        {step === ChangeVehicleStep.VEHICLE && (
+          <VehicleDetails
+            permit={permit}
+            vehicle={vehicle}
+            setVehicle={setVehicle}
+            onContinue={continueTo}
+            lowEmissionChecked={lowEmissionChecked}
+            setLowEmissionChecked={setLowEmissionChecked}
+          />
+        )}
+      </ErrorStateContext.Provider>
       {step === ChangeVehicleStep.PRICE_PREVIEW && priceChangesList && (
         <PriceChangePreview
           className="price-change-preview"
