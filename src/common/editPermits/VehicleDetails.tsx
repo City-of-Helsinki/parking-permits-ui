@@ -33,6 +33,7 @@ import {
 } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
+import { ErrorStateContext, ErrorStateDict } from '../../hooks/errorProvider';
 
 const T_PATH = 'common.editPermits.ChangeVehicle';
 
@@ -56,10 +57,13 @@ const VehicleDetails: FC<Props> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const permitCtx = useContext(PermitStateContext);
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [tempRegistration, setTempRegistration] = useState('');
-
+  const errorState = useContext(ErrorStateContext);
+  // type cast is used to get around some typing ugliness concerning state setter methods
+  // and context default value initialization, see type declaration of
+  // ErrorStateContextDefaultValue for more information.
+  const { error, setError } = errorState as ErrorStateDict;
   const inputRegistration = (event: { target: { value: string } }) => {
     setError('');
     const { value } = event.target;
@@ -76,7 +80,7 @@ const VehicleDetails: FC<Props> = ({
       .then(setVehicle)
       .catch(errors => setError(formatErrors(errors)));
     setLoading(false);
-  }, [setVehicle, tempRegistration]);
+  }, [setVehicle, tempRegistration, setError]);
 
   const restrictions = vehicle ? getRestrictions(vehicle, t) : [];
 
