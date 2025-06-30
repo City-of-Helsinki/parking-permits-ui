@@ -163,6 +163,11 @@ const ChangeVehicle = (): React.ReactElement => {
           navigate(ROUTES.VALID_PERMITS);
         } else if (checkoutUrl) {
           window.open(`${checkoutUrl}`, '_self');
+        } else {
+          // Backend might return a null checkout url on success
+          // due to price not actually changing
+          // (eg. the permits end date is less than a month away)
+          navigate(ROUTES.VALID_PERMITS);
         }
       } else if (canBeRefunded(permit)) {
         setStep(ChangeVehicleStep.PRICE_PREVIEW);
