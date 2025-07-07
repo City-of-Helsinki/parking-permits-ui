@@ -172,7 +172,7 @@ const ChangeVehicle = (): React.ReactElement => {
       } else if (canBeRefunded(permit)) {
         setStep(ChangeVehicleStep.PRICE_PREVIEW);
       } else {
-        updateAndNavigateToOrderView();
+        await updateAndNavigateToOrderView();
       }
     }
   };
