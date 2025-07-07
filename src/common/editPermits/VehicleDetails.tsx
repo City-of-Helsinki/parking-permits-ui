@@ -58,6 +58,7 @@ const VehicleDetails: FC<Props> = ({
   const navigate = useNavigate();
   const permitCtx = useContext(PermitStateContext);
   const [loading, setLoading] = useState(false);
+  const [processingRequest, setProcessingRequest] = useState(false);
   const [tempRegistration, setTempRegistration] = useState('');
   const errorState = useContext(ErrorStateContext);
   // type cast is used to get around some typing ugliness concerning state setter methods
@@ -81,6 +82,13 @@ const VehicleDetails: FC<Props> = ({
       .catch(errors => setError(formatErrors(errors)));
     setLoading(false);
   }, [setVehicle, tempRegistration, setError]);
+
+  const processVehicleChange = async () => {
+    setProcessingRequest(true);
+    const asyncOnContinue = async () => onContinue();
+    await asyncOnContinue();
+    setProcessingRequest(false);
+  };
 
   const restrictions = vehicle ? getRestrictions(vehicle, t) : [];
 
@@ -181,10 +189,11 @@ const VehicleDetails: FC<Props> = ({
         <Button
           theme="black"
           className="action-btn"
-          disabled={!vehicle}
+          disabled={!vehicle || loading || processingRequest}
           iconRight={<IconArrowRight />}
-          onClick={() => onContinue()}>
-          {t(`${T_PATH}.actionBtn.continue`)}
+          onClick={processVehicleChange}>
+          {!processingRequest && t(`${T_PATH}.actionBtn.continue`)}
+          {processingRequest && <LoadingSpinner small />}
         </Button>
 
         <Button
