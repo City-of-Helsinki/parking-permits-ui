@@ -33,7 +33,10 @@ import {
 } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
-import { ErrorStateContext, ErrorStateDict } from '../../hooks/errorProvider';
+import {
+  VehicleChangeErrorContext,
+  ErrorStateDict,
+} from '../../hooks/vehicleChangeErrorProvider';
 
 const T_PATH = 'common.editPermits.ChangeVehicle';
 
@@ -60,10 +63,10 @@ const VehicleDetails: FC<Props> = ({
   const [loading, setLoading] = useState(false);
   const [processingRequest, setProcessingRequest] = useState(false);
   const [tempRegistration, setTempRegistration] = useState('');
-  const errorState = useContext(ErrorStateContext);
+  const errorState = useContext(VehicleChangeErrorContext);
   // type cast is used to get around some typing ugliness concerning state setter methods
   // and context default value initialization, see type declaration of
-  // ErrorStateContextDefaultValue for more information.
+  // VehicleChangeErrorContextDefaultValue for more information.
   const { error, setError } = errorState as ErrorStateDict;
   const inputRegistration = (event: { target: { value: string } }) => {
     setError('');
