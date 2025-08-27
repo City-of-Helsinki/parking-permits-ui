@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -24,7 +24,10 @@ import {
   calcProductUnitPrice,
   calcProductUnitVatPrice,
 } from '../../utils';
-import { VehicleChangeErrorContext } from '../../hooks/vehicleChangeErrorProvider';
+import {
+  ErrorStateDict,
+  VehicleChangeErrorContext,
+} from '../../hooks/vehicleChangeErrorProvider';
 
 enum PriceChangeType {
   HIGHER_PRICE = 2,
@@ -60,26 +63,15 @@ const ChangeVehicle = (): React.ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const params = useParams();
-  // NOTE: error-related state value and setter are
-  // passed to ErrorContext which wraps VehicleDetails,
-  // this is to have both components share a single error message
-  // which is also settable by both components.
-  const [error, setError] = useState('');
-
+  const vehicleChangeErrorCtx = useContext(
+    VehicleChangeErrorContext
+  ) as ErrorStateDict;
   const permitCtx = useContext(PermitStateContext);
   const [vehicle, setVehicle] = useState<Vehicle>();
   const [lowEmissionChecked, setLowEmissionChecked] = useState(false);
 
   const [step, setStep] = useState<ChangeVehicleStep>(
     ChangeVehicleStep.VEHICLE
-  );
-
-  const errorState = useMemo(
-    () => ({
-      error,
-      setError,
-    }),
-    [error, setError]
   );
 
   const [priceChangesList, setPriceChangesList] = useState<
@@ -100,7 +92,7 @@ const ChangeVehicle = (): React.ReactElement => {
       accountNumber
     ).catch(() => {
       updateSuccessful = false;
-      setError(t(`${T_PATH}.permitExistError`));
+      vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
     });
 
     await permitCtx?.fetchPermits();
@@ -148,7 +140,7 @@ const ChangeVehicle = (): React.ReactElement => {
           result => result,
           () => {
             updateSuccessful = false;
-            setError(t(`${T_PATH}.permitExistError`));
+            vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
           }
         );
 
@@ -179,18 +171,16 @@ const ChangeVehicle = (): React.ReactElement => {
 
   return (
     <div className="change-vehicle-component">
-      <VehicleChangeErrorContext.Provider value={errorState}>
-        {step === ChangeVehicleStep.VEHICLE && (
-          <VehicleDetails
-            permit={permit}
-            vehicle={vehicle}
-            setVehicle={setVehicle}
-            onContinue={continueTo}
-            lowEmissionChecked={lowEmissionChecked}
-            setLowEmissionChecked={setLowEmissionChecked}
-          />
-        )}
-      </VehicleChangeErrorContext.Provider>
+      {step === ChangeVehicleStep.VEHICLE && (
+        <VehicleDetails
+          permit={permit}
+          vehicle={vehicle}
+          setVehicle={setVehicle}
+          onContinue={continueTo}
+          lowEmissionChecked={lowEmissionChecked}
+          setLowEmissionChecked={setLowEmissionChecked}
+        />
+      )}
       {step === ChangeVehicleStep.PRICE_PREVIEW && priceChangesList && (
         <PriceChangePreview
           className="price-change-preview"
