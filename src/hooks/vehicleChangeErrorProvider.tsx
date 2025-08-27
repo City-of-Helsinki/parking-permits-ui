@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
 
 export type ErrorStateDict = {
   error: string;
@@ -11,3 +11,25 @@ export type ErrorStateDict = {
 type VehicleChangeErrorContextDefaultValue = ErrorStateDict | undefined;
 export const VehicleChangeErrorContext =
   React.createContext<VehicleChangeErrorContextDefaultValue>(undefined);
+
+interface Props {
+  children: React.ReactNode;
+}
+
+export const VehicleChangeErrorProvider: FC<Props> = ({ children }) => {
+  const [error, setError] = useState('');
+
+  const errorState = useMemo(
+    () => ({
+      error,
+      setError,
+    }),
+    [error, setError]
+  ) as ErrorStateDict;
+
+  return (
+    <VehicleChangeErrorContext.Provider value={errorState}>
+      {children}
+    </VehicleChangeErrorContext.Provider>
+  );
+};
