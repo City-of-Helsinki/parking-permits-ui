@@ -9,6 +9,7 @@ import { PermitProvider } from './hooks/permitProvider';
 import { UserProfileProvider } from './hooks/userProfileProvider';
 import './i18n/i18n';
 import reportWebVitals from './reportWebVitals';
+import { VehicleChangeErrorProvider } from './hooks/vehicleChangeErrorProvider';
 
 const ENVS_WITH_SENTRY = ['test', 'stage', 'prod'];
 
@@ -33,7 +34,9 @@ root.render(
     <HDSLoginProvider>
       <UserProfileProvider>
         <PermitProvider>
-          <App />
+          <VehicleChangeErrorProvider>
+            <App />
+          </VehicleChangeErrorProvider>
         </PermitProvider>
       </UserProfileProvider>
     </HDSLoginProvider>

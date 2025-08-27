@@ -63,28 +63,26 @@ const VehicleDetails: FC<Props> = ({
   const [loading, setLoading] = useState(false);
   const [processingRequest, setProcessingRequest] = useState(false);
   const [tempRegistration, setTempRegistration] = useState('');
-  const errorState = useContext(VehicleChangeErrorContext);
-  // type cast is used to get around some typing ugliness concerning state setter methods
-  // and context default value initialization, see type declaration of
-  // VehicleChangeErrorContextDefaultValue for more information.
-  const { error, setError } = errorState as ErrorStateDict;
+  const vehicleChangeErrorCtx = useContext(
+    VehicleChangeErrorContext
+  ) as ErrorStateDict;
   const inputRegistration = (event: { target: { value: string } }) => {
-    setError('');
+    vehicleChangeErrorCtx.setError('');
     const { value } = event.target;
     setTempRegistration(value.toUpperCase());
     if (value && permitCtx?.permitExists(value)) {
-      setError(t(`${T_PATH}.permitExistError`));
+      vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
     }
   };
 
   const fetchVehicleInformation = useCallback(async () => {
     setLoading(true);
-    setError('');
+    vehicleChangeErrorCtx.setError('');
     await getVehicleInformation(tempRegistration)
       .then(setVehicle)
-      .catch(errors => setError(formatErrors(errors)));
+      .catch(errors => vehicleChangeErrorCtx.setError(formatErrors(errors)));
     setLoading(false);
-  }, [setVehicle, tempRegistration, setError]);
+  }, [vehicleChangeErrorCtx, setVehicle, tempRegistration]);
 
   const processVehicleChange = async () => {
     setProcessingRequest(true);
@@ -97,9 +95,9 @@ const VehicleDetails: FC<Props> = ({
 
   return (
     <div className="vehicle-detail-component">
-      {error && (
+      {vehicleChangeErrorCtx.error && (
         <Notification type="error" className="error-notification">
-          {t(error || '')}
+          {t(vehicleChangeErrorCtx.error || '')}
         </Notification>
       )}
 
@@ -127,7 +125,7 @@ const VehicleDetails: FC<Props> = ({
       <Button
         variant="secondary"
         className="change-btn"
-        disabled={loading || !!error?.length}
+        disabled={loading || !!vehicleChangeErrorCtx.error?.length}
         onClick={fetchVehicleInformation}>
         {!loading && t(`${T_PATH}.changeBtn`)}
         {loading && <LoadingSpinner small />}
