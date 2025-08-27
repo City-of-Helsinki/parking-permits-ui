@@ -8,6 +8,6 @@ export type ErrorStateDict = {
 // Undefined is used to get around initializing a Dispatch<SetStateAction<string>>-value
 // without invoking useState() outside of component context which react doesn't allow.
 // The actual value of the context is casted back to ErrorStateDict.
-type ErrorStateContextDefaultValue = ErrorStateDict | undefined;
-export const ErrorStateContext =
-  React.createContext<ErrorStateContextDefaultValue>(undefined);
+type VehicleChangeErrorContextDefaultValue = ErrorStateDict | undefined;
+export const VehicleChangeErrorContext =
+  React.createContext<VehicleChangeErrorContextDefaultValue>(undefined);

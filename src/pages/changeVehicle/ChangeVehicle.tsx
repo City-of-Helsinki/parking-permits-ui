@@ -24,7 +24,7 @@ import {
   calcProductUnitPrice,
   calcProductUnitVatPrice,
 } from '../../utils';
-import { ErrorStateContext } from '../../hooks/errorProvider';
+import { VehicleChangeErrorContext } from '../../hooks/vehicleChangeErrorProvider';
 
 enum PriceChangeType {
   HIGHER_PRICE = 2,
@@ -179,7 +179,7 @@ const ChangeVehicle = (): React.ReactElement => {
 
   return (
     <div className="change-vehicle-component">
-      <ErrorStateContext.Provider value={errorState}>
+      <VehicleChangeErrorContext.Provider value={errorState}>
         {step === ChangeVehicleStep.VEHICLE && (
           <VehicleDetails
             permit={permit}
@@ -190,7 +190,7 @@ const ChangeVehicle = (): React.ReactElement => {
             setLowEmissionChecked={setLowEmissionChecked}
           />
         )}
-      </ErrorStateContext.Provider>
+      </VehicleChangeErrorContext.Provider>
       {step === ChangeVehicleStep.PRICE_PREVIEW && priceChangesList && (
         <PriceChangePreview
           className="price-change-preview"
