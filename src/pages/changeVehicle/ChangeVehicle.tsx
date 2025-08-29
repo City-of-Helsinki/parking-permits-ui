@@ -95,9 +95,8 @@ const ChangeVehicle = (): React.ReactElement => {
       vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
     });
 
-    await permitCtx?.fetchPermits();
-
     if (updateSuccessful) {
+      await permitCtx?.fetchPermits();
       navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
     }
   };
