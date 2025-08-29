@@ -160,7 +160,7 @@ const ChangeVehicle = (): React.ReactElement => {
           // (eg. the permits end date is less than a month away)
           navigate(ROUTES.VALID_PERMITS);
         }
-      } else if (canBeRefunded(permit)) {
+      } else if (!VehicleChangeErrorCtx.error && canBeRefunded(permit)) {
         setStep(ChangeVehicleStep.PRICE_PREVIEW);
       } else {
         await updateAndNavigateToOrderView();
@@ -189,7 +189,7 @@ const ChangeVehicle = (): React.ReactElement => {
           onConfirm={() => {
             if (priceChangeType === PriceChangeType.NO_CHANGE) {
               updateAndNavigateToOrderView();
-            } else {
+            } else if (!VehicleChangeErrorCtx.error) {
               setStep(ChangeVehicleStep.REFUND);
             }
           }}
