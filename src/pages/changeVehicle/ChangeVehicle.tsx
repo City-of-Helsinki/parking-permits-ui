@@ -120,52 +120,59 @@ const ChangeVehicle = (): React.ReactElement => {
   };
 
   const continueTo = async () => {
-    if (step === ChangeVehicleStep.VEHICLE) {
-      setPriceChangesList([
-        {
-          vehicle,
-          priceChanges: upcomingProducts(permit).map(getPriceChangeItem),
-        },
-      ]);
-
-      if (priceChangeType === PriceChangeType.HIGHER_PRICE) {
-        let updateSuccessful = true;
-
-        const updateResult = await updatePermitVehicle(
-          permit.id,
-          vehicle?.id,
-          lowEmissionChecked
-        ).then(
-          result => result,
-          () => {
-            updateSuccessful = false;
-            vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
-          }
-        );
-
-        if (!updateSuccessful) {
-          return;
-        }
-
-        await permitCtx?.fetchPermits();
-
-        const checkoutUrl = updateResult?.checkoutUrl;
-        if (permit.contractType === ParkingContractType.OPEN_ENDED) {
-          navigate(ROUTES.VALID_PERMITS);
-        } else if (checkoutUrl) {
-          window.open(`${checkoutUrl}`, '_self');
-        } else {
-          // Backend might return a null checkout url on success
-          // due to price not actually changing
-          // (eg. the permits end date is less than a month away)
-          navigate(ROUTES.VALID_PERMITS);
-        }
-      } else if (!VehicleChangeErrorCtx.error && canBeRefunded(permit)) {
-        setStep(ChangeVehicleStep.PRICE_PREVIEW);
-      } else {
-        await updateAndNavigateToOrderView();
-      }
+    if (step !== ChangeVehicleStep.VEHICLE) {
+      return;
     }
+
+    setPriceChangesList([
+      {
+        vehicle,
+        priceChanges: upcomingProducts(permit).map(getPriceChangeItem),
+      },
+    ]);
+
+    if (priceChangeType === PriceChangeType.HIGHER_PRICE) {
+      let updateSuccessful = true;
+      const updateResult = await updatePermitVehicle(
+        permit.id,
+        vehicle?.id,
+        lowEmissionChecked
+      ).then(
+        result => result,
+        () => {
+          updateSuccessful = false;
+          vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
+        }
+      );
+
+      if (!updateSuccessful) {
+        return;
+      }
+
+      await permitCtx?.fetchPermits();
+
+      const checkoutUrl = updateResult?.checkoutUrl;
+      if (permit.contractType === ParkingContractType.OPEN_ENDED) {
+        navigate(ROUTES.VALID_PERMITS);
+        return;
+      }
+      if (checkoutUrl) {
+        window.open(`${checkoutUrl}`, '_self');
+        return;
+      }
+      // Backend might return a null checkout url on success
+      // due to price not actually changing
+      // (eg. the permits end date is less than a month away)
+      navigate(ROUTES.VALID_PERMITS);
+      return;
+    }
+
+    if (!vehicleChangeErrorCtx.error && canBeRefunded(permit)) {
+      setStep(ChangeVehicleStep.PRICE_PREVIEW);
+      return;
+    }
+
+    await updateAndNavigateToOrderView();
   };
 
   return (
@@ -189,7 +196,7 @@ const ChangeVehicle = (): React.ReactElement => {
           onConfirm={() => {
             if (priceChangeType === PriceChangeType.NO_CHANGE) {
               updateAndNavigateToOrderView();
-            } else if (!VehicleChangeErrorCtx.error) {
+            } else if (!vehicleChangeErrorCtx.error) {
               setStep(ChangeVehicleStep.REFUND);
             }
           }}
