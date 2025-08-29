@@ -83,20 +83,46 @@ const ChangeVehicle = (): React.ReactElement => {
     return <Navigate to={ROUTES.VALID_PERMITS} />;
   }
 
-  const updateAndNavigateToOrderView = async (accountNumber?: string) => {
+  type RequestPermitVehicleUpdateResult = {
+    updateSuccessful: boolean;
+    checkoutUrl: string | undefined;
+  };
+
+  const requestPermitVehicleUpdate = async (
+    accountNumber?: string
+  ): Promise<RequestPermitVehicleUpdateResult> => {
     let updateSuccessful = true;
-    await updatePermitVehicle(
+    const updateResult = await updatePermitVehicle(
       permit.id,
       vehicle?.id,
       lowEmissionChecked,
       accountNumber
-    ).catch(() => {
-      updateSuccessful = false;
-      vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
-    });
+    ).then(
+      result => result,
+      () => {
+        updateSuccessful = false;
+        vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
+      }
+    );
 
     if (updateSuccessful) {
+      // permitCtx.permitExists() relies on state-level data
+      // over querying the backend => update state data
+      // after a successful vehicle update request.
       await permitCtx?.fetchPermits();
+    }
+
+    const checkoutUrl = updateResult?.checkoutUrl;
+    return {
+      updateSuccessful,
+      checkoutUrl,
+    };
+  };
+
+  const updateAndNavigateToOrderView = async (accountNumber?: string) => {
+    const updateResult = await requestPermitVehicleUpdate(accountNumber);
+
+    if (updateResult.updateSuccessful) {
       navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
     }
   };
@@ -132,34 +158,22 @@ const ChangeVehicle = (): React.ReactElement => {
     ]);
 
     if (priceChangeType === PriceChangeType.HIGHER_PRICE) {
-      let updateSuccessful = true;
-      const updateResult = await updatePermitVehicle(
-        permit.id,
-        vehicle?.id,
-        lowEmissionChecked
-      ).then(
-        result => result,
-        () => {
-          updateSuccessful = false;
-          vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
-        }
-      );
-
-      if (!updateSuccessful) {
+      const updateResult = await requestPermitVehicleUpdate();
+      if (!updateResult.updateSuccessful) {
         return;
       }
 
-      await permitCtx?.fetchPermits();
-
-      const checkoutUrl = updateResult?.checkoutUrl;
       if (permit.contractType === ParkingContractType.OPEN_ENDED) {
         navigate(ROUTES.VALID_PERMITS);
         return;
       }
+
+      const checkoutUrl = updateResult?.checkoutUrl;
       if (checkoutUrl) {
         window.open(`${checkoutUrl}`, '_self');
         return;
       }
+
       // Backend might return a null checkout url on success
       // due to price not actually changing
       // (eg. the permits end date is less than a month away)
