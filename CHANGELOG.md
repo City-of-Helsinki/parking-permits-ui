@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.5] - 2025-09-25
+
+### Fixed
+
+* Display an error instead of allowing duplicate permit ([7780db5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7780db5de303f8e3393aae49d5a13a80024fcbd1))
+* Redirect to front page when changing vehicle if the price does not change ([7736e52](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7736e520315827c7582a5a80062993299c2ec1d0))
+* Display a loading indicator when updating permit vehicle ([1e1c132](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1e1c132047ee855486c9801d98e4a2a9dd7fce38))
+* Re-fetch permits from the backend only after a successful vehicle update ([6f2416b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6f2416b69583fa768ac2515ff01d8d43130ccf0d))
+
+### Changed
+
+* Prevent progress to next step in the vehicle change UI-flow on error ([c7c14f1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c7c14f1e926373344644333edf69e67c0a738670))
+
 ## [1.4.4] - 2025-05-15
 
 ### Changed
@@ -242,5 +255,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * @dependabot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/118
 * @snyk-bot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/140
 * @danjacob-anders made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/186
+* @Nukasev made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/264
 
 **Full Changelog**: https://github.com/City-of-Helsinki/parking-permits-ui/commits/release-1.0.0
