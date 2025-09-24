@@ -4,13 +4,18 @@ import {
   IconArrowRight,
   IconInfoCircle,
   Link,
+  Notification,
   TextInput,
 } from 'hds-react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isValidIBAN } from '../utils';
 import { formatPrice } from '../../utils';
 import './Refund.scss';
+import {
+  ErrorStateDict,
+  VehicleChangeErrorContext,
+} from '../../hooks/vehicleChangeErrorProvider';
 
 const T_PATH = 'common.editPermits.Refund';
 
@@ -36,9 +41,18 @@ const Refund: React.FC<RefundProps> = ({
   onConfirm,
 }: RefundProps) => {
   const { t, i18n } = useTranslation();
+  const vehicleChangeErrorCtx = useContext(
+    VehicleChangeErrorContext
+  ) as ErrorStateDict;
   const [accountNumber, setAccountNumber] = useState('');
   return (
     <div className={className}>
+      {vehicleChangeErrorCtx.error && (
+        <Notification type="error" className="error-notification">
+          {t(vehicleChangeErrorCtx.error || '')}
+        </Notification>
+      )}
+
       <div className="title">{t(`${T_PATH}.title`)}</div>
       <div className="refund-info">
         <div className="row">
