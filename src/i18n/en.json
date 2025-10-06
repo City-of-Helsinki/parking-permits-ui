@@ -19,7 +19,7 @@
   "common.accountDetail.AccountDetail.service.link": "https://www.hel.fi/helsinki/fi/kartat-ja-liikenne/pysakointi/vahapaastoisten_alennus",
   "common.accountDetail.AccountDetail.service.linkText": "Customer Service",
   "common.address.Address.notification.error.label": "Invalid address",
-  "common.address.Address.notification.error.message": "The address must be in Helsinki.",
+  "common.address.Address.notification.error.message": "The address must be in Helsinki residential parking permit area.",
   "common.address.Address.permanentAddress": "Permanent Address",
   "common.address.Address.residentParkingZone": "Resident Parking Zone",
   "common.address.Address.temporaryAddress": "Temporary Address",
