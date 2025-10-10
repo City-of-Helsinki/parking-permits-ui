@@ -37,6 +37,8 @@ const ValidPermits = (): React.ReactElement => {
     return <Navigate to={ROUTES.BASE} />;
   }
 
+  const T_PLURALITY = validPermits.length > 1 ? 'plural' : 'singular';
+
   const { firstName, primaryAddress, otherAddress } = profile;
   const allAddresses = [primaryAddress, otherAddress];
   const addresses = allAddresses.filter(a => a !== null && a !== undefined);
@@ -138,7 +140,7 @@ const ValidPermits = (): React.ReactElement => {
           type="alert"
           className="addressChanged"
           label={t(`${T_PATH}.addressChanged.notification.label`)}>
-          {t(`${T_PATH}.addressChanged.notification.message`, {
+          {t(`${T_PATH}.addressChanged.notification.message.${T_PLURALITY}`, {
             date: formatDate(new Date()),
             time: format(endOfDay(new Date()), 'HH:mm'),
           })}
