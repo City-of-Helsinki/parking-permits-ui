@@ -79,6 +79,8 @@
   "common.editPermits.Refund.refundTotal": "Total amount to be refunded",
   "common.editPermits.Refund.refundTotalVat": "Incl. vat",
   "common.editPermits.Refund.title": "Refund",
+  "common.editPermits.Refund.instruction.label": "TODO",
+  "common.editPermits.Refund.instruction.message": "TODO",
   "common.editPermits.SelectAddress.actionBtn.cancel": "Cancel",
   "common.editPermits.SelectAddress.actionBtn.continue": "Continue",
   "common.editPermits.SelectAddress.title": "Confirm new address",

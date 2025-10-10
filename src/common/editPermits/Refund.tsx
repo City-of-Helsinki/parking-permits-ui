@@ -53,6 +53,15 @@ const Refund: React.FC<RefundProps> = ({
         </Notification>
       )}
 
+      {!vehicleChangeErrorCtx.error && (
+        <Notification
+          type="info"
+          className="refund-instruction"
+          label={t(`${T_PATH}.instruction.label`)}>
+          {t(`${T_PATH}.instruction.message`)}
+        </Notification>
+      )}
+
       <div className="title">{t(`${T_PATH}.title`)}</div>
       <div className="refund-info">
         <div className="row">

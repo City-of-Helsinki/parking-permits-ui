@@ -79,6 +79,8 @@
   "common.editPermits.Refund.refundTotal": "Palautettava summa yhteensä",
   "common.editPermits.Refund.refundTotalVat": "Sis. alv",
   "common.editPermits.Refund.title": "Palautus",
+  "common.editPermits.Refund.instruction.label": "Tilinumeron ilmoitus",
+  "common.editPermits.Refund.instruction.message": "Verkkokaupan kautta ostettujen tunnusten palautus tapahtuu alkuperäisen maksutavan mukaan. Mikäli olet hankkinut tunnuksen asiakaspalvelun kautta, ilmoitathan tilinumerosi alla olevaan kenttään palautusta varten.",
   "common.editPermits.SelectAddress.actionBtn.cancel": "Peruuta",
   "common.editPermits.SelectAddress.actionBtn.continue": "Jatka",
   "common.editPermits.SelectAddress.title": "Vahvista uusi osoite",
