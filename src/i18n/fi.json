@@ -120,7 +120,7 @@
   "common.navbar.Navbar.lang.sv": "På svenska",
   "common.navbar.Navbar.skipToContent": "Siirry sisältöön",
   "common.navbar.Navbar.title": "Pysäköintiluvat",
-  "common.permit.Permit.changeAddress": "Vaihda osoitetta",
+  "common.permit.Permit.changeAddress": "Päivitä osoite",
   "common.permit.Permit.contractTypeFixedPeriod": "Määräaikainen kuukausitunnus",
   "common.permit.Permit.contractTypeOpenEnded": "Jatkuvaveloitteinen kuukausitunnus",
   "common.permit.Permit.deleteTemporaryVehicle": "Poista tilapäinen ajoneuvo",
