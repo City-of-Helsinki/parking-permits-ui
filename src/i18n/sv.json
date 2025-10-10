@@ -79,6 +79,8 @@
   "common.editPermits.Refund.refundTotal": "Totalt belopp som ska återbetalas",
   "common.editPermits.Refund.refundTotalVat": "Inkl. moms",
   "common.editPermits.Refund.title": "Återbetalning",
+  "common.editPermits.Refund.instruction.label": "TODO",
+  "common.editPermits.Refund.instruction.message": "TODO",
   "common.editPermits.SelectAddress.actionBtn.cancel": "Avbryt",
   "common.editPermits.SelectAddress.actionBtn.continue": "Fortsätt",
   "common.editPermits.SelectAddress.title": "Bekräfta ny adress",
