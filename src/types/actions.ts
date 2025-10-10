@@ -26,6 +26,7 @@ export type PermitActions = {
   getChangeAddressPriceChanges: (
     addressId: string
   ) => Promise<PermitPriceChanges[]>;
+  permitsHaveOutdatedAddresses: () => boolean;
   changeAddress: (addressId: string, iban?: string) => Promise<void>;
   updatePermit: (
     payload: Partial<Permit> | Partial<Zone>,
