@@ -202,6 +202,7 @@
   "pages.changeAddress.ChangeAddress.actionBtn.cancel": "Peruuta",
   "pages.changeAddress.ChangeAddress.actionBtn.continue": "Jatka",
   "pages.changeAddress.ChangeAddress.notification.info.noDifferentZoneMessage": "Sekä ensisijainen että toissijainen osoite kuuluvat samaan vyöhykkeeseen",
+  "pages.changeAddress.ChangeAddress.errors.missingSelectedAddress": "Valitse pysäköintitunnuksen osoite.",
   "pages.durationSelector.DurationSelector.total": "Yht.",
   "pages.durationSelector.DurationSelector.actionBtn.continue": "Jatka",
   "pages.durationSelector.DurationSelector.actionBtn.back": "Takaisin",

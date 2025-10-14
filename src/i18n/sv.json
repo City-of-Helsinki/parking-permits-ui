@@ -202,6 +202,7 @@
   "pages.changeAddress.ChangeAddress.actionBtn.cancel": "Avbryt",
   "pages.changeAddress.ChangeAddress.actionBtn.continue": "Fortsätt",
   "pages.changeAddress.ChangeAddress.notification.info.noDifferentZoneMessage": "Både den primära, och den sekundära adressen hör till samma zon",
+  "pages.changeAddress.ChangeAddress.errors.missingSelectedAddress": "TODO",
   "pages.durationSelector.DurationSelector.total": "Total",
   "pages.durationSelector.DurationSelector.actionBtn.continue": "Fortsätt",
   "pages.durationSelector.DurationSelector.actionBtn.back": "Tillbaka",

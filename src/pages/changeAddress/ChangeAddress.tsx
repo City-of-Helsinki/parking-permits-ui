@@ -35,6 +35,7 @@ const ChangeAddress = (): React.ReactElement => {
   const [priceChangesList, setPriceChangesList] = useState<
     PermitPriceChanges[]
   >([]);
+  const [error, setError] = useState<string>('');
   const profileCtx = useContext(UserProfileContext);
   const permitCtx = useContext(PermitStateContext);
   if (!permitCtx || !profileCtx) {
@@ -112,6 +113,11 @@ const ChangeAddress = (): React.ReactElement => {
 
   return (
     <div className="change-address-component">
+      {error && (
+        <Notification type="error" className="error-notification">
+          {t(error || '')}
+        </Notification>
+      )}
       {step === ChangeAddressStep.ADDRESS && (
         <>
           <div
@@ -126,6 +132,7 @@ const ChangeAddress = (): React.ReactElement => {
                 showControl={selectableAddresses.length > 1}
                 selectedAddress={selectedAddress}
                 setSelectedAddress={setSelectedAddress}
+                setError={setError}
                 addressApartment={addressApartment}
               />
             ))}
@@ -137,6 +144,7 @@ const ChangeAddress = (): React.ReactElement => {
               iconRight={<IconArrowRight />}
               onClick={() => {
                 if (!selectedAddress) {
+                  setError(t(`${T_PATH}.errors.missingSelectedAddress`));
                   return;
                 }
                 getChangeAddressPriceChanges(selectedAddress.id).then(
@@ -182,6 +190,7 @@ const ChangeAddress = (): React.ReactElement => {
           onCancel={() => setStep(ChangeAddressStep.ADDRESS)}
           onConfirm={() => {
             if (!selectedAddress) {
+              setError(t(`${T_PATH}.errors.missingSelectedAddress`));
               return;
             }
             if (priceChangeTotal === 0) {
@@ -201,6 +210,7 @@ const ChangeAddress = (): React.ReactElement => {
           onCancel={() => setStep(ChangeAddressStep.PRICE_PREVIEW)}
           onConfirm={accountNumber => {
             if (!selectedAddress) {
+              setError(t(`${T_PATH}.errors.missingSelectedAddress`));
               return;
             }
             changeAddress(selectedAddress.id, accountNumber).then(() =>
