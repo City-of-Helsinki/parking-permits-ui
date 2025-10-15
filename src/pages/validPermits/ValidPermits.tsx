@@ -58,7 +58,6 @@ const ValidPermits = (): React.ReactElement => {
     permit.hasPendingExtensionRequest;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
-  const hasAddressChanged = (permit: PermitModel) => permit.addressChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
   const isOpenEndedPermit = (permit: PermitModel) =>
@@ -138,7 +137,7 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
-      {validPermits.some(hasAddressChanged) && (
+      {permitCtx?.permitsHaveOutdatedAddresses() && (
         <Notification
           type="alert"
           className="addressChanged"
@@ -166,7 +165,7 @@ const ValidPermits = (): React.ReactElement => {
             theme="black"
             disabled={
               validPermits.some(isProcessing) ||
-              validPermits.some(hasAddressChanged) ||
+              permitCtx?.permitsHaveOutdatedAddresses() ||
               validPermits.some(hasTemporaryVehicle)
             }
             iconLeft={<IconPlusCircle />}
