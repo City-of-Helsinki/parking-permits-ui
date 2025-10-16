@@ -256,6 +256,8 @@
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Käyttäjän osoitteen muutos",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.singular": "DVV:n väestötietojärjestelmän antamien tietojen perusteella osoitteesi on muuttunut. Päivitä tunnuksen osoite alla olevan painikkeen kautta kuluvan vuorokauden loppuun mennessä tai tunnus päättyy {{date}} klo {{time}}.",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.plural": "DVV:n väestötietojärjestelmän antamien tietojen perusteella osoitteesi on muuttunut. Päivitä tunnusten osoite alla olevan painikkeen kautta kuluvan vuorokauden loppuun mennessä tai tunnukset päättyvät {{date}} klo {{time}}.",
+  "pages.validPermit.ValidPermit.addressChangedUnstartedPermit.notification.label": "Alkavan pysäköintitunnuksesi voimassaolo päättyy",
+  "pages.validPermit.ValidPermit.addressChangedUnstartedPermit.notification.message": "Osoitetietosi ovat muuttuneet, joten tunnus päätetään tämän vuorokauden loppuun ennen sen voimassaolon alkamista. Maksu palautetaan sinulle kokonaisuudessaan. Voit tarvittaessa irtisanoa tunnuksen heti ”Irtisano pysäköintitunnus” -painikkeen kautta ja ostaa uuden tunnuksen tilalle.",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Lupa ei ole vielä voimassa",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Lupa on maksettu ja odottaa luvan voimaantuloa.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Muutos ajoneuvon tiedoissa",
