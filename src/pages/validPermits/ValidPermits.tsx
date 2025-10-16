@@ -148,6 +148,19 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
+
+      {permitCtx?.permitsHaveOutdatedAddresses() &&
+        !permitCtx?.permitsHaveStarted(validPermits) && (
+          <Notification
+            type="alert"
+            className="addressChangedUnstartedPermit"
+            label={t(
+              `${T_PATH}.addressChangedUnstartedPermit.notification.label`
+            )}>
+            {t(`${T_PATH}.addressChangedUnstartedPermit.notification.message`)}
+          </Notification>
+        )}
+
       {address && validPermits.length > 0 && (
         <Permit
           address={address}
