@@ -249,6 +249,8 @@
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Ändring av använderns adress",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.singular": "TODO",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.plural": "TODO",
+  "pages.validPermit.ValidPermit.addressChangedUnstartedPermit.notification.label": "TODO",
+  "pages.validPermit.ValidPermit.addressChangedUnstartedPermit.notification.message": "TODO",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Tillståndet är ännu inte aktivt",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Tillståndet är betalt och väntar på att tillståndet ska bli aktivt.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Ändring av fordonsinformation",
