@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.6] - 2025-10-16
+
+### Changed
+
+* Adjust notification text for addresses outside the Helsinki residential parking permit area ([7ad726c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ad726cdb6aa390651c4fbc5ef921f87a0fec6db))
+
 ## [1.4.5] - 2025-09-25
 
 ### Fixed
