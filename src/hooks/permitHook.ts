@@ -19,7 +19,7 @@ import {
   UserAddress,
   Zone,
 } from '../types';
-import { getEnv, formatErrors } from '../utils';
+import { getEnv, formatErrors, dateAsNumber } from '../utils';
 import { UserProfileContext } from './userProfileProvider';
 
 const usePermitState = (): PermitActions => {
@@ -136,6 +136,12 @@ const usePermitState = (): PermitActions => {
           permit.isOrderConfirmed)
     );
 
+  // Note that the list of permits is NOT taken from the state of the hook.
+  const permitsHaveStarted = (permitsToCheck: Permit[]) =>
+    permitsToCheck.every(
+      p => p.startTime && dateAsNumber(p.startTime) < new Date().valueOf()
+    );
+
   return {
     getStatus: () => status,
     getStep: () => step,
@@ -146,6 +152,8 @@ const usePermitState = (): PermitActions => {
       ),
     setSelectedAddress: userAddress => setSelectedAddress(userAddress),
     getPermits: () => permits,
+    permitsHaveStarted: (permitsToCheck: Permit[]) =>
+      permitsHaveStarted(permitsToCheck),
     fetchPermits: (): Promise<void> => fetchPermits(),
     getDraftPermits: () =>
       permits

@@ -256,6 +256,8 @@
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Change of user address",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.singular": "TODO",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.plural": "TODO",
+  "pages.validPermit.ValidPermit.addressChangedUnstartedPermit.notification.label": "TODO",
+  "pages.validPermit.ValidPermit.addressChangedUnstartedPermit.notification.message": "TODO",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.label": "Permit not yet active",
   "pages.validPermit.ValidPermit.waitingParkkihubi.notification.message": "Permit is paid and waiting for the permit to be active.",
   "pages.validPermit.ValidPermit.vehicleChanged.notification.label": "Change in vehicle information",

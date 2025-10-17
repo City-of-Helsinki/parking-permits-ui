@@ -58,7 +58,6 @@ const ValidPermits = (): React.ReactElement => {
     permit.hasPendingExtensionRequest;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
-  const hasAddressChanged = (permit: PermitModel) => permit.addressChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
   const isOpenEndedPermit = (permit: PermitModel) =>
@@ -101,7 +100,7 @@ const ValidPermits = (): React.ReactElement => {
     validPermits.some(isPermitEditable) && !isPaymentPending;
 
   const showChangeAddressButtons =
-    permitCtx?.permitsHaveOutdatedAddresses() || addresses.length > 1;
+    permitCtx?.permitsHaveOutdatedAddresses() ?? addresses.length > 1;
 
   return (
     <div className="valid-permit-component">
@@ -138,7 +137,7 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
-      {validPermits.some(hasAddressChanged) && (
+      {permitCtx?.permitsHaveOutdatedAddresses() && (
         <Notification
           type="alert"
           className="addressChanged"
@@ -149,6 +148,19 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
+
+      {permitCtx?.permitsHaveOutdatedAddresses() &&
+        !permitCtx?.permitsHaveStarted(validPermits) && (
+          <Notification
+            type="alert"
+            className="addressChangedUnstartedPermit"
+            label={t(
+              `${T_PATH}.addressChangedUnstartedPermit.notification.label`
+            )}>
+            {t(`${T_PATH}.addressChangedUnstartedPermit.notification.message`)}
+          </Notification>
+        )}
+
       {address && validPermits.length > 0 && (
         <Permit
           address={address}
@@ -166,7 +178,7 @@ const ValidPermits = (): React.ReactElement => {
             theme="black"
             disabled={
               validPermits.some(isProcessing) ||
-              validPermits.some(hasAddressChanged) ||
+              permitCtx?.permitsHaveOutdatedAddresses() ||
               validPermits.some(hasTemporaryVehicle)
             }
             iconLeft={<IconPlusCircle />}

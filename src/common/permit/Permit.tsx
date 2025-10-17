@@ -8,7 +8,7 @@ import {
   IconDocument,
 } from 'hds-react';
 import { orderBy } from 'lodash';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -28,7 +28,7 @@ import EditPermitDialog from '../editPermitDialog/EditPermitDialog';
 import EndPermitDialog from '../endPermitDialog/EndPermitDialog';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
-import { dateAsNumber } from '../../utils';
+import { PermitStateContext } from '../../hooks/permitProvider';
 
 const T_PATH = 'common.permit.Permit';
 
@@ -61,6 +61,7 @@ const Permit = ({
   const [deleteTmpVehiclePermitId, setDeleteTmpVehiclePermitId] = useState<
     string | null
   >(null);
+  const permitCtx = useContext(PermitStateContext);
   const [openEndPermitDialog, setOpenEndPermitDialog] = useState(
     permits.reduce(
       (opened: { [k: string]: boolean }, p) => ({ ...opened, [p.id]: false }),
@@ -243,10 +244,6 @@ const Permit = ({
     permits.every(p => p.contractType === ParkingContractType.OPEN_ENDED) ||
     permits.every(p => p.contractType === ParkingContractType.FIXED_PERIOD);
 
-  const isAllPermitStarted = permits.every(
-    p => p.startTime && dateAsNumber(p.startTime) < new Date().valueOf()
-  );
-
   const updateCardUrl = permits.filter(p => !!p.updateCardUrl)[0]
     ?.updateCardUrl;
 
@@ -283,7 +280,7 @@ const Permit = ({
                   permits.some(isProcessing) ||
                   permits.some(hasTemporaryVehicle) ||
                   !bothPermitWithSameContractType ||
-                  !isAllPermitStarted
+                  !permitCtx?.permitsHaveStarted(permits)
                 }
                 style={{ margin: 'var(--spacing-xs) 0' }}
                 iconLeft={<IconAngleRight />}
@@ -316,7 +313,7 @@ const Permit = ({
                     disabled={
                       permits.some(isProcessing) ||
                       permits.some(hasAddressChanged) ||
-                      !isAllPermitStarted
+                      !permitCtx?.permitsHaveStarted(permits)
                     }
                     onClick={() => setEditPermitId(permit.id)}
                     iconLeft={<IconAngleRight />}>
