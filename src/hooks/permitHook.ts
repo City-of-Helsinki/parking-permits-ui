@@ -169,7 +169,7 @@ const usePermitState = (): PermitActions => {
     // For all permits, check if the permit has address changed-flag
     // on. (Which in turn is based on comparison to the users'
     // addresses.) As the permits _should_ have the same address, a
-    // single outdated address in enough.
+    // single outdated address is enough.
     permitsHaveOutdatedAddresses: () =>
       getValidPermits().some(p => p.addressChanged),
     setStep: count => setStep(count),
