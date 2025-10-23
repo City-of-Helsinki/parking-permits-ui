@@ -70,8 +70,12 @@ const ChangeAddress = (): React.ReactElement => {
   const userHasMultipleValidAddresses = validCustomerAddresses.length > 1;
 
   // Cannot update address if there's no other address to update to.
-  // Skip this check on "forced" address change.
-  if (!forcedAddressChange && !userHasMultipleValidAddresses) {
+  // Skip this check on "forced" address change or in the last step of
+  // the flow as by that point the forced-flag will be already unset
+  // and the address has already changed.
+  const skipNoMultipleValidAddressesMessage =
+    forcedAddressChange || step === ChangeAddressStep.ORDER_REVIEW;
+  if (!skipNoMultipleValidAddressesMessage && !userHasMultipleValidAddresses) {
     return (
       <div className="change-address-component">
         <Notification type="info">
