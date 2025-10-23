@@ -77,6 +77,16 @@ const ChangeAddress = (): React.ReactElement => {
         <Notification type="info">
           {t(`${T_PATH}.notification.info.noDifferentZoneMessage`)}
         </Notification>
+        <div className="action-buttons">
+          <Button
+            className="action-btn"
+            variant="secondary"
+            iconLeft={<IconArrowLeft />}
+            onClick={() => navigate(ROUTES.VALID_PERMITS)}
+            theme="black">
+            <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+          </Button>
+        </div>
       </div>
     );
   }
