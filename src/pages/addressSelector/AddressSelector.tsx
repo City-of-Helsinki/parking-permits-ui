@@ -60,7 +60,7 @@ const AddressSelector = (): React.ReactElement => {
       {permitCtx?.getStatus() === 'error' &&
         (primaryAddress || otherAddress) && (
           <Notification type="error">
-            {t(permitCtx?.getErrorMessage() || '')}
+            {t(permitCtx?.getErrorMessage() ?? '')}
           </Notification>
         )}
       {(primaryAddress || otherAddress) && (
