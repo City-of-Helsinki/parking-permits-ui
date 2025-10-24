@@ -194,7 +194,7 @@
   "common.restrictions.driving_ban_registration_plates_confiscated": "Ajokielto kilpien haltuunotosta",
   "common.stepper.Stepper.label": "Asukaspysäköintitunnus",
   "map.attribution.helsinki": "&copy; Helsingin, Espoon, Vantaan ja Kauniaisen kaupungit",
-  "pages.addressSelector.AddressSelector.actionBtn.buyPermit": "Osta pysäkointitunnus",
+  "pages.addressSelector.AddressSelector.actionBtn.buyPermit": "Osta pysäköintitunnus",
   "pages.addressSelector.AddressSelector.notification.info.label": "Sinulla ei ole voimassa olevia pysäköintitunnuksia",
   "pages.addressSelector.AddressSelector.notification.info.message": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella voit ostaa pysäköintitunnuksen oheisille vyöhykkeille.",
   "pages.addressSelector.AddressSelector.sectionLabel": "Valitse osoite",
