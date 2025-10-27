@@ -65,7 +65,7 @@ const ChangeAddress = (): React.ReactElement => {
   // Permits use the same address so we can read it from the first one.
   const currentPermitAddress = validPermits[0].address;
   const validCustomerAddresses = [primaryAddress, otherAddress].filter(
-    e => e?.id
+    e => e?.id && e?.zone
   );
   const userHasMultipleValidAddresses = validCustomerAddresses.length > 1;
 
