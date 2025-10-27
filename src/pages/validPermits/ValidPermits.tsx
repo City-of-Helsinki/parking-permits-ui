@@ -41,7 +41,7 @@ const ValidPermits = (): React.ReactElement => {
 
   const { firstName, primaryAddress, otherAddress } = profile;
   const allAddresses = [primaryAddress, otherAddress];
-  const addresses = allAddresses.filter(a => a !== null && a !== undefined);
+  const addresses = allAddresses.filter(a => a?.id && a?.zone);
 
   const getAddress = (): UserAddress | undefined => {
     const firstPermit = first(validPermits);
