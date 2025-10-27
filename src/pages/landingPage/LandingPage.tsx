@@ -30,7 +30,7 @@ const LandingPage = (): React.ReactElement => {
   if (profileCtx?.getStatus() === 'error') {
     return (
       <Notification type="error">
-        {profileCtx?.getErrorMessage() || ''}
+        {profileCtx?.getErrorMessage() ?? ''}
       </Notification>
     );
   }
@@ -75,7 +75,7 @@ const LandingPage = (): React.ReactElement => {
   if (permitCtx?.getStatus() === 'error') {
     return (
       <Notification type="error">
-        {t(permitCtx?.getErrorMessage() || '')}
+        {t(permitCtx?.getErrorMessage() ?? '')}
       </Notification>
     );
   }
