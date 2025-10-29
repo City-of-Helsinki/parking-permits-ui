@@ -100,7 +100,7 @@ const ValidPermits = (): React.ReactElement => {
     validPermits.some(isPermitEditable) && !isPaymentPending;
 
   const showChangeAddressButtons =
-    permitCtx?.permitsHaveOutdatedAddresses() ?? addresses.length > 1;
+    permitCtx?.permitsHaveOutdatedAddresses() || addresses.length > 1;
 
   return (
     <div className="valid-permit-component">
