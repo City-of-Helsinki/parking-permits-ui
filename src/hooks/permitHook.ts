@@ -19,7 +19,7 @@ import {
   UserAddress,
   Zone,
 } from '../types';
-import { getEnv, formatErrors } from '../utils';
+import { getEnv, formatErrors, dateAsNumber } from '../utils';
 import { UserProfileContext } from './userProfileProvider';
 
 const usePermitState = (): PermitActions => {
@@ -125,6 +125,23 @@ const usePermitState = (): PermitActions => {
     }
   }, [fetchPermits, status, profile]);
 
+  const getValidPermits = () =>
+    permits.filter(
+      permit =>
+        [PermitStatus.VALID, PermitStatus.PAYMENT_IN_PROGRESS].includes(
+          permit.status
+        ) ||
+        ((permit.status === PermitStatus.DRAFT ||
+          permit.status === PermitStatus.PRELIMINARY) &&
+          permit.isOrderConfirmed)
+    );
+
+  // Note that the list of permits is NOT taken from the state of the hook.
+  const permitsHaveStarted = (permitsToCheck: Permit[]) =>
+    permitsToCheck.every(
+      p => p.startTime && dateAsNumber(p.startTime) < new Date().valueOf()
+    );
+
   return {
     getStatus: () => status,
     getStep: () => step,
@@ -135,6 +152,8 @@ const usePermitState = (): PermitActions => {
       ),
     setSelectedAddress: userAddress => setSelectedAddress(userAddress),
     getPermits: () => permits,
+    permitsHaveStarted: (permitsToCheck: Permit[]) =>
+      permitsHaveStarted(permitsToCheck),
     fetchPermits: (): Promise<void> => fetchPermits(),
     getDraftPermits: () =>
       permits
@@ -144,18 +163,15 @@ const usePermitState = (): PermitActions => {
             permit.status === PermitStatus.PRELIMINARY
         )
         .sort(a => (a.primaryVehicle ? -1 : 1)),
-    getValidPermits: () =>
-      permits.filter(
-        permit =>
-          [PermitStatus.VALID, PermitStatus.PAYMENT_IN_PROGRESS].includes(
-            permit.status
-          ) ||
-          ((permit.status === PermitStatus.DRAFT ||
-            permit.status === PermitStatus.PRELIMINARY) &&
-            permit.isOrderConfirmed)
-      ),
+    getValidPermits: () => getValidPermits(),
     getChangeAddressPriceChanges,
     changeAddress: (addressId, iban) => changeAddressRequest(addressId, iban),
+    // For all permits, check if the permit has address changed-flag
+    // on. (Which in turn is based on comparison to the users'
+    // addresses.) As the permits _should_ have the same address, a
+    // single outdated address is enough.
+    permitsHaveOutdatedAddresses: () =>
+      getValidPermits().some(p => p.addressChanged),
     setStep: count => setStep(count),
     updatePermit: (payload, permitId) => updatePermit(payload, permitId),
     deletePermit: permitId => deletePermit(permitId),

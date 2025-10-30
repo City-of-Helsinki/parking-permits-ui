@@ -39,6 +39,12 @@ const AddressSelector = (): React.ReactElement => {
   }
 
   const { primaryAddress, otherAddress } = profile;
+
+  const primaryAddressWithValidZone = primaryAddress?.zone;
+  const otherAddressWithValidZone = otherAddress?.zone;
+  const userHasAddressWithValidZone =
+    primaryAddressWithValidZone || otherAddressWithValidZone;
+
   const validRegistrationNumbers = validPermits?.map(
     v => v.vehicle.registrationNumber
   );
@@ -46,24 +52,22 @@ const AddressSelector = (): React.ReactElement => {
   return (
     <div className="address-selector-component">
       <Hero
-        className={primaryAddress || otherAddress ? '' : 'no-address'}
+        className={userHasAddressWithValidZone ? '' : 'no-address'}
         title={t(`${T_PATH}.title`, {
           firstName: profile?.firstName,
         })}
       />
-      {permitCtx?.getStatus() !== 'error' &&
-        (primaryAddress || otherAddress) && (
-          <Notification label={t(`${T_PATH}.notification.info.label`)}>
-            {t(`${T_PATH}.notification.info.message`)}
-          </Notification>
-        )}
-      {permitCtx?.getStatus() === 'error' &&
-        (primaryAddress || otherAddress) && (
-          <Notification type="error">
-            {t(permitCtx?.getErrorMessage() || '')}
-          </Notification>
-        )}
-      {(primaryAddress || otherAddress) && (
+      {permitCtx?.getStatus() !== 'error' && userHasAddressWithValidZone && (
+        <Notification label={t(`${T_PATH}.notification.info.label`)}>
+          {t(`${T_PATH}.notification.info.message`)}
+        </Notification>
+      )}
+      {permitCtx?.getStatus() === 'error' && userHasAddressWithValidZone && (
+        <Notification type="error">
+          {t(permitCtx?.getErrorMessage() ?? '')}
+        </Notification>
+      )}
+      {userHasAddressWithValidZone && (
         <>
           <div className="section-label">{t(`${T_PATH}.sectionLabel`)}</div>
           <div
@@ -72,7 +76,7 @@ const AddressSelector = (): React.ReactElement => {
                 [otherAddress, primaryAddress].filter(add => !!add)?.length ===
                 1,
             })}>
-            {primaryAddress && (
+            {primaryAddressWithValidZone && (
               <Address
                 isPrimary
                 showControl={!!otherAddress}
@@ -87,7 +91,7 @@ const AddressSelector = (): React.ReactElement => {
               />
             )}
 
-            {otherAddress && (
+            {otherAddressWithValidZone && (
               <Address
                 isPrimary={false}
                 showControl={!!primaryAddress}
@@ -102,16 +106,18 @@ const AddressSelector = (): React.ReactElement => {
               />
             )}
           </div>
-          <div className="action-buttons">
-            <Button
-              className="action-btn"
-              onClick={() => navigate(ROUTES.PERMIT_PRICES)}
-              theme="black">
-              <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
-              <IconArrowRight />
-            </Button>
-            <div />
-          </div>
+          {userHasAddressWithValidZone && (
+            <div className="action-buttons">
+              <Button
+                className="action-btn"
+                onClick={() => navigate(ROUTES.PERMIT_PRICES)}
+                theme="black">
+                <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
+                <IconArrowRight />
+              </Button>
+              <div />
+            </div>
+          )}
         </>
       )}
     </div>
