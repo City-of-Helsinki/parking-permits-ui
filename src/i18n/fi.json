@@ -203,6 +203,7 @@
   "pages.changeAddress.ChangeAddress.actionBtn.continue": "Jatka",
   "pages.changeAddress.ChangeAddress.notification.info.noDifferentZoneMessage": "Sekä ensisijainen että toissijainen osoite kuuluvat samaan vyöhykkeeseen",
   "pages.changeAddress.ChangeAddress.errors.missingSelectedAddress": "Valitse pysäköintitunnuksen osoite.",
+  "pages.changeAddress.ChangeAddress.errors.failedRequest": "Jokin meni pieleen. Kokeile hetken kuluttua uudelleen.",
   "pages.durationSelector.DurationSelector.total": "Yht.",
   "pages.durationSelector.DurationSelector.actionBtn.continue": "Jatka",
   "pages.durationSelector.DurationSelector.actionBtn.back": "Takaisin",

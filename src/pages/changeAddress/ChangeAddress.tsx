@@ -161,8 +161,8 @@ const ChangeAddress = (): React.ReactElement => {
                   setError(t(`${T_PATH}.errors.missingSelectedAddress`));
                   return;
                 }
-                getChangeAddressPriceChanges(selectedAddress.id).then(
-                  changes => {
+                getChangeAddressPriceChanges(selectedAddress.id)
+                  .then(changes => {
                     setPriceChangesList(changes);
                     const changeTotal = changes.reduce(
                       (total, item) =>
@@ -175,13 +175,15 @@ const ChangeAddress = (): React.ReactElement => {
                         permit.contractType === ParkingContractType.OPEN_ENDED
                     );
                     if (changeTotal > 0 || hasOpenEnded) {
-                      changeAddress(selectedAddress.id);
+                      changeAddress(selectedAddress.id).catch(() =>
+                        setError(t(`${T_PATH}.errors.failedRequest`))
+                      );
                       if (hasOpenEnded) setStep(ChangeAddressStep.ORDER_REVIEW);
                     } else {
                       setStep(ChangeAddressStep.PRICE_PREVIEW);
                     }
-                  }
-                );
+                  })
+                  .catch(() => setError(t(`${T_PATH}.errors.failedRequest`)));
               }}
               theme="black">
               <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
