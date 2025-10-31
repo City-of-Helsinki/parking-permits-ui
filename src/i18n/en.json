@@ -203,6 +203,7 @@
   "pages.changeAddress.ChangeAddress.actionBtn.continue": "Continue",
   "pages.changeAddress.ChangeAddress.notification.info.noDifferentZoneMessage": "Both primary and secondary address belong to the same zone",
   "pages.changeAddress.ChangeAddress.errors.missingSelectedAddress": "Choose the address for the parking permit.",
+  "pages.changeAddress.ChangeAddress.errors.failedRequest": "Something went wrong. Try again later.",
   "pages.durationSelector.DurationSelector.total": "Total",
   "pages.durationSelector.DurationSelector.actionBtn.continue": "Continue",
   "pages.durationSelector.DurationSelector.actionBtn.back": "Back",
