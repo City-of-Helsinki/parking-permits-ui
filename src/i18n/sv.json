@@ -229,7 +229,6 @@
   "pages.landingPage.LandingPage.logout": "Logga ut",
   "pages.landingPage.LandingPage.noValidAddressLabel": "Du har ingen adress på Helsingfors boendeparkeringsområde",
   "pages.landingPage.LandingPage.noValidAddressMessage": "Baserat på dina personuppgifter från Befolkningsregistercentralen har du ingen adress i Helsingfors. Ta kontakt med kundtjänsten.",
-  "pages.landingPage.LandingPage.noValidAddressMessageWithValidPermit": "TODO",
   "pages.landingPage.LandingPage.underAgeLabel": "Köp en parkeringstillstånd är endast möjligt för personer över 18 år",
   "pages.landingPage.LandingPage.underAgeMessage": "Baserat på dina personuppgifter från Befolkningsregistercentralen är du under 18 år. Ta kontakt med kundtjänsten.",
   "pages.permitPrices.PermitPrices.actionBtn.continue": "Fortsätt",
