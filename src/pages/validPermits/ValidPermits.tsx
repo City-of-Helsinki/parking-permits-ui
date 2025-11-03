@@ -138,6 +138,18 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
+
+      {addresses.length === 0 && (
+        <Notification
+          type="alert"
+          className="noValidAddresses"
+          label={t(`${T_PATH}.noValidAddresses.notification.label`)}>
+          {t(`${T_PATH}.noValidAddresses.notification.message`, {
+            date: formatDate(new Date()),
+          })}
+        </Notification>
+      )}
+
       {addresses.length > 0 && permitCtx?.permitsHaveOutdatedAddresses() && (
         <Notification
           type="alert"
