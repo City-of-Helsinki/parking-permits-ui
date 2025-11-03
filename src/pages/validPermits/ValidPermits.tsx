@@ -100,7 +100,8 @@ const ValidPermits = (): React.ReactElement => {
     validPermits.some(isPermitEditable) && !isPaymentPending;
 
   const showChangeAddressButtons =
-    permitCtx?.permitsHaveOutdatedAddresses() || addresses.length > 1;
+    addresses.length > 0 &&
+    (permitCtx?.permitsHaveOutdatedAddresses() || addresses.length > 1);
 
   return (
     <div className="valid-permit-component">
@@ -137,7 +138,7 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
-      {permitCtx?.permitsHaveOutdatedAddresses() && (
+      {addresses.length > 0 && permitCtx?.permitsHaveOutdatedAddresses() && (
         <Notification
           type="alert"
           className="addressChanged"
@@ -149,7 +150,8 @@ const ValidPermits = (): React.ReactElement => {
         </Notification>
       )}
 
-      {permitCtx?.permitsHaveOutdatedAddresses() &&
+      {addresses.length > 0 &&
+        permitCtx?.permitsHaveOutdatedAddresses() &&
         !permitCtx?.permitsHaveStarted(validPermits) && (
           <Notification
             type="alert"
