@@ -229,7 +229,6 @@
   "pages.landingPage.LandingPage.logout": "Kirjaudu ulos",
   "pages.landingPage.LandingPage.noValidAddressLabel": "Sinulla ei ole osoitetta Helsingin pysäköintitunnusalueella",
   "pages.landingPage.LandingPage.noValidAddressMessage": "Ostaaksesi asukaspysäköintitunnuksen, sinulla tulee olla osoite Helsingin pysäköintitunnusalueella.",
-  "pages.landingPage.LandingPage.noValidAddressMessageWithValidPermit": "DVV:n väestötietojärjestelmän antamien tietojen perusteella osoitteesi on muuttunut eikä sijaitse enää Helsingin pysäköintitunnusalueella. Tämän vuoksi pysäköintitunnuksesi päättyy kuluvan vuorokauden loppuun {{date}} klo 23:59.",
   "pages.landingPage.LandingPage.underAgeLabel": "Pysäköintitunnuksen ostaminen on mahdollista vain yli 18-vuotiaille",
   "pages.landingPage.LandingPage.underAgeMessage": "Väestörekisterikeskuksesta saatujen henkilötietojesi perusteella olet alle 18-vuotias. Olethan yhteydessä asiakaspalveluun.",
   "pages.permitPrices.PermitPrices.actionBtn.continue": "Jatka",
