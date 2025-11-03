@@ -254,6 +254,8 @@
   "pages.temporaryVehicle.TemporaryVehicle.registration.label": "Temporary vehicle's registration number",
   "pages.temporaryVehicle.TemporaryVehicle.startDate.label": "Start date",
   "pages.temporaryVehicle.TemporaryVehicle.startTime.label": "Start Time",
+  "pages.validPermit.ValidPermit.noValidAddresses.notification.label": "Change of user address",
+  "pages.validPermit.ValidPermit.noValidAddresses.notification.message": "TODO",
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Change of user address",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.singular": "According to the information received from the Digital and Population Data Services Agency, your registered address has changed. Please update the address using the button below by the end of today. If the update is not completed in time, the permit will expire on {{date}} at {{time}}.",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.plural": "According to the information received from the Digital and Population Data Services Agency, your registered address has changed. Please update the address using the button below by the end of today. If the update is not completed in time, the permits will expire on {{date}} at {{time}}.",
