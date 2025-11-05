@@ -255,7 +255,7 @@
   "pages.temporaryVehicle.TemporaryVehicle.startDate.label": "Startdatum för tillfällig period",
   "pages.temporaryVehicle.TemporaryVehicle.startTime.label": "Starttid",
   "pages.validPermit.ValidPermit.noValidAddresses.notification.label": "Ändring av använderns adress",
-  "pages.validPermit.ValidPermit.noValidAddresses.notification.message": "TODO",
+  "pages.validPermit.ValidPermit.noValidAddresses.notification.message": "Enligt uppgifter från DVV har din adress ändrats och ligger inte längre inom Helsingfors parkeringstillståndsområde. Därför upphör ditt parkeringstillstånd att gälla vid utgången av det innevarande dygnet den {{date}} kl. 23:59. Om du vill kan du avsluta ditt tillstånd direkt via knappen 'Sluta parkeringstillstånd'. Via knappen ser du eventuella återbetalningar för oanvända månader. Handläggningstiden för återbetalningar är ca 5 arbetsdagar.",
   "pages.validPermit.ValidPermit.addressChanged.notification.label": "Ändring av använderns adress",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.singular": "Enligt uppgifter från DVV:s befolkningsdatasystem har din adress ändrats. Uppdatera adressen för ditt tillstånd för boendeparkering via knappen nedan senast före dagens slut, annars upphör tillståndet {{date}} kl. {{time}}.",
   "pages.validPermit.ValidPermit.addressChanged.notification.message.plural": "Enligt uppgifter från DVV:s befolkningsdatasystem har din adress ändrats. Uppdatera adressen för dina tillstånd för boendeparkering via knappen nedan senast före dagens slut, annars upphör tillstånden {{date}} kl. {{time}}.",
