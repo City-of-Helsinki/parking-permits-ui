@@ -7,11 +7,14 @@ import { ROUTES } from '../../types';
 const T_PATH = 'common.endPermitResult.EndPermitResult';
 
 export interface Props {
-  getsRefund: boolean;
+  displayRefundNotification: boolean;
   email: string;
 }
 
-const EndPermitResult = ({ getsRefund, email }: Props): React.ReactElement => {
+const EndPermitResult = ({
+  displayRefundNotification,
+  email,
+}: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { logout } = useOidcClient();
   const navigate = useNavigate();
@@ -26,7 +29,7 @@ const EndPermitResult = ({ getsRefund, email }: Props): React.ReactElement => {
         }}>
         {t(`${T_PATH}.notification.first.message`)}
       </Notification>
-      {getsRefund && (
+      {displayRefundNotification && (
         <Notification
           type="success"
           style={{

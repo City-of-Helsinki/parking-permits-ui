@@ -33,6 +33,8 @@ const EndPermit = (): React.ReactElement => {
   const permitIds = typeof ids === 'string' ? [ids] : ids;
   const permits = validPermits.filter(p => permitIds?.indexOf(p.id) !== -1);
   const getsRefund = permits.some(p => p.monthsLeft || 0);
+  const [forceRefundNotification, setForceRefundNotification] = useState(false);
+  const displayRefundNotification = forceRefundNotification || getsRefund;
 
   const priceChangesList = permits.map(permit =>
     // 1. The user gets a refund for every month they haven't "used" yet.
@@ -67,11 +69,17 @@ const EndPermit = (): React.ReactElement => {
   );
 
   const endPermits = (accountNumber: string) => {
-    permitCtx?.endValidPermits(
-      permitIds as string[],
-      endType as string,
-      accountNumber
-    );
+    // Infer the value to set for forceRefundNotification _BEFORE_
+    // ending the permits, as ending the permits triggers re-fetching
+    // of the permits causing getsRefund to become false due to freshly
+    // ended permits.
+    let valueForForceFlag = false;
+    if (getsRefund) {
+      valueForForceFlag = true;
+    }
+    permitCtx
+      ?.endValidPermits(permitIds as string[], endType as string, accountNumber)
+      .then(() => setForceRefundNotification(valueForForceFlag));
   };
   return (
     <div className="end-permit-component">
@@ -104,7 +112,10 @@ const EndPermit = (): React.ReactElement => {
         />
       )}
       {endPermitState === EndPermitStep.RESULT && (
-        <EndPermitResult getsRefund={getsRefund} email={profile?.email} />
+        <EndPermitResult
+          displayRefundNotification={displayRefundNotification}
+          email={profile?.email}
+        />
       )}
     </div>
   );
