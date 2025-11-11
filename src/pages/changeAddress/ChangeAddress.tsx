@@ -141,7 +141,7 @@ const ChangeAddress = (): React.ReactElement => {
             {selectableAddresses.map(address => (
               <Address
                 key={uuidv4()}
-                isPrimary
+                isPrimary={address === primaryAddress}
                 address={address}
                 showControl={selectableAddresses.length > 1}
                 selectedAddress={selectedAddress}
