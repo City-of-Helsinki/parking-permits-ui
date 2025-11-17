@@ -38,6 +38,7 @@ export interface Props {
   showActionsButtons?: boolean;
   hideMap?: boolean;
   showChangeAddressButtons?: boolean;
+  showAddressTypeLabel?: boolean;
 
   fetchPermits?: () => void;
 }
@@ -50,6 +51,7 @@ const Permit = ({
   hideMap = false,
   showActionsButtons = false,
   showChangeAddressButtons = false,
+  showAddressTypeLabel = true,
 
   fetchPermits,
 }: Props): React.ReactElement => {
@@ -265,6 +267,7 @@ const Permit = ({
                 ? permits[0].addressApartmentSv
                 : permits[0].addressApartment
             }
+            showAddressTypeLabel={showAddressTypeLabel}
           />
           <ParkingZonesMap
             userAddress={address}

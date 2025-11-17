@@ -182,6 +182,7 @@ const ValidPermits = (): React.ReactElement => {
           showActionsButtons={showActionsButtons}
           showChangeAddressButtons={showChangeAddressButtons}
           fetchPermits={permitCtx?.fetchPermits}
+          showAddressTypeLabel={false}
         />
       )}
       <div className="action-buttons">
