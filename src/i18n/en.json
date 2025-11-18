@@ -95,7 +95,7 @@
   "common.endPermitResult.EndPermitResult.actionBtn.logout": "Logout",
   "common.endPermitResult.EndPermitResult.notification.first.message": "Permit successfully cancelled",
   "common.endPermitResult.EndPermitResult.notification.second.label": "Refund has been registered",
-  "common.endPermitResult.EndPermitResult.notification.second.message": "We have sent a confirmation email to {{email}}. You can also check the information below.",
+  "common.endPermitResult.EndPermitResult.notification.second.message": "You will receive a confirmation email once the refund has been approved. The processing time is approximately 5 business days.",
   "common.auth.Login.login": "Login",
   "common.auth.Login.login.error.label": "Login failed!",
   "common.auth.Login.login.error.text": "Redirection to the OIDC server failed. Try again!",

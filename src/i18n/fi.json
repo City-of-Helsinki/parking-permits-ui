@@ -95,7 +95,7 @@
   "common.endPermitResult.EndPermitResult.actionBtn.logout": "Kirjaudu ulos",
   "common.endPermitResult.EndPermitResult.notification.first.message": "Tunnus päätetty onnistuneesti.",
   "common.endPermitResult.EndPermitResult.notification.second.label": "Palautus otettu käsittelyyn",
-  "common.endPermitResult.EndPermitResult.notification.second.message": "Olemme lähettäneet vahvistusviestin sähköpostiisi {{email}}. Voit tarkistaa tiedot myös alta.",
+  "common.endPermitResult.EndPermitResult.notification.second.message": "Saat vahvistusviestin sähköpostiisi kun palautus on hyväksytty. Käsittelyaika n. 5 arkipäivää.",
   "common.auth.Login.login": "Kirjaudu sisään",
   "common.auth.Login.login.error.label": "Kirjautuminen epäonnistui!",
   "common.auth.Login.login.error.text": "Uudelleenohjaus OIDC-palvelimelle epäonnistui. Yritä uudelleen!",

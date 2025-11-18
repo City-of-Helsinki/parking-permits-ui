@@ -95,7 +95,7 @@
   "common.endPermitResult.EndPermitResult.actionBtn.logout": "Logga ut",
   "common.endPermitResult.EndPermitResult.notification.first.message": "Tillståndet har avslutats.",
   "common.endPermitResult.EndPermitResult.notification.second.label": "Återbetalning behandlas",
-  "common.endPermitResult.EndPermitResult.notification.second.message": "Vi har skickat ett bekräftelsemail till {{email}}. Du kan också kontrollera informationen nedan.",
+  "common.endPermitResult.EndPermitResult.notification.second.message": "Du får ett bekräftelsemeddelande till din e-post när återbetalningen har godkänts. Handläggningstiden är cirka 5 arbetsdagar.",
   "common.auth.Login.login": "Inloggning",
   "common.auth.Login.login.error.label": "Inloggning misslyckades!",
   "common.auth.Login.login.error.text": "Omdirigering till OIDC-servern misslyckades. Försök igen!",
