@@ -183,7 +183,10 @@ const Permit = ({
             <Button
               className="permit-actions-buttons"
               variant="supplementary"
-              disabled={permits.some(isProcessing)}
+              disabled={
+                permits.some(isProcessing) ||
+                permitCtx?.permitsHaveOutdatedAddresses()
+              }
               style={{ margin: 'var(--spacing-xs) 0' }}
               iconLeft={<IconAngleRight />}
               onClick={() => setDeleteTmpVehiclePermitId(permit.id)}>
@@ -280,8 +283,9 @@ const Permit = ({
                 className="permit-actions-buttons"
                 variant="supplementary"
                 disabled={
+                  (!permitCtx?.permitsHaveOutdatedAddresses() &&
+                    permits.some(hasTemporaryVehicle)) ||
                   permits.some(isProcessing) ||
-                  permits.some(hasTemporaryVehicle) ||
                   !bothPermitWithSameContractType ||
                   !permitCtx?.permitsHaveStarted(permits)
                 }
