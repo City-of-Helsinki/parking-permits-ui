@@ -5,6 +5,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.4.6...parking-permits-ui-v1.5.0) (2025-11-27)
+
+
+### Features
+
+* Add missing translations ([86d0184](https://github.com/City-of-Helsinki/parking-permits-ui/commit/86d0184adc44a7962d9809d700fb8986b336a889))
+* Add refund instruction-notification ([e82b22b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e82b22bf8f4b94ef3dd02df19d993c10a7e150cb))
+* Adjust 'change address'-button text ([ab0c272](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ab0c272cd30dd2dff3da9a6540b146e2cb3475e7))
+* Adjust 'change address'-notification ([39c172b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/39c172b8ea187418d91cd90c0bbcd86e39eac919))
+* Adjust 'no valid addresses'-message ([836b3d5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/836b3d58ca7ae2b8c671a11db421f7e803e94700))
+* Adjust change address-button ([537210b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/537210b18d1916e8422c11329de80dd56810b712))
+* Adjust selectable addresses ([7064540](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7064540bffe687f466f4b163d809bb98f61d7394))
+* Display error on falsy selectedAddress ([8a36141](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8a361412b9078636f165ef2173db97ab79fe39a8))
+* Implement permitsHaveOutdatedAddresses ([1f3e0e0](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1f3e0e0226e2c328b73bc7b1d964d409ff8da297))
+* Notification for permit without addresses ([01fcb2c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/01fcb2c1da850bdbeb376c83ed2349285c4d2d4c))
+* Notification for unstarted permits ([c64d1a6](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c64d1a67596a109ab61babf2914e5ed86c080a06))
+
+
+### Bug Fixes
+
+* Add .vscode-folder to .gitignore ([2171527](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2171527e26a68f68d87589fcde7f7dd72e0266b7))
+* Add missing back-button ([2e4a1f2](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2e4a1f2a241f0c689ec2f8b5db5a98d6ae10c96f))
+* Add missing permit load status check ([ec8fea7](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ec8fea7002fdf3358389800a7ef01f194bd8edf6))
+* Add missing swedish translations ([93b2b6d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/93b2b6d361cf9dff4343404f02531c92fee2a75f))
+* Address change with temp vehicle ([38060d5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/38060d5f7d2168c14ba2ad63013935190fd039b8))
+* Address label primarity in ChangeAddress ([d681608](https://github.com/City-of-Helsinki/parking-permits-ui/commit/d6816089b1470d2eaeeabd6bf3d24f01ce03438d))
+* AddressSelector address zones ([d3ce85d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/d3ce85dd592ce827a42d71c01a4d51e07b84ccff))
+* ChangeAddress-component address zones ([8485345](https://github.com/City-of-Helsinki/parking-permits-ui/commit/84853453b3e032d6ca8428692e3e980e8ef4c97b))
+* Disappearing refund-notification ([b27f8ce](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b27f8ce94665f931ed13587c39fd5b8bc963dab2))
+* Display error when sending an order fails ([81d2ded](https://github.com/City-of-Helsinki/parking-permits-ui/commit/81d2ded6bee61eee798da156069174a9645f4595))
+* Do not stop at landing page with valid permit ([398e3ed](https://github.com/City-of-Helsinki/parking-permits-ui/commit/398e3ed4913d32eed2bd54e49ef967620339eea4))
+* Erroneous use of nullish coalescing ([87cecb4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/87cecb4bbf70cbe73f59cd5987f728d52da43d4a))
+* Erroneus notification after changing address ([4c88855](https://github.com/City-of-Helsinki/parking-permits-ui/commit/4c88855d8bf18e8895e85c28c96169bf3bcddee9))
+* Hide permit address type label ([207ac47](https://github.com/City-of-Helsinki/parking-permits-ui/commit/207ac478204343dbcc39b4d34a3bf7ab3f82d884))
+* Landing page 'no valid addresses'-message ([ce16e03](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ce16e0319a9e67d3bd302f578af8fcf3a2955add))
+* Prevent address change without addresses ([b6d6f11](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b6d6f11d2ca55c90be084df2bdd5085535375ba4))
+* Refund-notification text when ending permits ([a850a28](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a850a284773f5ce16d124eedba2a9f01e94f45da))
+* Text changes ([a2977fe](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a2977fe96e3b3797df7b5445acef70335267be4e))
+* Typo in comment ([9ca5a83](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9ca5a83f1e4e99e5db9a42b51c19fe8377cc74f5))
+* Typo in translation text ([56499cf](https://github.com/City-of-Helsinki/parking-permits-ui/commit/56499cff7fabb6e454987a7743ee70bfffb38fbb))
+* Use nullish coalescing over logical or ([e0dc224](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e0dc224f9e6bd82723d20c55f301b43354200e7b))
+* ValidPermits-component address zones ([05fc5fd](https://github.com/City-of-Helsinki/parking-permits-ui/commit/05fc5fd7f8f9cd3578489b347cb5ed6388e77811))
+
 ## [Unreleased]
 
 ## [1.4.6] - 2025-10-16
