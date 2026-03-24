@@ -27,6 +27,7 @@ CMD ["yarn", "start"]
 FROM appbase as staticbuilder
 #==============================
 COPY . /app
+ARG REACT_APP_MAP_URL_TEMPLATE
 RUN yarn build
 
 

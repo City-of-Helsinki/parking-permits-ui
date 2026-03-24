@@ -6,6 +6,7 @@ import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { v4 as uuidv4 } from 'uuid';
 import marker from '../../assets/images/icon_poi_talo-sininen.svg';
 import { UserAddress, Zone } from '../../types';
+import { getEnv } from '../../utils';
 import './parkingZonesMap.css';
 
 const icon = new L.Icon({
@@ -50,20 +51,16 @@ export default function ParkingZonesMap({
   const center = userAddress.location as LatLngExpression;
   const attribution = 'map.attribution.helsinki';
   const getURL = (lang: string) => {
-    const suffix = lang === 'sv' ? '@sv' : '';
-    return `https://tiles.hel.ninja/styles/hel-osm-bright/{z}/{x}/{y}${suffix}.png`;
+    const template = getEnv('REACT_APP_MAP_URL_TEMPLATE');
+    const language = ['fi', 'sv'].includes(lang) ? lang : 'fi';
+    return template.replace('{language}', language);
   };
   return (
     <MapContainer
       center={flipLocation(center as number[])}
       zoom={zoom}
       attributionControl>
-      {i18n.language === 'sv' && (
-        <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
-      )}
-      {i18n.language !== 'sv' && (
-        <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
-      )}
+      <TileLayer attribution={t(attribution)} url={getURL(i18n.language)} />
       {userAddress && (
         <Marker position={flipLocation(center as number[])} icon={icon}>
           <Popup>{getAddressZoneInfo(userAddress, i18n.language)}</Popup>
