@@ -1,4 +1,3 @@
-import { ParkingContractType, ParkingStartType } from './enums';
 import {
   ExtendedPriceListItem,
   Permit,
@@ -70,12 +69,6 @@ export type ExtendPermitResult = {
 
 export type ExtendPermitQueryResult = {
   extendParkingPermit: ExtendPermitResult;
-};
-
-export type REG_ACTION = {
-  id: string;
-  key: string;
-  value: ParkingStartType | ParkingContractType | Date | string | number;
 };
 
 export type CreateOrderQueryResult = {
