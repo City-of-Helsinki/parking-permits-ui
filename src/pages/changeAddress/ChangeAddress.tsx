@@ -24,7 +24,7 @@ enum ChangeAddressStep {
 
 const T_PATH = 'pages.changeAddress.ChangeAddress';
 
-const ChangeAddress = (): React.ReactElement => {
+const ChangeAddress = (): React.ReactElement | null => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const navigate = useNavigate();
