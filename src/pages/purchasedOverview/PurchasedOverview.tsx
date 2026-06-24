@@ -18,7 +18,7 @@ import './purchasedOverview.scss';
 
 const T_PATH = 'pages.purchasedOverview.PurchasedOverview';
 
-const PurchasedOverview = (): React.ReactElement => {
+const PurchasedOverview = (): React.ReactElement | null => {
   const permitCtx = useContext(PermitStateContext);
   const location = useLocation();
   const { logout, isAuthenticated } = useOidcClient();

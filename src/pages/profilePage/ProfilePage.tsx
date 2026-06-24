@@ -14,7 +14,7 @@ const ProfilePage = (): React.ReactElement => {
     return <Navigate to={ROUTES.LANDING} />;
   }
   const { firstName, lastName, primaryAddress, otherAddress } =
-    profileCtx?.getProfile();
+    profileCtx.getProfile();
 
   const getAddresses = () =>
     [primaryAddress, otherAddress].map((address, index) => (

@@ -42,11 +42,11 @@ const getAddressZoneInfo = (address: UserAddress, lang: string) => {
   return `${zone.name} (${description})`;
 };
 
-export default function ParkingZonesMap({
+const ParkingZonesMap = ({
   userAddress,
   zoom,
   zone,
-}: Props): React.ReactElement {
+}: Props): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const center = userAddress.location as LatLngExpression;
   const attribution = 'map.attribution.helsinki';
@@ -79,4 +79,6 @@ export default function ParkingZonesMap({
       )}
     </MapContainer>
   );
-}
+};
+
+export default ParkingZonesMap;
