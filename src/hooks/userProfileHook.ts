@@ -1,11 +1,12 @@
 import { ApolloQueryResult } from '@apollo/client/core/types';
-import { loader } from 'graphql.macro';
 import { isEmpty } from 'lodash';
 import { getApiTokensFromStorage } from 'hds-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ApiFetchError, FetchStatus } from '../client/types';
 import { GraphQLClient } from '../graphql/graphqlClient';
+import myProfileQueryDocument from '../graphql/myProfileQuery';
+import updateLanguageDocument from '../graphql/updateLanguage';
 import {
   ProfileActions,
   ProfileQueryResult,
@@ -35,7 +36,7 @@ const useProfile = (): ProfileActions => {
   const updateLanguage = (lang: string) => {
     if (profileGqlClient) {
       profileGqlClient.mutate<UpdateLanguageResult>({
-        mutation: loader('../graphql/updateLanguage.graphql'),
+        mutation: updateLanguageDocument,
         variables: { lang },
         errorPolicy: 'all',
       });
@@ -45,7 +46,7 @@ const useProfile = (): ProfileActions => {
   useEffect(() => {
     const fetchProfile = async () => {
       setStatus('loading');
-      const MY_PROFILE_QUERY = loader('../graphql/myProfileQuery.graphql');
+      const MY_PROFILE_QUERY = myProfileQueryDocument;
       const result: ApolloQueryResult<ProfileQueryResult> =
         await profileGqlClient?.query({
           errorPolicy: 'all',
