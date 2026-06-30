@@ -1,0 +1,30 @@
+import { gql } from '@apollo/client';
+
+export default gql`
+  query GetUpdateAddressPriceChanges($addressId: ID!) {
+    getUpdateAddressPriceChanges(addressId: $addressId) {
+      permit {
+        id
+        vehicle {
+          id
+          manufacturer
+          model
+          productionYear
+          registrationNumber
+          emission
+          isLowEmission
+        }
+      }
+      priceChanges {
+        product
+        previousPrice
+        newPrice
+        priceChange
+        priceChangeVat
+        startDate
+        endDate
+        monthCount
+      }
+    }
+  }
+`;

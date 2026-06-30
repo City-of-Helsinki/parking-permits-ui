@@ -1,0 +1,98 @@
+import { gql } from '@apollo/client';
+
+export default gql`
+  query Query {
+    getPermits {
+      id
+      talpaOrderId
+      receiptUrl
+      checkoutUrl
+      updateCardUrl
+      subscriptionId
+      startType
+      startTime
+      endTime
+      primaryVehicle
+      consentLowEmissionAccepted
+      status
+      contractType
+      monthCount
+      monthsLeft
+      currentPeriodEndTime
+      canBeRefunded
+      canEndImmediately
+      canEndAfterCurrentPeriod
+      canExtendPermit
+      maxExtensionMonthCount
+      hasPendingExtensionRequest
+      totalRefundAmount
+      hasRefund
+      vehicleChanged
+      addressChanged
+      isOrderConfirmed
+      addressApartment
+      addressApartmentSv
+      activeTemporaryVehicle {
+        id
+        startTime
+        endTime
+        isActive
+        vehicle {
+          model
+          manufacturer
+          registrationNumber
+          updatedFromTraficomOn
+          restrictions
+        }
+      }
+      vehicle {
+        id
+        model
+        emission
+        isLowEmission
+        manufacturer
+        productionYear
+        registrationNumber
+        updatedFromTraficomOn
+        restrictions
+      }
+      address {
+        id
+        streetName
+        streetNumber
+        streetNameSv
+        city
+        citySv
+        postalCode
+        location
+        primary
+        zone {
+          id
+          name
+          description
+          descriptionSv
+          location
+        }
+      }
+      parkingZone {
+        id
+        name
+        description
+        descriptionSv
+        location
+      }
+      products {
+        name
+        vat
+        endDate
+        startDate
+        unitPrice
+        basePrice
+        discountPrice
+        totalPrice
+        quantity
+        lowEmissionDiscount
+      }
+    }
+  }
+`;

@@ -1,5 +1,4 @@
 import { defineConfig, loadEnv } from '@rsbuild/core';
-import { pluginBabel } from '@rsbuild/plugin-babel';
 import { pluginReact } from '@rsbuild/plugin-react';
 import { pluginSass } from '@rsbuild/plugin-sass';
 
@@ -17,23 +16,7 @@ const reactAppEnv = Object.entries(rawPublicVars).reduce<Record<string, unknown>
 );
 
 export default defineConfig({
-  plugins: [
-    pluginReact(),
-    pluginSass(),
-    // Keep graphql.macro (and other babel-plugin-macros) working until they are
-    // replaced with gql tagged templates in a later migration phase.
-    pluginBabel({
-      include: /\.(?:jsx?|tsx?)$/,
-      babelLoaderOptions(opts) {
-        // Do not read babel.config.js here; it is Jest-only and would make
-        // Babel re-run the TS/React presets that SWC already handles.
-        opts.configFile = false;
-        opts.babelrc = false;
-        opts.plugins ??= [];
-        opts.plugins.push('babel-plugin-macros');
-      },
-    }),
-  ],
+  plugins: [pluginReact(), pluginSass()],
   html: {
     template: './public/index.html',
   },
