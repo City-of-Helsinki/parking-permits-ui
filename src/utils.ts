@@ -1,4 +1,5 @@
 import { GraphQLFormattedError } from 'graphql';
+import { ApolloError } from '@apollo/client';
 import { format, intervalToDuration, addMonths } from 'date-fns';
 import {
   ParkingContractType,
@@ -34,6 +35,7 @@ const RESTRICTIONS: Restrictions = {
 };
 export const formatErrors = (
   errors:
+    | ApolloError
     | ParkingPermitError[]
     | readonly GraphQLFormattedError[]
     | string[]
@@ -42,6 +44,22 @@ export const formatErrors = (
 ): string => {
   // normalizes errors into single string.
   if (!errors) {
+    return defaultError;
+  }
+  if (errors instanceof ApolloError) {
+    if (errors.graphQLErrors.length > 0) {
+      return errors.graphQLErrors.map(e => e.message).join('\n');
+    }
+    if (errors.networkError) {
+      const networkError = errors.networkError as {
+        result?: { errors?: Array<{ message: string }> };
+      };
+      const serverErrors = networkError?.result?.errors;
+      if (serverErrors && serverErrors.length > 0) {
+        return serverErrors.map(e => e.message).join('\n');
+      }
+      return errors.message;
+    }
     return defaultError;
   }
   if (typeof errors === 'string') {
