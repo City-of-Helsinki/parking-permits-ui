@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.0...parking-permits-ui-v1.6.1) (2026-07-21)
+
+
+### Bug Fixes
+
+* Improve Apollo error handling ([cc6f764](https://github.com/City-of-Helsinki/parking-permits-ui/commit/cc6f764640a668795c0c0a503af6bd70aab43a3e))
+
 ## [1.6.0](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.5.0...parking-permits-ui-v1.6.0) (2026-04-01)
 
 
