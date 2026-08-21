@@ -15,6 +15,10 @@ const reactAppEnv = Object.entries(rawPublicVars).reduce<Record<string, unknown>
   {}
 );
 
+// Preserve CRA's PUBLIC_URL behavior by driving Rsbuild's asset prefix, which
+// also fills the `<%= assetPrefix %>` template variable used in index.html.
+const publicUrl = process.env.PUBLIC_URL || '';
+
 export default defineConfig({
   plugins: [pluginReact(), pluginSass()],
   html: {
@@ -26,6 +30,9 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3000,
   },
+  dev: {
+    assetPrefix: publicUrl || '/',
+  },
   source: {
     define: {
       'process.env': JSON.stringify({
@@ -36,6 +43,15 @@ export default defineConfig({
     },
   },
   output: {
+    // Must match `dev.assetPrefix` above. Using 'auto' here would emit
+    // relative script/link tags (e.g. "static/js/foo.js"). Those resolve
+    // fine when the page is loaded from "/", but break when the SPA is
+    // hard-loaded from a nested route (e.g. after the login redirect lands
+    // on "/vehicle/permit-prices"), because the browser then resolves them
+    // as "/vehicle/static/js/foo.js". Nginx's `try_files $uri /index.html`
+    // fallback then serves index.html for that missing JS file, and the
+    // browser fails to parse the HTML as JavaScript ("Unexpected token '<'").
+    assetPrefix: publicUrl || '/',
     // Keep the build output directory as `build` so the Dockerfile and nginx
     // config (which copy/serve /app/build) do not need changes.
     distPath: {
