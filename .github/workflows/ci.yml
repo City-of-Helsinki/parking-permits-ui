@@ -13,3 +13,4 @@ jobs:
     secrets: inherit
     with:
       node-version: 22
+      typecheck: true
