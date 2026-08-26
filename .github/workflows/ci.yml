@@ -14,3 +14,4 @@ jobs:
     with:
       node-version: 22
       typecheck: true
+      commitlint-config-file: .commitlintrc.mjs
