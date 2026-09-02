@@ -1,4 +1,3 @@
-import { ParkingContractType, ParkingStartType } from './enums';
 import {
   ExtendedPriceListItem,
   Permit,
@@ -35,15 +34,15 @@ export type DeletePermitQueryResult = {
   deleteParkingPermit: boolean;
 };
 
-export type endPermitQueryResult = {
+export type EndPermitQueryResult = {
   endParkingPermit: boolean;
 };
 
-export type addTemporaryVehicle = {
+export type AddTemporaryVehicleResult = {
   addTemporaryVehicle: boolean;
 };
 
-export type removeTemporaryVehicle = {
+export type RemoveTemporaryVehicleResult = {
   removeTemporaryVehicle: boolean;
 };
 export type UpdatePermitQueryResult = {
@@ -72,13 +71,7 @@ export type ExtendPermitQueryResult = {
   extendParkingPermit: ExtendPermitResult;
 };
 
-export type REG_ACTION = {
-  id: string;
-  key: string;
-  value: ParkingStartType | ParkingContractType | Date | string | number;
-};
-
-export type createOrderQueryResult = {
+export type CreateOrderQueryResult = {
   createOrder: {
     checkoutUrl: string;
   };

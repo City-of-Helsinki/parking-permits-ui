@@ -8,7 +8,7 @@ import routes from './routes';
 
 setHDSClientConfig(HDSLoginConfig);
 
-function App(): React.ReactElement {
+const App = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const routing = useRoutes(routes);
   const contentSource = {
@@ -36,6 +36,6 @@ function App(): React.ReactElement {
       <CookieModal contentSource={contentSource} />
     </>
   );
-}
+};
 
 export default App;

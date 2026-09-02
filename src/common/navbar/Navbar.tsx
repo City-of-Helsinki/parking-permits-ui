@@ -29,29 +29,27 @@ const Navbar = (): React.ReactElement => {
   };
 
   return (
-    <>
-      <Header
-        key={userDefaultLang}
-        defaultLanguage={userDefaultLang}
-        onDidChangeLanguage={languageChangedStateAction}
-        languages={languages}>
-        <Header.ActionBar
-          frontPageLabel={t(`${T_PATH}.title`)}
-          title={t(`${T_PATH}.title`)}
-          titleAriaLabel={t(`${T_PATH}.title`)}
-          titleHref="https://hel.fi"
-          logo={<Logo src={logoFi} alt="City of Helsinki" />}
-          logoAriaLabel={t(`${T_PATH}.title`)}>
-          <Header.SimpleLanguageOptions
-            languages={[languages[0], languages[1], languages[2]]}
-          />
-          <WithAuthentication
-            AuthorisedComponent={Logout}
-            UnauthorisedComponent={Login}
-          />
-        </Header.ActionBar>
-      </Header>
-    </>
+    <Header
+      key={userDefaultLang}
+      defaultLanguage={userDefaultLang}
+      onDidChangeLanguage={languageChangedStateAction}
+      languages={languages}>
+      <Header.ActionBar
+        frontPageLabel={t(`${T_PATH}.title`)}
+        title={t(`${T_PATH}.title`)}
+        titleAriaLabel={t(`${T_PATH}.title`)}
+        titleHref="https://hel.fi"
+        logo={<Logo src={logoFi} alt="City of Helsinki" />}
+        logoAriaLabel={t(`${T_PATH}.title`)}>
+        <Header.SimpleLanguageOptions
+          languages={[languages[0], languages[1], languages[2]]}
+        />
+        <WithAuthentication
+          AuthorisedComponent={Logout}
+          UnauthorisedComponent={Login}
+        />
+      </Header.ActionBar>
+    </Header>
   );
 };
 

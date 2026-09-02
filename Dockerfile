@@ -1,44 +1,45 @@
 # ===============================================
-FROM public.ecr.aws/docker/library/node:18.20.4-slim as appbase
+FROM registry.access.redhat.com/ubi9/nodejs-22 AS appbase
 # ===============================================
-
-# Yarn
-ENV YARN_VERSION 1.22.22
-RUN yarn policies set-version $YARN_VERSION
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json/yarn.lock files
-COPY package*.json *yarn* ./
+USER root
+# default:root: install/build steps below run as default and need write access to /app
+RUN chown -R default:root /app && npm install --ignore-scripts --global yarn@1.22.22
+USER default
 
+# 444: lockfiles are read-only, only consumed by yarn install below; owner is irrelevant here,
+# let docker default to root:root
+COPY --chmod=444 package.json yarn.lock /app/
 # Install dependencies
-RUN yarn install
-
+RUN yarn install --frozen-lockfile --non-interactive --ignore-scripts
+# default must own the full source tree: yarn build (in staticbuilder) writes into it
+COPY --chown=default:root . /app/
 
 # =============================
-FROM appbase as development
+FROM appbase AS development
 # =============================
-# Copy all files
-COPY . .
 CMD ["yarn", "start"]
 
-
 #==============================
-FROM appbase as staticbuilder
+FROM appbase AS staticbuilder
 #==============================
-COPY . /app
 ARG REACT_APP_MAP_URL_TEMPLATE
 RUN yarn build
 
-
-# ============================================================
-FROM registry.access.redhat.com/ubi8/nginx-124 as production
+# =============================================================
+FROM registry.access.redhat.com/ubi8/nginx-124 AS production
 # =============================================================
 # Copy static build
-COPY --from=staticbuilder /app/build /usr/share/nginx/html
+# root-owned, 555 (read+execute only): default (the nginx runtime user) must never write served assets
+COPY --from=staticbuilder --chown=root:root --chmod=555 /app/build /usr/share/nginx/html
 
 # Copy nginx config
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+# root-owned, 444 (read-only): default (the nginx runtime user) must never modify its own config
+COPY --chown=root:root --chmod=444 ./nginx/nginx.conf /etc/nginx/nginx.conf
+
+USER default
 
 EXPOSE 8000
 CMD ["nginx", "-g", "daemon off;"]

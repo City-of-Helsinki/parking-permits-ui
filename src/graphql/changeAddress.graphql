@@ -1,6 +1,0 @@
-mutation ChangeAddress($addressId: ID!, $iban: String) {
-  changeAddress(addressId: $addressId, iban: $iban) {
-    success
-    checkoutUrl
-  }
-}
