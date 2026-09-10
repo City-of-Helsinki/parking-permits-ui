@@ -30,6 +30,7 @@ import {
   getPermitEndDate,
   calcProductUnitPrice,
   getRestrictions,
+  formatDateTimeDisplay,
 } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
@@ -92,6 +93,7 @@ const VehicleDetails: FC<Props> = ({
   };
 
   const restrictions = vehicle ? getRestrictions(vehicle, t) : [];
+  const updatedFromTraficomOn = vehicle?.updatedFromTraficomOn;
 
   return (
     <div className="vehicle-detail-component">
@@ -108,7 +110,13 @@ const VehicleDetails: FC<Props> = ({
           className="info-notification restriction"
           label={t('common.restrictions.label')}>
           <div>{t('common.restrictions.text', { restriction })}</div>
-          <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
+          {updatedFromTraficomOn && (
+            <div>
+              {t('pages.permitPrices.PermitPrices.vehicleCopyright', {
+                datetime: formatDateTimeDisplay(updatedFromTraficomOn),
+              })}
+            </div>
+          )}
         </Notification>
       ))}
 
@@ -170,7 +178,9 @@ const VehicleDetails: FC<Props> = ({
                 ))}
               {vehicle.updatedFromTraficomOn && (
                 <div className="vehicle-copyright">
-                  {t(`${T_PATH}.vehicleCopyright`)}
+                  {t(`${T_PATH}.vehicleCopyright`, {
+                    datetime: formatDateTimeDisplay(updatedFromTraficomOn),
+                  })}
                 </div>
               )}
             </div>

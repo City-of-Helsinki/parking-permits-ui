@@ -8,7 +8,11 @@ import {
   Vehicle,
 } from '../../types/permits';
 import { formatDateDisplay, formatVehicle } from '../utils';
-import { formatMonthlyPrice, formatPrice } from '../../utils';
+import {
+  formatDateTimeDisplay,
+  formatMonthlyPrice,
+  formatPrice,
+} from '../../utils';
 import './PriceChangePreview.scss';
 import { getPermitPriceTotal } from './utils';
 import {
@@ -134,7 +138,11 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
             </div>
             {vehicle?.updatedFromTraficomOn && (
               <div className="vehicle-copyright">
-                {t(`${T_PATH}.vehicleCopyright`)}
+                {t(`${T_PATH}.vehicleCopyright`, {
+                  datetime: formatDateTimeDisplay(
+                    vehicle.updatedFromTraficomOn
+                  ),
+                })}
               </div>
             )}
             {priceChanges.map((priceChangeItem, index) => (
