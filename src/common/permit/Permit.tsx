@@ -29,6 +29,7 @@ import EndPermitDialog from '../endPermitDialog/EndPermitDialog';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
 import { PermitStateContext } from '../../hooks/permitProvider';
+import { formatDateTimeDisplay } from '../../utils';
 
 const T_PATH = 'common.permit.Permit';
 
@@ -212,7 +213,9 @@ const Permit = ({
             {`${registrationNumber} ${manufacturer} ${model}`}
             {updatedFromTraficomOn && (
               <div className="pp-list__title__vehicle-copyright">
-                {t(`${T_PATH}.vehicleCopyright`)}
+                {t(`${T_PATH}.vehicleCopyright`, {
+                  datetime: formatDateTimeDisplay(updatedFromTraficomOn),
+                })}
               </div>
             )}
           </div>
