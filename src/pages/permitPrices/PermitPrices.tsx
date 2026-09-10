@@ -17,7 +17,11 @@ import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConse
 import RegistrationNumber from '../../common/registrationNumber/RegistrationNumber';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { Permit, ROUTES, STEPPER } from '../../types';
-import { formatMonthlyPrice, getRestrictions } from '../../utils';
+import {
+  formatDateTimeDisplay,
+  formatMonthlyPrice,
+  getVehicleRestrictions,
+} from '../../utils';
 import './permitPrices.scss';
 
 const T_PATH = 'pages.permitPrices.PermitPrices';
@@ -44,9 +48,10 @@ const PermitPrices = (): React.ReactElement => {
     permitCtx?.clearErrorMessage();
   };
 
-  const restrictions = permits
-    .map(permit => getRestrictions(permit.vehicle, t))
-    .flat();
+  const vehicleRestrictions = getVehicleRestrictions(
+    permits.map(permit => permit.vehicle),
+    t
+  );
 
   const getPrices = (permit: Permit) => (
     <>
@@ -62,18 +67,26 @@ const PermitPrices = (): React.ReactElement => {
 
   return (
     <div className="permit-prices-component">
-      {restrictions.length > 0 && (
+      {vehicleRestrictions.length > 0 && (
         <div className="permit-info">
-          {restrictions.map(restriction => (
-            <Notification
-              key={restriction}
-              type="info"
-              className="info-notification restriction"
-              label={t('common.restrictions.label')}>
-              <div>{t('common.restrictions.text', { restriction })}</div>
-              <div>{t('pages.permitPrices.PermitPrices.vehicleCopyright')}</div>
-            </Notification>
-          ))}
+          {vehicleRestrictions.map(({ vehicle, restrictions }) =>
+            restrictions.map(restriction => (
+              <Notification
+                key={`${vehicle.registrationNumber}-${restriction}`}
+                type="info"
+                className="info-notification restriction"
+                label={t('common.restrictions.label')}>
+                <div>{t('common.restrictions.text', { restriction })}</div>
+                <div>
+                  {t('pages.permitPrices.PermitPrices.vehicleCopyright', {
+                    datetime: formatDateTimeDisplay(
+                      vehicle.updatedFromTraficomOn
+                    ),
+                  })}
+                </div>
+              </Notification>
+            ))
+          )}
         </div>
       )}
       <div className="not-in-phone">
@@ -131,7 +144,11 @@ const PermitPrices = (): React.ReactElement => {
                   {getPrices(permit)}
                   {permit.vehicle.updatedFromTraficomOn && (
                     <div className="vehicle-copyright">
-                      {t(`${T_PATH}.vehicleCopyright`)}
+                      {t(`${T_PATH}.vehicleCopyright`, {
+                        datetime: formatDateTimeDisplay(
+                          permit.vehicle.updatedFromTraficomOn
+                        ),
+                      })}
                     </div>
                   )}
                 </div>

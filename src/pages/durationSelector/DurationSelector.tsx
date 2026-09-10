@@ -34,6 +34,7 @@ import {
   formatPermitEndDate,
   formatMonthlyPrice,
   formatPrice,
+  formatDateTimeDisplay,
 } from '../../utils';
 import './durationSelector.scss';
 
@@ -217,7 +218,13 @@ const DurationSelector = (): React.ReactElement => {
               <div className="hide-in-mobile">{getPrices(permit)}</div>
             </div>
             {permit.vehicle.updatedFromTraficomOn && (
-              <div className="vehicle-copyright">{t('vehicleCopyright')}</div>
+              <div className="vehicle-copyright">
+                {t('vehicleCopyright', {
+                  datetime: formatDateTimeDisplay(
+                    permit.vehicle.updatedFromTraficomOn
+                  ),
+                })}
+              </div>
             )}
             {mainPermitToUpdate.contractType ===
               ParkingContractType.OPEN_ENDED && (

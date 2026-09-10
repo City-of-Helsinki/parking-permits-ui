@@ -377,5 +377,21 @@ export const getRestrictions = (
     })
     .filter(Boolean);
 
+export type VehicleRestrictions = {
+  vehicle: Vehicle;
+  restrictions: Array<string>;
+};
+
+export const getVehicleRestrictions = (
+  vehicles: Vehicle[],
+  t: TranslateFunction
+): Array<VehicleRestrictions> =>
+  vehicles
+    .map(vehicle => ({
+      vehicle,
+      restrictions: getRestrictions(vehicle, t),
+    }))
+    .filter(({ restrictions }) => restrictions.length > 0);
+
 export const canBeRefunded = (permit: Permit): boolean =>
   permit.canBeRefunded && permit.totalRefundAmount > 0;
