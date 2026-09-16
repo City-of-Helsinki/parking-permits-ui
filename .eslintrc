@@ -1,15 +1,43 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "import",
+    "sonarjs"
+  ],
   "extends": [
-    "airbnb-typescript-prettier",
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
   ],
   "env": {
     "browser": true,
     "jest": true
   },
-  "plugins": ["sonarjs", "import"],
   "rules": {
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-no-useless-fragment": "off",
     "react/prop-types": 0,
     "react/destructuring-assignment": 0,
     "react/static-property-placement": 0,
@@ -19,19 +47,56 @@
     "no-unused-vars": 0,
     "no-magic-numbers": [
       "error",
-      { "ignoreArrayIndexes": true, "ignore": [1000, -1, 0, 1, 2, 3, 4, 5] }
+      {
+        "ignoreArrayIndexes": true,
+        "ignore": [
+          1000,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
     ],
-    "arrow-body-style": ["error", "as-needed"],
-    "line-comment-position": ["error", { "position": "above" }],
-    "no-restricted-imports": ["error", { "patterns": [" * as"] }],
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "line-comment-position": [
+      "error",
+      {
+        "position": "above"
+      }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          " * as"
+        ]
+      }
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-unnecessary-type-assertion": "error",
     "sonarjs/prefer-immediate-return": "error",
     "sonarjs/no-duplicate-string": "error",
     "import/no-named-as-default": 0,
-    "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "__typename"
+        ]
+      }
+    ],
     "no-case-declarations": "off"
   },
   "globals": {

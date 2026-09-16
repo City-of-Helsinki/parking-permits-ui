@@ -1,3 +1,0 @@
-mutation removeTemporaryVehicle($permitId: String!) {
-  removeTemporaryVehicle(permitId: $permitId)
-}

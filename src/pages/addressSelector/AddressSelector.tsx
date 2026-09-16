@@ -13,7 +13,7 @@ import './addressSelector.scss';
 
 const T_PATH = 'pages.addressSelector.AddressSelector';
 
-const AddressSelector = (): React.ReactElement => {
+const AddressSelector = (): React.ReactElement | null => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const navigate = useNavigate();

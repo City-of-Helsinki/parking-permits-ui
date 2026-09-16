@@ -1,0 +1,56 @@
+import { gql } from '@apollo/client';
+
+export default gql`
+  query {
+    profile {
+      id
+      age
+      firstName
+      lastName
+      language
+      email
+      phoneNumber
+      language
+      primaryAddressApartment
+      primaryAddressApartmentSv
+      primaryAddress {
+        id
+        streetName
+        streetNumber
+        streetNameSv
+        city
+        citySv
+        postalCode
+        location
+        primary
+        zone {
+          id
+          name
+          description
+          descriptionSv
+          location
+        }
+      }
+      otherAddressApartment
+      otherAddressApartmentSv
+      otherAddress {
+        id
+        streetName
+        streetNumber
+        streetNameSv
+        city
+        citySv
+        postalCode
+        location
+        primary
+        zone {
+          id
+          name
+          description
+          descriptionSv
+          location
+        }
+      }
+    }
+  }
+`;
