@@ -11,8 +11,47 @@ import { useTranslation } from 'react-i18next';
 
 const T_PATH = 'common.footer.Footer';
 
+// TODO: Accessibility has currently no translations, link is hardcoded as a separate const for now.
+const ACCESSIBILITY_STATEMENT_LINK =
+  'https://www.hel.fi/static/liitteet/kaupunkiymparisto/saavutettavuusselosteet/fi/pysakointitunnusten-verkkokauppa-saavutettavuusseloste.pdf';
+
+const FOOTER_LINKS_FI = {
+  parkingInfo: 'https://www.hel.fi/fi/kaupunkiymparisto-ja-liikenne/pysakointi',
+  registryDescription:
+    'https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Maksullisen-pysakoinnin-ja-pysakointitunnusten-asiakasrekisteri.pdf',
+  dataProtection:
+    'https://www.hel.fi/fi/paatoksenteko-ja-hallinto/tietoa-helsingista/tietosuoja-ja-tiedonhallinta/tietosuoja',
+};
+
+const FOOTER_LINKS_SV = {
+  parkingInfo: 'https://www.hel.fi/sv/stadsmiljo-och-trafik/parkering',
+  registryDescription:
+    'https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Klientregister-over-avgiftsbelagd-parkering-och-parkeringstillstand.pdf',
+  dataProtection:
+    'https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Behandling-av-personuppgifter-inom-parkeringsovervakningen.pdf',
+};
+
+const FOOTER_LINKS_EN = {
+  parkingInfo: 'https://www.hel.fi/en/urban-environment-and-traffic/parking',
+  registryDescription:
+    'https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Customer-register-of-paid-parking-and-parking-permits.pdf',
+  dataProtection:
+    'https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Customer-Service-Privacy-Policy.pdf',
+};
+
+const FOOTER_LINKS = {
+  fi: FOOTER_LINKS_FI,
+  sv: FOOTER_LINKS_SV,
+  en: FOOTER_LINKS_EN,
+};
+
 const Footer = (): React.ReactElement => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = (
+    i18n.language in FOOTER_LINKS ? i18n.language : 'fi'
+  ) as keyof typeof FOOTER_LINKS;
+  const links = FOOTER_LINKS[language];
+
   return (
     <HDSFooter theme="dark">
       <HDSFooter.Navigation>
@@ -63,22 +102,22 @@ const Footer = (): React.ReactElement => {
         logo={<Logo src={logoFi} alt={t(`${T_PATH}.title`)} />}>
         <HDSFooter.Link
           target="_blank"
-          href="https://www.hel.fi/fi/kaupunkiymparisto-ja-liikenne/pysakointi"
+          href={links.parkingInfo}
           label={t(`${T_PATH}.parkingInfo`)}
         />
         <HDSFooter.Link
           target="_blank"
-          href="https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kymp/Maksullisen%20pys%C3%A4k%C3%B6innin%20ja%20pys%C3%A4k%C3%B6intitunnusten%20asiakasrekisteri.pdf"
+          href={links.registryDescription}
           label={t(`${T_PATH}.registryDescription`)}
         />
         <HDSFooter.Link
           target="_blank"
-          href="https://www.hel.fi/fi/paatoksenteko-ja-hallinto/tietoa-helsingista/tietosuoja-ja-tiedonhallinta/tietosuoja"
+          href={links.dataProtection}
           label={t(`${T_PATH}.dataProtection`)}
         />
         <HDSFooter.Link
           target="_blank"
-          href="https://www.hel.fi/static/liitteet/kaupunkiymparisto/saavutettavuusselosteet/fi/pysakointitunnusten-verkkokauppa-saavutettavuusseloste.pdf"
+          href={ACCESSIBILITY_STATEMENT_LINK}
           label={t(`${T_PATH}.accessibility`)}
         />
       </HDSFooter.Base>
