@@ -184,7 +184,7 @@
   "common.restrictions.text": "Traficom ilmoittaa ajoneuvolle seuraavan rajoitustiedon: {{restriction}}. Voit ilmoituksesta huolimatta jatkaa pysäköintitunnuksen ostamista.",
   "common.restrictions.driving_ban": "Ajokielto",
   "common.restrictions.compulsory_inspection_neglected": "Valvontakatsastusvelvollisuus laiminlyöty",
-  "common.restrictions.periodic_inspection_rejected": "Määräaikaiskatsastus suorittamatta/hylätty",
+  "common.restrictions.periodic_inspection_rejected": "Määräaikaiskatsastus suorittamatta/hyväksymättä",
   "common.restrictions.vehicle_stolen": "Ajoneuvo anastettu",
   "common.restrictions.vehicle_deregistered": "Rekisteristä poisto",
   "common.restrictions.vehicle_tax_due": "Ajoneuvovero erääntynyt",
