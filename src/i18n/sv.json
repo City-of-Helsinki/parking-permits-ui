@@ -184,7 +184,7 @@
   "common.restrictions.text": "Traficom har följande restriktionsnotifikation för detta fordon: {{restriction}}. Du kan fortfarande fortsätta med köpet av detta parkeringstillstånd.",
   "common.restrictions.driving_ban": "Körförbud",
   "common.restrictions.compulsory_inspection_neglected": "Obligatorisk besiktning försummad",
-  "common.restrictions.periodic_inspection_rejected": "Periodisk besiktning avvisad",
+  "common.restrictions.periodic_inspection_rejected": "Periodisk besiktning har inte utförts/godkänts",
   "common.restrictions.vehicle_stolen": "Fordonet stulet",
   "common.restrictions.vehicle_deregistered": "Fordonet avregistrerat",
   "common.restrictions.vehicle_tax_due": "Fordonskatt förfaller",

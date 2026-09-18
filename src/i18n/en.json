@@ -184,7 +184,7 @@
   "common.restrictions.text": "Traficom has the following restriction notification for this vehicle: {{restriction}}. You may still continue with the purchase of this parking permit.",
   "common.restrictions.driving_ban": "Driving ban",
   "common.restrictions.compulsory_inspection_neglected": "Compulsory inspection neglected",
-  "common.restrictions.periodic_inspection_rejected": "Periodic inpection rejected",
+  "common.restrictions.periodic_inspection_rejected": "Periodic inspection not performed/approved",
   "common.restrictions.vehicle_stolen": "Vehicle stolen",
   "common.restrictions.vehicle_deregistered": "Vehicle deregistered",
   "common.restrictions.vehicle_tax_due": "Vehicle tax due",
