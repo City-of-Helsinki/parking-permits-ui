@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.2](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.1...parking-permits-ui-v1.6.2) (2026-09-19)
+
+
+### Bug Fixes
+
+* Change en & sv translations ([18f750d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/18f750db61aab80011e011b53fc17a8b17eec2a6))
+* Update footer links ([079d38d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/079d38dad63f6ba19a2fef4093c1205081c857e2))
+* Update privacy statement text in clientUI ([7ae150d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ae150db147fafd067d3f2dddf051dd8dff39e2f))
+
 ## [1.6.1](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.0...parking-permits-ui-v1.6.1) (2026-07-21)
 
 
