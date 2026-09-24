@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.2](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.1...parking-permits-ui-v1.6.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* Change en & sv translations ([18f750d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/18f750db61aab80011e011b53fc17a8b17eec2a6))
+* Fix linter errors ([6fb64b3](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6fb64b329c9bee74072c167bf42d0af7e8f1835a))
+* Fix rsbuild assetPrefix-handling ([5dca860](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5dca86048e9e70b32d9af955b4826f6c6e5444c9))
+* Remove unused type ([fdbe41b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/fdbe41b44c916868f1590bab8a724a8aaa4d5d5f))
+* Update footer links ([079d38d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/079d38dad63f6ba19a2fef4093c1205081c857e2))
+* Update privacy statement text in clientUI ([7ae150d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ae150db147fafd067d3f2dddf051dd8dff39e2f))
+
+
+### Dependencies
+
+* Drop typescript to ~5.5.4 ([023c341](https://github.com/City-of-Helsinki/parking-permits-ui/commit/023c341d07a600b0f1537fd537ec76cfbd74447c))
+* Pin browserslist to patched version ([616ed49](https://github.com/City-of-Helsinki/parking-permits-ui/commit/616ed49b51cb4f308d551767276d7c3b6cbd599d))
+* Pin js-yaml to patched version ([e1eeb79](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e1eeb79935a84e7c5e4d3bb38934f08af29c33c4))
+* Pin nanoid to patched version ([edef38c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/edef38ca4cc9cd4eadda40cd3265c6e1482a1f16))
+* Pin patched transitive deps ([5f253bd](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5f253bd30b00c8357838d74bf86db5fe9eb61e4b))
+* Remove dead dependencies ([f6cf960](https://github.com/City-of-Helsinki/parking-permits-ui/commit/f6cf96031ca72c4c0c6d835fa386d8a1fb3cad84))
+* Update @sentry/react to '^8.x' ([c72f3c4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c72f3c41a38d20a189d57f1c065436a05cdae066))
+* Update hds-react and cookie-resolution ([41c1efb](https://github.com/City-of-Helsinki/parking-permits-ui/commit/41c1efb2de1bcfd092f051b95c3fb35869ac6f8f))
+* Update oidc-client-ts CDN version ([190cf49](https://github.com/City-of-Helsinki/parking-permits-ui/commit/190cf49c3d1ab6a9239ece2c6cce901b36979877))
+* Update TypeScript and ESLint ([ef1e379](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ef1e3796e8fff4260f869381c82e034c35c84c83))
+
 ## [1.6.1](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.0...parking-permits-ui-v1.6.1) (2026-07-21)
 
 
