@@ -69,7 +69,6 @@ export type Permit = {
 
 export type Vehicle = {
   id: string;
-  emission: number;
   isLowEmission: boolean;
   manufacturer: string;
   model: string;
