@@ -40,7 +40,6 @@ export default gql`
       vehicle {
         id
         model
-        emission
         isLowEmission
         manufacturer
         productionYear

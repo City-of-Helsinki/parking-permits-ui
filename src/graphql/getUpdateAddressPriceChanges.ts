@@ -11,7 +11,6 @@ export default gql`
           model
           productionYear
           registrationNumber
-          emission
           isLowEmission
         }
       }
