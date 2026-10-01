@@ -7,14 +7,9 @@ import { getChangeTotal } from '../../common/editPermits/utils';
 import EndPermitResult from '../../common/endPermitResult/EndPermitResult';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
-import { EndPermitStep, ROUTES, UserProfile } from '../../types';
+import {EndPermitStep,PermitEndType,ROUTES,UserProfile} from '../../types';
 import './endPermit.scss';
-import {
-  calcProductDatesForRefund,
-  canBeRefunded,
-  upcomingProducts,
-  calcVatPrice,
-} from '../../utils';
+import {calcProductDatesForRefund,canBeRefunded,upcomingProducts,calcVatPrice} from '../../utils';
 
 const EndPermit = (): React.ReactElement => {
   const { search } = useLocation();
@@ -115,6 +110,7 @@ const EndPermit = (): React.ReactElement => {
         <EndPermitResult
           displayRefundNotification={displayRefundNotification}
           email={profile?.email}
+          endType={endType as PermitEndType}
         />
       )}
     </div>
