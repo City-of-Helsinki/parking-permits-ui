@@ -2,18 +2,20 @@ import { Button, IconSignout, Notification, useOidcClient } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../types';
+import { PermitEndType, ROUTES } from '../../types';
 
 const T_PATH = 'common.endPermitResult.EndPermitResult';
 
 export interface Props {
   displayRefundNotification: boolean;
   email: string;
+  endType?: PermitEndType;
 }
 
 const EndPermitResult = ({
   displayRefundNotification,
   email,
+  endType,
 }: Props): React.ReactElement => {
   const { t } = useTranslation();
   const { logout } = useOidcClient();
@@ -28,6 +30,14 @@ const EndPermitResult = ({
           marginBottom: 'var(--spacing-s)',
         }}>
         {t(`${T_PATH}.notification.first.message`)}
+        {endType &&
+          ` ${t(
+            `${T_PATH}.notification.first.${
+              endType === PermitEndType.AFTER_CURRENT_PERIOD
+                ? 'afterCurrentPeriod'
+                : 'immediately'
+            }`
+          )}`}
       </Notification>
       {displayRefundNotification && (
         <Notification
