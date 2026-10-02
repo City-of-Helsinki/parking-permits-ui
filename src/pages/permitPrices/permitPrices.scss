@@ -1,11 +1,13 @@
 @import '../../assets/styles/mixin';
 .permit-prices-component {
   @include for-desktop {
-    .not-in-desktop {
-      display: none;
-    }
     .permit-info {
       max-width: 50%;
+    }
+  }
+  @media (min-width: 577px) {
+    .not-in-desktop {
+      display: none;
     }
   }
   @include for-phone {
