@@ -29,15 +29,18 @@ const EndPermitResult = ({
           marginTop: 'var(--spacing-s)',
           marginBottom: 'var(--spacing-s)',
         }}>
-        {t(`${T_PATH}.notification.first.message`)}
-        {endType &&
-          ` ${t(
-            `${T_PATH}.notification.first.${
-              endType === PermitEndType.AFTER_CURRENT_PERIOD
-                ? 'afterCurrentPeriod'
-                : 'immediately'
-            }`
-          )}`}
+        <div>{t(`${T_PATH}.notification.first.message`)}</div>
+        {endType && (
+          <div>
+            {t(
+              `${T_PATH}.notification.first.${
+                endType === PermitEndType.AFTER_CURRENT_PERIOD
+                  ? 'afterCurrentPeriod'
+                  : 'immediately'
+              }`
+            )}
+          </div>
+        )}
       </Notification>
       {displayRefundNotification && (
         <Notification
