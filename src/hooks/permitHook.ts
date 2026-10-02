@@ -45,7 +45,7 @@ const usePermitState = (): PermitActions => {
     await getAllPermits()
       .then(userPermits => {
         setPermits(userPermits || []);
-        if (userPermits.length) {
+        if (userPermits?.length) {
           setSelectedAddress(
             profileCtx
               ?.getAddresses()
