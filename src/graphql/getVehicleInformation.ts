@@ -5,7 +5,6 @@ export default gql`
     getVehicleInformation(registration: $registration) {
       id
       model
-      emission
       isLowEmission
       manufacturer
       productionYear
