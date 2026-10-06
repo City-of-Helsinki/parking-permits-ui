@@ -16,6 +16,7 @@ const T_PATH = 'common.navbar.Navbar';
 const Navbar = (): React.ReactElement => {
   const profileCtx = useContext(UserProfileContext);
   const { t, i18n } = useTranslation();
+  const userDefaultLang = profileCtx?.getLanguage() || 'fi';
 
   const languages: LanguageOption[] = [
     { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -30,6 +31,8 @@ const Navbar = (): React.ReactElement => {
   return (
     <>
       <Header
+        key={userDefaultLang}
+        defaultLanguage={userDefaultLang}
         onDidChangeLanguage={languageChangedStateAction}
         languages={languages}>
         <Header.ActionBar

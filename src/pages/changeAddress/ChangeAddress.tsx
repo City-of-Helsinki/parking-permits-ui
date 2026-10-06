@@ -35,6 +35,7 @@ const ChangeAddress = (): React.ReactElement => {
   const [priceChangesList, setPriceChangesList] = useState<
     PermitPriceChanges[]
   >([]);
+  const [error, setError] = useState<string>('');
   const profileCtx = useContext(UserProfileContext);
   const permitCtx = useContext(PermitStateContext);
   if (!permitCtx || !profileCtx) {
@@ -59,35 +60,49 @@ const ChangeAddress = (): React.ReactElement => {
     otherAddressApartment,
     otherAddressApartmentSv,
   } = profile;
-  const primaryAddressId = primaryAddress.id;
-  const otherAddressId = otherAddress.id;
 
-  // Cannot update address if there's no other address
-  // or the zone information is unavailable from address
-  if (!otherAddress || !primaryAddressId || !otherAddressId) {
+  const forcedAddressChange = permitCtx.permitsHaveOutdatedAddresses();
+  // Permits use the same address so we can read it from the first one.
+  const currentPermitAddress = validPermits[0].address;
+  const validCustomerAddresses = [primaryAddress, otherAddress].filter(
+    e => e?.id && e?.zone
+  );
+  const userHasMultipleValidAddresses = validCustomerAddresses.length > 1;
+
+  // Cannot update address if there's no other address to update to.
+  // Skip this check on "forced" address change or in the last step of
+  // the flow as by that point the forced-flag will be already unset
+  // and the address has already changed.
+  const skipNoMultipleValidAddressesMessage =
+    forcedAddressChange || step === ChangeAddressStep.ORDER_REVIEW;
+  if (!skipNoMultipleValidAddressesMessage && !userHasMultipleValidAddresses) {
     return (
       <div className="change-address-component">
         <Notification type="info">
           {t(`${T_PATH}.notification.info.noDifferentZoneMessage`)}
         </Notification>
+        <div className="action-buttons">
+          <Button
+            className="action-btn"
+            variant="secondary"
+            iconLeft={<IconArrowLeft />}
+            onClick={() => navigate(ROUTES.VALID_PERMITS)}
+            theme="black">
+            <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+          </Button>
+        </div>
       </div>
     );
   }
 
-  const currentAddressId = validPermits[0].address.id;
-  const [usedAddress, notUsedAddress] =
-    primaryAddressId === currentAddressId
-      ? [primaryAddress, otherAddress]
-      : [otherAddress, primaryAddress];
+  // Prevent no-op address-changes by excluding the current address of
+  // the permits if not "forced" address change.
+  const selectableAddresses = forcedAddressChange
+    ? validCustomerAddresses
+    : validCustomerAddresses.filter(e => e.id !== currentPermitAddress.id);
 
-  const selectableAddresses = [primaryAddressId, otherAddressId].includes(
-    currentAddressId
-  )
-    ? [notUsedAddress]
-    : [primaryAddress, otherAddress];
-
-  if (!selectedAddress && notUsedAddress) {
-    setSelectedAddress(notUsedAddress);
+  if (!selectedAddress && selectableAddresses.length === 1) {
+    setSelectedAddress(selectableAddresses[0]);
   }
 
   let addressApartment = '';
@@ -112,6 +127,11 @@ const ChangeAddress = (): React.ReactElement => {
 
   return (
     <div className="change-address-component">
+      {error && (
+        <Notification type="error" className="error-notification">
+          {t(error || '')}
+        </Notification>
+      )}
       {step === ChangeAddressStep.ADDRESS && (
         <>
           <div
@@ -126,6 +146,7 @@ const ChangeAddress = (): React.ReactElement => {
                 showControl={selectableAddresses.length > 1}
                 selectedAddress={selectedAddress}
                 setSelectedAddress={setSelectedAddress}
+                setError={setError}
                 addressApartment={addressApartment}
               />
             ))}
@@ -137,6 +158,7 @@ const ChangeAddress = (): React.ReactElement => {
               iconRight={<IconArrowRight />}
               onClick={() => {
                 if (!selectedAddress) {
+                  setError(t(`${T_PATH}.errors.missingSelectedAddress`));
                   return;
                 }
                 getChangeAddressPriceChanges(selectedAddress.id).then(
@@ -181,8 +203,12 @@ const ChangeAddress = (): React.ReactElement => {
           priceChangesList={priceChangesList}
           onCancel={() => setStep(ChangeAddressStep.ADDRESS)}
           onConfirm={() => {
+            if (!selectedAddress) {
+              setError(t(`${T_PATH}.errors.missingSelectedAddress`));
+              return;
+            }
             if (priceChangeTotal === 0) {
-              changeAddress(notUsedAddress.id).then(() =>
+              changeAddress(selectedAddress.id).then(() =>
                 setStep(ChangeAddressStep.ORDER_REVIEW)
               );
             } else if (priceChangeTotal < 0) {
@@ -196,18 +222,23 @@ const ChangeAddress = (): React.ReactElement => {
           refundTotal={-priceChangeTotal}
           refundTotalVat={-priceChangeVatTotal}
           onCancel={() => setStep(ChangeAddressStep.PRICE_PREVIEW)}
-          onConfirm={accountNumber =>
-            changeAddress(notUsedAddress.id, accountNumber).then(() =>
+          onConfirm={accountNumber => {
+            if (!selectedAddress) {
+              setError(t(`${T_PATH}.errors.missingSelectedAddress`));
+              return;
+            }
+            changeAddress(selectedAddress.id, accountNumber).then(() =>
               setStep(ChangeAddressStep.ORDER_REVIEW)
-            )
-          }
+            );
+          }}
         />
       )}
       {step === ChangeAddressStep.ORDER_REVIEW && (
         <OrderReview
           className="order-review"
           // the address has already been updated at this point
-          address={usedAddress}
+          // => use current permit address
+          address={currentPermitAddress}
           profile={profile}
           validPermits={validPermits}
           hasRefundCreated={priceChangeTotal < 0}

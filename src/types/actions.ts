@@ -11,12 +11,14 @@ export type ProfileActions = {
   clear: () => Promise<void>;
   getErrorMessage: () => string | undefined;
   getResultErrorMessage: () => string | undefined;
+  getLanguage: () => string | undefined;
   updateLanguage: (lang: string) => Promise<UpdateLanguageResult>;
 };
 
 export type PermitActions = {
   permitExists: (registration: string) => boolean;
   getPermits: () => Permit[];
+  permitsHaveStarted: (permitsToCheck: Permit[]) => boolean;
   fetchPermits: () => Promise<void>;
   getValidPermits: () => Permit[];
   getDraftPermits: () => Permit[];
@@ -25,6 +27,7 @@ export type PermitActions = {
   getChangeAddressPriceChanges: (
     addressId: string
   ) => Promise<PermitPriceChanges[]>;
+  permitsHaveOutdatedAddresses: () => boolean;
   changeAddress: (addressId: string, iban?: string) => Promise<void>;
   updatePermit: (
     payload: Partial<Permit> | Partial<Zone>,

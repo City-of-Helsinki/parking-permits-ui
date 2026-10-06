@@ -5,7 +5,6 @@ import {
   LoginCallbackHandler,
   useOidcClient,
   OidcClientError,
-  User,
 } from 'hds-react';
 import { ROUTES } from '../types';
 import { isCallbackUrl } from './index';
@@ -19,8 +18,7 @@ const HandleCallback = (
   const { children } = props;
   const isCallback = isCallbackUrl(location.pathname);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, arrow-body-style
-  const onSuccess = (user: User) => {
+  const onSuccess = () => {
     navigate(ROUTES.BASE, { replace: true });
   };
 

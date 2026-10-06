@@ -37,9 +37,11 @@ const ValidPermits = (): React.ReactElement => {
     return <Navigate to={ROUTES.BASE} />;
   }
 
+  const T_PLURALITY = validPermits.length > 1 ? 'plural' : 'singular';
+
   const { firstName, primaryAddress, otherAddress } = profile;
   const allAddresses = [primaryAddress, otherAddress];
-  const addresses = allAddresses.filter(a => a !== null && a !== undefined);
+  const addresses = allAddresses.filter(a => a?.id && a?.zone);
 
   const getAddress = (): UserAddress | undefined => {
     const firstPermit = first(validPermits);
@@ -50,11 +52,12 @@ const ValidPermits = (): React.ReactElement => {
   const isProcessing = (permit: PermitModel) =>
     (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
       permit.talpaOrderId) ||
-    (permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed) ||
+    ((permit.status === PermitStatus.DRAFT ||
+      permit.status === PermitStatus.PRELIMINARY) &&
+      permit.isOrderConfirmed) ||
     permit.hasPendingExtensionRequest;
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
-  const hasAddressChanged = (permit: PermitModel) => permit.addressChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
   const isOpenEndedPermit = (permit: PermitModel) =>
@@ -96,6 +99,9 @@ const ValidPermits = (): React.ReactElement => {
   const showActionsButtons =
     validPermits.some(isPermitEditable) && !isPaymentPending;
 
+  const showChangeAddressButtons =
+    permitCtx?.permitsHaveOutdatedAddresses() || addresses.length > 1;
+
   return (
     <div className="valid-permit-component">
       <div className="section-label">
@@ -105,7 +111,9 @@ const ValidPermits = (): React.ReactElement => {
 
       {validPermits.some(
         permit =>
-          permit.status === PermitStatus.DRAFT && permit.isOrderConfirmed
+          (permit.status === PermitStatus.DRAFT ||
+            permit.status === PermitStatus.PRELIMINARY) &&
+          permit.isOrderConfirmed
       ) && (
         <Notification
           type="alert"
@@ -129,23 +137,36 @@ const ValidPermits = (): React.ReactElement => {
           })}
         </Notification>
       )}
-      {validPermits.some(hasAddressChanged) && (
+      {permitCtx?.permitsHaveOutdatedAddresses() && (
         <Notification
           type="alert"
           className="addressChanged"
           label={t(`${T_PATH}.addressChanged.notification.label`)}>
-          {t(`${T_PATH}.addressChanged.notification.message`, {
+          {t(`${T_PATH}.addressChanged.notification.message.${T_PLURALITY}`, {
             date: formatDate(new Date()),
             time: format(endOfDay(new Date()), 'HH:mm'),
           })}
         </Notification>
       )}
+
+      {permitCtx?.permitsHaveOutdatedAddresses() &&
+        !permitCtx?.permitsHaveStarted(validPermits) && (
+          <Notification
+            type="alert"
+            className="addressChangedUnstartedPermit"
+            label={t(
+              `${T_PATH}.addressChangedUnstartedPermit.notification.label`
+            )}>
+            {t(`${T_PATH}.addressChangedUnstartedPermit.notification.message`)}
+          </Notification>
+        )}
+
       {address && validPermits.length > 0 && (
         <Permit
           address={address}
           permits={validPermits}
           showActionsButtons={showActionsButtons}
-          showChangeAddressButtons={addresses.length > 1}
+          showChangeAddressButtons={showChangeAddressButtons}
           fetchPermits={permitCtx?.fetchPermits}
         />
       )}
@@ -157,7 +178,7 @@ const ValidPermits = (): React.ReactElement => {
             theme="black"
             disabled={
               validPermits.some(isProcessing) ||
-              validPermits.some(hasAddressChanged) ||
+              permitCtx?.permitsHaveOutdatedAddresses() ||
               validPermits.some(hasTemporaryVehicle)
             }
             iconLeft={<IconPlusCircle />}

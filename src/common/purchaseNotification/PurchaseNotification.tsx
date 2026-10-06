@@ -35,6 +35,7 @@ const PurchaseNotification = ({ validPermits }: Props): React.ReactElement => {
     const isAlert = validPermits.some(
       permit =>
         permit.status === PermitStatus.DRAFT ||
+        permit.status === PermitStatus.PRELIMINARY ||
         permit.status === PermitStatus.PAYMENT_IN_PROGRESS ||
         permit.hasPendingExtensionRequest
     );

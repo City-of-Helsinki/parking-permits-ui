@@ -1,7 +1,7 @@
 import { OperationVariables } from '@apollo/client/core/types';
 import { DocumentNode } from 'graphql';
 import { loader } from 'graphql.macro';
-import { getGqlClient } from '../hooks/utils';
+import { getGqlClient } from '../hooks/graphqlClientModule';
 import {
   addTemporaryVehicle,
   ChangeAddressResult,

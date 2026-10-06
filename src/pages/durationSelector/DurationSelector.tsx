@@ -69,7 +69,9 @@ const DurationSelector = (): React.ReactElement => {
   }
   const mainPermitToUpdate = validPermits?.length ? otherPermit : primaryPermit;
 
-  const isDraft = mainPermitToUpdate?.status === PermitStatus.DRAFT;
+  const isDraft =
+    mainPermitToUpdate?.status === PermitStatus.DRAFT ||
+    PermitStatus.PRELIMINARY;
   const isContractTypeChecked = !isDraft || contractTypeChecked;
   const isStartTypeChecked = !isDraft || startTypeChecked;
   const isChecked = isContractTypeChecked && isStartTypeChecked;
@@ -244,7 +246,7 @@ const DurationSelector = (): React.ReactElement => {
                   defaultValue={permit?.monthCount}
                   disabled={
                     mainPermitToUpdate.contractType !==
-                    ParkingContractType.FIXED_PERIOD
+                      ParkingContractType.FIXED_PERIOD || !startTypeChecked
                   }
                   onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                     updateMonthCount(

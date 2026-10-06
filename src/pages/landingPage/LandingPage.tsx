@@ -11,7 +11,7 @@ import { Navigate } from 'react-router-dom';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { ROUTES } from '../../types';
-import { getEnv } from '../../utils';
+import { formatDate, getEnv } from '../../utils';
 import './landingPage.scss';
 
 const T_PATH = 'pages.landingPage.LandingPage';
@@ -30,7 +30,7 @@ const LandingPage = (): React.ReactElement => {
   if (profileCtx?.getStatus() === 'error') {
     return (
       <Notification type="error">
-        {profileCtx?.getErrorMessage() || ''}
+        {profileCtx?.getErrorMessage() ?? ''}
       </Notification>
     );
   }
@@ -53,14 +53,18 @@ const LandingPage = (): React.ReactElement => {
 
   if (
     profileCtx?.getStatus() === 'loaded' &&
-    !profile?.primaryAddress &&
-    !profile?.otherAddress &&
-    !validPermits?.length
+    !profile?.primaryAddress?.zone &&
+    !profile?.otherAddress?.zone
   ) {
+    const noValidAddressMessage = validPermits?.length
+      ? t(`${T_PATH}.noValidAddressMessageWithValidPermit`, {
+          date: formatDate(new Date()),
+        })
+      : t(`${T_PATH}.noValidAddressMessage`);
     return (
       <>
         <Notification type="alert" label={t(`${T_PATH}.noValidAddressLabel`)}>
-          {t(`${T_PATH}.noValidAddressMessage`)}
+          {noValidAddressMessage}
         </Notification>
         <Button
           className="logout-button"
@@ -76,7 +80,7 @@ const LandingPage = (): React.ReactElement => {
   if (permitCtx?.getStatus() === 'error') {
     return (
       <Notification type="error">
-        {t(permitCtx?.getErrorMessage() || '')}
+        {t(permitCtx?.getErrorMessage() ?? '')}
       </Notification>
     );
   }

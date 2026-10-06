@@ -7,6 +7,98 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.6] - 2025-10-16
+
+### Changed
+
+* Adjust notification text for addresses outside the Helsinki residential parking permit area ([7ad726c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ad726cdb6aa390651c4fbc5ef921f87a0fec6db))
+
+## [1.4.5] - 2025-09-25
+
+### Fixed
+
+* Display an error instead of allowing duplicate permit ([7780db5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7780db5de303f8e3393aae49d5a13a80024fcbd1))
+* Redirect to front page when changing vehicle if the price does not change ([7736e52](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7736e520315827c7582a5a80062993299c2ec1d0))
+* Display a loading indicator when updating permit vehicle ([1e1c132](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1e1c132047ee855486c9801d98e4a2a9dd7fce38))
+* Re-fetch permits from the backend only after a successful vehicle update ([6f2416b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6f2416b69583fa768ac2515ff01d8d43130ccf0d))
+
+### Changed
+
+* Prevent progress to next step in the vehicle change UI-flow on error ([c7c14f1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c7c14f1e926373344644333edf69e67c0a738670))
+
+## [1.4.4] - 2025-05-15
+
+### Changed
+
+- Update temporary vehicle title text ([38ca8f6](https://github.com/City-of-Helsinki/parking-permits-ui/commit/38ca8f609ff585bcb7570664fdc12af6b66b81cc))
+
+### Fixed
+
+- Limit temp vehicle max dates to permit maxes ([1ad0caf](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1ad0caf8decfb93c5e31ecef69dfff2f8f99eaa7))
+
+## [1.4.3] - 2025-04-28
+
+### Changed
+
+- Update permit end dialog fi/sv/en-messages ([5609b1b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5609b1b5d96141f047c2b545e67b2ea6297be37d))
+- Update date format ([6322e67](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6322e6788862e0c1154cf89a0818f5d15ff84ba1))
+
+## [1.4.2] - 2024-12-20
+
+### Changed
+
+- Add user parameter to Talpa order creation request ([a1c48a9](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a1c48a92ebcb72af2c6e04f4ca46a6f1110cc669))
+
+## [1.4.1] - 2024-12-19
+
+### Fixed
+
+- Disable month selection until start time is selected ([c3cd509](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c3cd50947d3a411f2b42de0e3379221d8a71aad7))
+
+## [1.4.0] - 2024-12-09
+
+### Added
+
+- Add support for webshop permit preliminary status ([2efc9c4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2efc9c4303230eefffd8958320593c3839d3688c))
+
+### Changed
+
+- Update HDS to 3.11 ([bda8008](https://github.com/City-of-Helsinki/parking-permits-ui/commit/bda8008c4c63269d38241ae3a96b94783e16a182))
+- (apollo-client) ApolloClient as a Login module ([9dbc315](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9dbc31548efaa496670dd9d5db22d37fb8b70265))
+- (apollo-client) Add the module to LoginContext ([9ee7b2a](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9ee7b2aec4375d3178fa28fb74963e0a8d42fcb6))
+- (apollo-client) Replace usages of the old ApolloClient ([9571e10](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9571e10b76e748d49fdc667a81026a6a05bd7e4c))
+- Add missing translations ([725a0df](https://github.com/City-of-Helsinki/parking-permits-ui/commit/725a0dfda510e96d92cf1a7d38b5c33d6de7523a))
+
+## [1.3.0] - 2024-11-25
+
+### Added
+
+- Add missing swedish translations ([ad4ecde](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ad4ecdefced0bd839b9b37b1245975099624239c))
+
+### Changed
+
+- Switch order of radio buttons ([f5d7c5e](https://github.com/City-of-Helsinki/parking-permits-ui/commit/f5d7c5ed319cfaf994fa67ec19c08fd8df6184ed))
+- Switch to use Keycloak ([8370d97](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8370d97d9f820d64052b2afe3a1bfcee4150ee2b))
+
+### Fixed
+
+- Fix silent renew so token renewing is handled without issues ([3e937c1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/3e937c15a5a1e7469c0bf3455b642fb7c8fd050b))
+
+## [1.2.0] - 2024-11-14
+
+### Added
+
+- Add customer first name to main titles ([e25ee5c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e25ee5c2a52941d63cd6292d739f2ee3aa2e8ca3))
+
+### Changed
+
+- Convert to use HDS login component ([853aa10](https://github.com/City-of-Helsinki/parking-permits-ui/commit/853aa10980f72d44c8502e7a2cf429814270a456))
+- Update change address functionality ([ab5716f](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ab5716f502cdc519d109ad8aed9725073069bae8))
+
+### Removed
+
+- Remove unused typings ([c31f1b1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c31f1b1b8be35552f6e4311c9c7038fdb63a9f40))
+
 ## [1.1.0] - 2024-08-30
 
 ### Added
@@ -169,5 +261,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * @dependabot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/118
 * @snyk-bot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/140
 * @danjacob-anders made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/186
+* @Nukasev made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/264
 
 **Full Changelog**: https://github.com/City-of-Helsinki/parking-permits-ui/commits/release-1.0.0

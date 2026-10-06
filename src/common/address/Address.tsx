@@ -48,6 +48,7 @@ interface Props {
   disableSelection?: boolean;
   addressApartment: string;
   setSelectedAddress?: (address: UserAddress) => void;
+  setError?: (error: string) => void;
 }
 
 const Address: FC<Props> = ({
@@ -58,6 +59,7 @@ const Address: FC<Props> = ({
   disableSelection = false,
   addressApartment,
   setSelectedAddress,
+  setError,
 }): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
 
@@ -93,11 +95,20 @@ const Address: FC<Props> = ({
               />
             }
             checked={selectedAddress?.id === address.id}
-            onClick={() =>
-              setSelectedAddress
-                ? setSelectedAddress(address)
-                : updateAddressZone(address)
-            }
+            onClick={() => {
+              // setSelectedAddress and setError are optional in the
+              // props as AddressSelector- and ChangeAddress-components
+              // both reuse the Address-component. The intention is
+              // that both should be supplied at the same time.
+              if (setSelectedAddress) {
+                setSelectedAddress(address);
+              } else {
+                updateAddressZone(address);
+              }
+              if (setError) {
+                setError('');
+              }
+            }}
           />
           <ArrowIcon onClick={() => setOpenState(!openState)} />
         </div>

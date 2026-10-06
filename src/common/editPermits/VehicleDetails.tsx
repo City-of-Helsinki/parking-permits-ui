@@ -33,6 +33,10 @@ import {
 } from '../../utils';
 import './vehicleDetails.scss';
 import DiscountLabel from '../discountLabel/DiscountLabel';
+import {
+  VehicleChangeErrorContext,
+  ErrorStateDict,
+} from '../../hooks/vehicleChangeErrorProvider';
 
 const T_PATH = 'common.editPermits.ChangeVehicle';
 
@@ -56,35 +60,44 @@ const VehicleDetails: FC<Props> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const permitCtx = useContext(PermitStateContext);
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [processingRequest, setProcessingRequest] = useState(false);
   const [tempRegistration, setTempRegistration] = useState('');
-
+  const vehicleChangeErrorCtx = useContext(
+    VehicleChangeErrorContext
+  ) as ErrorStateDict;
   const inputRegistration = (event: { target: { value: string } }) => {
-    setError('');
+    vehicleChangeErrorCtx.setError('');
     const { value } = event.target;
     setTempRegistration(value.toUpperCase());
     if (value && permitCtx?.permitExists(value)) {
-      setError(t(`${T_PATH}.permitExistError`));
+      vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
     }
   };
 
   const fetchVehicleInformation = useCallback(async () => {
     setLoading(true);
-    setError('');
+    vehicleChangeErrorCtx.setError('');
     await getVehicleInformation(tempRegistration)
       .then(setVehicle)
-      .catch(errors => setError(formatErrors(errors)));
+      .catch(errors => vehicleChangeErrorCtx.setError(formatErrors(errors)));
     setLoading(false);
-  }, [setVehicle, tempRegistration]);
+  }, [vehicleChangeErrorCtx, setVehicle, tempRegistration]);
+
+  const processVehicleChange = async () => {
+    setProcessingRequest(true);
+    const asyncOnContinue = async () => onContinue();
+    await asyncOnContinue();
+    setProcessingRequest(false);
+  };
 
   const restrictions = vehicle ? getRestrictions(vehicle, t) : [];
 
   return (
     <div className="vehicle-detail-component">
-      {error && (
+      {vehicleChangeErrorCtx.error && (
         <Notification type="error" className="error-notification">
-          {t(error || '')}
+          {t(vehicleChangeErrorCtx.error || '')}
         </Notification>
       )}
 
@@ -112,7 +125,7 @@ const VehicleDetails: FC<Props> = ({
       <Button
         variant="secondary"
         className="change-btn"
-        disabled={loading || !!error?.length}
+        disabled={loading || !!vehicleChangeErrorCtx.error?.length}
         onClick={fetchVehicleInformation}>
         {!loading && t(`${T_PATH}.changeBtn`)}
         {loading && <LoadingSpinner small />}
@@ -177,10 +190,11 @@ const VehicleDetails: FC<Props> = ({
         <Button
           theme="black"
           className="action-btn"
-          disabled={!vehicle}
+          disabled={!vehicle || loading || processingRequest}
           iconRight={<IconArrowRight />}
-          onClick={() => onContinue()}>
-          {t(`${T_PATH}.actionBtn.continue`)}
+          onClick={processVehicleChange}>
+          {!processingRequest && t(`${T_PATH}.actionBtn.continue`)}
+          {processingRequest && <LoadingSpinner small />}
         </Button>
 
         <Button

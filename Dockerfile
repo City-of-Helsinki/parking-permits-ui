@@ -31,7 +31,7 @@ RUN yarn build
 
 
 # ============================================================
-FROM registry.access.redhat.com/ubi8/nginx-118 as production
+FROM registry.access.redhat.com/ubi8/nginx-124 as production
 # =============================================================
 # Copy static build
 COPY --from=staticbuilder /app/build /usr/share/nginx/html

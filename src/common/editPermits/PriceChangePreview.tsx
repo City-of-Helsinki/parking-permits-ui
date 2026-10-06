@@ -1,5 +1,5 @@
-import { Button, IconArrowLeft, IconArrowRight } from 'hds-react';
-import React, { Fragment } from 'react';
+import { Button, IconArrowLeft, IconArrowRight, Notification } from 'hds-react';
+import React, { Fragment, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { uniqueId } from 'lodash';
 import {
@@ -11,6 +11,10 @@ import { formatDateDisplay, formatVehicle } from '../utils';
 import { formatMonthlyPrice, formatPrice } from '../../utils';
 import './PriceChangePreview.scss';
 import { getPermitPriceTotal } from './utils';
+import {
+  ErrorStateDict,
+  VehicleChangeErrorContext,
+} from '../../hooks/vehicleChangeErrorProvider';
 
 const T_PATH = 'common.editPermits.PriceChangePreview';
 
@@ -87,6 +91,9 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
   onCancel,
 }: PriceChangePreviewProps) => {
   const { t } = useTranslation();
+  const vehicleChangeErrorCtx = useContext(
+    VehicleChangeErrorContext
+  ) as ErrorStateDict;
   const newPriceTotal = priceChangesList.reduce(
     (total, item) => total + getPermitPriceTotal(item.priceChanges, 'newPrice'),
     0
@@ -112,6 +119,12 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
 
   return (
     <div className={className}>
+      {vehicleChangeErrorCtx.error && (
+        <Notification type="error" className="error-notification">
+          {t(vehicleChangeErrorCtx.error || '')}
+        </Notification>
+      )}
+
       <div className="title">{t(`${T_PATH}.title`)}</div>
       <div className="price-change-detail">
         {priceChangesList.map(({ permit, vehicle, priceChanges }) => (

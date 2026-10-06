@@ -12,6 +12,8 @@ import {
 
 const PC_100 = 100;
 
+const dateFormat = 'd.M.yyyy HH:mm';
+
 type TranslateFunction = (name: string) => string;
 
 type Restrictions = {
@@ -88,9 +90,7 @@ export function getBooleanEnv(key: string): boolean {
 
 export function formatDateTimeDisplay(datetime: MaybeDate): string {
   const dt = normalizeDateValue(datetime);
-  const dateStr = dt.toLocaleDateString('fi');
-  const timeStr = dt.toLocaleTimeString('fi');
-  return `${dateStr}, ${timeStr}`;
+  return format(dt, dateFormat);
 }
 
 export const formatDate = (date: MaybeDate): string =>
@@ -130,6 +130,15 @@ export const formatPermitStartDate = (
     return formatDate(new Date(startDate));
   }
   return formatDate(date);
+};
+
+export const minDate = (firstDate: MaybeDate, secondDate: MaybeDate): Date => {
+  if (!firstDate || !secondDate) {
+    return new Date();
+  }
+  return dateAsNumber(firstDate) < dateAsNumber(secondDate)
+    ? normalizeDateValue(firstDate)
+    : normalizeDateValue(secondDate);
 };
 
 export const formatPermitEndDate = (
