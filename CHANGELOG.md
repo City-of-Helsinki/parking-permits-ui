@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.2...parking-permits-ui-v1.7.0) (2026-10-24)
+
+
+### Features
+
+* Display vehicle traficom fetch time ([1443b1a](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1443b1a5a957bb5e1b5cf87859cfcc425d449ab7))
+* Simplify low-emission-/discount-logic ([7be65e9](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7be65e9cb697c081debe822c4713f0c0cc8fdd0e))
+
+
+### Bug Fixes
+
+* Add guard against malformed values ([5516c77](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5516c77d5c205b7da6fbf8e1b6bfbfee1cb966b0))
+* Adjust 'periodic inspection rejected'-text ([8570a4e](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8570a4eb02f6a5aea9dde7431e8dfdf15360580e))
+* Adjust EndPermitResult notifications ([177d692](https://github.com/City-of-Helsinki/parking-permits-ui/commit/177d692f676204977caaf448964061606e5672ad))
+* Handle missing permit results ([9b8e130](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9b8e130cb67ab20296c2d7c961015b301e8273f4))
+* Prevent duplicate permit forms on tablet widths ([40f7980](https://github.com/City-of-Helsinki/parking-permits-ui/commit/40f79807c7cab6d6fd4e7c2f73219557b2634dd3))
+* Stack notification messages ([b4c84b8](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b4c84b8f6572bfc3b8d1d9ec92014be8c31507ad))
+
 ## [1.6.2](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.1...parking-permits-ui-v1.6.2) (2026-09-24)
 
 
