@@ -72,6 +72,7 @@
     "@babel/preset-env": "^7",
     "@babel/preset-react": "^7",
     "@babel/preset-typescript": "^7",
+    "@city-of-helsinki/license-notices": "^0.2.0",
     "@rsbuild/core": "^2.0.15",
     "@rsbuild/plugin-react": "^2.1.0",
     "@rsbuild/plugin-sass": "^2.0.0",
