@@ -1,45 +1,64 @@
+# ============================================================
+# STAGE 1: Build the Static Assets
+# ============================================================
+FROM helsinki.azurecr.io/ubi9/nodejs-22-pnpm-builder-base AS appbase
 # ===============================================
-FROM registry.access.redhat.com/ubi9/nodejs-22 AS appbase
-# ===============================================
+
+# 1. Copy only necessary files for build
+COPY --chown=default:root package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY --chown=default:root ./public ./public
+COPY --chown=default:root ./scripts ./scripts
+COPY --chown=default:root LICENSE rsbuild.config.ts tsconfig.json .eslintrc .eslintignore .prettierrc .env* ./
+COPY --chown=default:root ./src ./src
+
+# 2. Run the install and update-runtime-env script
+# corepack in the base image will automatically use the version of pnpm
+# defined in your package.json 'packageManager' field if present.
+RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm store prune
+
+# ============================================================
+# STAGE 2: Development
+# ============================================================
+FROM appbase AS development
 
 WORKDIR /app
 
-USER root
-# default:root: install/build steps below run as default and need write access to /app
-RUN chown -R default:root /app && npm install --ignore-scripts --global yarn@1.22.22
-USER default
+# Set NODE_ENV to development in the development container
+ARG NODE_ENV=development
+ENV NODE_ENV $NODE_ENV
 
-# 444: lockfiles are read-only, only consumed by yarn install below; owner is irrelevant here,
-# let docker default to root:root
-COPY --chmod=444 package.json yarn.lock /app/
-# Install dependencies
-RUN yarn install --frozen-lockfile --non-interactive --ignore-scripts
-# default must own the full source tree: yarn build (in staticbuilder) writes into it
-COPY --chown=default:root . /app/
+EXPOSE 8080
 
-# =============================
-FROM appbase AS development
-# =============================
-CMD ["yarn", "start"]
+CMD pnpm start --port 8080
 
 #==============================
 FROM appbase AS staticbuilder
 #==============================
 ARG REACT_APP_MAP_URL_TEMPLATE
-RUN yarn build
+RUN pnpm build
 
+# ============================================================
+# STAGE 4: Production Runtime
+# ============================================================
+FROM helsinki.azurecr.io/ubi9/nginx-126-spa-standard AS production
 # =============================================================
-FROM registry.access.redhat.com/ubi8/nginx-124 AS production
-# =============================================================
-# Copy static build
-# root-owned, 555 (read+execute only): default (the nginx runtime user) must never write served assets
-COPY --from=staticbuilder --chown=root:root --chmod=555 /app/build /usr/share/nginx/html
+# 1. Copy the compiled assets
+COPY --from=staticbuilder /app/build /usr/share/nginx/html
 
-# Copy nginx config
-# root-owned, 444 (read-only): default (the nginx runtime user) must never modify its own config
-COPY --chown=root:root --chmod=444 ./nginx/nginx.conf /etc/nginx/nginx.conf
+# 2. Setup Runtime Env Injection
+# env.sh is provided by the base image
+WORKDIR /usr/share/nginx/html
+COPY .env .
 
-USER default
+# 2. Setup Runtime Env Injection
+# env.sh is provided by the base image
+WORKDIR /usr/share/nginx/html
+COPY .env .
 
-EXPOSE 8000
-CMD ["nginx", "-g", "daemon off;"]
+# 3. Inject Versioning for the /readiness endpoint from package.json using base image
+COPY package.json .
+
+# - env.sh      (Inherited from base image at /usr/share/nginx/html/env.sh)
+# - USER 1001   (Inherited from base image)
+# - EXPOSE 8080 (Inherited from base image)
+# - ENTRYPOINT/CMD (Inherited from base image)
