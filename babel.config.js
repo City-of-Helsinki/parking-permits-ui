@@ -1,6 +1,5 @@
 // Babel config used by Jest (via babel-jest) only.
-// Rsbuild transforms source with SWC, so it does NOT read this file
-// (configFile is disabled in rsbuild.config.ts).
+// Vite does NOT read this file. Removed together with Jest in Phase 2.
 module.exports = {
   presets: [
     ['@babel/preset-env', { targets: { node: 'current' } }],
