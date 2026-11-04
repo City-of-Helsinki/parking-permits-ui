@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig, loadEnv } from 'vite';
+import { loadEnv } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 // Preserve CRA's PUBLIC_URL behavior by driving Vite's base. It must be an
 // absolute path so assets keep resolving when the SPA is hard-loaded from a
@@ -21,6 +22,13 @@ export default defineConfig(({ mode }) => {
       // container's published port mapping.
       host: true,
       port: 3000,
+    },
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: ['./src/setupTests.ts'],
+      include: ['src/**/*.test.{ts,tsx}'],
+      css: false,
     },
     build: {
       // Keep the build output directory as `build` so the Dockerfile and nginx
