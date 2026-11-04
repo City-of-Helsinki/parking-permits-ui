@@ -20,12 +20,23 @@ export default defineConfig(({ mode }) => ({
     host: true,
     port: 3000,
   },
+  preview: {
+    port: 3000,
+  },
   test: {
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/setupTests.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
     css: false,
+    reporters: ['verbose', 'junit'],
+    outputFile: {
+      junit: './jest-report.xml',
+    },
+    coverage: {
+      reporter: ['clover', 'json', 'lcov', 'text', 'cobertura'],
+      include: ['src/**/*'],
+    },
   },
   build: {
     // Keep the build output directory as `build` so the Dockerfile and nginx
