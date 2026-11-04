@@ -3,6 +3,7 @@
   "version": "1.6.2",
   "license": "MIT",
   "private": true,
+  "packageManager": "pnpm@11.28.5",
   "scripts": {
     "prepare": "husky",
     "lint": "eslint --ext js,ts,tsx src",
@@ -51,7 +52,8 @@
     "web-vitals": "^4.2.2"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22",
+    "pnpm": ">=11.28.5"
   },
   "browserslist": [
     ">0.2%",
