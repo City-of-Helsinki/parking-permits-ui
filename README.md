@@ -16,7 +16,7 @@ Related repositories:
 
 Prerequisites
 
-- Yarn 1.22.x or higher
+- pnpm 11.28.5 or higher
 - Node 22+ or higher
 
 The application requires a running parking-permits backend, you can find more details in [this repo](https://github.com/City-of-Helsinki/parking-permits) on how to set up the backend.
@@ -33,7 +33,7 @@ Install the project:
 
 ```bash
 $ cd parking-permits-ui
-$ yarn install
+$ pnpm install
 ```
 
 Make a local `.env.template` copy:
@@ -45,7 +45,7 @@ $ cp .env.template .env.development.local
 Run the application in the development mode:
 
 ```bash
-$ yarn start
+$ pnpm start
 ```
 
 This will start [the application](http://localhost:3000) on port `3000`.
@@ -65,5 +65,5 @@ This will start [the application](http://localhost:3000) on port `3000`.
 To run tests:
 
 ```
-$ yarn test
+$ pnpm test
 ```
