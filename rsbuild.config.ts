@@ -43,6 +43,10 @@ export default defineConfig({
     },
   },
   output: {
+    sourceMap: {
+      js: 'source-map',
+      css: true,
+    },
     // Must match `dev.assetPrefix` above. Using 'auto' here would emit
     // relative script/link tags (e.g. "static/js/foo.js"). Those resolve
     // fine when the page is loaded from "/", but break when the SPA is

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.2",
-    "@sentry/react": "^8.x",
+    "@sentry/react": "^11.10.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@types/geojson": "^7946.0.14",
