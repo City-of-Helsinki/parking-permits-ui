@@ -8,7 +8,7 @@ FROM helsinki.azurecr.io/ubi9/nodejs-22-pnpm-builder-base AS appbase
 COPY --chown=default:root package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY --chown=default:root ./public ./public
 COPY --chown=default:root ./scripts ./scripts
-COPY --chown=default:root LICENSE rsbuild.config.ts tsconfig.json .eslintrc .eslintignore .prettierrc .env* ./
+COPY --chown=default:root LICENSE index.html vite.config.ts tsconfig.json .eslintrc .eslintignore .prettierrc .env* ./
 COPY --chown=default:root ./src ./src
 
 # 2. Run the install and update-runtime-env script
@@ -29,7 +29,7 @@ ENV NODE_ENV $NODE_ENV
 
 EXPOSE 8080
 
-CMD pnpm start --port 8080
+CMD pnpm exec vite --port 8080
 
 #==============================
 FROM appbase AS staticbuilder
