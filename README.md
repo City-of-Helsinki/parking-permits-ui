@@ -50,6 +50,15 @@ $ pnpm start
 
 This will start [the application](http://localhost:3000) on port `3000`.
 
+Environment variables must be prefixed with `REACT_APP_` (for example `REACT_APP_OIDC_URL`). Vite exposes only these to the app via `import.meta.env`, and their values are inlined at build time.
+
+Build the production bundle into `build/` and preview it locally:
+
+```bash
+$ pnpm build
+$ pnpm preview
+```
+
 ## Starting dockerized development environment
 
 1. Check if Docker and docker CLI installed, port `3000` is free, not occupied by running server.
@@ -62,8 +71,10 @@ This will start [the application](http://localhost:3000) on port `3000`.
 
 ## Testing
 
-To run tests:
+Tests run with Vitest and jsdom:
 
 ```
 $ pnpm test
+$ pnpm test:coverage
+$ pnpm test:watch
 ```
