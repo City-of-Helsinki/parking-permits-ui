@@ -10,8 +10,9 @@
     "lint:fix": "eslint --fix --ext js,ts,tsx src",
     "format": "prettier --write \"**/*.+(tsx|ts|json|scss|md)\"",
     "prettier": "prettier",
-    "start": "rsbuild dev",
-    "build": "rsbuild build",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "jest",
     "test:coverage": "jest --coverage --watchAll=false",
     "typecheck": "tsc --noEmit"
@@ -47,7 +48,7 @@
     "react-router": "^6.26.0",
     "react-router-dom": "^6.26.0",
     "sass": "^1.77.8",
-    "typescript": "~5.5.4",
+    "typescript": "~5.9.3",
     "uuid": "^9.0.1",
     "web-vitals": "^4.2.2"
   },
@@ -77,12 +78,10 @@
     "@babel/preset-typescript": "^7",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
-    "@rsbuild/core": "^2.0.15",
-    "@rsbuild/plugin-react": "^2.1.0",
-    "@rsbuild/plugin-sass": "^2.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^6.1.2",
     "babel-jest": "^30.4.1",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
@@ -101,6 +100,7 @@
     "jest-environment-jsdom": "^30.4.1",
     "lint-staged": "^15.2.7",
     "prettier": "2.7.1",
-    "prettier-plugin-organize-imports": "^2.3.4"
+    "prettier-plugin-organize-imports": "^2.3.4",
+    "vite": "^8.3.5"
   }
 }
