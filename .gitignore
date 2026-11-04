@@ -41,6 +41,9 @@ yarn.lock
 .yarn/
 .yarnrc.yml
 
+# Vite
+vite.config.ts.timestamp-*
+
 # Copilot
 .agents
 .github/copilot-instructions.md
