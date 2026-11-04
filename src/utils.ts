@@ -94,7 +94,7 @@ export const combineDateAndTime = (date: Date, time: string): Date => {
 };
 
 export function getEnv(key: string): string {
-  const variable = process.env[key];
+  const variable = import.meta.env[key];
   if (variable === undefined) {
     throw new Error(`No ${key} specified.`);
   }

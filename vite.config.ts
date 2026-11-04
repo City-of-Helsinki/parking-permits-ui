@@ -1,5 +1,4 @@
 import react from '@vitejs/plugin-react';
-import { loadEnv } from 'vite';
 import { defineConfig } from 'vitest/config';
 
 // Preserve CRA's PUBLIC_URL behavior by driving Vite's base. It must be an
@@ -8,39 +7,28 @@ import { defineConfig } from 'vitest/config';
 // `try_files $uri /index.html` fallback serves index.html for missing JS files.
 const publicUrl = process.env.PUBLIC_URL || '/';
 
-export default defineConfig(({ mode }) => {
-  // Temporary shim: expose REACT_APP_* variables as a plain process.env object
-  // so dynamic access (process.env[key], as used in getEnv) keeps working.
-  // Removed when variables are renamed to VITE_* (migration Phase 3).
-  const reactAppEnv = loadEnv(mode, process.cwd(), 'REACT_APP_');
-
-  return {
-    base: publicUrl,
-    plugins: [react()],
-    server: {
-      // Bind to all interfaces so the dev server is reachable through the
-      // container's published port mapping.
-      host: true,
-      port: 3000,
-    },
-    test: {
-      environment: 'jsdom',
-      globals: true,
-      setupFiles: ['./src/setupTests.ts'],
-      include: ['src/**/*.test.{ts,tsx}'],
-      css: false,
-    },
-    build: {
-      // Keep the build output directory as `build` so the Dockerfile and nginx
-      // config (which copy/serve /app/build) do not need changes.
-      outDir: 'build',
-    },
-    define: {
-      'process.env': JSON.stringify({
-        NODE_ENV: mode === 'production' ? 'production' : 'development',
-        PUBLIC_URL: process.env.PUBLIC_URL || '',
-        ...reactAppEnv,
-      }),
-    },
-  };
+export default defineConfig({
+  base: publicUrl,
+  // Keep the existing REACT_APP_* variable names; only these are exposed to
+  // import.meta.env. Never use '' here, as it would expose every variable.
+  envPrefix: 'REACT_APP_',
+  plugins: [react()],
+  server: {
+    // Bind to all interfaces so the dev server is reachable through the
+    // container's published port mapping.
+    host: true,
+    port: 3000,
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/setupTests.ts'],
+    include: ['src/**/*.test.{ts,tsx}'],
+    css: false,
+  },
+  build: {
+    // Keep the build output directory as `build` so the Dockerfile and nginx
+    // config (which copy/serve /app/build) do not need changes.
+    outDir: 'build',
+  },
 });

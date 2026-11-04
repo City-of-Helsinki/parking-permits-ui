@@ -24,5 +24,5 @@ export function getLocationBasedUri(
 }
 
 export function isCallbackUrl(url: string): boolean {
-  return url === process.env.REACT_APP_OIDC_CALLBACK_PATH;
+  return url === import.meta.env.REACT_APP_OIDC_CALLBACK_PATH;
 }
