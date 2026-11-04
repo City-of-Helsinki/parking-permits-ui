@@ -40,3 +40,7 @@ schema.graphql
 yarn.lock
 .yarn/
 .yarnrc.yml
+
+# Copilot
+.agents
+.github/copilot-instructions.md
