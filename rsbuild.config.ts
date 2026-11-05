@@ -1,26 +1,32 @@
+import { pluginThirdPartyLicenses } from '@city-of-helsinki/license-notices/rsbuild';
 import { defineConfig, loadEnv } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
 import { pluginSass } from '@rsbuild/plugin-sass';
+
+import { thirdPartyLicensesConfig } from './scripts/thirdPartyLicenses.config';
 
 // Expose REACT_APP_* variables (from .env files and process.env) to the app.
 const { rawPublicVars } = loadEnv({ prefixes: ['REACT_APP_'] });
 
 // Build a plain process.env object so dynamic access (process.env[key], as used
 // in getEnv) keeps working the same way it did under create-react-app.
-const reactAppEnv = Object.entries(rawPublicVars).reduce<Record<string, unknown>>(
-  (acc, [key, value]) => {
-    acc[key.replace(/^process\.env\./, '')] = value;
-    return acc;
-  },
-  {}
-);
+const reactAppEnv = Object.entries(rawPublicVars).reduce<
+  Record<string, unknown>
+>((acc, [key, value]) => {
+  acc[key.replace(/^process\.env\./, '')] = value;
+  return acc;
+}, {});
 
 // Preserve CRA's PUBLIC_URL behavior by driving Rsbuild's asset prefix, which
 // also fills the `<%= assetPrefix %>` template variable used in index.html.
 const publicUrl = process.env.PUBLIC_URL || '';
 
 export default defineConfig({
-  plugins: [pluginReact(), pluginSass()],
+  plugins: [
+    pluginReact(),
+    pluginSass(),
+    pluginThirdPartyLicenses(thirdPartyLicensesConfig),
+  ],
   html: {
     template: './public/index.html',
   },
