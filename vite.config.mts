@@ -42,5 +42,6 @@ export default defineConfig(({ mode }) => ({
     // Keep the build output directory as `build` so the Dockerfile and nginx
     // config (which copy/serve /app/build) do not need changes.
     outDir: 'build',
+    emptyOutDir: true,
   },
 }));
