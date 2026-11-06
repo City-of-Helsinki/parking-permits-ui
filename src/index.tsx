@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/react';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -39,7 +38,6 @@ if (import.meta.env.REACT_APP_SENTRY_DSN) {
 }
 
 const container = document.getElementById('root');
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 
 root.render(

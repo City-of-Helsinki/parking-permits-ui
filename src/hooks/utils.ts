@@ -4,7 +4,6 @@ import { getEnv } from '../utils';
 
 let gqlClient: GraphQLClient;
 
-// eslint-disable-next-line import/prefer-default-export
 export function getGqlClient(): GraphQLClient | undefined {
   if (!gqlClient) {
     const tokens = getApiTokensFromStorage();
