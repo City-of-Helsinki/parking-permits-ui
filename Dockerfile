@@ -43,6 +43,9 @@ RUN pnpm build
 # ============================================================
 FROM helsinki.azurecr.io/ubi9/nginx-126-spa-standard AS production
 # =============================================================
+ARG REACT_APP_SENTRY_RELEASE
+ENV APP_RELEASE=${REACT_APP_SENTRY_RELEASE:-""}
+
 # 1. Copy the compiled assets
 COPY --from=staticbuilder /app/build /usr/share/nginx/html
 
