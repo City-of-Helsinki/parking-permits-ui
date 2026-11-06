@@ -8,7 +8,7 @@ FROM helsinki.azurecr.io/ubi9/nodejs-22-pnpm-builder-base AS appbase
 COPY --chown=default:root package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY --chown=default:root ./public ./public
 COPY --chown=default:root ./scripts ./scripts
-COPY --chown=default:root LICENSE index.html vite.config.mts tsconfig.json .eslintrc .eslintignore .prettierrc ./
+COPY --chown=default:root LICENSE index.html vite.config.mts tsconfig.json eslint.config.mjs .prettierrc ./
 COPY --chown=default:root ./src ./src
 
 # 2. Run the install and update-runtime-env script
