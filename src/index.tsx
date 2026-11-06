@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import App from './App';
 import './assets/styles/main.scss';
 import HDSLoginProvider from './client/LoginProvider';

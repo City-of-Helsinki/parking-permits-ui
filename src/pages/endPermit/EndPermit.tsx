@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 import React, { useContext, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import PriceChangePreview from '../../common/editPermits/PriceChangePreview';
 import Refund from '../../common/editPermits/Refund';
 import { getChangeTotal } from '../../common/editPermits/utils';

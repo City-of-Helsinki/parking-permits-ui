@@ -17,7 +17,7 @@ import {
 import { orderBy } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import Permit from '../../common/permit/Permit';
 import PermitType from '../../common/permitType/PermitType';

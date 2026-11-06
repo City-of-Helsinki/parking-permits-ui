@@ -7,7 +7,7 @@ import {
 } from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { ROUTES } from '../../types';
