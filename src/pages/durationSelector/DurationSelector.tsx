@@ -15,7 +15,7 @@ import {
   NumberInput,
 } from 'hds-react';
 import { orderBy } from 'lodash';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -59,6 +59,13 @@ const DurationSelector = (): React.ReactElement => {
   );
   const currentStep = permitCtx?.getStep();
   const address = permitCtx?.getSelectedAddress();
+
+  useEffect(() => {
+    if (address && currentStep !== STEPPER.DURATION_SELECTOR) {
+      permitCtx?.setStep(STEPPER.DURATION_SELECTOR);
+    }
+  }, [permitCtx, address, currentStep]);
+
   let [primaryPermit, otherPermit] = draftPermits as PermitModel[];
 
   if (validPermits?.length) {
@@ -79,11 +86,6 @@ const DurationSelector = (): React.ReactElement => {
 
   if (!address) {
     return <Navigate to={ROUTES.ADDRESS} />;
-  }
-
-  if (currentStep !== STEPPER.DURATION_SELECTOR) {
-    const timeOutFor = 100;
-    setTimeout(() => permitCtx?.setStep(STEPPER.DURATION_SELECTOR), timeOutFor);
   }
 
   if (!draftPermits?.length) {

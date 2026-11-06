@@ -9,7 +9,7 @@ import {
   Notification,
 } from 'hds-react';
 import { sortBy } from 'lodash';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -38,10 +38,11 @@ const PermitPrices = (): React.ReactElement => {
   const updatePermitData = (payload: Partial<Permit>, permitId?: string) =>
     permitCtx?.updatePermit(payload, permitId);
 
-  if (currentStep !== STEPPER.PERMIT_PRICES) {
-    const timeOutFor = 100;
-    setTimeout(() => permitCtx?.setStep(STEPPER.PERMIT_PRICES), timeOutFor);
-  }
+  useEffect(() => {
+    if (currentStep !== STEPPER.PERMIT_PRICES) {
+      permitCtx?.setStep(STEPPER.PERMIT_PRICES);
+    }
+  }, [permitCtx, currentStep]);
 
   const navigateTo = (route: ROUTES) => {
     navigate(route);

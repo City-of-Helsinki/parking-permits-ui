@@ -7,7 +7,7 @@ import {
 } from 'hds-react';
 import { first } from 'lodash';
 import queryString from 'query-string';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Permit from '../../common/permit/Permit';
@@ -24,25 +24,31 @@ const PurchasedOverview = (): React.ReactElement | null => {
   const { logout, isAuthenticated } = useOidcClient();
   const navigate = useNavigate();
   const { t } = useTranslation('translation', { keyPrefix: T_PATH });
+  const authenticated = isAuthenticated();
+  const status = permitCtx?.getStatus();
+  const currentStep = permitCtx?.getStep();
 
-  if (!isAuthenticated()) {
+  useEffect(() => {
+    if (
+      authenticated &&
+      status === 'loaded' &&
+      currentStep !== STEPPER.PURCHASED_VIEW
+    ) {
+      permitCtx?.setStep(STEPPER.PURCHASED_VIEW);
+    }
+  }, [permitCtx, authenticated, status, currentStep]);
+
+  if (!authenticated) {
     return <Navigate to={ROUTES.LANDING} />;
   }
 
-  if (!permitCtx || permitCtx.getStatus() !== 'loaded') {
+  if (!permitCtx || status !== 'loaded') {
     return <LoadingSpinner style={{ marginLeft: '50%' }} small />;
   }
 
   const queryStr = queryString.parse(location.search);
   const selectedAddress = permitCtx.getSelectedAddress();
-  const currentStep = permitCtx.getStep();
   const validPermits = permitCtx.getValidPermits();
-
-  if (currentStep !== STEPPER.PURCHASED_VIEW) {
-    const timeOutFor = 100;
-    setTimeout(() => permitCtx.setStep(STEPPER.PURCHASED_VIEW), timeOutFor);
-    return <></>;
-  }
 
   const getCurrentPurchasedPermits = () =>
     (validPermits || []).filter(
