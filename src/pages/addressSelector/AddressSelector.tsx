@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Button, IconArrowRight, Notification } from 'hds-react';
 import { isEmpty } from 'lodash';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Address from '../../common/address/Address';
@@ -19,20 +19,23 @@ const AddressSelector = (): React.ReactElement | null => {
   const navigate = useNavigate();
   const profileCtx = useContext(UserProfileContext);
   const permitCtx = useContext(PermitStateContext);
+  const currentStep = permitCtx?.getStep();
+
+  useEffect(() => {
+    if (permitCtx && profileCtx && currentStep !== STEPPER.ADDRESS_SELECTOR) {
+      permitCtx.setStep(STEPPER.ADDRESS_SELECTOR);
+    }
+  }, [permitCtx, profileCtx, currentStep]);
+
   if (!permitCtx || !profileCtx) {
     return <></>;
   }
   const { getProfile } = profileCtx;
-  const { getValidPermits, getStep, setStep, getSelectedAddress } = permitCtx;
+  const { getValidPermits, getSelectedAddress } = permitCtx;
 
   const selectedAddress = getSelectedAddress();
   const validPermits = getValidPermits();
   const profile = getProfile();
-
-  if (getStep() !== STEPPER.ADDRESS_SELECTOR) {
-    const timeOutFor = 100;
-    setTimeout(() => setStep(STEPPER.ADDRESS_SELECTOR), timeOutFor);
-  }
 
   if (!profile || isEmpty(profile)) {
     return <Navigate to={ROUTES.BASE} />;
