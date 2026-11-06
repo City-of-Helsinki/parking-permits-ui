@@ -39,7 +39,7 @@ $ pnpm install
 Make a local `.env.template` copy:
 
 ```bash
-$ cp .env.template .env.development.local
+$ cp .env.local.example .env.local
 ```
 
 Run the application in the development mode:
