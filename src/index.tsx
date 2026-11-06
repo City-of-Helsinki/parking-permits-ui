@@ -1,7 +1,6 @@
 import * as Sentry from '@sentry/react';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import App from './App';
 import './assets/styles/main.scss';
 import HDSLoginProvider from './client/LoginProvider';
@@ -11,35 +10,34 @@ import './i18n/i18n';
 import reportWebVitals from './reportWebVitals';
 import { VehicleChangeErrorProvider } from './hooks/vehicleChangeErrorProvider';
 
-if (process.env.REACT_APP_SENTRY_DSN) {
+if (import.meta.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
-    environment: process.env.REACT_APP_SENTRY_ENVIRONMENT,
-    release: process.env.REACT_APP_SENTRY_RELEASE,
+    dsn: import.meta.env.REACT_APP_SENTRY_DSN,
+    environment: import.meta.env.REACT_APP_SENTRY_ENVIRONMENT,
+    release: import.meta.env.REACT_APP_SENTRY_RELEASE,
     integrations: [
       Sentry.browserTracingIntegration(),
       Sentry.replayIntegration(),
     ],
     tracesSampleRate: parseFloat(
-      process.env.REACT_APP_SENTRY_TRACES_SAMPLE_RATE || '0'
+      import.meta.env.REACT_APP_SENTRY_TRACES_SAMPLE_RATE || '0'
     ),
     tracePropagationTargets: (
-      process.env.REACT_APP_SENTRY_TRACE_PROPAGATION_TARGETS || ''
+      import.meta.env.REACT_APP_SENTRY_TRACE_PROPAGATION_TARGETS || ''
     )
       .split(',')
       .map((target: string) => target.trim())
       .filter(Boolean),
     replaysSessionSampleRate: parseFloat(
-      process.env.REACT_APP_SENTRY_REPLAYS_SESSION_SAMPLE_RATE || '0'
+      import.meta.env.REACT_APP_SENTRY_REPLAYS_SESSION_SAMPLE_RATE || '0'
     ),
     replaysOnErrorSampleRate: parseFloat(
-      process.env.REACT_APP_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE || '0'
+      import.meta.env.REACT_APP_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE || '0'
     ),
   });
 }
 
 const container = document.getElementById('root');
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 
 root.render(

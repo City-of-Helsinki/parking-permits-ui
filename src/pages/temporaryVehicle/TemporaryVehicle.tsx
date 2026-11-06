@@ -13,8 +13,7 @@ import {
 } from 'hds-react';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import { addTemporaryVehicleToPermit } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';

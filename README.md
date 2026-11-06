@@ -16,7 +16,7 @@ Related repositories:
 
 Prerequisites
 
-- Yarn 1.22.x or higher
+- pnpm 11.28.5 or higher
 - Node 22+ or higher
 
 The application requires a running parking-permits backend, you can find more details in [this repo](https://github.com/City-of-Helsinki/parking-permits) on how to set up the backend.
@@ -33,22 +33,31 @@ Install the project:
 
 ```bash
 $ cd parking-permits-ui
-$ yarn install
+$ pnpm install
 ```
 
 Make a local `.env.template` copy:
 
 ```bash
-$ cp .env.template .env.development.local
+$ cp .env.local.example .env.local
 ```
 
 Run the application in the development mode:
 
 ```bash
-$ yarn start
+$ pnpm start
 ```
 
 This will start [the application](http://localhost:3000) on port `3000`.
+
+Environment variables must be prefixed with `REACT_APP_` (for example `REACT_APP_OIDC_URL`). Vite exposes only these to the app via `import.meta.env`, and their values are inlined at build time.
+
+Build the production bundle into `build/` and preview it locally:
+
+```bash
+$ pnpm build
+$ pnpm preview
+```
 
 ## Starting dockerized development environment
 
@@ -62,8 +71,10 @@ This will start [the application](http://localhost:3000) on port `3000`.
 
 ## Testing
 
-To run tests:
+Tests run with Vitest and jsdom:
 
 ```
-$ yarn test
+$ pnpm test
+$ pnpm test:coverage
+$ pnpm test:watch
 ```

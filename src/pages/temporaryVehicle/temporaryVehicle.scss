@@ -1,7 +1,9 @@
 @import '../../assets/styles/mixin';
 
-.temporary-vehicle-component{
-  .date-input, .time-input, .message {
+.temporary-vehicle-component {
+  .date-input,
+  .time-input,
+  .message {
     margin-top: var(--spacing-xs);
   }
   .message {

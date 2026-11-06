@@ -80,7 +80,7 @@ function getNamedTokens(tokens: TokenData) {
 }
 
 const namespace = 'graphQLClientModule';
-// eslint-disable-next-line import/prefer-default-export
+
 export function createGraphQLClientModule(): GraphQLClientModule {
   let beacon: Beacon | undefined;
   const uri = getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL');
@@ -101,7 +101,6 @@ export function createGraphQLClientModule(): GraphQLClientModule {
   });
 
   const client = createGraphQLClient(uri, authLink);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   gqlClient = client;
   const listener: SignalListener = signal => {
     if (isApiTokensUpdatedSignal(signal)) {

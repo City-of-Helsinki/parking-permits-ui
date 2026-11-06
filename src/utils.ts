@@ -94,7 +94,7 @@ export const combineDateAndTime = (date: Date, time: string): Date => {
 };
 
 export function getEnv(key: string): string {
-  const variable = process.env[key];
+  const variable = import.meta.env[key];
   if (variable === undefined) {
     throw new Error(`No ${key} specified.`);
   }
@@ -266,7 +266,6 @@ export const diffMonthsCeil = (
     end: normalizeDateValue(endTime),
   });
 
-  // eslint-disable-next-line no-magic-numbers
   const months =
     // eslint-disable-next-line no-magic-numbers
     (intervalDuration.years ?? 0) * 12 + (intervalDuration.months ?? 0);

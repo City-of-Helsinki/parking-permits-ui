@@ -17,7 +17,7 @@ import {
 import { orderBy } from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import Permit from '../../common/permit/Permit';
 import PermitType from '../../common/permitType/PermitType';
@@ -155,7 +155,7 @@ const DurationSelector = (): React.ReactElement => {
       return MAX_MONTH;
     }
     const { endTime, currentPeriodEndTime } = primaryPermit;
-    const endDate = new Date((endTime || currentPeriodEndTime) as string);
+    const endDate = new Date(endTime || currentPeriodEndTime);
     const monthDiff = differenceInMonths(endDate, addDays(new Date(), 1));
     const danglingDays = differenceInDays(
       endDate,

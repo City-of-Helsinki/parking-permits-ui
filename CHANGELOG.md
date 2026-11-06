@@ -7,86 +7,80 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.6.2](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.1...parking-permits-ui-v1.6.2) (2026-09-24)
 
-
 ### Bug Fixes
 
-* Change en & sv translations ([18f750d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/18f750db61aab80011e011b53fc17a8b17eec2a6))
-* Fix linter errors ([6fb64b3](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6fb64b329c9bee74072c167bf42d0af7e8f1835a))
-* Fix rsbuild assetPrefix-handling ([5dca860](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5dca86048e9e70b32d9af955b4826f6c6e5444c9))
-* Remove unused type ([fdbe41b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/fdbe41b44c916868f1590bab8a724a8aaa4d5d5f))
-* Update footer links ([079d38d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/079d38dad63f6ba19a2fef4093c1205081c857e2))
-* Update privacy statement text in clientUI ([7ae150d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ae150db147fafd067d3f2dddf051dd8dff39e2f))
-
+- Change en & sv translations ([18f750d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/18f750db61aab80011e011b53fc17a8b17eec2a6))
+- Fix linter errors ([6fb64b3](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6fb64b329c9bee74072c167bf42d0af7e8f1835a))
+- Fix rsbuild assetPrefix-handling ([5dca860](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5dca86048e9e70b32d9af955b4826f6c6e5444c9))
+- Remove unused type ([fdbe41b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/fdbe41b44c916868f1590bab8a724a8aaa4d5d5f))
+- Update footer links ([079d38d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/079d38dad63f6ba19a2fef4093c1205081c857e2))
+- Update privacy statement text in clientUI ([7ae150d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ae150db147fafd067d3f2dddf051dd8dff39e2f))
 
 ### Dependencies
 
-* Drop typescript to ~5.5.4 ([023c341](https://github.com/City-of-Helsinki/parking-permits-ui/commit/023c341d07a600b0f1537fd537ec76cfbd74447c))
-* Pin browserslist to patched version ([616ed49](https://github.com/City-of-Helsinki/parking-permits-ui/commit/616ed49b51cb4f308d551767276d7c3b6cbd599d))
-* Pin js-yaml to patched version ([e1eeb79](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e1eeb79935a84e7c5e4d3bb38934f08af29c33c4))
-* Pin nanoid to patched version ([edef38c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/edef38ca4cc9cd4eadda40cd3265c6e1482a1f16))
-* Pin patched transitive deps ([5f253bd](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5f253bd30b00c8357838d74bf86db5fe9eb61e4b))
-* Remove dead dependencies ([f6cf960](https://github.com/City-of-Helsinki/parking-permits-ui/commit/f6cf96031ca72c4c0c6d835fa386d8a1fb3cad84))
-* Update @sentry/react to '^8.x' ([c72f3c4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c72f3c41a38d20a189d57f1c065436a05cdae066))
-* Update hds-react and cookie-resolution ([41c1efb](https://github.com/City-of-Helsinki/parking-permits-ui/commit/41c1efb2de1bcfd092f051b95c3fb35869ac6f8f))
-* Update oidc-client-ts CDN version ([190cf49](https://github.com/City-of-Helsinki/parking-permits-ui/commit/190cf49c3d1ab6a9239ece2c6cce901b36979877))
-* Update TypeScript and ESLint ([ef1e379](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ef1e3796e8fff4260f869381c82e034c35c84c83))
+- Drop typescript to ~5.5.4 ([023c341](https://github.com/City-of-Helsinki/parking-permits-ui/commit/023c341d07a600b0f1537fd537ec76cfbd74447c))
+- Pin browserslist to patched version ([616ed49](https://github.com/City-of-Helsinki/parking-permits-ui/commit/616ed49b51cb4f308d551767276d7c3b6cbd599d))
+- Pin js-yaml to patched version ([e1eeb79](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e1eeb79935a84e7c5e4d3bb38934f08af29c33c4))
+- Pin nanoid to patched version ([edef38c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/edef38ca4cc9cd4eadda40cd3265c6e1482a1f16))
+- Pin patched transitive deps ([5f253bd](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5f253bd30b00c8357838d74bf86db5fe9eb61e4b))
+- Remove dead dependencies ([f6cf960](https://github.com/City-of-Helsinki/parking-permits-ui/commit/f6cf96031ca72c4c0c6d835fa386d8a1fb3cad84))
+- Update @sentry/react to '^8.x' ([c72f3c4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c72f3c41a38d20a189d57f1c065436a05cdae066))
+- Update hds-react and cookie-resolution ([41c1efb](https://github.com/City-of-Helsinki/parking-permits-ui/commit/41c1efb2de1bcfd092f051b95c3fb35869ac6f8f))
+- Update oidc-client-ts CDN version ([190cf49](https://github.com/City-of-Helsinki/parking-permits-ui/commit/190cf49c3d1ab6a9239ece2c6cce901b36979877))
+- Update TypeScript and ESLint ([ef1e379](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ef1e3796e8fff4260f869381c82e034c35c84c83))
 
 ## [1.6.1](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.0...parking-permits-ui-v1.6.1) (2026-07-21)
 
-
 ### Bug Fixes
 
-* Improve Apollo error handling ([cc6f764](https://github.com/City-of-Helsinki/parking-permits-ui/commit/cc6f764640a668795c0c0a503af6bd70aab43a3e))
+- Improve Apollo error handling ([cc6f764](https://github.com/City-of-Helsinki/parking-permits-ui/commit/cc6f764640a668795c0c0a503af6bd70aab43a3e))
 
 ## [1.6.0](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.5.0...parking-permits-ui-v1.6.0) (2026-04-01)
 
-
 ### Features
 
-* Make map tile URL configurable via environment variable ([e4c2145](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e4c2145d371b30afb0f1a6a44bdbdef77fd91a70))
+- Make map tile URL configurable via environment variable ([e4c2145](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e4c2145d371b30afb0f1a6a44bdbdef77fd91a70))
 
 ## [1.5.0](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.4.6...parking-permits-ui-v1.5.0) (2025-11-27)
 
-
 ### Features
 
-* Add missing translations ([86d0184](https://github.com/City-of-Helsinki/parking-permits-ui/commit/86d0184adc44a7962d9809d700fb8986b336a889))
-* Add refund instruction-notification ([e82b22b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e82b22bf8f4b94ef3dd02df19d993c10a7e150cb))
-* Adjust 'change address'-button text ([ab0c272](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ab0c272cd30dd2dff3da9a6540b146e2cb3475e7))
-* Adjust 'change address'-notification ([39c172b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/39c172b8ea187418d91cd90c0bbcd86e39eac919))
-* Adjust 'no valid addresses'-message ([836b3d5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/836b3d58ca7ae2b8c671a11db421f7e803e94700))
-* Adjust change address-button ([537210b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/537210b18d1916e8422c11329de80dd56810b712))
-* Adjust selectable addresses ([7064540](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7064540bffe687f466f4b163d809bb98f61d7394))
-* Display error on falsy selectedAddress ([8a36141](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8a361412b9078636f165ef2173db97ab79fe39a8))
-* Implement permitsHaveOutdatedAddresses ([1f3e0e0](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1f3e0e0226e2c328b73bc7b1d964d409ff8da297))
-* Notification for permit without addresses ([01fcb2c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/01fcb2c1da850bdbeb376c83ed2349285c4d2d4c))
-* Notification for unstarted permits ([c64d1a6](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c64d1a67596a109ab61babf2914e5ed86c080a06))
-
+- Add missing translations ([86d0184](https://github.com/City-of-Helsinki/parking-permits-ui/commit/86d0184adc44a7962d9809d700fb8986b336a889))
+- Add refund instruction-notification ([e82b22b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e82b22bf8f4b94ef3dd02df19d993c10a7e150cb))
+- Adjust 'change address'-button text ([ab0c272](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ab0c272cd30dd2dff3da9a6540b146e2cb3475e7))
+- Adjust 'change address'-notification ([39c172b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/39c172b8ea187418d91cd90c0bbcd86e39eac919))
+- Adjust 'no valid addresses'-message ([836b3d5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/836b3d58ca7ae2b8c671a11db421f7e803e94700))
+- Adjust change address-button ([537210b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/537210b18d1916e8422c11329de80dd56810b712))
+- Adjust selectable addresses ([7064540](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7064540bffe687f466f4b163d809bb98f61d7394))
+- Display error on falsy selectedAddress ([8a36141](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8a361412b9078636f165ef2173db97ab79fe39a8))
+- Implement permitsHaveOutdatedAddresses ([1f3e0e0](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1f3e0e0226e2c328b73bc7b1d964d409ff8da297))
+- Notification for permit without addresses ([01fcb2c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/01fcb2c1da850bdbeb376c83ed2349285c4d2d4c))
+- Notification for unstarted permits ([c64d1a6](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c64d1a67596a109ab61babf2914e5ed86c080a06))
 
 ### Bug Fixes
 
-* Add .vscode-folder to .gitignore ([2171527](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2171527e26a68f68d87589fcde7f7dd72e0266b7))
-* Add missing back-button ([2e4a1f2](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2e4a1f2a241f0c689ec2f8b5db5a98d6ae10c96f))
-* Add missing permit load status check ([ec8fea7](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ec8fea7002fdf3358389800a7ef01f194bd8edf6))
-* Add missing swedish translations ([93b2b6d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/93b2b6d361cf9dff4343404f02531c92fee2a75f))
-* Address change with temp vehicle ([38060d5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/38060d5f7d2168c14ba2ad63013935190fd039b8))
-* Address label primarity in ChangeAddress ([d681608](https://github.com/City-of-Helsinki/parking-permits-ui/commit/d6816089b1470d2eaeeabd6bf3d24f01ce03438d))
-* AddressSelector address zones ([d3ce85d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/d3ce85dd592ce827a42d71c01a4d51e07b84ccff))
-* ChangeAddress-component address zones ([8485345](https://github.com/City-of-Helsinki/parking-permits-ui/commit/84853453b3e032d6ca8428692e3e980e8ef4c97b))
-* Disappearing refund-notification ([b27f8ce](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b27f8ce94665f931ed13587c39fd5b8bc963dab2))
-* Display error when sending an order fails ([81d2ded](https://github.com/City-of-Helsinki/parking-permits-ui/commit/81d2ded6bee61eee798da156069174a9645f4595))
-* Do not stop at landing page with valid permit ([398e3ed](https://github.com/City-of-Helsinki/parking-permits-ui/commit/398e3ed4913d32eed2bd54e49ef967620339eea4))
-* Erroneous use of nullish coalescing ([87cecb4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/87cecb4bbf70cbe73f59cd5987f728d52da43d4a))
-* Erroneus notification after changing address ([4c88855](https://github.com/City-of-Helsinki/parking-permits-ui/commit/4c88855d8bf18e8895e85c28c96169bf3bcddee9))
-* Hide permit address type label ([207ac47](https://github.com/City-of-Helsinki/parking-permits-ui/commit/207ac478204343dbcc39b4d34a3bf7ab3f82d884))
-* Landing page 'no valid addresses'-message ([ce16e03](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ce16e0319a9e67d3bd302f578af8fcf3a2955add))
-* Prevent address change without addresses ([b6d6f11](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b6d6f11d2ca55c90be084df2bdd5085535375ba4))
-* Refund-notification text when ending permits ([a850a28](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a850a284773f5ce16d124eedba2a9f01e94f45da))
-* Text changes ([a2977fe](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a2977fe96e3b3797df7b5445acef70335267be4e))
-* Typo in comment ([9ca5a83](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9ca5a83f1e4e99e5db9a42b51c19fe8377cc74f5))
-* Typo in translation text ([56499cf](https://github.com/City-of-Helsinki/parking-permits-ui/commit/56499cff7fabb6e454987a7743ee70bfffb38fbb))
-* Use nullish coalescing over logical or ([e0dc224](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e0dc224f9e6bd82723d20c55f301b43354200e7b))
-* ValidPermits-component address zones ([05fc5fd](https://github.com/City-of-Helsinki/parking-permits-ui/commit/05fc5fd7f8f9cd3578489b347cb5ed6388e77811))
+- Add .vscode-folder to .gitignore ([2171527](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2171527e26a68f68d87589fcde7f7dd72e0266b7))
+- Add missing back-button ([2e4a1f2](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2e4a1f2a241f0c689ec2f8b5db5a98d6ae10c96f))
+- Add missing permit load status check ([ec8fea7](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ec8fea7002fdf3358389800a7ef01f194bd8edf6))
+- Add missing swedish translations ([93b2b6d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/93b2b6d361cf9dff4343404f02531c92fee2a75f))
+- Address change with temp vehicle ([38060d5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/38060d5f7d2168c14ba2ad63013935190fd039b8))
+- Address label primarity in ChangeAddress ([d681608](https://github.com/City-of-Helsinki/parking-permits-ui/commit/d6816089b1470d2eaeeabd6bf3d24f01ce03438d))
+- AddressSelector address zones ([d3ce85d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/d3ce85dd592ce827a42d71c01a4d51e07b84ccff))
+- ChangeAddress-component address zones ([8485345](https://github.com/City-of-Helsinki/parking-permits-ui/commit/84853453b3e032d6ca8428692e3e980e8ef4c97b))
+- Disappearing refund-notification ([b27f8ce](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b27f8ce94665f931ed13587c39fd5b8bc963dab2))
+- Display error when sending an order fails ([81d2ded](https://github.com/City-of-Helsinki/parking-permits-ui/commit/81d2ded6bee61eee798da156069174a9645f4595))
+- Do not stop at landing page with valid permit ([398e3ed](https://github.com/City-of-Helsinki/parking-permits-ui/commit/398e3ed4913d32eed2bd54e49ef967620339eea4))
+- Erroneous use of nullish coalescing ([87cecb4](https://github.com/City-of-Helsinki/parking-permits-ui/commit/87cecb4bbf70cbe73f59cd5987f728d52da43d4a))
+- Erroneus notification after changing address ([4c88855](https://github.com/City-of-Helsinki/parking-permits-ui/commit/4c88855d8bf18e8895e85c28c96169bf3bcddee9))
+- Hide permit address type label ([207ac47](https://github.com/City-of-Helsinki/parking-permits-ui/commit/207ac478204343dbcc39b4d34a3bf7ab3f82d884))
+- Landing page 'no valid addresses'-message ([ce16e03](https://github.com/City-of-Helsinki/parking-permits-ui/commit/ce16e0319a9e67d3bd302f578af8fcf3a2955add))
+- Prevent address change without addresses ([b6d6f11](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b6d6f11d2ca55c90be084df2bdd5085535375ba4))
+- Refund-notification text when ending permits ([a850a28](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a850a284773f5ce16d124eedba2a9f01e94f45da))
+- Text changes ([a2977fe](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a2977fe96e3b3797df7b5445acef70335267be4e))
+- Typo in comment ([9ca5a83](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9ca5a83f1e4e99e5db9a42b51c19fe8377cc74f5))
+- Typo in translation text ([56499cf](https://github.com/City-of-Helsinki/parking-permits-ui/commit/56499cff7fabb6e454987a7743ee70bfffb38fbb))
+- Use nullish coalescing over logical or ([e0dc224](https://github.com/City-of-Helsinki/parking-permits-ui/commit/e0dc224f9e6bd82723d20c55f301b43354200e7b))
+- ValidPermits-component address zones ([05fc5fd](https://github.com/City-of-Helsinki/parking-permits-ui/commit/05fc5fd7f8f9cd3578489b347cb5ed6388e77811))
 
 ## [Unreleased]
 
@@ -94,20 +88,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-* Adjust notification text for addresses outside the Helsinki residential parking permit area ([7ad726c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ad726cdb6aa390651c4fbc5ef921f87a0fec6db))
+- Adjust notification text for addresses outside the Helsinki residential parking permit area ([7ad726c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7ad726cdb6aa390651c4fbc5ef921f87a0fec6db))
 
 ## [1.4.5] - 2025-09-25
 
 ### Fixed
 
-* Display an error instead of allowing duplicate permit ([7780db5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7780db5de303f8e3393aae49d5a13a80024fcbd1))
-* Redirect to front page when changing vehicle if the price does not change ([7736e52](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7736e520315827c7582a5a80062993299c2ec1d0))
-* Display a loading indicator when updating permit vehicle ([1e1c132](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1e1c132047ee855486c9801d98e4a2a9dd7fce38))
-* Re-fetch permits from the backend only after a successful vehicle update ([6f2416b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6f2416b69583fa768ac2515ff01d8d43130ccf0d))
+- Display an error instead of allowing duplicate permit ([7780db5](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7780db5de303f8e3393aae49d5a13a80024fcbd1))
+- Redirect to front page when changing vehicle if the price does not change ([7736e52](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7736e520315827c7582a5a80062993299c2ec1d0))
+- Display a loading indicator when updating permit vehicle ([1e1c132](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1e1c132047ee855486c9801d98e4a2a9dd7fce38))
+- Re-fetch permits from the backend only after a successful vehicle update ([6f2416b](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6f2416b69583fa768ac2515ff01d8d43130ccf0d))
 
 ### Changed
 
-* Prevent progress to next step in the vehicle change UI-flow on error ([c7c14f1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c7c14f1e926373344644333edf69e67c0a738670))
+- Prevent progress to next step in the vehicle change UI-flow on error ([c7c14f1](https://github.com/City-of-Helsinki/parking-permits-ui/commit/c7c14f1e926373344644333edf69e67c0a738670))
 
 ## [1.4.4] - 2025-05-15
 
@@ -209,141 +203,142 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2024-05-22
 
-* Bootstart react app by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/1
-* Docker support by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/2
-* Basic page layout setup with Map by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/3
-* Oidc client implementation by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/4
-* Azure pipeline github commit triggers for ui main branch by @AnttiKoistinen431a in https://github.com/City-of-Helsinki/parking-permits-ui/pull/23
-* Remove updating or orderId by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/73
-* Update vehicle interface by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/74
-* Talpa status change through notification endpoint on the backend by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/72
-* Ending valid parking permit by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/75
-* Sort the permit with primary first by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/76
-* Move talpa order creation to backend by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/77
-* Fix text translations by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/78
-* Multiple price support by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/79
-* Finnish IBAN numbers validation by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/80
-* Feature/prevent under age person by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/81
-* Update components to handle the error by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/82
-* Update scopes and client_id by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/83
-* Merge develop to main by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/84
-* Implement the editing customer address process by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/85
-* Change address extra payment case by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/86
-* Traficom integration frontend by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/88
-* Address change fix by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/92
-* Feat/Traficom check by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/93
-* Upgrade packages by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/94
-* Merge develop to main by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/96
-* Fix invalid imports and properties by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/97
-* Fix failing build by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/98
-* Use current language as Accept-Langage and Content-Language in request headers by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/100
-* Update azure-pipelines-develop.yml by @lorand-ibm in https://github.com/City-of-Helsinki/parking-permits-ui/pull/101
-* Update azure-pipelines-release.yml by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/104
-* Vehicle changed by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/103
-* Vehicle changed with refund and talpa order by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/106
-* Fix order id changes by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/107
-* Feat/vehicle changed by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/108
-* Fix vehicle change price changes by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/109
-* Allow customer saving language and load saved language as the default by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/110
-* User address changed by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/111
-* Use talpa orderId to match the correct related permits with order by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/112
-* Send addressId to resolvers when create/update permits by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/114
-* Fix address change issue by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/115
-* Show proper error on mutation of permit and during the landing page. by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/116
-* Add functionality for showing receipt URL by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/117
-* Update href of static links at footer by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/119
-* Open url to new tab by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/120
-* Temporary vehicle support by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/121
-* Email templating for temporary vehicles by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/122
-* PV-257: Add CookieHub widget (cookie consent) by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/123
-* Revert "PV-257: Add CookieHub widget (cookie consent)" by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/124
-* User hds cookie consent component by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/125
-* Add pull request template by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/126
-* Fix temporary vehicle change issue and handle multiple context with address by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/127
-* Add Sentry-integration by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/128
-* Bug fixing related to different scenario address by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/135
-* Use env template for environment variables by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/136
-* Bump terser from 4.8.0 to 4.8.1 by @dependabot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/118
-* Bump axios from 0.21.1 to 0.21.2 by @dependabot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/137
-* Remove package-lock.json since yarn is used by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/138
-* Bug fixes by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/139
-* [Snyk] Upgrade axios from 0.21.4 to 0.27.2 by @snyk-bot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/140
-* [Snyk] Upgrade eslint-plugin-sonarjs from 0.9.1 to 0.15.0 by @snyk-bot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/141
-* UI update for not letting user pay twice for already paid order by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/143
-* Filter out null and undefined addresses by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/146
-* Add low-emission consent to change vehicle page by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/147
-* Add vehicle low-emission consent to vehicle change view by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/151
-* Fix permit start and end times by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/152
-* PowerType is not required in the webshop side by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/154
-* Sort the order of permits with primary first by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/155
-* Fix the incorrect refund calculations while ending the permit by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/156
-* Remove unnecessary order confirmation dialog by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/157
-* Fix ending open ended permit by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/158
-* Fix/refund for open ended if not started by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/159
-* Update permit end localizations by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/161
-* Price change preview for vehicle change with no price difference by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/162
-* Disable edit buttons if temporary vehicle is active by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/163
-* Fix Refund button label translations by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/164
-* Do not allow address change if permit is open ended or not yet started by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/165
-* Remove unused Navigation bar links by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/166
-* Do not show refund view if open ended permit started by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/167
-* Show payment in progress warning message by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/168
-* Update permit payment in progress messages by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/169
-* Update all prices to have two decimals by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/172
-* Prevent permit vehicle change with future start by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/171
-* Fix: Closing of permit should ask for iban if there is price by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/174
-* Webshop: Better layouts for special login cases by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/175
-* PV-519: Add end time for open-ended permits by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/178
-* Fix: Calculate refund months correctly by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/179
-* Fix: Add a check for invalid permit times to fix huge refund sums by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/180
-* Add apartment support for addresses by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/185
-* Show meaningful error messages by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/186
-* Webshop: Add checkout-link to frontpage by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/187
-* Update vehicle emission related translations by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/188
-* Remove discount calculations from permit forms by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/189
-* Use permit start and end dates in period prices by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/191
-* Use permit start and end dates in vehicle details card by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/192
-* Add times for temp vehicle permit by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/193
-* Duration selector: refactor translation calls by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/194
-* Payment success page: only show receipt link if available by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/195
-* Skip dialog when deleting permit by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/197
-* Use session storage as OIDC-storage by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/199
-* Add Traficom copyright-markings to Webshop vehicle fields by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/198
-* Hide add secondary vehicle button for open ended permit by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/201
-* Pv 678 use permit dates by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/202
-* Pv 689 change vehicle summary fixes by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/203
-* Calculate unit price per vehicle based on product unit price and low by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/204
-* Show positive values in IBAN refund form by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/205
-* Calculate discount price in changing vehicles based on new discount and by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/206
-* Fix routing to show price preview for open ended permits by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/207
-* Add check for editing vehicle or address of permit by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/208
-* Show traficom restrictions by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/210
-* Add canBeRefunded check when issuing refunds on change vehicle or ending by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/211
-* Check refund amount when ending permit or changing vehicle by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/212
-* Updated translations and messaging for Traficom restrictions etc by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/213
-* Add updated Swedish and English translations by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/214
-* Updated low emission link by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/217
-* Remove copyright messages from vehicle error notifications by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/219
-* Add VAT and net price calculations by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/222
-* Add extra state to handle two sets of radio buttons by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/223
-* Only show Traficom copyright notice if the vehicle has been updated from by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/224
-* Pv 779 extend fixed permits by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/226
-* Handles new maxExtensionMonthCount permit setting by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/227
-* Set minimum start/end dates for temp vehicles to current date/time. by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/228
-* Add credit card update link to permit page by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/229
-* Add credit card update link to permit page by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/230
-* Add registration help text by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/231
-* Handle refund calculation taking into account end of period by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/232
-* Change search vehicle button finnish translation by @tonipel in https://github.com/City-of-Helsinki/parking-permits-ui/pull/233
-* Change address has changed -notification texts by @tonipel in https://github.com/City-of-Helsinki/parking-permits-ui/pull/234
-* Add text when purchasing permits by @tonipel in https://github.com/City-of-Helsinki/parking-permits-ui/pull/235
+- Bootstart react app by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/1
+- Docker support by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/2
+- Basic page layout setup with Map by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/3
+- Oidc client implementation by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/4
+- Azure pipeline github commit triggers for ui main branch by @AnttiKoistinen431a in https://github.com/City-of-Helsinki/parking-permits-ui/pull/23
+- Remove updating or orderId by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/73
+- Update vehicle interface by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/74
+- Talpa status change through notification endpoint on the backend by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/72
+- Ending valid parking permit by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/75
+- Sort the permit with primary first by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/76
+- Move talpa order creation to backend by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/77
+- Fix text translations by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/78
+- Multiple price support by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/79
+- Finnish IBAN numbers validation by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/80
+- Feature/prevent under age person by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/81
+- Update components to handle the error by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/82
+- Update scopes and client_id by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/83
+- Merge develop to main by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/84
+- Implement the editing customer address process by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/85
+- Change address extra payment case by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/86
+- Traficom integration frontend by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/88
+- Address change fix by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/92
+- Feat/Traficom check by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/93
+- Upgrade packages by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/94
+- Merge develop to main by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/96
+- Fix invalid imports and properties by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/97
+- Fix failing build by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/98
+- Use current language as Accept-Langage and Content-Language in request headers by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/100
+- Update azure-pipelines-develop.yml by @lorand-ibm in https://github.com/City-of-Helsinki/parking-permits-ui/pull/101
+- Update azure-pipelines-release.yml by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/104
+- Vehicle changed by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/103
+- Vehicle changed with refund and talpa order by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/106
+- Fix order id changes by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/107
+- Feat/vehicle changed by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/108
+- Fix vehicle change price changes by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/109
+- Allow customer saving language and load saved language as the default by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/110
+- User address changed by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/111
+- Use talpa orderId to match the correct related permits with order by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/112
+- Send addressId to resolvers when create/update permits by @mingfeng in https://github.com/City-of-Helsinki/parking-permits-ui/pull/114
+- Fix address change issue by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/115
+- Show proper error on mutation of permit and during the landing page. by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/116
+- Add functionality for showing receipt URL by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/117
+- Update href of static links at footer by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/119
+- Open url to new tab by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/120
+- Temporary vehicle support by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/121
+- Email templating for temporary vehicles by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/122
+- PV-257: Add CookieHub widget (cookie consent) by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/123
+- Revert "PV-257: Add CookieHub widget (cookie consent)" by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/124
+- User hds cookie consent component by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/125
+- Add pull request template by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/126
+- Fix temporary vehicle change issue and handle multiple context with address by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/127
+- Add Sentry-integration by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/128
+- Bug fixing related to different scenario address by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/135
+- Use env template for environment variables by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/136
+- Bump terser from 4.8.0 to 4.8.1 by @dependabot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/118
+- Bump axios from 0.21.1 to 0.21.2 by @dependabot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/137
+- Remove package-lock.json since yarn is used by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/138
+- Bug fixes by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/139
+- [Snyk] Upgrade axios from 0.21.4 to 0.27.2 by @snyk-bot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/140
+- [Snyk] Upgrade eslint-plugin-sonarjs from 0.9.1 to 0.15.0 by @snyk-bot in https://github.com/City-of-Helsinki/parking-permits-ui/pull/141
+- UI update for not letting user pay twice for already paid order by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/143
+- Filter out null and undefined addresses by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/146
+- Add low-emission consent to change vehicle page by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/147
+- Add vehicle low-emission consent to vehicle change view by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/151
+- Fix permit start and end times by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/152
+- PowerType is not required in the webshop side by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/154
+- Sort the order of permits with primary first by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/155
+- Fix the incorrect refund calculations while ending the permit by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/156
+- Remove unnecessary order confirmation dialog by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/157
+- Fix ending open ended permit by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/158
+- Fix/refund for open ended if not started by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/159
+- Update permit end localizations by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/161
+- Price change preview for vehicle change with no price difference by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/162
+- Disable edit buttons if temporary vehicle is active by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/163
+- Fix Refund button label translations by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/164
+- Do not allow address change if permit is open ended or not yet started by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/165
+- Remove unused Navigation bar links by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/166
+- Do not show refund view if open ended permit started by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/167
+- Show payment in progress warning message by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/168
+- Update permit payment in progress messages by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/169
+- Update all prices to have two decimals by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/172
+- Prevent permit vehicle change with future start by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/171
+- Fix: Closing of permit should ask for iban if there is price by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/174
+- Webshop: Better layouts for special login cases by @amanpdyadav in https://github.com/City-of-Helsinki/parking-permits-ui/pull/175
+- PV-519: Add end time for open-ended permits by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/178
+- Fix: Calculate refund months correctly by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/179
+- Fix: Add a check for invalid permit times to fix huge refund sums by @danipran in https://github.com/City-of-Helsinki/parking-permits-ui/pull/180
+- Add apartment support for addresses by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/185
+- Show meaningful error messages by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/186
+- Webshop: Add checkout-link to frontpage by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/187
+- Update vehicle emission related translations by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/188
+- Remove discount calculations from permit forms by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/189
+- Use permit start and end dates in period prices by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/191
+- Use permit start and end dates in vehicle details card by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/192
+- Add times for temp vehicle permit by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/193
+- Duration selector: refactor translation calls by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/194
+- Payment success page: only show receipt link if available by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/195
+- Skip dialog when deleting permit by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/197
+- Use session storage as OIDC-storage by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/199
+- Add Traficom copyright-markings to Webshop vehicle fields by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/198
+- Hide add secondary vehicle button for open ended permit by @mhieta in https://github.com/City-of-Helsinki/parking-permits-ui/pull/201
+- Pv 678 use permit dates by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/202
+- Pv 689 change vehicle summary fixes by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/203
+- Calculate unit price per vehicle based on product unit price and low by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/204
+- Show positive values in IBAN refund form by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/205
+- Calculate discount price in changing vehicles based on new discount and by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/206
+- Fix routing to show price preview for open ended permits by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/207
+- Add check for editing vehicle or address of permit by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/208
+- Show traficom restrictions by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/210
+- Add canBeRefunded check when issuing refunds on change vehicle or ending by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/211
+- Check refund amount when ending permit or changing vehicle by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/212
+- Updated translations and messaging for Traficom restrictions etc by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/213
+- Add updated Swedish and English translations by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/214
+- Updated low emission link by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/217
+- Remove copyright messages from vehicle error notifications by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/219
+- Add VAT and net price calculations by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/222
+- Add extra state to handle two sets of radio buttons by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/223
+- Only show Traficom copyright notice if the vehicle has been updated from by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/224
+- Pv 779 extend fixed permits by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/226
+- Handles new maxExtensionMonthCount permit setting by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/227
+- Set minimum start/end dates for temp vehicles to current date/time. by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/228
+- Add credit card update link to permit page by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/229
+- Add credit card update link to permit page by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/230
+- Add registration help text by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/231
+- Handle refund calculation taking into account end of period by @danjacob-anders in https://github.com/City-of-Helsinki/parking-permits-ui/pull/232
+- Change search vehicle button finnish translation by @tonipel in https://github.com/City-of-Helsinki/parking-permits-ui/pull/233
+- Change address has changed -notification texts by @tonipel in https://github.com/City-of-Helsinki/parking-permits-ui/pull/234
+- Add text when purchasing permits by @tonipel in https://github.com/City-of-Helsinki/parking-permits-ui/pull/235
 
 ## New Contributors
-* @lorand-ibm made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/101
-* @danipran made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/123
-* @dependabot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/118
-* @snyk-bot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/140
-* @danjacob-anders made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/186
-* @Nukasev made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/264
+
+- @lorand-ibm made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/101
+- @danipran made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/123
+- @dependabot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/118
+- @snyk-bot made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/140
+- @danjacob-anders made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/186
+- @Nukasev made their first contribution in https://github.com/City-of-Helsinki/parking-permits-ui/pull/264
 
 **Full Changelog**: https://github.com/City-of-Helsinki/parking-permits-ui/commits/release-1.0.0

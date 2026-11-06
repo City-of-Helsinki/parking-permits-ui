@@ -1,8 +1,7 @@
 import React, { useContext, useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 
 import {

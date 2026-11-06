@@ -1,6 +1,5 @@
 import { PermitPriceChangeItem, PermitPriceChanges } from '../../types';
 
-// eslint-disable-next-line import/prefer-default-export
 export function getPermitPriceTotal(
   priceChanges: PermitPriceChangeItem[],
   priceType: 'newPrice' | 'previousPrice' | 'priceChange' | 'priceChangeVat'
