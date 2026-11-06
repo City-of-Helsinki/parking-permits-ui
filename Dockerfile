@@ -8,7 +8,7 @@ FROM helsinki.azurecr.io/ubi9/nodejs-22-pnpm-builder-base AS appbase
 COPY --chown=default:root package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY --chown=default:root ./public ./public
 COPY --chown=default:root ./scripts ./scripts
-COPY --chown=default:root LICENSE index.html vite.config.mts tsconfig.json .eslintrc .eslintignore .prettierrc .env* ./
+COPY --chown=default:root LICENSE index.html vite.config.mts tsconfig.json .eslintrc .eslintignore .prettierrc ./
 COPY --chown=default:root ./src ./src
 
 # 2. Run the install and update-runtime-env script
@@ -48,12 +48,7 @@ COPY --from=staticbuilder /app/build /usr/share/nginx/html
 # 2. Setup Runtime Env Injection
 # env.sh is provided by the base image
 WORKDIR /usr/share/nginx/html
-COPY .env .
-
-# 2. Setup Runtime Env Injection
-# env.sh is provided by the base image
-WORKDIR /usr/share/nginx/html
-COPY .env .
+#COPY .env .
 
 # 3. Inject Versioning for the /readiness endpoint from package.json using base image
 COPY package.json .
