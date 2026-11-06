@@ -9,5 +9,5 @@ docker-compose*
 README.md
 .vscode
 build
-.env.template
+.env.local.example
 .env.test
