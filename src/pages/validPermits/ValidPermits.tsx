@@ -4,7 +4,7 @@ import { Button, IconPlusCircle, IconTrash, Notification } from 'hds-react';
 import { first } from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { createSearchParams, Navigate, useNavigate } from 'react-router-dom';
+import { createSearchParams, Navigate, useNavigate } from 'react-router';
 import EndPermitDialog from '../../common/endPermitDialog/EndPermitDialog';
 import Permit from '../../common/permit/Permit';
 import PurchaseNotification from '../../common/purchaseNotification/PurchaseNotification';

@@ -3,7 +3,7 @@ import { Button, IconArrowRight, Notification } from 'hds-react';
 import { isEmpty } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router';
 import Address from '../../common/address/Address';
 import Hero from '../../common/hero/Hero';
 import { PermitStateContext } from '../../hooks/permitProvider';

@@ -1,6 +1,6 @@
 import { Container } from 'hds-react';
 import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router';
 import { ROUTES } from '../../types';
 import Footer from '../footer/Footer';
 import Navbar from '../navbar/Navbar';

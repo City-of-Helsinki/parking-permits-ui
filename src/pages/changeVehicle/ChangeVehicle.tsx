@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import PriceChangePreview from '../../common/editPermits/PriceChangePreview';
 import Refund from '../../common/editPermits/Refund';
 import { getChangeTotal } from '../../common/editPermits/utils';

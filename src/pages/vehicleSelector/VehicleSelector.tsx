@@ -1,7 +1,7 @@
 import { Notification } from 'hds-react';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { ROUTES } from '../../types';
 import './vehicleSelector.scss';

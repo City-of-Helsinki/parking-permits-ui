@@ -11,7 +11,7 @@ import {
 import { sortBy } from 'lodash';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import LowEmissionConsent from '../../common/lowEmissionConsent/LowEmissionConsent';
 import RegistrationNumber from '../../common/registrationNumber/RegistrationNumber';
