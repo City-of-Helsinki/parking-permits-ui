@@ -5,25 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  brace-expansion@1.1.11: '>=1.1.21'
-  brace-expansion@2.1.4: '>=2.1.7 <3'
-  brace-expansion@5.0.9: '>=5.0.12'
-  flatted@3.2.7: '>=3.4.2'
-  lodash@4.17.21: '>=4.17.23'
-  source-map-js@1.2.1: '>=1.2.2'
-  picomatch@2.3.1: '>=2.3.2'
-  yaml@2.4.5: '>=2.8.3'
-  micromatch@4.0.7: '>=4.0.8'
-  ajv@5.12.6: '>=6.14.0'
-  decode-uri-component@0.2.2: '>=0.5.1'
   minimatch@>=9 <11: '>=11.0.1'
-  '@types/react': ^18.3.1
-  '@types/react-dom': ^18.3.0
   cookie@<0.7.0: ^0.7.2
-  postcss@<8.5.23: ^8.5.23
-  immutable@<5.1.8: ^5.1.8
-  js-yaml@>=4 <4.3.2: ^4.3.2
-  nanoid@>=3 <3.3.18: 3.3.18
   uuid@9.0.1: '>=11.1.1'
 
 patchedDependencies:
@@ -35,7 +18,7 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.11.2
-        version: 3.11.2(@types/react@18.3.3)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 3.11.2(@types/react@18.3.31)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sentry/react':
         specifier: ^11.10.0
         version: 11.10.0(react-router@7.18.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -44,7 +27,7 @@ importers:
         version: 6.4.8
       '@testing-library/react':
         specifier: ^16.0.0
-        version: 16.0.0(@testing-library/dom@10.4.2)(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 16.0.0(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/geojson':
         specifier: ^7946.0.14
         version: 7946.0.14
@@ -62,10 +45,10 @@ importers:
         version: 6.3.0
       '@types/react':
         specifier: ^18.3.1
-        version: 18.3.3
+        version: 18.3.31
       '@types/react-dom':
         specifier: ^18.3.0
-        version: 18.3.0
+        version: 18.3.7(@types/react@18.3.31)
       '@types/uuid':
         specifier: ^9.0.8
         version: 9.0.8
@@ -83,7 +66,7 @@ importers:
         version: 16.9.0
       hds-react:
         specifier: 3.12.1
-        version: 3.12.1(@types/react@18.3.3)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3)
+        version: 3.12.1(@types/react@18.3.31)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3)
       i18next:
         specifier: ^23.12.2
         version: 23.12.2
@@ -841,8 +824,8 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@testing-library/dom': ^10.0.0
-      '@types/react': ^18.3.1
-      '@types/react-dom': ^18.3.0
+      '@types/react': ^18.0.0
+      '@types/react-dom': ^18.0.0
       react: ^18.0.0
       react-dom: ^18.0.0
     peerDependenciesMeta:
@@ -903,11 +886,13 @@ packages:
     resolution: {integrity: sha512-yuIv/WRffRzL7cBW+sla4HwBZrEXRNf1MKQ5SklPEadth+BKbDxiVG8A3iISN5B3yC4EeSCzMZP8llHTcUhOzQ==}
     deprecated: This is a stub types definition. query-string provides its own type definitions, so you do not need this installed.
 
-  '@types/react-dom@18.3.0':
-    resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+  '@types/react-dom@18.3.7':
+    resolution: {integrity: sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==}
+    peerDependencies:
+      '@types/react': ^18.0.0
 
-  '@types/react@18.3.3':
-    resolution: {integrity: sha512-hti/R0pS0q1/xx+TsI73XIqk26eBsISZ2R0wUijXIngRK9R/e7Xw/cXVxQK7R5JjW+SV4zGcn5hXjudkN/pLIw==}
+  '@types/react@18.3.31':
+    resolution: {integrity: sha512-vfEqpXTvwT91yhmwdfouStN2hSKwTvyRs8qpLfADyrq/kxDw0hZM7Wk9Ug1FELj8hIby+S/+kQCSRFF32nv2Qw==}
 
   '@types/uuid@9.0.8':
     resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
@@ -1458,8 +1443,8 @@ packages:
   css.escape@1.5.1:
     resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
 
-  csstype@3.1.1:
-    resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
   damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
@@ -1931,7 +1916,7 @@ packages:
     resolution: {integrity: sha512-e7jdW7fWdg4f1V5N1wbSeZ70jUzuVY+XP5aTfC9SylMc3pSGkP/gwXsrujtcjX5/Y61VmJB5ySt8jiZOtNrPjQ==}
     deprecated: Versions prior to v4 are deprecated, please update.
     peerDependencies:
-      postcss: ^8.5.23
+      postcss: ^8.4.21
       react: ^16.8.0 || ^17
       react-dom: ^16.8.0 || ^17
 
@@ -2481,6 +2466,10 @@ packages:
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
+  picomatch@2.3.2:
+    resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
+    engines: {node: '>=8.6'}
+
   picomatch@4.0.7:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
@@ -2632,7 +2621,7 @@ packages:
   rehackt@0.1.0:
     resolution: {integrity: sha512-7kRDOuLHB87D/JESKxQoRwv4DzbIdwkAGQ7p6QKGdVlY1IZheUnVhlk/4UZlNUVxdAXpyxikE3URsG067ybVzw==}
     peerDependencies:
-      '@types/react': ^18.3.1
+      '@types/react': '*'
       react: '*'
     peerDependenciesMeta:
       '@types/react':
@@ -3131,7 +3120,7 @@ packages:
       sugarss: ^5.0.0
       terser: ^5.16.0
       tsx: ^4.8.1
-      yaml: '>=2.8.3'
+      yaml: ^2.4.2
     peerDependenciesMeta:
       '@types/node':
         optional: true
@@ -3303,7 +3292,7 @@ snapshots:
 
   '@adobe/css-tools@4.4.0': {}
 
-  '@apollo/client@3.11.2(@types/react@18.3.3)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@apollo/client@3.11.2(@types/react@18.3.31)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@graphql-typed-document-node/core': 3.1.1(graphql@16.9.0)
       '@wry/caches': 1.0.1
@@ -3314,7 +3303,7 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       optimism: 0.18.0
       prop-types: 15.8.1
-      rehackt: 0.1.0(@types/react@18.3.3)(react@18.3.1)
+      rehackt: 0.1.0(@types/react@18.3.31)(react@18.3.1)
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -3913,15 +3902,15 @@ snapshots:
       lodash: 4.18.1
       redent: 3.0.0
 
-  '@testing-library/react@16.0.0(@testing-library/dom@10.4.2)(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@testing-library/react@16.0.0(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@testing-library/dom': 10.4.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
     optionalDependencies:
-      '@types/react': 18.3.3
-      '@types/react-dom': 18.3.0
+      '@types/react': 18.3.31
+      '@types/react-dom': 18.3.7(@types/react@18.3.31)
 
   '@testing-library/user-event@14.5.2(@testing-library/dom@10.4.2)':
     dependencies:
@@ -3972,14 +3961,14 @@ snapshots:
     dependencies:
       query-string: 9.5.1
 
-  '@types/react-dom@18.3.0':
+  '@types/react-dom@18.3.7(@types/react@18.3.31)':
     dependencies:
-      '@types/react': 18.3.3
+      '@types/react': 18.3.31
 
-  '@types/react@18.3.3':
+  '@types/react@18.3.31':
     dependencies:
       '@types/prop-types': 15.7.5
-      csstype: 3.1.1
+      csstype: 3.2.3
 
   '@types/uuid@9.0.8': {}
 
@@ -4507,7 +4496,7 @@ snapshots:
 
   css.escape@1.5.1: {}
 
-  csstype@3.1.1: {}
+  csstype@3.2.3: {}
 
   damerau-levenshtein@1.0.8: {}
 
@@ -5084,9 +5073,9 @@ snapshots:
 
   hds-core@3.12.1: {}
 
-  hds-react@3.12.1(@types/react@18.3.3)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3):
+  hds-react@3.12.1(@types/react@18.3.31)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@8.1.1)(typescript@5.9.3):
     dependencies:
-      '@apollo/client': 3.11.2(@types/react@18.3.3)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@apollo/client': 3.11.2(@types/react@18.3.31)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@babel/runtime': 7.29.7
       '@emotion/styled-base': 11.0.0
       '@hookform/resolvers': 2.9.11(react-hook-form@7.51.5(react@18.3.1))
@@ -5516,7 +5505,7 @@ snapshots:
   micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
-      picomatch: 4.0.7
+      picomatch: 2.3.2
 
   mimic-fn@4.0.0: {}
 
@@ -5663,6 +5652,8 @@ snapshots:
 
   picocolors@1.1.1: {}
 
+  picomatch@2.3.2: {}
+
   picomatch@4.0.7: {}
 
   pidtree@0.6.0: {}
@@ -5801,9 +5792,9 @@ snapshots:
       gopd: 1.2.0
       set-function-name: 2.0.2
 
-  rehackt@0.1.0(@types/react@18.3.3)(react@18.3.1):
+  rehackt@0.1.0(@types/react@18.3.31)(react@18.3.1):
     optionalDependencies:
-      '@types/react': 18.3.3
+      '@types/react': 18.3.31
       react: 18.3.1
 
   require-from-string@2.0.2: {}
