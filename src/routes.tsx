@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import MainLayout from './common/mainLayout/MainLayout';
 import AddressSelector from './pages/addressSelector/AddressSelector';
 import ChangeAddress from './pages/changeAddress/ChangeAddress';

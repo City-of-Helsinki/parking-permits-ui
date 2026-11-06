@@ -9,7 +9,7 @@ import { first } from 'lodash';
 import queryString from 'query-string';
 import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router';
 import Permit from '../../common/permit/Permit';
 import PurchaseNotification from '../../common/purchaseNotification/PurchaseNotification';
 import { PermitStateContext } from '../../hooks/permitProvider';

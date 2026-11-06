@@ -10,7 +10,7 @@ import {
 import { orderBy } from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import { removeTemporaryVehicleFromPermit } from '../../graphql/permitGqlClient';
 import {
