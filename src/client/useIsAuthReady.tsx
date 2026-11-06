@@ -4,7 +4,6 @@ import {
   useOidcClient,
 } from 'hds-react';
 
-// eslint-disable-next-line import/prefer-default-export
 export function useIsAuthorizationReady(): [boolean, boolean] {
   const { isAuthenticated, isRenewing: isRenewingSession } = useOidcClient();
   const { getTokens, isRenewing: isRenewingApiToken } = useApiTokensClient();

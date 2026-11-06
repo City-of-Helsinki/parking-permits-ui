@@ -19,13 +19,13 @@ interface Props {
 export const VehicleChangeErrorProvider: FC<Props> = ({ children }) => {
   const [error, setError] = useState('');
 
-  const errorState = useMemo(
+  const errorState = useMemo<ErrorStateDict>(
     () => ({
       error,
       setError,
     }),
     [error, setError]
-  ) as ErrorStateDict;
+  );
 
   return (
     <VehicleChangeErrorContext.Provider value={errorState}>

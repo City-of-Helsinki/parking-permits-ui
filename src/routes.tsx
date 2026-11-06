@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 import MainLayout from './common/mainLayout/MainLayout';
 import AddressSelector from './pages/addressSelector/AddressSelector';
