@@ -1,60 +1,67 @@
-jest.mock('@sentry/react', () => ({
-  init: jest.fn(),
-  browserTracingIntegration: jest.fn(() => ({ name: 'BrowserTracing' })),
-  replayIntegration: jest.fn(() => ({ name: 'Replay' })),
+import * as Sentry from '@sentry/react';
+
+vi.mock('@sentry/react', () => ({
+  init: vi.fn(),
+  browserTracingIntegration: vi.fn(() => ({ name: 'BrowserTracing' })),
+  replayIntegration: vi.fn(() => ({ name: 'Replay' })),
 }));
-jest.mock('react-dom/client', () => ({
-  createRoot: jest.fn(() => ({ render: jest.fn() })),
+vi.mock('react-dom/client', () => ({
+  createRoot: vi.fn(() => ({ render: vi.fn() })),
 }));
-jest.mock('./App', () => () => null);
-jest.mock('./client/LoginProvider', () => () => null);
-jest.mock('./hooks/permitProvider', () => ({ PermitProvider: () => null }));
-jest.mock('./hooks/userProfileProvider', () => ({
+vi.mock('./App', () => ({ default: () => null }));
+vi.mock('./client/LoginProvider', () => ({ default: () => null }));
+vi.mock('./hooks/permitProvider', () => ({ PermitProvider: () => null }));
+vi.mock('./hooks/userProfileProvider', () => ({
   UserProfileProvider: () => null,
 }));
-jest.mock('./hooks/vehicleChangeErrorProvider', () => ({
+vi.mock('./hooks/vehicleChangeErrorProvider', () => ({
   VehicleChangeErrorProvider: () => null,
 }));
-jest.mock('./i18n/i18n', () => ({}));
-jest.mock('./reportWebVitals', () => jest.fn());
+vi.mock('./i18n/i18n', () => ({}));
+vi.mock('./reportWebVitals', () => ({ default: vi.fn() }));
 
-const originalEnv = process.env;
 const sentryDsn = 'https://public@example.com/1';
+const sentryEnvKeys = [
+  'DSN',
+  'ENVIRONMENT',
+  'RELEASE',
+  'TRACES_SAMPLE_RATE',
+  'TRACE_PROPAGATION_TARGETS',
+  'REPLAYS_SESSION_SAMPLE_RATE',
+  'REPLAYS_ON_ERROR_SAMPLE_RATE',
+];
 
-function loadSentryOptions() {
-  let options: Record<string, unknown> | undefined;
-  jest.isolateModules(() => {
-    jest.requireActual('./index');
-    const sentry = jest.requireMock<{ init: jest.Mock }>('@sentry/react');
-    [options] = sentry.init.mock.calls[0] || [];
-  });
+function setEnv(key: string, value: string) {
+  vi.stubEnv(`REACT_APP_SENTRY_${key}`, value);
+}
+
+async function loadSentryOptions() {
+  await import('./index');
+  const [options] = vi.mocked(Sentry.init).mock.calls[0] || [];
   return options;
 }
 
 beforeEach(() => {
-  process.env = { ...originalEnv };
-  Object.keys(process.env)
-    .filter(key => key.startsWith('REACT_APP_SENTRY_'))
-    .forEach(key => {
-      delete process.env[key];
-    });
+  vi.resetModules();
+  vi.clearAllMocks();
+  sentryEnvKeys.forEach(key => setEnv(key, ''));
 });
 
 afterEach(() => {
-  process.env = originalEnv;
+  vi.unstubAllEnvs();
 });
 
-it('does not initialize Sentry without a DSN', () => {
-  expect(loadSentryOptions()).toBeUndefined();
+it('does not initialize Sentry without a DSN', async () => {
+  expect(await loadSentryOptions()).toBeUndefined();
 });
 
 it.each(['review', 'development', 'testing', 'staging', 'production'])(
   'initializes Sentry in %s with tracing and replays disabled by default',
-  environment => {
-    process.env.REACT_APP_SENTRY_DSN = sentryDsn;
-    process.env.REACT_APP_SENTRY_ENVIRONMENT = environment;
+  async environment => {
+    setEnv('DSN', sentryDsn);
+    setEnv('ENVIRONMENT', environment);
 
-    expect(loadSentryOptions()).toMatchObject({
+    expect(await loadSentryOptions()).toMatchObject({
       dsn: sentryDsn,
       environment,
       integrations: [{ name: 'BrowserTracing' }, { name: 'Replay' }],
@@ -66,16 +73,18 @@ it.each(['review', 'development', 'testing', 'staging', 'production'])(
   }
 );
 
-it('reads the release, sample rates and propagation targets from the environment', () => {
-  process.env.REACT_APP_SENTRY_DSN = sentryDsn;
-  process.env.REACT_APP_SENTRY_RELEASE = 'parking-permits-ui@1.6.2';
-  process.env.REACT_APP_SENTRY_TRACES_SAMPLE_RATE = '0.1';
-  process.env.REACT_APP_SENTRY_REPLAYS_SESSION_SAMPLE_RATE = '0.2';
-  process.env.REACT_APP_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE = '0.5';
-  process.env.REACT_APP_SENTRY_TRACE_PROPAGATION_TARGETS =
-    'https://backend.example.com, https://other.example.com, ';
+it('reads the release, sample rates and propagation targets from the environment', async () => {
+  setEnv('DSN', sentryDsn);
+  setEnv('RELEASE', 'parking-permits-ui@1.6.2');
+  setEnv('TRACES_SAMPLE_RATE', '0.1');
+  setEnv('REPLAYS_SESSION_SAMPLE_RATE', '0.2');
+  setEnv('REPLAYS_ON_ERROR_SAMPLE_RATE', '0.5');
+  setEnv(
+    'TRACE_PROPAGATION_TARGETS',
+    'https://backend.example.com, https://other.example.com, '
+  );
 
-  expect(loadSentryOptions()).toMatchObject({
+  expect(await loadSentryOptions()).toMatchObject({
     release: 'parking-permits-ui@1.6.2',
     tracesSampleRate: 0.1,
     tracePropagationTargets: [
@@ -87,14 +96,10 @@ it('reads the release, sample rates and propagation targets from the environment
   });
 });
 
-it('uses disabled defaults for empty sample rates and propagation targets', () => {
-  process.env.REACT_APP_SENTRY_DSN = sentryDsn;
-  process.env.REACT_APP_SENTRY_TRACES_SAMPLE_RATE = '';
-  process.env.REACT_APP_SENTRY_REPLAYS_SESSION_SAMPLE_RATE = '';
-  process.env.REACT_APP_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE = '';
-  process.env.REACT_APP_SENTRY_TRACE_PROPAGATION_TARGETS = '';
+it('uses disabled defaults for empty sample rates and propagation targets', async () => {
+  setEnv('DSN', sentryDsn);
 
-  expect(loadSentryOptions()).toMatchObject({
+  expect(await loadSentryOptions()).toMatchObject({
     tracesSampleRate: 0,
     tracePropagationTargets: [],
     replaysSessionSampleRate: 0,
