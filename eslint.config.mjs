@@ -1,5 +1,4 @@
 import js from '@eslint/js';
-import prettier from 'eslint-config-prettier';
 import importX from 'eslint-plugin-import-x';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import react from 'eslint-plugin-react';
@@ -9,17 +8,17 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['build', 'coverage', 'src/serviceWorker.ts'],
+    ignores: [ 'build', 'coverage', 'src/serviceWorker.ts' ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
+  react.configs.flat[ 'jsx-runtime' ],
   jsxA11y.flatConfigs.recommended,
   importX.flatConfigs.recommended,
   importX.flatConfigs.typescript,
   {
-    files: ['**/*.{js,ts,tsx}'],
+    files: [ '**/*.{js,ts,tsx}' ],
     plugins: { 'react-hooks': reactHooks },
     languageOptions: {
       parserOptions: {
@@ -56,21 +55,20 @@ export default tseslint.config(
         'error',
         {
           ignoreArrayIndexes: true,
-          ignore: [1000, -1, 0, 1, 2, 3, 4, 5],
+          ignore: [ 1000, -1, 0, 1, 2, 3, 4, 5 ],
         },
       ],
-      'arrow-body-style': ['error', 'as-needed'],
-      'line-comment-position': ['error', { position: 'above' }],
-      'no-restricted-imports': ['error', { patterns: [' * as'] }],
-      'arrow-parens': ['error', 'as-needed'],
+      'arrow-body-style': [ 'error', 'as-needed' ],
+      'line-comment-position': [ 'error', { position: 'above' } ],
+      'no-restricted-imports': [ 'error', { patterns: [ ' * as' ] } ],
+      'arrow-parens': [ 'error', 'as-needed' ],
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
       'import-x/no-named-as-default': 'off',
       'import-x/no-named-as-default-member': 'off',
-      'no-underscore-dangle': ['error', { allow: ['__typename'] }],
+      'no-underscore-dangle': [ 'error', { allow: [ '__typename' ] } ],
       'no-case-declarations': 'off',
     },
-  },
-  prettier
+  }
 );
