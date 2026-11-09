@@ -43,5 +43,6 @@ export default defineConfig(({ mode }) => ({
     // config (which copy/serve /app/build) do not need changes.
     outDir: 'build',
     emptyOutDir: true,
+    sourcemap: true,
   },
 }));
