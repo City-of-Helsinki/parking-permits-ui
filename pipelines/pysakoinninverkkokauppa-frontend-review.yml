@@ -37,7 +37,6 @@ resources:
       type: git
       # Azure DevOps project/repository
       name: pysakoinnin-verkkokauppa/pysakoinnin-verkkokauppa-pipelines
-      ref: refs/heads/feat/PV-999-vite
 
 extends:
   # Filename in Azure DevOps Repository
