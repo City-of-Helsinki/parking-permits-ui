@@ -1,4 +1,5 @@
 import { LoginProviderProps } from 'hds-react';
+import { getEnvValue } from '../utils';
 
 let HDSconfig: LoginProviderProps;
 
@@ -24,5 +25,5 @@ export function getLocationBasedUri(
 }
 
 export function isCallbackUrl(url: string): boolean {
-  return url === import.meta.env.REACT_APP_OIDC_CALLBACK_PATH;
+  return url === getEnvValue('REACT_APP_OIDC_CALLBACK_PATH');
 }

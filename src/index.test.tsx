@@ -1,5 +1,11 @@
 import * as Sentry from '@sentry/react';
 
+const mockEnv = vi.hoisted<Record<string, string>>(() => ({}));
+
+vi.mock('./utils', () => ({
+  getEnvValue: (key: string) => mockEnv[key],
+}));
+
 vi.mock('@sentry/react', () => ({
   init: vi.fn(),
   browserTracingIntegration: vi.fn(() => ({ name: 'BrowserTracing' })),
@@ -32,7 +38,7 @@ const sentryEnvKeys = [
 ];
 
 function setEnv(key: string, value: string) {
-  vi.stubEnv(`REACT_APP_SENTRY_${key}`, value);
+  mockEnv[`REACT_APP_SENTRY_${key}`] = value;
 }
 
 async function loadSentryOptions() {
@@ -45,10 +51,6 @@ beforeEach(() => {
   vi.resetModules();
   vi.clearAllMocks();
   sentryEnvKeys.forEach(key => setEnv(key, ''));
-});
-
-afterEach(() => {
-  vi.unstubAllEnvs();
 });
 
 it('does not initialize Sentry without a DSN', async () => {
