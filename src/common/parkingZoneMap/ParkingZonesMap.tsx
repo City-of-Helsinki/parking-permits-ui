@@ -6,8 +6,8 @@ import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { v4 as uuidv4 } from 'uuid';
 import marker from '../../assets/images/icon_poi_talo-sininen.svg';
 import { UserAddress, Zone } from '../../types';
-import { getEnv } from '../../utils';
 import './parkingZonesMap.css';
+import { getEnvValue } from '../../utils';
 
 const icon = new L.Icon({
   iconUrl: marker,
@@ -51,7 +51,7 @@ const ParkingZonesMap = ({
   const center = userAddress.location as LatLngExpression;
   const attribution = 'map.attribution.helsinki';
   const getURL = (lang: string) => {
-    const template = getEnv('REACT_APP_MAP_URL_TEMPLATE');
+    const template = getEnvValue('REACT_APP_MAP_URL_TEMPLATE') || '';
     const language = ['fi', 'sv'].includes(lang) ? lang : 'fi';
     return template.replace('{language}', language);
   };

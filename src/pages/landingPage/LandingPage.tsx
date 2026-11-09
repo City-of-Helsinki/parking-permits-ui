@@ -11,8 +11,8 @@ import { Navigate } from 'react-router';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { ROUTES } from '../../types';
-import { getEnv } from '../../utils';
 import './landingPage.scss';
+import { getEnvValue } from '../../utils';
 
 const T_PATH = 'pages.landingPage.LandingPage';
 
@@ -25,7 +25,7 @@ const LandingPage = (): React.ReactElement => {
   const validPermits = permitCtx?.getValidPermits();
   const authenticated = isAuthenticated();
   const profile = profileCtx?.getProfile();
-  const allowedAgeLimit = getEnv('REACT_APP_ALLOWED_AGE_LIMIT');
+  const allowedAgeLimit = getEnvValue('REACT_APP_ALLOWED_AGE_LIMIT') || 0;
 
   if (profileCtx?.getStatus() === 'error') {
     return (

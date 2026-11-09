@@ -21,7 +21,6 @@ import {
   UpdatePermitVehicleQueryResult,
   UserAddress,
 } from '../types';
-import { getEnv } from '../utils';
 import addTemporaryVehicleDocument from './addTemporaryVehicle';
 import changeAddressDocument from './changeAddress';
 import createOrderDocument from './createOrder';
@@ -37,9 +36,10 @@ import permitsDocument from './permits';
 import removeTemporaryVehicleDocument from './removeTemporaryVehicle';
 import updatePermitDocument from './updatePermit';
 import updatePermitVehicleDocument from './updatePermitVehicle';
+import { getEnvValue } from '../utils';
 
 class PermitGqlClient {
-  uri = getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL');
+  uri = getEnvValue('REACT_APP_PARKING_PERMITS_BACKEND_URL');
 
   client: GraphQLClient;
 

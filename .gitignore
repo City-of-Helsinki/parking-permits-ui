@@ -12,6 +12,8 @@ jest-report.xml
 
 # production
 /build
+public/env-config.js
+public/test-env-config.js
 
 # IntelliJ IDEA
 /.idea

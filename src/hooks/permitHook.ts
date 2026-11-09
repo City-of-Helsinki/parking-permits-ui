@@ -19,7 +19,7 @@ import {
   UserAddress,
   Zone,
 } from '../types';
-import { getEnv, formatErrors, dateAsNumber } from '../utils';
+import { formatErrors, dateAsNumber, getEnvValue } from '../utils';
 import { UserProfileContext } from './userProfileProvider';
 
 const usePermitState = (): PermitActions => {
@@ -119,7 +119,7 @@ const usePermitState = (): PermitActions => {
   );
 
   useEffect(() => {
-    const allowedAgeLimit = getEnv('REACT_APP_ALLOWED_AGE_LIMIT');
+    const allowedAgeLimit = getEnvValue('REACT_APP_ALLOWED_AGE_LIMIT') || 0;
     if (status === 'waiting' && profile && profile.age >= +allowedAgeLimit) {
       fetchPermits();
     }
