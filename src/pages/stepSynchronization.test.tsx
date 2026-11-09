@@ -1,6 +1,6 @@
 import { act, render, screen } from '@testing-library/react';
 import React, { Profiler } from 'react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router';
 import { FetchStatus } from '../client/types';
 import { PermitStateContext } from '../hooks/permitProvider';
 import { UserProfileContext } from '../hooks/userProfileProvider';
@@ -22,23 +22,23 @@ import PurchasedOverview from './purchasedOverview/PurchasedOverview';
 
 let mockAuthenticated = true;
 
-jest.mock('hds-react', () => ({
-  ...jest.requireActual('hds-react'),
+vi.mock('hds-react', async importOriginal => ({
+  ...(await importOriginal<typeof import('hds-react')>()),
   useOidcClient: () => ({
     isAuthenticated: () => mockAuthenticated,
-    logout: jest.fn(),
+    logout: vi.fn(),
   }),
 }));
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
+vi.mock('react-i18next', async importOriginal => ({
+  ...(await importOriginal<typeof import('react-i18next')>()),
   useTranslation: () => ({
     t: (key: string) => key,
     i18n: { language: 'fi' },
   }),
 }));
 
-jest.mock('../common/permitType/PermitType', () => () => null);
+vi.mock('../common/permitType/PermitType', () => ({ default: () => null }));
 
 const address: UserAddress = {
   id: 'address-1',
@@ -111,13 +111,13 @@ const draftPermit: Permit = {
 };
 
 const createPermitContext = () => ({
-  getStep: jest.fn<number, []>(() => STEPPER.VALID_PERMITS),
-  setStep: jest.fn(),
-  getSelectedAddress: jest.fn<UserAddress | undefined, []>(() => address),
-  getPermits: jest.fn(() => [] as Permit[]),
-  getDraftPermits: jest.fn(() => [] as Permit[]),
-  getValidPermits: jest.fn(() => [] as Permit[]),
-  getStatus: jest.fn<FetchStatus, []>(() => 'loaded'),
+  getStep: vi.fn<() => number>(() => STEPPER.VALID_PERMITS),
+  setStep: vi.fn(),
+  getSelectedAddress: vi.fn<() => UserAddress | undefined>(() => address),
+  getPermits: vi.fn(() => [] as Permit[]),
+  getDraftPermits: vi.fn(() => [] as Permit[]),
+  getValidPermits: vi.fn(() => [] as Permit[]),
+  getStatus: vi.fn<() => FetchStatus>(() => 'loaded'),
 });
 
 const createProfileContext = () =>
@@ -155,13 +155,13 @@ const pageTree = (
 );
 
 beforeEach(() => {
-  jest.useFakeTimers();
+  vi.useFakeTimers();
   mockAuthenticated = true;
 });
 
 afterEach(() => {
-  jest.clearAllTimers();
-  jest.useRealTimers();
+  vi.clearAllTimers();
+  vi.useRealTimers();
 });
 
 describe.each([
@@ -180,7 +180,7 @@ describe.each([
 
   it('updates immediately after commit, not during render or after a delay', () => {
     const context = setupContext();
-    const onCommit = jest.fn();
+    const onCommit = vi.fn();
     context.setStep.mockImplementation(() => {
       expect(onCommit).toHaveBeenCalled();
     });
@@ -228,7 +228,7 @@ describe.each([
     context.setStep.mockClear();
 
     unmount();
-    act(() => jest.runOnlyPendingTimers());
+    act(() => vi.runOnlyPendingTimers());
 
     expect(context.setStep).not.toHaveBeenCalled();
   });
@@ -255,23 +255,23 @@ it('waits for the permit context before synchronizing the address step', () => {
   expect(context.setStep).toHaveBeenCalledWith(STEPPER.ADDRESS_SELECTOR);
 });
 
-it('redirects a duration page without an address without changing its step', async () => {
+it('redirects a duration page without an address without changing its step', () => {
   const context = createPermitContext();
   context.getSelectedAddress.mockReturnValue(undefined);
 
   render(pageTree(DurationSelector, context));
 
-  expect(await screen.findByText('Address destination')).toBeInTheDocument();
+  expect(screen.getByText('Address destination')).toBeInTheDocument();
   expect(context.setStep).not.toHaveBeenCalled();
 });
 
-it('redirects an unauthenticated purchase without changing its step', async () => {
+it('redirects an unauthenticated purchase without changing its step', () => {
   const context = createPermitContext();
   mockAuthenticated = false;
 
   render(pageTree(PurchasedOverview, context));
 
-  expect(await screen.findByText('Landing destination')).toBeInTheDocument();
+  expect(screen.getByText('Landing destination')).toBeInTheDocument();
   expect(context.setStep).not.toHaveBeenCalled();
 });
 

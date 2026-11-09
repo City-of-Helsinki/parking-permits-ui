@@ -1,46 +1,52 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import App from './App';
 
-jest.mock('hds-react', () => ({
-  ...jest.requireActual('hds-react'),
+vi.mock('hds-react', async importOriginal => ({
+  ...(await importOriginal<typeof import('hds-react')>()),
   CookieModal: () => null,
 }));
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
+vi.mock('react-i18next', async importOriginal => ({
+  ...(await importOriginal<typeof import('react-i18next')>()),
   useTranslation: () => ({
     t: (key: string) => key,
-    i18n: { language: 'fi', changeLanguage: jest.fn() },
+    i18n: { language: 'fi', changeLanguage: vi.fn() },
   }),
 }));
 
-jest.mock('./common/mainLayout/MainLayout', () => {
-  const { Outlet } = jest.requireActual('react-router-dom');
-  return Outlet;
+vi.mock('./common/mainLayout/MainLayout', async () => {
+  const { Outlet } = await import('react-router');
+  return { default: Outlet };
 });
 
-jest.mock('./pages/landingPage/LandingPage', () => () => 'Landing page');
-jest.mock('./pages/profilePage/ProfilePage', () => () => 'Profile page');
-jest.mock('./pages/permitPrices/PermitPrices', () => () => 'Permit prices');
+vi.mock('./pages/landingPage/LandingPage', () => ({
+  default: () => 'Landing page',
+}));
+vi.mock('./pages/profilePage/ProfilePage', () => ({
+  default: () => 'Profile page',
+}));
+vi.mock('./pages/permitPrices/PermitPrices', () => ({
+  default: () => 'Permit prices',
+}));
 
-jest.mock('./pages/vehicleSelector/VehicleSelector', () => {
-  const { Outlet } = jest.requireActual('react-router-dom');
-  return Outlet;
+vi.mock('./pages/vehicleSelector/VehicleSelector', async () => {
+  const { Outlet } = await import('react-router');
+  return { default: Outlet };
 });
 
-jest.mock('./client/HandleCallback', () => {
-  const { useLocation } = jest.requireActual('react-router');
+vi.mock('./client/HandleCallback', async () => {
+  const { useLocation } = await import('react-router');
   const CallbackRoute = () => {
     const { pathname, search } = useLocation();
     return <span>{`${pathname}${search}`}</span>;
   };
-  return CallbackRoute;
+  return { default: CallbackRoute };
 });
 
-jest.mock('./pages/changeVehicle/ChangeVehicle', () => {
-  const { useNavigate, useParams } = jest.requireActual('react-router');
+vi.mock('./pages/changeVehicle/ChangeVehicle', async () => {
+  const { useNavigate, useParams } = await import('react-router');
   const ChangeVehicleRoute = () => {
     const { permitId } = useParams();
     const navigate = useNavigate();
@@ -50,7 +56,7 @@ jest.mock('./pages/changeVehicle/ChangeVehicle', () => {
       </button>
     );
   };
-  return ChangeVehicleRoute;
+  return { default: ChangeVehicleRoute };
 });
 
 const renderAt = (path: string) => {
