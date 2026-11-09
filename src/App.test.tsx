@@ -8,14 +8,6 @@ vi.mock('hds-react', async importOriginal => ({
   CookieModal: () => null,
 }));
 
-vi.mock('react-i18next', async importOriginal => ({
-  ...(await importOriginal<typeof import('react-i18next')>()),
-  useTranslation: () => ({
-    t: (key: string) => key,
-    i18n: { language: 'fi', changeLanguage: vi.fn() },
-  }),
-}));
-
 vi.mock('./common/mainLayout/MainLayout', async () => {
   const { Outlet } = await import('react-router');
   return { default: Outlet };
