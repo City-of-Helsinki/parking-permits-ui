@@ -19,10 +19,10 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { getEnv } from '../utils';
 
 import { FetchError } from '../client/types';
 import i18n from '../i18n/i18n';
+import { getEnvValue } from '../utils';
 
 export type GraphQLClient = ApolloClient<NormalizedCacheObject>;
 export type GraphQLClientError = Pick<FetchError, 'error' | 'message'>;
@@ -69,8 +69,8 @@ function getNamedTokens(tokens: TokenData) {
   if (!tokens) {
     return undefined;
   }
-  const parkingPermitsTokenKey = getEnv('REACT_APP_TOKEN_KEY');
-  const profileTokenKey = getEnv('REACT_APP_PROFILE_TOKEN_KEY');
+  const parkingPermitsTokenKey = getEnvValue('REACT_APP_TOKEN_KEY') || '';
+  const profileTokenKey = getEnvValue('REACT_APP_PROFILE_TOKEN_KEY') || '';
   const parkingPermitsApiToken = tokens[parkingPermitsTokenKey];
   const helsinkiProfileApiToken = tokens[profileTokenKey];
   return {
@@ -83,7 +83,7 @@ const namespace = 'graphQLClientModule';
 
 export function createGraphQLClientModule(): GraphQLClientModule {
   let beacon: Beacon | undefined;
-  const uri = getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL');
+  const uri = getEnvValue('REACT_APP_PARKING_PERMITS_BACKEND_URL') || '';
   const tokens = {
     parkingPermitsApiToken: '',
     helsinkiProfileApiToken: '',

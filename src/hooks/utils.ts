@@ -1,14 +1,14 @@
 import { getApiTokensFromStorage } from 'hds-react';
 import { createGraphQLClient, GraphQLClient } from '../graphql/graphqlClient';
-import { getEnv } from '../utils';
+import { getEnvValue } from '../utils';
 
 let gqlClient: GraphQLClient;
 
 export function getGqlClient(): GraphQLClient | undefined {
   if (!gqlClient) {
     const tokens = getApiTokensFromStorage();
-    const parkingPermitsTokenKey = getEnv('REACT_APP_TOKEN_KEY');
-    const profileTokenKey = getEnv('REACT_APP_PROFILE_TOKEN_KEY');
+    const parkingPermitsTokenKey = getEnvValue('REACT_APP_TOKEN_KEY') || '';
+    const profileTokenKey = getEnvValue('REACT_APP_PROFILE_TOKEN_KEY') || '';
 
     if (!tokens) {
       return undefined;
@@ -19,7 +19,7 @@ export function getGqlClient(): GraphQLClient | undefined {
     if (!parkingPermitsApiToken || !helsinkiProfileApiToken) {
       return undefined;
     }
-    const uri = getEnv('REACT_APP_PARKING_PERMITS_BACKEND_URL');
+    const uri = getEnvValue('REACT_APP_PARKING_PERMITS_BACKEND_URL') || '';
     gqlClient = createGraphQLClient(
       uri,
       parkingPermitsApiToken,
