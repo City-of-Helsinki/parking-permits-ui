@@ -9,30 +9,31 @@ import { UserProfileProvider } from './hooks/userProfileProvider';
 import './i18n/i18n';
 import reportWebVitals from './reportWebVitals';
 import { VehicleChangeErrorProvider } from './hooks/vehicleChangeErrorProvider';
+import { getEnvValue } from './utils';
 
-if (import.meta.env.REACT_APP_SENTRY_DSN) {
+if (getEnvValue('REACT_APP_SENTRY_DSN')) {
   Sentry.init({
-    dsn: import.meta.env.REACT_APP_SENTRY_DSN,
-    environment: import.meta.env.REACT_APP_SENTRY_ENVIRONMENT,
-    release: import.meta.env.REACT_APP_SENTRY_RELEASE,
+    dsn: getEnvValue('REACT_APP_SENTRY_DSN'),
+    environment: getEnvValue('REACT_APP_SENTRY_ENVIRONMENT'),
+    release: getEnvValue('REACT_APP_SENTRY_RELEASE'),
     integrations: [
       Sentry.browserTracingIntegration(),
       Sentry.replayIntegration(),
     ],
     tracesSampleRate: parseFloat(
-      import.meta.env.REACT_APP_SENTRY_TRACES_SAMPLE_RATE || '0'
+      getEnvValue('REACT_APP_SENTRY_TRACES_SAMPLE_RATE') || '0'
     ),
     tracePropagationTargets: (
-      import.meta.env.REACT_APP_SENTRY_TRACE_PROPAGATION_TARGETS || ''
+      getEnvValue('REACT_APP_SENTRY_TRACE_PROPAGATION_TARGETS') || ''
     )
       .split(',')
       .map((target: string) => target.trim())
       .filter(Boolean),
     replaysSessionSampleRate: parseFloat(
-      import.meta.env.REACT_APP_SENTRY_REPLAYS_SESSION_SAMPLE_RATE || '0'
+      getEnvValue('REACT_APP_SENTRY_REPLAYS_SESSION_SAMPLE_RATE') || '0'
     ),
     replaysOnErrorSampleRate: parseFloat(
-      import.meta.env.REACT_APP_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE || '0'
+      getEnvValue('REACT_APP_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE') || '0'
     ),
   });
 }
