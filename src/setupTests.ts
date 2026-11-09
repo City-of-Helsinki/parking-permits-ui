@@ -3,6 +3,9 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/vitest';
+// Load generated runtime configuration to be available in tests
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+require('../public/test-env-config.js');
 
 // Translations return their key (plus serialized options) so tests can assert on keys.
 vi.mock('react-i18next', async importOriginal => ({
