@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vitest/config';
+import { coverageConfigDefaults, defineConfig } from 'vitest/config';
 import eslint from '@nabla/vite-plugin-eslint';
 
 // Preserve CRA's PUBLIC_URL behavior by driving Vite's base. It must be an
@@ -36,6 +36,18 @@ export default defineConfig(({ mode }) => ({
     coverage: {
       reporter: ['clover', 'json', 'lcov', 'text', 'cobertura'],
       include: ['src/**/*'],
+      // Keep in sync with sonar.coverage.exclusions in sonar-project.properties
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        'src/setupTests.ts',
+        'src/index.tsx',
+        'src/reportWebVitals.ts',
+        'src/i18n/i18n.ts',
+        'src/graphql/**/*',
+        'src/types/**/*',
+        'src/client/config.ts',
+        'src/client/types.ts',
+      ],
     },
   },
   build: {
