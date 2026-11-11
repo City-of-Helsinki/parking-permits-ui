@@ -69,7 +69,7 @@
         },
         {
           "name": "oidc.user:*",
-          "host": "profiili.hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "storageType": 3,
           "description": {
             "fi": "Käyttäjän kirjautumistiedot tallennetaan selaimen muistiin (session storage).",
@@ -84,7 +84,7 @@
         },
         {
           "name": "hds_login_api_token_storage_key",
-          "host": "profiili.hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "storageType": 3,
           "description": {
             "fi": "Kirjautuneen käyttäjän rajanpinta-avaimet (api tokens) tallennetaan selaimen muistiin (session storage).",
@@ -99,7 +99,7 @@
         },
         {
           "name": "hds_login_api_token_user_reference",
-          "host": "profiili.hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "storageType": 3,
           "description": {
             "fi": "Kirjautuneen käyttäjän pääsyoikeudet tallennetaan selaimen muistiin, jotta tunnistetaan kenen rajapinta-avaimet on tallessa.",
@@ -129,7 +129,7 @@
       "cookies": [
         {
           "name": "helfi-cookie-consents",
-          "host": "linkedevents.hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "storageType": 1,
           "description": {
             "fi": "Sivusto käyttää tätä evästettä tietojen tallentamiseen siitä, ovatko kävijät antaneet hyväksyntänsä tai kieltäytyneet evästeiden käytöstä.",
@@ -144,7 +144,7 @@
         },
         {
           "name": "helfi-consent-version",
-          "host": "linkedevents.hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "storageType": 1,
           "description": {
             "fi": "Tähän evästeeseen tallennetaan käyttäjän hyväksymän evästeselosteen versio.",
@@ -172,7 +172,7 @@
       "cookies": [
         {
           "name": "_pk_id.*",
-          "host": "hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "description": {
             "fi": "Matomo-tilastointijärjestelmän eväste.",
             "sv": "Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.",
@@ -187,7 +187,7 @@
         },
         {
           "name": "_pk_ses.*",
-          "host": "hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "description": {
             "fi": "Matomo-tilastointijärjestelmän eväste.",
             "sv": "Matomo-statistiksystemets kaka samlar information om hur webbplatsen används.",
@@ -198,7 +198,7 @@
         },
         {
           "name": "mtm_.*",
-          "host": "profiili.hel.fi",
+          "host": "pysakointitunnukset.hel.fi",
           "storageType": 1,
           "description": {
             "fi": "Matomo-tilastointijärjestelmä - Evästeeseen tallennetaan suostumus tilastointievästeisiin.",
