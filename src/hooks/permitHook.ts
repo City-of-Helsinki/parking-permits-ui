@@ -121,7 +121,8 @@ const usePermitState = (): PermitActions => {
   useEffect(() => {
     const allowedAgeLimit = getEnvValue('REACT_APP_ALLOWED_AGE_LIMIT') || 0;
     if (status === 'waiting' && profile && profile.age >= +allowedAgeLimit) {
-      fetchPermits();
+      // Deferred so fetchPermits does not set state synchronously in the effect.
+      Promise.resolve().then(fetchPermits);
     }
   }, [fetchPermits, status, profile]);
 
