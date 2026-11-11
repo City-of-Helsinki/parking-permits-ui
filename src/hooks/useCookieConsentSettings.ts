@@ -39,7 +39,7 @@ const useCookieConsentSettings = ({ siteName }: Props) => {
         window._paq.push(['forgetConsentGiven']);
       }
     },
-    siteSettings: siteSettings,
+    siteSettings,
     options: {
       focusTargetSelector: '#parking-permit-app',
       language: i18n.language,
