@@ -10,6 +10,7 @@ import './i18n/i18n';
 import reportWebVitals from './reportWebVitals';
 import { VehicleChangeErrorProvider } from './hooks/vehicleChangeErrorProvider';
 import { getEnvValue } from './utils';
+import React from 'react';
 
 if (getEnvValue('REACT_APP_SENTRY_DSN')) {
   Sentry.init({
@@ -42,17 +43,19 @@ const container = document.getElementById('root');
 const root = createRoot(container!);
 
 root.render(
-  <BrowserRouter>
-    <HDSLoginProvider>
-      <UserProfileProvider>
-        <PermitProvider>
-          <VehicleChangeErrorProvider>
-            <App />
-          </VehicleChangeErrorProvider>
-        </PermitProvider>
-      </UserProfileProvider>
-    </HDSLoginProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <HDSLoginProvider>
+        <UserProfileProvider>
+          <PermitProvider>
+            <VehicleChangeErrorProvider>
+              <App />
+            </VehicleChangeErrorProvider>
+          </PermitProvider>
+        </UserProfileProvider>
+      </HDSLoginProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
