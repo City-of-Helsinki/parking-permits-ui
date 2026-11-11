@@ -1,41 +1,23 @@
-import {
-  CookieBanner,
-  CookieConsentContextProvider,
-  CookieConsentChangeEvent,
-} from 'hds-react';
-import React, { useMemo } from 'react';
+import { CookieBanner, CookieConsentContextProvider } from 'hds-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRoutes } from 'react-router';
 import { setHDSClientConfig } from './client';
 import HDSLoginConfig from './client/config';
-import siteSettingsBase from './common/cookieConsent/siteSettings.json';
 import routes from './routes';
+import useCookieConsentSettings from './hooks/useCookieConsentSettings';
 
 setHDSClientConfig(HDSLoginConfig);
 
-// TODO: Find some way not to break the load without reloading.
-const onConsentChange = ({ acceptedGroups }: CookieConsentChangeEvent) => {
-  if (acceptedGroups.includes('statistics')) {
-    window.location.reload();
-  }
-};
-
 const App = (): React.ReactElement => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const routing = useRoutes(routes);
   const siteName = t('common.navbar.Navbar.title');
-  const siteSettings = useMemo(
-    () => ({ ...siteSettingsBase, siteName }),
-    [siteName]
-  );
+
+  const cookieConsentProps = useCookieConsentSettings({ siteName });
+
   return (
-    <CookieConsentContextProvider
-      siteSettings={siteSettings}
-      options={{
-        language: i18n.language,
-        focusTargetSelector: '#parking-permit-app',
-      }}
-      onChange={onConsentChange}>
+    <CookieConsentContextProvider {...cookieConsentProps}>
       <div id="parking-permit-app">{routing}</div>
       <CookieBanner />
     </CookieConsentContextProvider>
