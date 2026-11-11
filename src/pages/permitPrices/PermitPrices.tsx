@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   Card,
   IconArrowLeft,
   IconArrowRight,
@@ -158,12 +160,12 @@ const PermitPrices = (): React.ReactElement => {
               </Card>
               <div className="action-delete">
                 <Button
-                  variant="supplementary"
+                  variant={ButtonVariant.Supplementary}
                   style={{
                     color: 'var(--color-coat-of-arms)',
                   }}
                   onClick={() => permitCtx?.deletePermit(permit.id)}
-                  iconLeft={<IconMinusCircle />}>
+                  iconStart={<IconMinusCircle />}>
                   {t(`${T_PATH}.btn.delete`)}
                 </Button>
               </div>
@@ -181,21 +183,21 @@ const PermitPrices = (): React.ReactElement => {
       </div>
       <div className="action-buttons">
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           className="action-btn"
           onClick={() => navigateTo(ROUTES.DURATION_SELECTOR)}
+          iconEnd={<IconArrowRight />}
           disabled={!registrations?.length}>
-          <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
-          <IconArrowRight />
+          {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
 
         <Button
           className="action-btn"
-          theme="black"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => navigateTo(ROUTES.LANDING)}>
-          <span>{t(`${T_PATH}.actionBtn.back`)}</span>
+          {t(`${T_PATH}.actionBtn.back`)}
         </Button>
       </div>
     </div>

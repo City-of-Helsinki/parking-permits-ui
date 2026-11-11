@@ -5,7 +5,9 @@ import App from './App';
 
 vi.mock('hds-react', async importOriginal => ({
   ...(await importOriginal<typeof import('hds-react')>()),
-  CookieModal: () => null,
+  CookieBanner: () => null,
+  CookieConsentContextProvider: ({ children }: { children: React.ReactNode }) =>
+    children,
 }));
 
 vi.mock('./common/mainLayout/MainLayout', async () => {

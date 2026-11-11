@@ -1,4 +1,11 @@
-import { Button, IconSignout, Notification, useOidcClient } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  ButtonVariant,
+  IconSignout,
+  Notification,
+  useOidcClient,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -66,16 +73,16 @@ const OrderReview: React.FC<OrderReviewProps> = ({
           type="submit"
           className="action-btn"
           onClick={() => navigate(ROUTES.VALID_PERMITS)}
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.returnToHomePage`)}</span>
+          theme={ButtonPresetTheme.Black}>
+          {t(`${T_PATH}.actionBtn.returnToHomePage`)}
         </Button>
         <Button
           className="action-btn"
-          variant="secondary"
-          iconLeft={<IconSignout />}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconSignout />}
           onClick={() => logout()}
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.logout`)}</span>
+          theme={ButtonPresetTheme.Black}>
+          {t(`${T_PATH}.actionBtn.logout`)}
         </Button>
       </div>
     </div>

@@ -1,4 +1,11 @@
-import { Button, IconArrowLeft, IconArrowRight, Notification } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  ButtonVariant,
+  IconArrowLeft,
+  IconArrowRight,
+  Notification,
+} from 'hds-react';
 import React, { Fragment, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { uniqueId } from 'lodash';
@@ -207,18 +214,18 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
         <Button
           type="submit"
           className="action-btn"
-          iconRight={<IconArrowRight />}
+          iconEnd={<IconArrowRight />}
           onClick={() => onConfirm()}
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
+          theme={ButtonPresetTheme.Black}>
+          {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
         <Button
           className="action-btn"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => onCancel()}
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+          theme={ButtonPresetTheme.Black}>
+          {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>
       </div>
     </div>

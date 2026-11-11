@@ -1,5 +1,10 @@
 import classNames from 'classnames';
-import { Button, IconArrowRight, Notification } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  IconArrowRight,
+  Notification,
+} from 'hds-react';
 import { isEmpty } from 'lodash';
 import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -114,9 +119,9 @@ const AddressSelector = (): React.ReactElement | null => {
               <Button
                 className="action-btn"
                 onClick={() => navigate(ROUTES.PERMIT_PRICES)}
-                theme="black">
-                <span>{t(`${T_PATH}.actionBtn.buyPermit`)}</span>
-                <IconArrowRight />
+                iconEnd={<IconArrowRight />}
+                theme={ButtonPresetTheme.Black}>
+                {t(`${T_PATH}.actionBtn.buyPermit`)}
               </Button>
               <div />
             </div>

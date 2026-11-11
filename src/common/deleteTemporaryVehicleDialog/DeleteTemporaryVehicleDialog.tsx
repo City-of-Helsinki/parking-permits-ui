@@ -1,4 +1,4 @@
-import { Button, Dialog } from 'hds-react';
+import { Button, ButtonPresetTheme, ButtonVariant, Dialog } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import './deleteTemporaryVehicleDialog.scss';
@@ -29,10 +29,13 @@ const DeleteTemporaryVehicleDialog = ({
       />
       <Dialog.Content>{t(`${T_PATH}.message`)}</Dialog.Content>
       <Dialog.ActionButtons>
-        <Button theme="black" onClick={handleConfirm}>
+        <Button theme={ButtonPresetTheme.Black} onClick={handleConfirm}>
           {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
-        <Button theme="black" variant="secondary" onClick={() => onCancel()}>
+        <Button
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          onClick={() => onCancel()}>
           {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>
       </Dialog.ActionButtons>

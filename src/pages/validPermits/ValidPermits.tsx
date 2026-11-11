@@ -1,6 +1,13 @@
 import classNames from 'classnames';
 import { endOfDay, format, compareAsc } from 'date-fns';
-import { Button, IconPlusCircle, IconTrash, Notification } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  ButtonVariant,
+  IconPlusCircle,
+  IconTrash,
+  Notification,
+} from 'hds-react';
 import { first } from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -189,14 +196,14 @@ const ValidPermits = (): React.ReactElement => {
         {validPermits.length === 1 && !validPermits.some(isOpenEndedPermit) && (
           <Button
             className="action-btn"
-            variant="secondary"
-            theme="black"
+            variant={ButtonVariant.Secondary}
+            theme={ButtonPresetTheme.Black}
             disabled={
               validPermits.some(isProcessing) ||
               permitCtx?.permitsHaveOutdatedAddresses() ||
               validPermits.some(hasTemporaryVehicle)
             }
-            iconLeft={<IconPlusCircle />}
+            iconStart={<IconPlusCircle />}
             onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
             {t(`${T_PATH}.newOrder`)}
           </Button>
@@ -207,13 +214,13 @@ const ValidPermits = (): React.ReactElement => {
               validPermits.some(isProcessing) ||
               validPermits.some(hasTemporaryVehicle),
           })}
-          variant="secondary"
-          theme="black"
+          variant={ButtonVariant.Secondary}
+          theme={ButtonPresetTheme.Black}
           disabled={
             validPermits.some(isProcessing) ||
             validPermits.some(hasTemporaryVehicle)
           }
-          iconLeft={<IconTrash className="trash-icon" />}
+          iconStart={<IconTrash className="trash-icon" />}
           onClick={deleteOrder}>
           {t(`${T_PATH}.deleteOrder`)}
         </Button>

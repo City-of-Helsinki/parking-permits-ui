@@ -255,11 +255,13 @@ describe('DurationSelector', () => {
 
     const button = continueButton();
     expect(button).toBeEnabled();
+    expect(button.querySelector('svg')).not.toBeNull();
     await userEvent.click(button);
 
     expect(context.createOrderRequest).toHaveBeenCalledTimes(1);
     expect(button).toBeDisabled();
-    expect(button).not.toHaveTextContent('actionBtn.continue');
+    expect(button).toHaveTextContent('actionBtn.continue');
+    expect(button.querySelector('svg')).toBeNull();
   });
 
   it('navigates back to permit prices', async () => {

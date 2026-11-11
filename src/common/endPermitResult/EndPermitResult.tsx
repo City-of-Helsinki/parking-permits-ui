@@ -1,4 +1,11 @@
-import { Button, IconSignout, Notification, useOidcClient } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  ButtonVariant,
+  IconSignout,
+  Notification,
+  useOidcClient,
+} from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -57,17 +64,17 @@ const EndPermitResult = ({
       <div className="action-buttons">
         <Button
           className="action-btn"
-          theme="black"
-          variant="secondary"
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconSignout />}
           onClick={() => logout()}>
-          <IconSignout />
-          <span>{t(`${T_PATH}.actionBtn.logout`)}</span>
+          {t(`${T_PATH}.actionBtn.logout`)}
         </Button>
         <Button
           className="action-btn"
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           onClick={() => navigate(ROUTES.VALID_PERMITS)}>
-          <span>{t(`${T_PATH}.actionBtn.confirmationMsg`)}</span>
+          {t(`${T_PATH}.actionBtn.confirmationMsg`)}
         </Button>
       </div>
     </div>

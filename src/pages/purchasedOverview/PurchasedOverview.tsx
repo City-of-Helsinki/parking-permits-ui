@@ -1,5 +1,7 @@
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   IconDocument,
   IconSignout,
   LoadingSpinner,
@@ -73,12 +75,12 @@ const PurchasedOverview = (): React.ReactElement | null => {
       {selectedAddress && receiptUrl && (
         <>
           <Button
-            theme="black"
-            variant="secondary"
+            theme={ButtonPresetTheme.Black}
+            variant={ButtonVariant.Secondary}
+            iconStart={<IconDocument />}
             onClick={showReceipt}
             className="download-receipt">
-            <IconDocument />
-            <span>{t('btn.receipt')}</span>
+            {t('btn.receipt')}
           </Button>
           <Permit address={selectedAddress} permits={permits} />
         </>
@@ -86,18 +88,18 @@ const PurchasedOverview = (): React.ReactElement | null => {
       <div className="action-buttons">
         <Button
           className="action-btn"
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           onClick={() => navigate(ROUTES.VALID_PERMITS)}>
-          <span>{t('actionBtn.frontPage')}</span>
+          {t('actionBtn.frontPage')}
         </Button>
 
         <Button
           className="action-btn"
-          theme="black"
-          variant="secondary"
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconSignout />}
           onClick={() => logout()}>
-          <IconSignout />
-          <span>{t('actionBtn.logout')}</span>
+          {t('actionBtn.logout')}
         </Button>
       </div>
     </div>
