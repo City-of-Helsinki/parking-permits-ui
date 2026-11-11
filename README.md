@@ -17,7 +17,7 @@ Related repositories:
 Prerequisites
 
 - pnpm 11.28.5 or higher
-- Node 22+ or higher
+- Node 24 (LTS)
 
 The application requires a running parking-permits backend, you can find more details in [this repo](https://github.com/City-of-Helsinki/parking-permits) on how to set up the backend.
 

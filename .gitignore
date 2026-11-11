@@ -50,3 +50,4 @@ vite.config.ts.timestamp-*
 # Copilot
 .agents
 .github/copilot-instructions.md
+*Migration.md
