@@ -1,4 +1,10 @@
-import { Button, Dialog, RadioButton } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  ButtonVariant,
+  Dialog,
+  RadioButton,
+} from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitEditType } from '../../types';
@@ -49,12 +55,15 @@ const EditPermitDialog = ({
       </Dialog.Content>
       <Dialog.ActionButtons>
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           disabled={!endType}
           onClick={() => endType && onConfirm(endType, permitId)}>
           {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
-        <Button theme="black" variant="secondary" onClick={() => onCancel()}>
+        <Button
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          onClick={() => onCancel()}>
           {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>
       </Dialog.ActionButtons>

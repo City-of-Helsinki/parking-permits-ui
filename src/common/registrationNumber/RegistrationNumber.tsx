@@ -1,4 +1,4 @@
-import { Button, LoadingSpinner, TextInput } from 'hds-react';
+import { Button, ButtonVariant, LoadingSpinner, TextInput } from 'hds-react';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
@@ -42,12 +42,16 @@ const RegistrationNumber = (): React.ReactElement => {
         helperText={t(`${T_PATH}.helpText`)}
       />
       <Button
-        variant="secondary"
+        variant={ButtonVariant.Secondary}
         className="action-btn"
         onClick={createPermit}
+        iconStart={
+          permitCtx?.getStatus() === 'loading' ? (
+            <LoadingSpinner small />
+          ) : undefined
+        }
         disabled={(permitCtx?.getPermits().length || 0) >= 2}>
-        {permitCtx?.getStatus() !== 'loading' && t(`${T_PATH}.btn`)}
-        {permitCtx?.getStatus() === 'loading' && <LoadingSpinner small />}
+        {t(`${T_PATH}.btn`)}
       </Button>
     </div>
   );

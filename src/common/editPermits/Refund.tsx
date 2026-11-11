@@ -1,9 +1,12 @@
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   IconArrowLeft,
   IconArrowRight,
   IconInfoCircle,
   Link,
+  LinkSize,
   Notification,
   TextInput,
 } from 'hds-react';
@@ -122,7 +125,7 @@ const Refund: React.FC<RefundProps> = ({
               openInNewTab
               className="contact-link"
               href={CUSTOMER_SERVICE_LINKS[i18n.language as 'fi' | 'sv' | 'en']}
-              size="M">
+              size={LinkSize.Medium}>
               {t(`${T_PATH}.openingHourAndContactInfo`)}
             </Link>
           </div>
@@ -132,20 +135,20 @@ const Refund: React.FC<RefundProps> = ({
         <Button
           type="submit"
           className="action-btn"
-          iconRight={<IconArrowRight />}
+          iconEnd={<IconArrowRight />}
           onClick={() =>
             onConfirm(isValidIBAN(accountNumber) ? accountNumber : '')
           }
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
+          theme={ButtonPresetTheme.Black}>
+          {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
         <Button
           className="action-btn"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => onCancel()}
-          theme="black">
-          <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+          theme={ButtonPresetTheme.Black}>
+          {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>
       </div>
     </div>

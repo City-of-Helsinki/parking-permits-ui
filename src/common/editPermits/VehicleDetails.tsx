@@ -1,5 +1,7 @@
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   Card,
   Checkbox,
   IconArrowLeft,
@@ -131,12 +133,12 @@ const VehicleDetails: FC<Props> = ({
         helperText={t(`${T_PATH}.input.helpText`)}
       />
       <Button
-        variant="secondary"
+        variant={ButtonVariant.Secondary}
         className="change-btn"
         disabled={loading || !!vehicleChangeErrorCtx.error?.length}
+        iconStart={loading ? <LoadingSpinner small /> : undefined}
         onClick={fetchVehicleInformation}>
-        {!loading && t(`${T_PATH}.changeBtn`)}
-        {loading && <LoadingSpinner small />}
+        {t(`${T_PATH}.changeBtn`)}
       </Button>
       {vehicle && (
         <>
@@ -198,20 +200,20 @@ const VehicleDetails: FC<Props> = ({
       )}
       <div className="action-buttons">
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           className="action-btn"
           disabled={!vehicle || loading || processingRequest}
-          iconRight={<IconArrowRight />}
+          iconStart={processingRequest ? <LoadingSpinner small /> : undefined}
+          iconEnd={processingRequest ? undefined : <IconArrowRight />}
           onClick={processVehicleChange}>
-          {!processingRequest && t(`${T_PATH}.actionBtn.continue`)}
-          {processingRequest && <LoadingSpinner small />}
+          {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
 
         <Button
           className="action-btn"
-          theme="black"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => navigate(ROUTES.VALID_PERMITS)}>
           {t(`${T_PATH}.actionBtn.back`)}
         </Button>

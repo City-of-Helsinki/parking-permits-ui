@@ -1,6 +1,8 @@
 import { addWeeks, format } from 'date-fns';
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   Card,
   DateInput,
   IconArrowLeft,
@@ -160,7 +162,7 @@ const TemporaryVehicle = (): React.ReactElement => {
 
       <div className="action-buttons">
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           className="action-btn"
           disabled={
             !tempRegistration?.length ||
@@ -168,23 +170,19 @@ const TemporaryVehicle = (): React.ReactElement => {
             !validateTime(startTime) ||
             !validateTime(endTime)
           }
+          iconStart={loading ? <LoadingSpinner small /> : undefined}
+          iconEnd={loading ? undefined : <IconArrowRight />}
           onClick={() => addTemporaryVehicle()}>
-          {loading && <LoadingSpinner small />}
-          {!loading && (
-            <>
-              <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
-              <IconArrowRight />
-            </>
-          )}
+          {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
 
         <Button
           className="action-btn"
-          theme="black"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => navigate(ROUTES.VALID_PERMITS)}>
-          <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+          {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>
       </div>
     </div>

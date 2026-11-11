@@ -6,6 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   Card,
   IconArrowLeft,
   IconArrowRight,
@@ -138,26 +140,22 @@ const ExtendPermit = (): React.ReactElement => {
       )}
       <div className="action-buttons">
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           className="action-btn"
+          iconStart={isLoading ? <LoadingSpinner small /> : undefined}
+          iconEnd={isLoading ? undefined : <IconArrowRight />}
           onClick={createExtendPermit}
           disabled={isLoading}>
-          {isLoading && <LoadingSpinner small />}
-          {!isLoading && (
-            <>
-              <span>{t('actionBtn.continue')}</span>
-              <IconArrowRight />
-            </>
-          )}
+          {t('actionBtn.continue')}
         </Button>
 
         <Button
           className="action-btn"
-          theme="black"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => navigate(ROUTES.VALID_PERMITS)}>
-          <span>{t('actionBtn.back')}</span>
+          {t('actionBtn.back')}
         </Button>
       </div>
     </div>

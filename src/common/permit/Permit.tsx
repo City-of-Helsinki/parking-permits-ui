@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { format } from 'date-fns';
 import {
   Button,
+  ButtonVariant,
   Card,
   IconAngleRight,
   IconCheckCircle,
@@ -183,13 +184,13 @@ const Permit = ({
             </div>
             <Button
               className="permit-actions-buttons"
-              variant="supplementary"
+              variant={ButtonVariant.Supplementary}
               disabled={
                 permits.some(isProcessing) ||
                 permitCtx?.permitsHaveOutdatedAddresses()
               }
               style={{ margin: 'var(--spacing-xs) 0' }}
-              iconLeft={<IconAngleRight />}
+              iconStart={<IconAngleRight />}
               onClick={() => setDeleteTmpVehiclePermitId(permit.id)}>
               {t(`${T_PATH}.deleteTemporaryVehicle`)}
             </Button>
@@ -284,7 +285,7 @@ const Permit = ({
             <div className="permit-action-btns">
               <Button
                 className="permit-actions-buttons"
-                variant="supplementary"
+                variant={ButtonVariant.Supplementary}
                 disabled={
                   (!permitCtx?.permitsHaveOutdatedAddresses() &&
                     permits.some(hasTemporaryVehicle)) ||
@@ -293,7 +294,7 @@ const Permit = ({
                   !permitCtx?.permitsHaveStarted(permits)
                 }
                 style={{ margin: 'var(--spacing-xs) 0' }}
-                iconLeft={<IconAngleRight />}
+                iconStart={<IconAngleRight />}
                 onClick={() => navigate(ROUTES.CHANGE_ADDRESS)}>
                 {t(`${T_PATH}.changeAddress`)}
               </Button>
@@ -319,33 +320,33 @@ const Permit = ({
               <div className="permit-action-btns">
                 {!permits.some(hasTemporaryVehicle) && (
                   <Button
-                    variant="supplementary"
+                    variant={ButtonVariant.Supplementary}
                     disabled={
                       permits.some(isProcessing) ||
                       permits.some(hasAddressChanged) ||
                       !permitCtx?.permitsHaveStarted(permits)
                     }
                     onClick={() => setEditPermitId(permit.id)}
-                    iconLeft={<IconAngleRight />}>
+                    iconStart={<IconAngleRight />}>
                     {t(`${T_PATH}.editVehicle`)}
                   </Button>
                 )}
                 {permit.canExtendPermit && permit.maxExtensionMonthCount > 0 && (
                   <Button
-                    variant="supplementary"
-                    iconLeft={<IconAngleRight />}
+                    variant={ButtonVariant.Supplementary}
+                    iconStart={<IconAngleRight />}
                     onClick={() => navigate(`/extend-permit/${permit.id}`)}>
                     {t(`${T_PATH}.extendPermit`)}
                   </Button>
                 )}
                 {permits.length > 1 && index > 0 && (
                   <Button
-                    variant="supplementary"
+                    variant={ButtonVariant.Supplementary}
                     disabled={
                       !!isProcessing(permit) ||
                       permits.some(hasTemporaryVehicle)
                     }
-                    iconLeft={<IconAngleRight />}
+                    iconStart={<IconAngleRight />}
                     onClick={() =>
                       setOpenEndPermitDialog({
                         ...openEndPermitDialog,
@@ -380,9 +381,9 @@ const Permit = ({
             {updateCardUrl && permit.contractType !== 'FIXED_PERIOD' && (
               <div className="permit-action-btns">
                 <Button
-                  variant="supplementary"
+                  variant={ButtonVariant.Supplementary}
                   onClick={() => window.open(updateCardUrl, '_self')}
-                  iconLeft={<IconAngleRight />}>
+                  iconStart={<IconAngleRight />}>
                   {t(`${T_PATH}.updateCard`)}
                 </Button>
               </div>

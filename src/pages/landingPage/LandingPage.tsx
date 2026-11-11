@@ -1,5 +1,7 @@
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonSize,
   IconSignout,
   LoadingSpinner,
   Notification,
@@ -42,8 +44,8 @@ const LandingPage = (): React.ReactElement => {
         </Notification>
         <Button
           className="logout-button"
-          theme="black"
-          iconLeft={<IconSignout />}
+          theme={ButtonPresetTheme.Black}
+          iconStart={<IconSignout />}
           onClick={() => logout()}>
           {t(`${T_PATH}.logout`)}
         </Button>
@@ -65,8 +67,8 @@ const LandingPage = (): React.ReactElement => {
         </Notification>
         <Button
           className="logout-button"
-          theme="black"
-          iconLeft={<IconSignout />}
+          theme={ButtonPresetTheme.Black}
+          iconStart={<IconSignout />}
           onClick={() => logout()}>
           {t(`${T_PATH}.logout`)}
         </Button>
@@ -96,8 +98,8 @@ const LandingPage = (): React.ReactElement => {
         <Button
           onClick={() => login()}
           className="login-button"
-          size="small"
-          theme="black">
+          size={ButtonSize.Small}
+          theme={ButtonPresetTheme.Black}>
           {t(`${T_PATH}.login`)}
         </Button>
       )}

@@ -1,40 +1,44 @@
-import { CookieModal } from 'hds-react';
-import React from 'react';
+import {
+  CookieBanner,
+  CookieConsentContextProvider,
+  CookieConsentChangeEvent,
+} from 'hds-react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRoutes } from 'react-router';
 import { setHDSClientConfig } from './client';
 import HDSLoginConfig from './client/config';
+import siteSettingsBase from './common/cookieConsent/siteSettings.json';
 import routes from './routes';
 
 setHDSClientConfig(HDSLoginConfig);
 
+// TODO: Find some way not to break the load without reloading.
+const onConsentChange = ({ acceptedGroups }: CookieConsentChangeEvent) => {
+  if (acceptedGroups.includes('statistics')) {
+    window.location.reload();
+  }
+};
+
 const App = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
   const routing = useRoutes(routes);
-  const contentSource = {
-    siteName: t('common.navbar.Navbar.title'),
-    title: t('common.navbar.Navbar.title'),
-    currentLanguage: i18n.language as 'fi' | 'sv' | 'en',
-    optionalCookies: {
-      cookies: [
-        {
-          commonGroup: 'statistics',
-          commonCookie: 'matomo',
-        },
-      ],
-    },
-    language: {
-      onLanguageChange: (code: string) => i18n.changeLanguage(code),
-    },
-    focusTargetSelector: '#parking-permit-app',
-    // TODO: Find some way not to break the load without reloading.
-    onAllConsentsGiven: () => window.location.reload(),
-  };
+  const siteName = t('common.navbar.Navbar.title');
+  const siteSettings = useMemo(
+    () => ({ ...siteSettingsBase, siteName }),
+    [siteName]
+  );
   return (
-    <>
+    <CookieConsentContextProvider
+      siteSettings={siteSettings}
+      options={{
+        language: i18n.language,
+        focusTargetSelector: '#parking-permit-app',
+      }}
+      onChange={onConsentChange}>
       <div id="parking-permit-app">{routing}</div>
-      <CookieModal contentSource={contentSource} />
-    </>
+      <CookieBanner />
+    </CookieConsentContextProvider>
   );
 };
 

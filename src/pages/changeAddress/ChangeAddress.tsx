@@ -1,5 +1,12 @@
 import classNames from 'classnames';
-import { Button, IconArrowLeft, IconArrowRight, Notification } from 'hds-react';
+import {
+  Button,
+  ButtonPresetTheme,
+  ButtonVariant,
+  IconArrowLeft,
+  IconArrowRight,
+  Notification,
+} from 'hds-react';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router';
@@ -84,11 +91,11 @@ const ChangeAddress = (): React.ReactElement | null => {
         <div className="action-buttons">
           <Button
             className="action-btn"
-            variant="secondary"
-            iconLeft={<IconArrowLeft />}
+            variant={ButtonVariant.Secondary}
+            iconStart={<IconArrowLeft />}
             onClick={() => navigate(ROUTES.VALID_PERMITS)}
-            theme="black">
-            <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+            theme={ButtonPresetTheme.Black}>
+            {t(`${T_PATH}.actionBtn.cancel`)}
           </Button>
         </div>
       </div>
@@ -155,7 +162,7 @@ const ChangeAddress = (): React.ReactElement | null => {
             <Button
               type="submit"
               className="action-btn"
-              iconRight={<IconArrowRight />}
+              iconEnd={<IconArrowRight />}
               onClick={() => {
                 if (!selectedAddress) {
                   setError(t(`${T_PATH}.errors.missingSelectedAddress`));
@@ -185,16 +192,16 @@ const ChangeAddress = (): React.ReactElement | null => {
                   })
                   .catch(() => setError(t(`${T_PATH}.errors.failedRequest`)));
               }}
-              theme="black">
-              <span>{t(`${T_PATH}.actionBtn.continue`)}</span>
+              theme={ButtonPresetTheme.Black}>
+              {t(`${T_PATH}.actionBtn.continue`)}
             </Button>
             <Button
               className="action-btn"
-              variant="secondary"
-              iconLeft={<IconArrowLeft />}
+              variant={ButtonVariant.Secondary}
+              iconStart={<IconArrowLeft />}
               onClick={() => navigate(ROUTES.VALID_PERMITS)}
-              theme="black">
-              <span>{t(`${T_PATH}.actionBtn.cancel`)}</span>
+              theme={ButtonPresetTheme.Black}>
+              {t(`${T_PATH}.actionBtn.cancel`)}
             </Button>
           </div>
         </>

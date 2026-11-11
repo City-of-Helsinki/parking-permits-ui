@@ -56,8 +56,8 @@ importers:
         specifier: ^16.9.0
         version: 16.9.0
       hds-react:
-        specifier: 3.12.1
-        version: 3.12.1(@types/react@19.3.0)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3)
+        specifier: ^4.10.0
+        version: 4.10.0(@types/react@19.3.0)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3)
       i18next:
         specifier: ^23.12.2
         version: 23.12.2
@@ -2206,17 +2206,17 @@ packages:
     resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
     engines: {node: '>= 0.4'}
 
-  hds-core@3.12.1:
-    resolution: {integrity: sha512-Pm6UTOwxU2abo6125ftFWHcERlEs8+mWzNXfBXE7BC3HFkCi0bMuF9fwbJyhSkizyR7gmBNDo5H++djrZLqcCw==}
-    deprecated: Versions prior to v4 are deprecated, please update.
+  hds-core@4.10.0:
+    resolution: {integrity: sha512-YHsHz6M6GWwJ1p6l6gQWApPy41Gj6rtTpdeFXK+Wy6QjxfTTaYveXW0XPd7NayCTEqmuaVW83T/t7umNmth32g==}
+    engines: {node: ^22.13.1}
 
-  hds-react@3.12.1:
-    resolution: {integrity: sha512-e7jdW7fWdg4f1V5N1wbSeZ70jUzuVY+XP5aTfC9SylMc3pSGkP/gwXsrujtcjX5/Y61VmJB5ySt8jiZOtNrPjQ==}
-    deprecated: Versions prior to v4 are deprecated, please update.
+  hds-react@4.10.0:
+    resolution: {integrity: sha512-pRv4fA75Xnx8HWJkIlRX+IuWoGCJWHcPFHKEH64ZNthUUvaev2ITiPWe5y9SmjrwBLFlRbSEK8gDQ8gEIDzj8g==}
+    engines: {node: ^22.13.1}
     peerDependencies:
       postcss: ^8.4.21
-      react: ^16.8.0 || ^17
-      react-dom: ^16.8.0 || ^17
+      react: ^16.8.0 || ^17 || ^18 || ^19
+      react-dom: ^16.8.0 || ^17 || ^18 || ^19
 
   hermes-estree@0.25.1:
     resolution: {integrity: sha512-0wUoCcLp+5Ev5pDW2OriHC2MJCbwLwuRx+gAqMTOkGKJJiBCLjtrvy4PWUGn6MIVefecRpzoOZ/UV6iGdOr+Cw==}
@@ -5717,9 +5717,9 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  hds-core@3.12.1: {}
+  hds-core@4.10.0: {}
 
-  hds-react@3.12.1(@types/react@19.3.0)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3):
+  hds-react@4.10.0(@types/react@19.3.0)(eslint@9.39.5(jiti@2.7.0)(supports-color@8.1.1))(postcss@8.5.32)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3):
     dependencies:
       '@apollo/client': 3.11.2(@types/react@19.3.0)(graphql@16.9.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@babel/runtime': 7.29.7
@@ -5737,7 +5737,7 @@ snapshots:
       date-fns: 2.16.1
       downshift: 6.0.6(react@19.3.1)
       graphql: 16.9.0
-      hds-core: 3.12.1
+      hds-core: 4.10.0
       jwt-decode: 3.1.2
       kashe: 1.0.4
       lodash: 4.18.1

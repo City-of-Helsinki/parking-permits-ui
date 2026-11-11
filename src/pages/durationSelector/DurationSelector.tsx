@@ -7,6 +7,8 @@ import {
 } from 'date-fns';
 import {
   Button,
+  ButtonPresetTheme,
+  ButtonVariant,
   Card,
   IconArrowLeft,
   IconArrowRight,
@@ -278,26 +280,22 @@ const DurationSelector = (): React.ReactElement => {
       ))}
       <div className="action-buttons">
         <Button
-          theme="black"
+          theme={ButtonPresetTheme.Black}
           className="action-btn"
+          iconStart={orderRequest ? <LoadingSpinner small /> : undefined}
+          iconEnd={orderRequest ? undefined : <IconArrowRight />}
           onClick={() => sendPurchaseOrderRequest()}
           disabled={!registrationNumbers?.length || orderRequest || !isChecked}>
-          {orderRequest && <LoadingSpinner small />}
-          {!orderRequest && (
-            <>
-              <span>{t('actionBtn.continue')}</span>
-              <IconArrowRight />
-            </>
-          )}
+          {t('actionBtn.continue')}
         </Button>
 
         <Button
           className="action-btn"
-          theme="black"
-          variant="secondary"
-          iconLeft={<IconArrowLeft />}
+          theme={ButtonPresetTheme.Black}
+          variant={ButtonVariant.Secondary}
+          iconStart={<IconArrowLeft />}
           onClick={() => navigate(ROUTES.PERMIT_PRICES)}>
-          <span>{t('actionBtn.back')}</span>
+          {t('actionBtn.back')}
         </Button>
       </div>
     </div>
