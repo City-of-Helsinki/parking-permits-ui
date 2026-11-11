@@ -16,6 +16,3 @@ allowBuilds:
 
 overrides:
   'minimatch@>=9 <11': '>=11.0.1'
-  # hds-react pins cookie 0.4.2; react-router 7 needs cookie ^1, so only patch old versions
-  'cookie@<0.7.0': '^0.7.2'
-  'uuid@9.0.1': '>=11.1.1'
