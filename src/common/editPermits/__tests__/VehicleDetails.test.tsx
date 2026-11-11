@@ -10,9 +10,6 @@ const mocks = vi.hoisted(() => ({
   getRestrictions: vi.fn(),
 }));
 
-// vi.mock('react-i18next', () => ({
-//   useTranslation: () => ({ t: (key: string) => key }),
-// }));
 vi.mock('react-router', () => ({ useNavigate: () => mocks.navigate }));
 vi.mock('../../../graphql/permitGqlClient', () => ({
   getVehicleInformation: mocks.getVehicleInformation,
