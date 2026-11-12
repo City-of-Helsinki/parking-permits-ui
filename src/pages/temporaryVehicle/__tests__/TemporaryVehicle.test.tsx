@@ -44,6 +44,7 @@ describe('TemporaryVehicle', () => {
   beforeEach(() => {
     mockAdd.mockReset();
     vi.useFakeTimers({ toFake: ['Date'] });
+    // eslint-disable-next-line no-magic-numbers
     vi.setSystemTime(new Date(2030, 0, 15, 10, 30));
   });
 
