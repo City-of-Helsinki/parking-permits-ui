@@ -8,6 +8,7 @@ import {
 } from 'hds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { ROUTES } from '../../types';
 
 const T_PATH = 'common.footer.Footer';
 
@@ -120,6 +121,7 @@ const Footer = (): React.ReactElement => {
           href={ACCESSIBILITY_STATEMENT_LINK}
           label={t(`${T_PATH}.accessibility`)}
         />
+        <HDSFooter.Link href={ROUTES.COOKIES} label={t(`${T_PATH}.cookies`)} />
       </HDSFooter.Base>
     </HDSFooter>
   );

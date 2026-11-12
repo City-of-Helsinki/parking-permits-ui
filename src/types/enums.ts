@@ -1,6 +1,7 @@
 export enum ROUTES {
   BASE = '/',
   CALLBACK = '/callback',
+  COOKIES = '/cookies',
   LANDING = '/landing-page',
   SUCCESS = '/success',
   PROFILE = '/profile',
