@@ -15,7 +15,7 @@ import ValidPermits from './pages/validPermits/ValidPermits';
 import VehicleSelector from './pages/vehicleSelector/VehicleSelector';
 import { ROUTES } from './types';
 import HandleCallback from './client/HandleCallback';
-import CookieSettingsPageWrapper from './pages/cookieSettings/CookieSettings';
+import CookieSettingsPageWrapper from './pages/cookieSettings/CookieSettingsPageWrapper';
 
 const routes = [
   {
