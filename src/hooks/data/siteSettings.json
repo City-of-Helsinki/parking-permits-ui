@@ -83,6 +83,21 @@
           }
         },
         {
+          "name": "oidc.*",
+          "host": "pysakointitunnukset.hel.fi",
+          "storageType": 2,
+          "description": {
+            "fi": "Kirjautumisen tilatiedot tallennetaan selaimen muistiin (local storage).",
+            "sv": "Inloggningens tillståndsuppgifter lagras i webbläsarens minne (local storage).",
+            "en": "Authentication state information is saved to browser's memory (local storage)."
+          },
+          "expiration": {
+            "fi": "Istunto",
+            "sv": "Session",
+            "en": "Session"
+          }
+        },
+        {
           "name": "hds_login_api_token_storage_key",
           "host": "pysakointitunnukset.hel.fi",
           "storageType": 3,
