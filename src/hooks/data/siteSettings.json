@@ -247,9 +247,9 @@
       "en": "Cookie settings"
     },
     "heading": {
-      "fi": "{{siteName}} käyttää evästeitä",
-      "sv": "{{siteName}} använder kakor",
-      "en": "{{siteName}} uses cookies"
+      "fi": "Pysäköintiluvat käyttää evästeitä",
+      "sv": "Parkeringstillstånd använder kakor",
+      "en": "Parking Permits uses cookies"
     },
     "description": {
       "fi": "Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.",
