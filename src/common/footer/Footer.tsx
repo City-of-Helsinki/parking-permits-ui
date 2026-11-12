@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../../types';
+import { useNavigate } from 'react-router';
 
 const T_PATH = 'common.footer.Footer';
 
@@ -48,6 +49,8 @@ const FOOTER_LINKS = {
 
 const Footer = (): React.ReactElement => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
   const language = (
     i18n.language in FOOTER_LINKS ? i18n.language : 'fi'
   ) as keyof typeof FOOTER_LINKS;
@@ -121,7 +124,14 @@ const Footer = (): React.ReactElement => {
           href={ACCESSIBILITY_STATEMENT_LINK}
           label={t(`${T_PATH}.accessibility`)}
         />
-        <HDSFooter.Link href={ROUTES.COOKIES} label={t(`${T_PATH}.cookies`)} />
+        <HDSFooter.Link
+          label={t(`${T_PATH}.cookies`)}
+          onClick={e => {
+            e.preventDefault();
+
+            navigate(ROUTES.COOKIES);
+          }}
+        />
       </HDSFooter.Base>
     </HDSFooter>
   );
