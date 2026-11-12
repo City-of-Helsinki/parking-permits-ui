@@ -25,6 +25,8 @@ const useCookieConsentSettings = ({ siteName }: Props) => {
 
   const cookieConsentProps: CookieConsentReactProps = {
     onChange: (changeEvent: CookieConsentChangeEvent) => {
+      if (!window._paq) return;
+
       const { acceptedGroups } = changeEvent;
 
       const hasStatisticsConsent =
