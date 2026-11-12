@@ -43,6 +43,12 @@ const typeRegistration = async (
 describe('TemporaryVehicle', () => {
   beforeEach(() => {
     mockAdd.mockReset();
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date(2030, 0, 15, 10, 30));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('redirects when the permit is not found', () => {
