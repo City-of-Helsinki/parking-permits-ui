@@ -125,6 +125,7 @@ const Footer = (): React.ReactElement => {
           label={t(`${T_PATH}.accessibility`)}
         />
         <HDSFooter.Link
+          href={ROUTES.COOKIES}
           label={t(`${T_PATH}.cookies`)}
           onClick={e => {
             e.preventDefault();
