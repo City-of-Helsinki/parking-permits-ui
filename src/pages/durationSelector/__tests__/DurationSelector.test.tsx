@@ -22,6 +22,7 @@ vi.mock('../../../common/permit/Permit', () => ({
 
 vi.mock('../../../common/permitType/PermitType', () => ({
   default: (props: {
+    updatePermitData: (p: Partial<Permit>, id?: string) => void;
     updateContractType: (p: Partial<Permit>, id: string) => void;
     updateStartType: (p: Partial<Permit>, id: string) => void;
     mainPermitToUpdate: Permit;
@@ -36,6 +37,14 @@ vi.mock('../../../common/permitType/PermitType', () => ({
       <button
         onClick={() => props.updateStartType({}, props.mainPermitToUpdate.id)}>
         set start
+      </button>
+      <button
+        onClick={() =>
+          props.updatePermitData({
+            startTime: props.mainPermitToUpdate.startTime,
+          })
+        }>
+        reselect date
       </button>
     </>
   ),
@@ -198,7 +207,7 @@ describe('DurationSelector', () => {
     });
 
     expect(context.updatePermit).toHaveBeenLastCalledWith(
-      { monthCount: 0, contractType: ParkingContractType.FIXED_PERIOD },
+      { monthCount: 5, contractType: ParkingContractType.FIXED_PERIOD },
       'draft-1'
     );
   });
@@ -214,8 +223,8 @@ describe('DurationSelector', () => {
     });
 
     it.each([
-      // primary permit ends with dangling days after three months: rounds up
-      { endTime: '2026-04-15T00:00:00', max: 4 },
+      // Partial final months are not purchasable
+      { endTime: '2026-04-15T00:00:00', max: 3 },
       // primary permit ends exactly after three months
       { endTime: '2026-04-02T00:00:00', max: 3 },
     ])('is $max when primary ends $endTime', ({ endTime, max }) => {
@@ -273,4 +282,122 @@ describe('DurationSelector', () => {
 
     expect(screen.getByText('prices page')).toBeInTheDocument();
   });
+});
+
+it('blocks checkout when the requested second-permit duration does not fit', async () => {
+  const primary = createPermit({
+    id: 'valid',
+    startTime: '2099-01-01',
+    endTime: '2099-02-01',
+  });
+  const secondary = createPermit({
+    id: 'secondary',
+    primaryVehicle: false,
+    startTime: '2099-01-02',
+    monthCount: 2,
+  });
+  const context = createContext([secondary], [primary]);
+  renderPage(context);
+  await userEvent.click(screen.getByText('set contract'));
+  await userEvent.click(screen.getByText('set start'));
+  expect(
+    screen.getByRole('button', { name: /actionBtn.continue/ })
+  ).toBeDisabled();
+  expect(context.createOrderRequest).not.toHaveBeenCalled();
+});
+
+it('allows selecting two months when both permits share a future start date', async () => {
+  vi.useFakeTimers({ toFake: ['Date'] });
+  vi.setSystemTime(new Date('2026-11-13T12:00:00+02:00'));
+  try {
+    const primary = createPermit({
+      id: 'valid',
+      startTime: '2026-11-14T00:00:00+02:00',
+      endTime: '2027-01-13T23:59:59+02:00',
+      monthCount: 2,
+    });
+    const secondary = createPermit({
+      id: 'secondary',
+      primaryVehicle: false,
+      startTime: primary.startTime,
+      endTime: '2026-12-13T23:59:59.999999+02:00',
+      monthCount: 1,
+    });
+    const context = createContext([secondary], [primary]);
+    renderPage(context);
+    await userEvent.click(screen.getByText('set contract'));
+    await userEvent.click(screen.getByText('set start'));
+    const duration = screen.getByRole('spinbutton');
+    expect(duration).toHaveAttribute('max', '2');
+    await userEvent.click(
+      screen.getByRole('button', { name: 'Increase by one' })
+    );
+    expect(context.updatePermit).toHaveBeenCalledWith(
+      { monthCount: 2, contractType: ParkingContractType.FIXED_PERIOD },
+      'secondary'
+    );
+  } finally {
+    vi.useRealTimers();
+  }
+});
+
+it('resets the duration in the same request when the date is reselected', async () => {
+  const primary = createPermit({
+    id: 'valid',
+    startTime: '2099-11-14T00:00:00+02:00',
+    endTime: '2100-01-13T23:59:59+02:00',
+    monthCount: 2,
+  });
+  const secondary = createPermit({
+    id: 'secondary',
+    primaryVehicle: false,
+    startTime: primary.startTime,
+    endTime: primary.endTime,
+    monthCount: 2,
+  });
+  const context = createContext([secondary], [primary]);
+  renderPage(context);
+  expect(screen.getByRole('spinbutton')).toHaveValue(2);
+  await userEvent.click(screen.getByText('reselect date'));
+  expect(context.updatePermit).toHaveBeenCalledExactlyOnceWith(
+    {
+      startTime: secondary.startTime,
+      contractType: ParkingContractType.FIXED_PERIOD,
+      monthCount: 1,
+    },
+    undefined
+  );
+});
+
+it('rechecks the second-permit dates with the current time on submit', async () => {
+  vi.useFakeTimers({ toFake: ['Date'] });
+  vi.setSystemTime(new Date('2026-11-13T12:00:00+02:00'));
+  try {
+    const primary = createPermit({
+      id: 'valid',
+      startTime: '2026-11-14T00:00:00+02:00',
+      endTime: '2026-12-13T23:59:59+02:00',
+    });
+    const secondary = createPermit({
+      id: 'secondary',
+      primaryVehicle: false,
+      startTime: primary.startTime,
+      monthCount: 1,
+    });
+    const context = createContext([secondary], [primary]);
+    renderPage(context);
+    await userEvent.click(screen.getByText('set contract'));
+    await userEvent.click(screen.getByText('set start'));
+    const button = screen.getByRole('button', { name: /actionBtn.continue/ });
+    expect(button).toBeEnabled();
+
+    vi.setSystemTime(new Date('2026-11-15T00:30:00+02:00'));
+    await userEvent.click(button);
+
+    expect(context.createOrderRequest).not.toHaveBeenCalled();
+    expect(button).toBeDisabled();
+    expect(screen.getByText('secondaryPermitDates')).toBeInTheDocument();
+  } finally {
+    vi.useRealTimers();
+  }
 });

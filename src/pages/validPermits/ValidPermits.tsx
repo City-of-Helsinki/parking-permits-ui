@@ -1,3 +1,4 @@
+import { maxSecondaryMonths } from '../../permitRules';
 import classNames from 'classnames';
 import { endOfDay, format, compareAsc } from 'date-fns';
 import {
@@ -16,6 +17,7 @@ import EndPermitDialog from '../../common/endPermitDialog/EndPermitDialog';
 import Permit from '../../common/permit/Permit';
 import PurchaseNotification from '../../common/purchaseNotification/PurchaseNotification';
 import { PermitStateContext } from '../../hooks/permitProvider';
+import usePurchaseTime from '../../hooks/usePurchaseTime';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import {
   ParkingContractType,
@@ -37,12 +39,28 @@ const ValidPermits = (): React.ReactElement => {
   const permitCtx = useContext(PermitStateContext);
   const [openEndPermitDialog, setOpenEndPermitDialog] = useState(false);
 
+  const [purchaseTime] = usePurchaseTime();
+
   const profile = profileCtx?.getProfile();
   const validPermits = permitCtx?.getValidPermits();
 
   if (!profile || !validPermits?.length) {
     return <Navigate to={ROUTES.BASE} />;
   }
+
+  const primary = validPermits.find(p => p.primaryVehicle);
+  const cannotBuySecond =
+    !!primary &&
+    maxSecondaryMonths(
+      primary,
+      new Date(
+        Math.max(
+          purchaseTime.getTime(),
+          new Date(primary.startTime || 0).getTime()
+        )
+      ),
+      purchaseTime
+    ) === 0;
 
   const T_PLURALITY = validPermits.length > 1 ? 'plural' : 'singular';
 
@@ -102,6 +120,9 @@ const ValidPermits = (): React.ReactElement => {
         permit.hasPendingExtensionRequest) &&
       permit.talpaOrderId
   );
+
+  const canOrderSecond =
+    validPermits.length === 1 && !validPermits.some(isOpenEndedPermit);
 
   const showActionsButtons =
     validPermits.some(isPermitEditable) && !isPaymentPending;
@@ -192,13 +213,17 @@ const ValidPermits = (): React.ReactElement => {
           showAddressTypeLabel={false}
         />
       )}
+      {canOrderSecond && cannotBuySecond && (
+        <Notification label={t('secondaryPermitDates')} />
+      )}
       <div className="action-buttons">
-        {validPermits.length === 1 && !validPermits.some(isOpenEndedPermit) && (
+        {canOrderSecond && (
           <Button
             className="action-btn"
             variant={ButtonVariant.Secondary}
             theme={ButtonPresetTheme.Black}
             disabled={
+              cannotBuySecond ||
               validPermits.some(isProcessing) ||
               permitCtx?.permitsHaveOutdatedAddresses() ||
               validPermits.some(hasTemporaryVehicle)
