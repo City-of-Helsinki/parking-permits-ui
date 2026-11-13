@@ -1,10 +1,5 @@
+import { maxSecondaryMonths, validSecondaryPurchase } from '../../permitRules';
 import classNames from 'classnames';
-import {
-  addDays,
-  addMonths,
-  differenceInDays,
-  differenceInMonths,
-} from 'date-fns';
 import {
   Button,
   ButtonPresetTheme,
@@ -24,6 +19,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Permit from '../../common/permit/Permit';
 import PermitType from '../../common/permitType/PermitType';
 import { PermitStateContext } from '../../hooks/permitProvider';
+import usePurchaseTime from '../../hooks/usePurchaseTime';
 import {
   ParkingContractType,
   Permit as PermitModel,
@@ -52,6 +48,7 @@ const DurationSelector = (): React.ReactElement => {
   const [contractTypeChecked, setContractTypeChecked] =
     useState<boolean>(false);
   const [startTypeChecked, setStartTypeChecked] = useState<boolean>(false);
+  const [purchaseTime, setPurchaseTime] = usePurchaseTime();
 
   const draftPermits = permitCtx?.getDraftPermits();
   const validPermits = permitCtx?.getValidPermits();
@@ -95,6 +92,9 @@ const DurationSelector = (): React.ReactElement => {
   }
 
   const sendPurchaseOrderRequest = () => {
+    const now = new Date();
+    setPurchaseTime(now);
+    if (hasInvalidDates(now)) return;
     permitCtx?.createOrderRequest();
     setOrderRequest(true);
   };
@@ -103,7 +103,18 @@ const DurationSelector = (): React.ReactElement => {
     payload: Partial<PermitModel>,
     permitId: string | undefined
   ) => {
-    permitCtx?.updatePermit(payload, permitId);
+    const changesStart = 'startTime' in payload || 'startType' in payload;
+    permitCtx?.updatePermit(
+      changesStart
+        ? {
+            ...payload,
+            contractType:
+              payload.contractType || mainPermitToUpdate.contractType,
+            monthCount: 1,
+          }
+        : payload,
+      permitId
+    );
   };
 
   const updateContractType = (
@@ -152,23 +163,33 @@ const DurationSelector = (): React.ReactElement => {
   };
 
   const getMaxMonth = (permit: PermitModel) => {
-    if (
-      permit.primaryVehicle ||
-      primaryPermit.contractType === ParkingContractType.OPEN_ENDED
-    ) {
+    if (permit.primaryVehicle) {
       return MAX_MONTH;
     }
-    const { endTime, currentPeriodEndTime } = primaryPermit;
-    const endDate = new Date(endTime || currentPeriodEndTime);
-    const monthDiff = differenceInMonths(endDate, addDays(new Date(), 1));
-    const danglingDays = differenceInDays(
-      endDate,
-      addMonths(addDays(new Date(), 1), monthDiff)
+    return maxSecondaryMonths(
+      primaryPermit,
+      permit.startTime || purchaseTime,
+      purchaseTime
     );
-    return danglingDays >= 1 ? monthDiff + 1 : monthDiff;
   };
 
+  const hasInvalidDates = (now: Date) =>
+    draftPermits.some(
+      permit =>
+        !permit.primaryVehicle &&
+        !validSecondaryPurchase(
+          primaryPermit,
+          permit.startTime || now,
+          permit.monthCount,
+          now
+        )
+    );
+    
+  const invalidDates = hasInvalidDates(purchaseTime);
+
   const updateMonthCount = (permitId: string, monthCount: number) =>
+    Number.isInteger(monthCount) &&
+    monthCount >= 1 &&
     updatePermitData(
       { monthCount, contractType: ParkingContractType.FIXED_PERIOD },
       permitId
@@ -192,9 +213,7 @@ const DurationSelector = (): React.ReactElement => {
         {t(validPermits?.length ? 'secondPermitLabel' : 'sectionLabel')}
       </div>
       {permitCtx?.getStatus() === 'error' && (
-        <Notification type="error">
-          {t(permitCtx?.getErrorMessage() || '')}
-        </Notification>
+        <Notification type="error">{permitCtx?.getErrorMessage()}</Notification>
       )}
       {primaryPermit && (
         <PermitType
@@ -254,7 +273,7 @@ const DurationSelector = (): React.ReactElement => {
                   min={1}
                   step={1}
                   max={getMaxMonth(permit)}
-                  defaultValue={permit?.monthCount}
+                  value={permit?.monthCount}
                   disabled={
                     mainPermitToUpdate.contractType !==
                       ParkingContractType.FIXED_PERIOD || !startTypeChecked
@@ -278,6 +297,7 @@ const DurationSelector = (): React.ReactElement => {
           </div>
         </div>
       ))}
+      {invalidDates && <Notification label={gt('secondaryPermitDates')} />}
       <div className="action-buttons">
         <Button
           theme={ButtonPresetTheme.Black}
@@ -285,7 +305,12 @@ const DurationSelector = (): React.ReactElement => {
           iconStart={orderRequest ? <LoadingSpinner small /> : undefined}
           iconEnd={orderRequest ? undefined : <IconArrowRight />}
           onClick={() => sendPurchaseOrderRequest()}
-          disabled={!registrationNumbers?.length || orderRequest || !isChecked}>
+          disabled={
+            invalidDates ||
+            !registrationNumbers?.length ||
+            orderRequest ||
+            !isChecked
+          }>
           {t('actionBtn.continue')}
         </Button>
 

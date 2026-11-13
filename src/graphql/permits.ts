@@ -12,6 +12,7 @@ export default gql`
       startType
       startTime
       endTime
+      endType
       primaryVehicle
       consentLowEmissionAccepted
       status

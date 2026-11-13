@@ -38,6 +38,7 @@ export type Permit = {
   startType?: ParkingStartType;
   startTime?: MaybeDate;
   endTime?: MaybeDate;
+  endType?: string;
   status: PermitStatus;
   primaryVehicle: boolean;
   consentLowEmissionAccepted: boolean;

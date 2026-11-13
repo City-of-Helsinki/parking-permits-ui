@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import {
@@ -131,4 +131,26 @@ describe('ExtendPermit', () => {
     expect(openSpy).not.toHaveBeenCalled();
     expect(continueButton()).toBeEnabled();
   });
+});
+
+it('blocks manually entered durations above the extension limit', () => {
+  mockPrices.mockReset();
+  mockExtend.mockReset();
+  renderPage();
+  fireEvent.change(screen.getByRole('spinbutton'), { target: { value: '4' } });
+  expect(continueButton()).toBeDisabled();
+  expect(mockPrices).not.toHaveBeenCalled();
+  expect(mockExtend).not.toHaveBeenCalled();
+});
+
+it('rejects fractional durations instead of truncating them', () => {
+  mockPrices.mockReset();
+  mockExtend.mockReset();
+  renderPage();
+  fireEvent.change(screen.getByRole('spinbutton'), {
+    target: { value: '1.5' },
+  });
+  expect(continueButton()).toBeDisabled();
+  expect(mockPrices).not.toHaveBeenCalled();
+  expect(mockExtend).not.toHaveBeenCalled();
 });

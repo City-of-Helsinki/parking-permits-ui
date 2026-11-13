@@ -44,7 +44,11 @@ const ExtendPermit = (): React.ReactElement => {
       if (permit) {
         setMonthCount(updatedMonthCount);
         setError('');
-        if (updatedMonthCount === 0) {
+        if (
+          !Number.isInteger(updatedMonthCount) ||
+          updatedMonthCount < 1 ||
+          updatedMonthCount > permit.maxExtensionMonthCount
+        ) {
           setPrices([]);
           return;
         }
@@ -60,7 +64,12 @@ const ExtendPermit = (): React.ReactElement => {
   );
 
   const createExtendPermit = useCallback(async () => {
-    if (monthCount > 0 && !!permit) {
+    if (
+      Number.isInteger(monthCount) &&
+      monthCount > 0 &&
+      !!permit &&
+      monthCount <= permit.maxExtensionMonthCount
+    ) {
       setError('');
       setLoading(true);
       const { checkoutUrl } = await extendPermit(permit.id, monthCount);
@@ -127,7 +136,7 @@ const ExtendPermit = (): React.ReactElement => {
             defaultValue={monthCount}
             disabled={isLoading}
             onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-              updateMonthCount(parseInt(e.target.value || '0', 10));
+              updateMonthCount(Number(e.target.value || '0'));
             }}
             crossOrigin={undefined}
             onPointerEnterCapture={undefined}
@@ -145,7 +154,12 @@ const ExtendPermit = (): React.ReactElement => {
           iconStart={isLoading ? <LoadingSpinner small /> : undefined}
           iconEnd={isLoading ? undefined : <IconArrowRight />}
           onClick={createExtendPermit}
-          disabled={isLoading}>
+          disabled={
+            isLoading ||
+            !Number.isInteger(monthCount) ||
+            monthCount < 1 ||
+            monthCount > permit.maxExtensionMonthCount
+          }>
           {t('actionBtn.continue')}
         </Button>
 

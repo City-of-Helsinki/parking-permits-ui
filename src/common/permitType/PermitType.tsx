@@ -29,6 +29,7 @@ export interface Props {
   updateContractType: (payload: Partial<Permit>, permitId?: string) => void;
   updateStartType: (payload: Partial<Permit>, permitId?: string) => void;
 }
+
 const PermitType = ({
   primaryPermit,
   mainPermitToUpdate,
@@ -39,6 +40,18 @@ const PermitType = ({
   updateStartType,
 }: Props): React.ReactElement => {
   const { t, i18n } = useTranslation();
+
+  const primaryStart =
+    !mainPermitToUpdate.primaryVehicle && primaryPermit.startTime
+      ? new Date(primaryPermit.startTime)
+      : new Date(0);
+
+  const minStart = new Date(
+    Math.max(
+      startOfDay(addDays(new Date(), 1)).getTime(),
+      primaryStart.getTime()
+    )
+  );
 
   const hasSecondPermitNotification = () => {
     if (
@@ -51,6 +64,7 @@ const PermitType = ({
     }
     return <></>;
   };
+  
   return (
     <Card className="permit-type-component">
       <div className="time-period with-bottom-border">
@@ -113,6 +127,7 @@ const PermitType = ({
               className="custom-radio-btn"
               id={uuidv4()}
               value={ParkingStartType.IMMEDIATELY}
+              disabled={primaryStart > new Date()}
               label={t(`${T_PATH}.immediately`)}
               checked={
                 mainPermitToUpdate.startType === ParkingStartType.IMMEDIATELY &&
@@ -142,7 +157,7 @@ const PermitType = ({
               onClick={() =>
                 updateStartType({
                   startType: ParkingStartType.FROM,
-                  startTime: startOfDay(addDays(new Date(), 1)),
+                  startTime: minStart,
                 })
               }
             />
@@ -154,7 +169,7 @@ const PermitType = ({
         <DateInput
           readOnly
           style={{ maxWidth: '250px' }}
-          minDate={addDays(new Date(), 1)}
+          minDate={minStart}
           maxDate={addWeeks(new Date(), 2)}
           className="date-selection"
           placeholder={t(`${T_PATH}.datePlaceHolder`)}
