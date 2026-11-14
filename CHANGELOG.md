@@ -5,6 +5,53 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.2...parking-permits-ui-v1.7.0) (2026-11-14)
+
+
+### Features
+
+* Cookie settings page Refs: PV-1003 ([a77d207](https://github.com/City-of-Helsinki/parking-permits-ui/commit/a77d207065ae331105f4ad7aa1e249698f4f83be))
+* Display vehicle traficom fetch time ([1443b1a](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1443b1a5a957bb5e1b5cf87859cfcc425d449ab7))
+* Enforce second permit date rules ([6b31ca2](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6b31ca21913f8c20836b004d66ac6fc38c3b2418))
+* Generate third-party license notices at build time ([91de513](https://github.com/City-of-Helsinki/parking-permits-ui/commit/91de51328098698c8d4c2a10ff3cbc6689bf76b2))
+* Generate third-party license notices at build time ([b741c98](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b741c980d574cadd94df88a69bc1068fbe472616))
+* Simplify low-emission-/discount-logic ([7be65e9](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7be65e9cb697c081debe822c4713f0c0cc8fdd0e))
+* Upgrade Sentry SDK and configure tracing, replays and sourcemaps ([57ec6e9](https://github.com/City-of-Helsinki/parking-permits-ui/commit/57ec6e9fc7eb781de3270fc4c41882f533c114fe))
+
+
+### Bug Fixes
+
+* Add guard against malformed values ([5516c77](https://github.com/City-of-Helsinki/parking-permits-ui/commit/5516c77d5c205b7da6fbf8e1b6bfbfee1cb966b0))
+* Adjust 'periodic inspection rejected'-text ([8570a4e](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8570a4eb02f6a5aea9dde7431e8dfdf15360580e))
+* Adjust EndPermitResult notifications ([177d692](https://github.com/City-of-Helsinki/parking-permits-ui/commit/177d692f676204977caaf448964061606e5672ad))
+* Consent check for matomo Refs: PV-1003 ([6ab3a70](https://github.com/City-of-Helsinki/parking-permits-ui/commit/6ab3a70982ee66c2bff8bce25c8b55c6bf42d4a4))
+* Footer cookies link default Refs: PV-1003 ([91245cf](https://github.com/City-of-Helsinki/parking-permits-ui/commit/91245cf7d77ba671d3a40e1f5732ca8481b111f8))
+* Footer cookies link navigate Refs: PV-1003 ([39b5693](https://github.com/City-of-Helsinki/parking-permits-ui/commit/39b5693654d3d780ce5d946bd0bdba3bd98dc0a5))
+* Handle missing permit results ([9b8e130](https://github.com/City-of-Helsinki/parking-permits-ui/commit/9b8e130cb67ab20296c2d7c961015b301e8273f4))
+* Prevent duplicate permit forms on tablet widths ([40f7980](https://github.com/City-of-Helsinki/parking-permits-ui/commit/40f79807c7cab6d6fd4e7c2f73219557b2634dd3))
+* Stack notification messages ([b4c84b8](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b4c84b8f6572bfc3b8d1d9ec92014be8c31507ad))
+* Synchronize permit steps after render ([d34aef8](https://github.com/City-of-Helsinki/parking-permits-ui/commit/d34aef85ec21e2f83dc7923987b7fa80183e1c9a))
+* Template load env config Refs: PV-999 ([fbdc41d](https://github.com/City-of-Helsinki/parking-permits-ui/commit/fbdc41d053515d395ce0df1ae0d25243b2850232))
+* TemporaryBehicle test timers Refs: PV-1003 ([eac2468](https://github.com/City-of-Helsinki/parking-permits-ui/commit/eac2468d929e9795ba4ef0bb63ac4f0af1ca4c23))
+* TemporaryVehicle test lint Refs: PV-1003 ([7c175c6](https://github.com/City-of-Helsinki/parking-permits-ui/commit/7c175c6f844e2fb2efbe51afa3e51a5e7fe739a5))
+
+
+### Dependencies
+
+* Bump react-leaflet to v5 Refs: PV-1001 ([bc13218](https://github.com/City-of-Helsinki/parking-permits-ui/commit/bc13218f7fae22af146893357a6855f9ecaee603))
+* Eslint to v9 ([2db99ed](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2db99ed9d68d711cdb920f8095be6e507e4b7fbe))
+* Hds-react to v6 Refs: PV-1003 ([2490b98](https://github.com/City-of-Helsinki/parking-permits-ui/commit/2490b98e261a85a11ceb6ee5fa282da64e1a911d))
+* Hds-react v4 Refs: PV-1003 ([1481262](https://github.com/City-of-Helsinki/parking-permits-ui/commit/1481262c1bdb7e678d814e58cdfd4c5732f1b8d3))
+* Hds-react v5 Refs: PV-1003 ([b2fe90c](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b2fe90c51c4f5596d3d7f1e91840fd3bb4fb87bb))
+* Migrate Jest to Vitest Refs: PV-999 ([8aa5247](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8aa5247fa6a0ae1af673ef44982d25a4363343b9))
+* Migrate React Router to v7.18.2 ([3d50612](https://github.com/City-of-Helsinki/parking-permits-ui/commit/3d5061232e188ce19d4e1d506297070fb4123345))
+* Patch vulnerable packages ([f45280f](https://github.com/City-of-Helsinki/parking-permits-ui/commit/f45280f39c0ed22f0ac0d24d66087ced23c92ff5))
+* Patch vulnerable packages 10.2.6 ([b377600](https://github.com/City-of-Helsinki/parking-permits-ui/commit/b37760031b7ed41d0e91d46a55fe029a3c867935))
+* React react-dom v19 Refs: PV-1001 ([318a567](https://github.com/City-of-Helsinki/parking-permits-ui/commit/318a567f7d55a2dc9380556cb20cda05fb6876f5))
+* Remove eslint-plugin-import-x patch ([8e14aa6](https://github.com/City-of-Helsinki/parking-permits-ui/commit/8e14aa6bb43ff2fb4b596129ac35c6e136a13070))
+* Replace rsbuild with Vite Refs: PV-999 ([93f5709](https://github.com/City-of-Helsinki/parking-permits-ui/commit/93f5709663e12127c551a7778671cc9fcf9f60bb))
+* Vite eslint plugin Refs: PV-999 ([417983f](https://github.com/City-of-Helsinki/parking-permits-ui/commit/417983f3bebb6c657afcce2d80b5e21d7f213146))
+
 ## [1.6.2](https://github.com/City-of-Helsinki/parking-permits-ui/compare/parking-permits-ui-v1.6.1...parking-permits-ui-v1.6.2) (2026-09-24)
 
 ### Bug Fixes
