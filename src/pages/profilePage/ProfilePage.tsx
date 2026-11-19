@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { ROUTES } from '../../types';
+import { getLocalizedAddress } from '../../common/utils';
 
 const T_PATH = 'pages.profilePage.ProfilePage';
 
@@ -17,22 +18,21 @@ const ProfilePage = (): React.ReactElement => {
     profileCtx.getProfile();
 
   const getAddresses = () =>
-    [primaryAddress, otherAddress].map((address, index) => (
-      <div key={address.id}>
-        <span
-          style={{
-            fontSize: 'var(--fontsize-heading-s)',
-            marginTop: 'var(--spacing-s)',
-          }}>
-          {index === 0 ? 'Primary Address: ' : 'Other address: '}
-        </span>
-        <span>{`${
-          i18n.language === 'sv' ? address.streetNameSv : address.streetName
-        }, ${address.postalCode}, ${
-          i18n.language === 'sv' ? address.citySv : address.city
-        }`}</span>
-      </div>
-    ));
+    [primaryAddress, otherAddress].map((address, index) => {
+      const { street, city } = getLocalizedAddress(address, i18n.language);
+      return (
+        <div key={address.id}>
+          <span
+            style={{
+              fontSize: 'var(--fontsize-heading-s)',
+              marginTop: 'var(--spacing-s)',
+            }}>
+            {index === 0 ? 'Primary Address: ' : 'Other address: '}
+          </span>
+          <span>{`${street}, ${address.postalCode}, ${city}`}</span>
+        </div>
+      );
+    });
   return (
     <Container>
       <div style={{ fontSize: 'var(--fontsize-heading-m)' }}>
