@@ -2,16 +2,22 @@ import { extractIBAN } from 'ibantools';
 import { UserAddress, Vehicle, MaybeDate } from '../types';
 import { normalizeDateValue } from '../utils';
 
+export const getLocalizedAddress = (address: UserAddress, lang: string) => {
+  const { streetName, streetNameSv, city, citySv } = address;
+  // DVV often has no Swedish names, so fall back to the Finnish ones
+  return lang === 'sv'
+    ? { street: streetNameSv || streetName, city: citySv || city }
+    : { street: streetName, city };
+};
+
 export const formatAddress = (
   address: UserAddress,
   addressApartment: string,
   lang: string
 ): string => {
-  const { streetName, streetNameSv, city, citySv, postalCode, streetNumber } =
-    address;
-  const addressStreet = lang === 'sv' ? streetNameSv : streetName;
-  const addressCity = lang === 'sv' ? citySv : city;
-  return `${addressStreet} ${streetNumber} ${addressApartment}, ${postalCode} ${addressCity}`;
+  const { postalCode, streetNumber } = address;
+  const { street, city } = getLocalizedAddress(address, lang);
+  return `${street} ${streetNumber} ${addressApartment}, ${postalCode} ${city}`;
 };
 
 export function formatDateDisplay(datetime: MaybeDate): string {
