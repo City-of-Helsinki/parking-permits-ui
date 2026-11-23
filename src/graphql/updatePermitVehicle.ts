@@ -13,6 +13,7 @@ export default gql`
       consentLowEmissionAccepted: $consentLowEmissionAccepted
       iban: $iban
     ) {
+      refundCreated
       checkoutUrl
     }
   }
