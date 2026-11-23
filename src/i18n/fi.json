@@ -57,6 +57,8 @@
   "common.editPermits.OrderReview.title": "Pysäköintitunnuksesi",
   "common.editPermits.PriceChangePreview.actionBtn.cancel": "Peruuta",
   "common.editPermits.PriceChangePreview.actionBtn.continue": "Jatka",
+  "common.editPermits.PriceChangePreview.loading": "Pyyntöä käsitellään",
+  "common.editPermits.PriceChangePreview.loadingFinished": "Pyynnön käsittely päättyi",
   "common.editPermits.PriceChangePreview.newOrderTotal": "Uusi tilaus, kokonaishinta",
   "common.editPermits.PriceChangePreview.previousOrderRemaining": "Edellinen tilaus, jäljellä oleva summa",
   "common.editPermits.PriceChangePreview.priceCalcDescription": "Hinnoissa huomioidaan tilauksen jäljellä olevat täydet kuukaudet.",

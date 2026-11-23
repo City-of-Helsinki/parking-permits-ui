@@ -57,6 +57,8 @@
   "common.editPermits.OrderReview.title": "Parking permits",
   "common.editPermits.PriceChangePreview.actionBtn.cancel": "Cancel",
   "common.editPermits.PriceChangePreview.actionBtn.continue": "Continue",
+  "common.editPermits.PriceChangePreview.loading": "Processing your request",
+  "common.editPermits.PriceChangePreview.loadingFinished": "Request finished",
   "common.editPermits.PriceChangePreview.newOrderTotal": "New order, total price",
   "common.editPermits.PriceChangePreview.previousOrderRemaining": "Previous order, remaining sum",
   "common.editPermits.PriceChangePreview.priceCalcDescription": "The prices take into account the remaining full months of the order.",

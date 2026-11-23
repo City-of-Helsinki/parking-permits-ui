@@ -171,21 +171,15 @@ const ChangeAddress = (): React.ReactElement | null => {
                 getChangeAddressPriceChanges(selectedAddress.id)
                   .then(changes => {
                     setPriceChangesList(changes);
-                    const changeTotal = changes.reduce(
-                      (total, item) =>
-                        total +
-                        getPermitPriceTotal(item.priceChanges, 'priceChange'),
-                      0
-                    );
                     const hasOpenEnded = validPermits.some(
                       permit =>
                         permit.contractType === ParkingContractType.OPEN_ENDED
                     );
-                    if (changeTotal > 0 || hasOpenEnded) {
+                    if (hasOpenEnded) {
                       changeAddress(selectedAddress.id).catch(() =>
                         setError(t(`${T_PATH}.errors.failedRequest`))
                       );
-                      if (hasOpenEnded) setStep(ChangeAddressStep.ORDER_REVIEW);
+                      setStep(ChangeAddressStep.ORDER_REVIEW);
                     } else {
                       setStep(ChangeAddressStep.PRICE_PREVIEW);
                     }
@@ -210,16 +204,18 @@ const ChangeAddress = (): React.ReactElement | null => {
         <PriceChangePreview
           className="price-change-preview"
           priceChangesList={priceChangesList}
+          isRefund={priceChangeTotal < 0}
           onCancel={() => setStep(ChangeAddressStep.ADDRESS)}
           onConfirm={() => {
             if (!selectedAddress) {
               setError(t(`${T_PATH}.errors.missingSelectedAddress`));
               return;
             }
-            if (priceChangeTotal === 0) {
-              changeAddress(selectedAddress.id).then(() =>
-                setStep(ChangeAddressStep.ORDER_REVIEW)
-              );
+            if (priceChangeTotal >= 0) {
+              setError('');
+              return changeAddress(selectedAddress.id)
+                .then(() => setStep(ChangeAddressStep.ORDER_REVIEW))
+                .catch(() => setError(t(`${T_PATH}.errors.failedRequest`)));
             } else if (priceChangeTotal < 0) {
               setStep(ChangeAddressStep.REFUND);
             }
@@ -236,9 +232,10 @@ const ChangeAddress = (): React.ReactElement | null => {
               setError(t(`${T_PATH}.errors.missingSelectedAddress`));
               return;
             }
-            changeAddress(selectedAddress.id, accountNumber).then(() =>
-              setStep(ChangeAddressStep.ORDER_REVIEW)
-            );
+            setError('');
+            return changeAddress(selectedAddress.id, accountNumber)
+              .then(() => setStep(ChangeAddressStep.ORDER_REVIEW))
+              .catch(() => setError(t(`${T_PATH}.errors.failedRequest`)));
           }}
         />
       )}
