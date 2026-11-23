@@ -65,6 +65,7 @@ const draftPermit: Permit = {
   primaryVehicle: true,
   consentLowEmissionAccepted: false,
   products: [],
+  endingRefundLines: [],
   vehicle,
   activeTemporaryVehicle: {
     id: 'temporary-vehicle-1',

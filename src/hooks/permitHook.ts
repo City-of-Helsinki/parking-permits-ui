@@ -91,7 +91,15 @@ const usePermitState = (): PermitActions => {
   const endValidPermits = useCallback(
     async (permitIds: string[], endType: string, iban: string) => {
       setStatus('loading');
-      endPermits(permitIds, endType, iban).then(fetchPermits).catch(onError);
+      return endPermits(permitIds, endType, iban)
+        .then(async ended => {
+          await fetchPermits();
+          return ended;
+        })
+        .catch(errors => {
+          onError(errors);
+          return false;
+        });
     },
     [fetchPermits]
   );

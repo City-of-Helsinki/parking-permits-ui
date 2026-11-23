@@ -1,3 +1,5 @@
+import { Notification } from 'hds-react';
+import { useTranslation } from 'react-i18next';
 import queryString from 'query-string';
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -7,7 +9,13 @@ import { getChangeTotal } from '../../common/editPermits/utils';
 import EndPermitResult from '../../common/endPermitResult/EndPermitResult';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import { UserProfileContext } from '../../hooks/userProfileProvider';
-import { EndPermitStep, PermitEndType, ROUTES, UserProfile } from '../../types';
+import {
+  ParkingContractType,
+  EndPermitStep,
+  PermitEndType,
+  ROUTES,
+  UserProfile,
+} from '../../types';
 import './endPermit.scss';
 import {
   calcProductDatesForRefund,
@@ -17,6 +25,8 @@ import {
 } from '../../utils';
 
 const EndPermit = (): React.ReactElement => {
+  const { t } = useTranslation();
+  const [endFailed, setEndFailed] = useState(false);
   const { search } = useLocation();
   const navigate = useNavigate();
   const profileCtx = useContext(UserProfileContext);
@@ -32,30 +42,15 @@ const EndPermit = (): React.ReactElement => {
   const { permitIds: ids, endType } = queryStr;
   const permitIds = typeof ids === 'string' ? [ids] : ids;
   const permits = validPermits.filter(p => permitIds?.indexOf(p.id) !== -1);
-  const getsRefund = permits.some(p => p.monthsLeft || 0);
-  const [forceRefundNotification, setForceRefundNotification] = useState(false);
-  const displayRefundNotification = forceRefundNotification || getsRefund;
+  const [displayRefundNotification, setDisplayRefundNotification] =
+    useState(false);
 
-  const priceChangesList = permits.map(permit =>
-    // 1. The user gets a refund for every month they haven't "used" yet.
-    // 2. A month is "used" if it has already started.
-    // 3. The price per month depends on the Product valid for that month
-
-    // Example: a user has purchased a permit from 3.11.2023 to 2.2.2024.
-    // Today's date is 8.11.2023. They want to cancel their permit immediately.
-    // There are 2 products:
-    // 1.6.2023-30.11.2023 @ 45 EUR/month
-    // 1.12.2023-30.6.204 @ 60 EUR/month
-    // The total amount paid is 165 EUR (1x45 + 2x60)
-
-    // The first month is from 3.11.2023 to 2.12.2023, and has already started
-    // We therefore do not count this month, so total refund = 165-45 = 120 EUR.
-    // The first product is not included as it ends in the first month.
-    // We just include 2nd & 3rd month and second product.
-
-    ({
-      vehicle: permit.vehicle,
-      priceChanges: canBeRefunded(permit)
+  const priceChangesList = permits.map(permit => ({
+    vehicle: permit.vehicle,
+    priceChanges:
+      permit.contractType === ParkingContractType.FIXED_PERIOD
+        ? permit.endingRefundLines
+        : canBeRefunded(permit)
         ? upcomingProducts(permit).map(product => ({
             product: product.name,
             previousPrice: product.unitPrice,
@@ -65,36 +60,41 @@ const EndPermit = (): React.ReactElement => {
             ...calcProductDatesForRefund(product, permit),
           }))
         : [],
-    })
-  );
+  }));
 
-  const endPermits = (accountNumber: string) => {
-    // Infer the value to set for forceRefundNotification _BEFORE_
-    // ending the permits, as ending the permits triggers re-fetching
-    // of the permits causing getsRefund to become false due to freshly
-    // ended permits.
-    let valueForForceFlag = false;
-    if (getsRefund) {
-      valueForForceFlag = true;
+  const refundTotal = getChangeTotal(priceChangesList, 'priceChange');
+  const endPermits = async (accountNumber: string) => {
+    setEndFailed(false);
+    const ended = await permitCtx?.endValidPermits(
+      permitIds as string[],
+      endType as string,
+      accountNumber
+    );
+    if (ended) {
+      // Use the refund status from before the permit list was refreshed.
+      setDisplayRefundNotification(refundTotal > 0);
+      setEndPermitState(EndPermitStep.RESULT);
+    } else {
+      setEndFailed(true);
     }
-    permitCtx
-      ?.endValidPermits(permitIds as string[], endType as string, accountNumber)
-      .then(() => setForceRefundNotification(valueForForceFlag));
   };
   return (
     <div className="end-permit-component">
-      <div style={{ marginTop: 'var(--spacing-l)' }} />
-      {endPermitState === EndPermitStep.REFUND && permitCtx?.endValidPermits && (
-        <Refund
-          refundTotal={-getChangeTotal(priceChangesList, 'priceChange')}
-          refundTotalVat={-getChangeTotal(priceChangesList, 'priceChangeVat')}
-          onCancel={() => setEndPermitState(EndPermitStep.PRICE_PREVIEW)}
-          onConfirm={accountNumber => {
-            endPermits(accountNumber);
-            setEndPermitState(EndPermitStep.RESULT);
-          }}
-        />
+      {endFailed && (
+        <Notification type="error">
+          {t(permitCtx?.getErrorMessage() || 'common.genericError')}
+        </Notification>
       )}
+      <div style={{ marginTop: 'var(--spacing-l)' }} />
+      {endPermitState === EndPermitStep.REFUND &&
+        permitCtx?.endValidPermits && (
+          <Refund
+            refundTotal={refundTotal}
+            refundTotalVat={getChangeTotal(priceChangesList, 'priceChangeVat')}
+            onCancel={() => setEndPermitState(EndPermitStep.PRICE_PREVIEW)}
+            onConfirm={endPermits}
+          />
+        )}
       {endPermitState === EndPermitStep.PRICE_PREVIEW && priceChangesList && (
         <PriceChangePreview
           className="price-change-preview"
@@ -102,11 +102,10 @@ const EndPermit = (): React.ReactElement => {
           isRefund
           onCancel={() => navigate(ROUTES.VALID_PERMITS)}
           onConfirm={() => {
-            if (getChangeTotal(priceChangesList, 'priceChange')) {
+            if (refundTotal > 0) {
               setEndPermitState(EndPermitStep.REFUND);
             } else {
-              endPermits('');
-              setEndPermitState(EndPermitStep.RESULT);
+              return endPermits('');
             }
           }}
         />

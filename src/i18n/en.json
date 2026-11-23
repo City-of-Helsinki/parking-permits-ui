@@ -53,7 +53,7 @@
   "common.editPermits.OrderReview.notification.error.pendingRefundMessage": "We have sent a confirmation email to {{email}}. You can also check the information below.",
   "common.editPermits.OrderReview.notification.info.orderSuccessMessage": "The parking permit is electronic and the parking control identifies a valid permit based on your vehicle's registration number.",
   "common.editPermits.OrderReview.notification.info.orderSuccessTitle": "Order Successful",
-  "common.editPermits.OrderReview.notification.info.pendingRefundTitle": "Pending refund",
+  "common.editPermits.OrderReview.notification.info.pendingRefundTitle": "Refund received for processing",
   "common.editPermits.OrderReview.title": "Parking permits",
   "common.editPermits.PriceChangePreview.actionBtn.cancel": "Cancel",
   "common.editPermits.PriceChangePreview.actionBtn.continue": "Continue",

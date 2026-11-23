@@ -51,6 +51,7 @@ export type Permit = {
   parkingZone: Zone;
   monthsLeft: number;
   totalRefundAmount: number;
+  endingRefundLines: PermitPriceChangeItem[];
   currentPeriodEndTime: Date | string;
   canEndImmediately: boolean;
   canExtendPermit: boolean;

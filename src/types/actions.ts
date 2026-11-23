@@ -40,7 +40,7 @@ export type PermitActions = {
     permitIds: string[],
     endType: string,
     iban: string
-  ) => Promise<void>;
+  ) => Promise<boolean>;
   getStep: () => number;
   setStep: (step: number) => void;
   getStatus: () => FetchStatus;
