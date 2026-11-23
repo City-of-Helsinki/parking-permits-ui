@@ -4,9 +4,10 @@ import {
   ButtonVariant,
   IconArrowLeft,
   IconArrowRight,
+  LoadingSpinner,
   Notification,
 } from 'hds-react';
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { uniqueId } from 'lodash';
 import {
@@ -80,7 +81,7 @@ export interface PriceChangePreviewProps {
   className?: string;
   priceChangesList: PermitPriceChanges[];
   isRefund?: boolean;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
   onCancel: () => void;
 }
 
@@ -105,6 +106,23 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
   const vehicleChangeErrorCtx = useContext(
     VehicleChangeErrorContext
   ) as ErrorStateDict;
+  const confirming = useRef(false);
+  const [isConfirming, setIsConfirming] = useState(false);
+
+  const confirm = async () => {
+    if (confirming.current) return;
+
+    confirming.current = true;
+    setIsConfirming(true);
+
+    try {
+      await onConfirm();
+    } finally {
+      confirming.current = false;
+      setIsConfirming(false);
+    }
+  };
+
   const newPriceTotal = priceChangesList.reduce(
     (total, item) => total + getPermitPriceTotal(item.priceChanges, 'newPrice'),
     0
@@ -214,8 +232,19 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
         <Button
           type="submit"
           className="action-btn"
-          iconEnd={<IconArrowRight />}
-          onClick={() => onConfirm()}
+          aria-busy={isConfirming}
+          disabled={isConfirming}
+          iconStart={
+            isConfirming ? (
+              <LoadingSpinner
+                small
+                loadingText={t(`${T_PATH}.loading`)}
+                loadingFinishedText={t(`${T_PATH}.loadingFinished`)}
+              />
+            ) : undefined
+          }
+          iconEnd={isConfirming ? undefined : <IconArrowRight />}
+          onClick={confirm}
           theme={ButtonPresetTheme.Black}>
           {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
@@ -223,7 +252,8 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
           className="action-btn"
           variant={ButtonVariant.Secondary}
           iconStart={<IconArrowLeft />}
-          onClick={() => onCancel()}
+          disabled={isConfirming}
+          onClick={onCancel}
           theme={ButtonPresetTheme.Black}>
           {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>

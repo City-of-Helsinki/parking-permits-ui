@@ -57,6 +57,8 @@
   "common.editPermits.OrderReview.title": "Ditt parkeringstillstånd",
   "common.editPermits.PriceChangePreview.actionBtn.cancel": "Avbryt",
   "common.editPermits.PriceChangePreview.actionBtn.continue": "Fortsätt",
+  "common.editPermits.PriceChangePreview.loading": "Din begäran behandlas",
+  "common.editPermits.PriceChangePreview.loadingFinished": "Behandlingen av din begäran är klar",
   "common.editPermits.PriceChangePreview.newOrderTotal": "Ny beställning, totalpris",
   "common.editPermits.PriceChangePreview.previousOrderRemaining": "Tidigare beställning, återstående belopp",
   "common.editPermits.PriceChangePreview.priceCalcDescription": "Priserna tar i beaktande de återstående hela månaderna av beställningen.",
