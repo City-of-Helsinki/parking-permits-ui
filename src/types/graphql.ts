@@ -1,6 +1,7 @@
 import {
   ExtendedPriceListItem,
   Permit,
+  PermitPriceChangeItem,
   PermitPriceChanges,
   Vehicle,
 } from './permits';
@@ -59,6 +60,7 @@ export type GetVehicleInformationQueryResult = {
 
 export type UpdatePermitVehicleQueryResult = {
   updatePermitVehicle: {
+    refundCreated: boolean;
     checkoutUrl?: string;
   };
 };
@@ -79,6 +81,10 @@ export type CreateOrderQueryResult = {
 
 export type GetUpdateAddressPriceChangesResult = {
   getUpdateAddressPriceChanges: PermitPriceChanges[];
+};
+
+export type GetVehiclePriceChangesResponse = {
+  getVehiclePriceChanges: PermitPriceChangeItem[];
 };
 
 export type ChangeAddressResult = {

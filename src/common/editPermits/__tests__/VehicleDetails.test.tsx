@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { PermitStateContext } from '../../../hooks/permitProvider';
 import { VehicleChangeErrorContext } from '../../../hooks/vehicleChangeErrorProvider';
-import { Permit, ROUTES, Vehicle } from '../../../types';
+import { PermitPriceChangeItem, ROUTES, Vehicle } from '../../../types';
 import VehicleDetails from '../VehicleDetails';
 
 const mocks = vi.hoisted(() => ({
@@ -17,13 +17,9 @@ vi.mock('../../../graphql/permitGqlClient', () => ({
 vi.mock('../../discountLabel/DiscountLabel', () => ({
   default: () => <span>discount-label</span>,
 }));
-vi.mock('../../../utils', () => ({
-  formatDate: () => 'date',
+vi.mock('../../../utils', async importOriginal => ({
+  ...(await importOriginal<typeof import('../../../utils')>()),
   formatErrors: () => 'formatted-error',
-  formatMonthlyPrice: () => 'price',
-  getPermitStartDate: () => 'start',
-  getPermitEndDate: () => 'end',
-  calcProductUnitPrice: () => 1,
   getRestrictions: mocks.getRestrictions,
   formatDateTimeDisplay: () => 'datetime',
 }));
@@ -41,7 +37,28 @@ const baseVehicle: Vehicle = {
   restrictions: [],
 };
 
-const permit = { products: [{}, {}] } as unknown as Permit;
+const priceChanges: PermitPriceChangeItem[] = [
+  {
+    product: 'Zone A',
+    previousPrice: 40,
+    newPrice: 30,
+    priceChange: -10,
+    priceChangeVat: -2,
+    startDate: '2021-01-01',
+    endDate: '2021-01-31',
+    monthCount: 1,
+  },
+  {
+    product: 'Zone A',
+    previousPrice: 55,
+    newPrice: 45,
+    priceChange: -10,
+    priceChangeVat: -2,
+    startDate: '2021-02-01',
+    endDate: '2021-02-28',
+    monthCount: 1,
+  },
+];
 
 const setup = ({
   vehicle,
@@ -53,7 +70,7 @@ const setup = ({
   permitExists?: boolean;
 } = {}) => {
   const props = {
-    permit,
+    priceChanges,
     vehicle,
     onContinue: vi.fn(),
     setVehicle: vi.fn(),
@@ -129,7 +146,12 @@ describe('VehicleDetails', () => {
     });
     expect(screen.getByText('ABC-123')).toBeTruthy();
     expect(screen.getByText(`${P}.highEmissionVehicle`)).toBeTruthy();
-    expect(screen.getAllByText('price')).toHaveLength(2);
+    expect(
+      screen.getByText('30.00 common.pricePerMonth').closest('.price')
+    ).toHaveTextContent('1.1.2021-31.1.2021');
+    expect(
+      screen.getByText('45.00 common.pricePerMonth').closest('.price')
+    ).toHaveTextContent('1.2.2021-28.2.2021');
     expect(
       screen.getByText(new RegExp(`^${P}\\.vehicleCopyright`))
     ).toBeTruthy();

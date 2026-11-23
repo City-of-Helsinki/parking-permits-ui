@@ -23,14 +23,11 @@ import { useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import { getVehicleInformation } from '../../graphql/permitGqlClient';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { Permit, ROUTES, Vehicle } from '../../types';
+import { PermitPriceChangeItem, ROUTES, Vehicle } from '../../types';
 import {
   formatDate,
   formatErrors,
   formatMonthlyPrice,
-  getPermitStartDate,
-  getPermitEndDate,
-  calcProductUnitPrice,
   getRestrictions,
   formatDateTimeDisplay,
 } from '../../utils';
@@ -44,16 +41,16 @@ import {
 const T_PATH = 'common.editPermits.ChangeVehicle';
 
 interface Props {
-  permit: Permit;
+  priceChanges: PermitPriceChangeItem[];
   vehicle: Vehicle | undefined;
   onContinue: () => void;
-  setVehicle: Dispatch<SetStateAction<Vehicle | undefined>>;
+  setVehicle: (vehicle: Vehicle) => Promise<void>;
   lowEmissionChecked: boolean;
   setLowEmissionChecked: Dispatch<SetStateAction<boolean>>;
 }
 
 const VehicleDetails: FC<Props> = ({
-  permit,
+  priceChanges,
   vehicle,
   setVehicle,
   onContinue,
@@ -162,22 +159,16 @@ const VehicleDetails: FC<Props> = ({
                   }`
                 )}
               </div>
-              {permit &&
-                vehicle &&
-                permit.products.map(product => (
-                  <div key={uuidv4()} className="price">
-                    <div className="offer">
-                      {formatMonthlyPrice(
-                        calcProductUnitPrice(product, vehicle.isLowEmission),
-                        t
-                      )}
-                    </div>
-                    <div>
-                      {formatDate(getPermitStartDate(product, permit))}-
-                      {formatDate(getPermitEndDate(product, permit))}
-                    </div>
+              {priceChanges.map(line => (
+                <div key={String(line.startDate)} className="price">
+                  <div className="offer">
+                    {formatMonthlyPrice(line.newPrice, t)}
                   </div>
-                ))}
+                  <div>
+                    {formatDate(line.startDate)}-{formatDate(line.endDate)}
+                  </div>
+                </div>
+              ))}
               {vehicle.updatedFromTraficomOn && (
                 <div className="vehicle-copyright">
                   {t(`${T_PATH}.vehicleCopyright`, {

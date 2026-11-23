@@ -1,11 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate, useParams } from 'react-router';
+import OrderReview from '../../common/editPermits/OrderReview';
 import PriceChangePreview from '../../common/editPermits/PriceChangePreview';
 import Refund from '../../common/editPermits/Refund';
 import { getChangeTotal } from '../../common/editPermits/utils';
 import VehicleDetails from '../../common/editPermits/VehicleDetails';
-import { updatePermitVehicle } from '../../graphql/permitGqlClient';
+import {
+  getVehiclePriceChanges,
+  updatePermitVehicle,
+} from '../../graphql/permitGqlClient';
+import { UserProfileContext } from '../../hooks/userProfileProvider';
 import { PermitStateContext } from '../../hooks/permitProvider';
 import {
   ParkingContractType,
@@ -13,48 +18,18 @@ import {
   PermitPriceChanges,
   ROUTES,
   Vehicle,
-  Product,
-  Permit,
 } from '../../types';
-import {
-  upcomingProducts,
-  canBeRefunded,
-  calcProductDates,
-  calcProductUnitPrice,
-  calcProductUnitVatPrice,
-} from '../../utils';
 import {
   ErrorStateDict,
   VehicleChangeErrorContext,
 } from '../../hooks/vehicleChangeErrorProvider';
 
-enum PriceChangeType {
-  HIGHER_PRICE = 2,
-  // eslint-disable-next-line no-magic-numbers
-  LOWER_PRICE = 0.5,
-  NO_CHANGE = 1,
-}
-
 enum ChangeVehicleStep {
   VEHICLE,
   PRICE_PREVIEW,
   REFUND,
+  ORDER_REVIEW,
 }
-
-const getPriceChangeType = (
-  vehicle: Vehicle | undefined,
-  permit: Permit
-): PriceChangeType => {
-  if (!vehicle) return PriceChangeType.NO_CHANGE;
-  const { isLowEmission: currentState } = permit.vehicle;
-  const { isLowEmission: newState } = vehicle;
-  if (currentState !== newState) {
-    return currentState && !newState
-      ? PriceChangeType.HIGHER_PRICE
-      : PriceChangeType.LOWER_PRICE;
-  }
-  return PriceChangeType.NO_CHANGE;
-};
 
 const T_PATH = 'common.editPermits.ChangeVehicle';
 
@@ -65,6 +40,7 @@ const ChangeVehicle = (): React.ReactElement => {
   const vehicleChangeErrorCtx = useContext(
     VehicleChangeErrorContext
   ) as ErrorStateDict;
+  const profile = useContext(UserProfileContext)?.getProfile();
   const permitCtx = useContext(PermitStateContext);
   const [vehicle, setVehicle] = useState<Vehicle>();
   const [lowEmissionChecked, setLowEmissionChecked] = useState(false);
@@ -78,123 +54,75 @@ const ChangeVehicle = (): React.ReactElement => {
   >([]);
 
   const permit = permitCtx?.getPermits().find(p => p.id === params.permitId);
-  if (!permit) {
+  if (!permit || !profile) {
     return <Navigate to={ROUTES.VALID_PERMITS} />;
   }
 
-  type RequestPermitVehicleUpdateResult = {
-    updateSuccessful: boolean;
-    checkoutUrl: string | undefined;
-  };
+  const priceChangeTotal = getChangeTotal(priceChangesList, 'priceChange');
 
-  const requestPermitVehicleUpdate = async (
-    accountNumber?: string
-  ): Promise<RequestPermitVehicleUpdateResult> => {
-    let updateSuccessful = true;
-    const updateResult = await updatePermitVehicle(
+  const submitVehicleChange = async (accountNumber?: string) => {
+    const result = await updatePermitVehicle(
       permit.id,
       vehicle?.id,
       lowEmissionChecked,
       accountNumber
-    ).then(
-      result => result,
-      () => {
-        updateSuccessful = false;
-        vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
-      }
-    );
+    ).catch(() => {
+      vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
+    });
+    if (!result) return;
 
-    if (updateSuccessful) {
-      // permitCtx.permitExists() relies on state-level data
-      // over querying the backend => update state data
-      // after a successful vehicle update request.
-      await permitCtx?.fetchPermits();
-    }
-
-    const checkoutUrl = updateResult?.checkoutUrl;
-    return {
-      updateSuccessful,
-      checkoutUrl,
-    };
-  };
-
-  const updateAndNavigateToOrderView = async (accountNumber?: string) => {
-    const updateResult = await requestPermitVehicleUpdate(accountNumber);
-
-    if (updateResult.updateSuccessful) {
+    await permitCtx?.fetchPermits();
+    
+    if (result.refundCreated) {
+      setStep(ChangeVehicleStep.ORDER_REVIEW);
+    } else if (
+      result.checkoutUrl &&
+      permit.contractType === ParkingContractType.FIXED_PERIOD
+    ) {
+      window.open(result.checkoutUrl, '_self');
+    } else if (priceChangeTotal > 0) {
+      navigate(ROUTES.VALID_PERMITS);
+    } else {
       navigate(`${ROUTES.SUCCESS}?permitId=${permit.id}`);
     }
   };
-  const priceChangeType = getPriceChangeType(vehicle, permit);
-  const isLowEmission = vehicle?.isLowEmission;
 
-  const getPriceChangeItem = (product: Product): PermitPriceChangeItem => {
-    const previousPrice = calcProductUnitPrice(product, false);
-    const previousVatPrice = calcProductUnitVatPrice(product, false);
-    const newPrice = calcProductUnitPrice(product, isLowEmission);
-    const newVatPrice = calcProductUnitVatPrice(product, isLowEmission);
+  const selectVehicle = async (selected: Vehicle) => {
+    setVehicle(undefined);
+    const priceChanges: PermitPriceChangeItem[] = await getVehiclePriceChanges(
+      permit.id,
+      selected.isLowEmission
+    );
+    setPriceChangesList([{ vehicle: selected, priceChanges }]);
+    setVehicle(selected);
+  };
 
-    return {
-      newPrice,
-      previousPrice,
-      product: product.name,
-      priceChange: newPrice - previousPrice,
-      priceChangeVat: newVatPrice - previousVatPrice,
-      ...calcProductDates(product, permit),
-    };
+  const confirmChange = async () => {
+    if (priceChangeTotal < 0) {
+      setStep(ChangeVehicleStep.REFUND);
+    } else {
+      await submitVehicleChange();
+    }
   };
 
   const continueTo = async () => {
-    if (step !== ChangeVehicleStep.VEHICLE) {
-      return;
-    }
-
-    setPriceChangesList([
-      {
-        vehicle,
-        priceChanges: upcomingProducts(permit).map(getPriceChangeItem),
-      },
-    ]);
-
-    if (priceChangeType === PriceChangeType.HIGHER_PRICE) {
-      const updateResult = await requestPermitVehicleUpdate();
-      if (!updateResult.updateSuccessful) {
-        return;
-      }
-
-      if (permit.contractType === ParkingContractType.OPEN_ENDED) {
-        navigate(ROUTES.VALID_PERMITS);
-        return;
-      }
-
-      const checkoutUrl = updateResult?.checkoutUrl;
-      if (checkoutUrl) {
-        window.open(`${checkoutUrl}`, '_self');
-        return;
-      }
-
-      // Backend might return a null checkout url on success
-      // due to price not actually changing
-      // (eg. the permits end date is less than a month away)
-      navigate(ROUTES.VALID_PERMITS);
-      return;
-    }
-
-    if (!vehicleChangeErrorCtx.error && canBeRefunded(permit)) {
+    if (
+      permit.contractType === ParkingContractType.FIXED_PERIOD ||
+      priceChangeTotal < 0
+    ) {
       setStep(ChangeVehicleStep.PRICE_PREVIEW);
-      return;
+    } else {
+      await confirmChange();
     }
-
-    await updateAndNavigateToOrderView();
   };
 
   return (
     <div className="change-vehicle-component">
       {step === ChangeVehicleStep.VEHICLE && (
         <VehicleDetails
-          permit={permit}
+          priceChanges={priceChangesList[0]?.priceChanges ?? []}
           vehicle={vehicle}
-          setVehicle={setVehicle}
+          setVehicle={selectVehicle}
           onContinue={continueTo}
           lowEmissionChecked={lowEmissionChecked}
           setLowEmissionChecked={setLowEmissionChecked}
@@ -204,23 +132,26 @@ const ChangeVehicle = (): React.ReactElement => {
         <PriceChangePreview
           className="price-change-preview"
           priceChangesList={priceChangesList}
-          isRefund={priceChangeType === PriceChangeType.LOWER_PRICE}
+          isRefund={priceChangeTotal < 0}
           onCancel={() => setStep(ChangeVehicleStep.VEHICLE)}
-          onConfirm={() => {
-            if (priceChangeType === PriceChangeType.NO_CHANGE) {
-              updateAndNavigateToOrderView();
-            } else if (!vehicleChangeErrorCtx.error) {
-              setStep(ChangeVehicleStep.REFUND);
-            }
-          }}
+          onConfirm={confirmChange}
         />
       )}
       {step === ChangeVehicleStep.REFUND && (
         <Refund
-          refundTotal={getChangeTotal(priceChangesList, 'priceChange')}
-          refundTotalVat={getChangeTotal(priceChangesList, 'priceChangeVat')}
+          refundTotal={-priceChangeTotal}
+          refundTotalVat={-getChangeTotal(priceChangesList, 'priceChangeVat')}
           onCancel={() => setStep(ChangeVehicleStep.PRICE_PREVIEW)}
-          onConfirm={updateAndNavigateToOrderView}
+          onConfirm={submitVehicleChange}
+        />
+      )}
+      {step === ChangeVehicleStep.ORDER_REVIEW && (
+        <OrderReview
+          className="order-review"
+          address={permit.address}
+          profile={profile}
+          validPermits={[permit]}
+          hasRefundCreated
         />
       )}
     </div>

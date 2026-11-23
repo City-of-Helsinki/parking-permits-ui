@@ -14,6 +14,7 @@ import {
   EndPermitQueryResult,
   GetUpdateAddressPriceChangesResult,
   GetVehicleInformationQueryResult,
+  GetVehiclePriceChangesResponse,
   Permit,
   PermitQueryResult,
   RemoveTemporaryVehicleResult,
@@ -32,6 +33,7 @@ import getExtendedPriceListDocument from './getExtendedPriceList';
 import getUpdateAddressPriceChangesDocument from './getUpdateAddressPriceChanges';
 import getVehicleInformationDocument from './getVehicleInformation';
 import { GraphQLClient } from './graphqlClient';
+import getVehiclePriceChangesDocument from './getVehiclePriceChanges';
 import permitsDocument from './permits';
 import removeTemporaryVehicleDocument from './removeTemporaryVehicle';
 import updatePermitDocument from './updatePermit';
@@ -145,6 +147,21 @@ export const createOrder = (): Promise<
 > => {
   const client = new PermitGqlClient(createOrderDocument);
   return client.mutate<CreateOrderQueryResult>({}).then(res => res.createOrder);
+};
+
+export const getVehiclePriceChanges = async (
+  permitId: string,
+  isLowEmission: boolean
+) => {
+  const client = new PermitGqlClient(getVehiclePriceChangesDocument);
+
+  const { getVehiclePriceChanges: vehiclePriceChanges } =
+    await client.query<GetVehiclePriceChangesResponse>({
+      permitId,
+      isLowEmission,
+    });
+
+  return vehiclePriceChanges;
 };
 
 export const getChangeAddressPriceChanges = (
