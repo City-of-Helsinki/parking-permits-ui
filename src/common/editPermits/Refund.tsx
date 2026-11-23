@@ -33,7 +33,7 @@ interface RefundProps {
   refundTotal: number;
   refundTotalVat: number;
   onCancel: () => void;
-  onConfirm: (accountNumber: string) => void;
+  onConfirm: (accountNumber: string) => void | Promise<void>;
 }
 
 const Refund: React.FC<RefundProps> = ({
@@ -48,6 +48,17 @@ const Refund: React.FC<RefundProps> = ({
     VehicleChangeErrorContext
   ) as ErrorStateDict;
   const [accountNumber, setAccountNumber] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const submitRefund = async () => {
+    setSubmitting(true);
+    try {
+      await onConfirm(isValidIBAN(accountNumber) ? accountNumber : '');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className={className}>
       {vehicleChangeErrorCtx.error && (
@@ -136,9 +147,8 @@ const Refund: React.FC<RefundProps> = ({
           type="submit"
           className="action-btn"
           iconEnd={<IconArrowRight />}
-          onClick={() =>
-            onConfirm(isValidIBAN(accountNumber) ? accountNumber : '')
-          }
+          disabled={submitting}
+          onClick={submitRefund}
           theme={ButtonPresetTheme.Black}>
           {t(`${T_PATH}.actionBtn.continue`)}
         </Button>
@@ -146,7 +156,8 @@ const Refund: React.FC<RefundProps> = ({
           className="action-btn"
           variant={ButtonVariant.Secondary}
           iconStart={<IconArrowLeft />}
-          onClick={() => onCancel()}
+          disabled={submitting}
+          onClick={onCancel}
           theme={ButtonPresetTheme.Black}>
           {t(`${T_PATH}.actionBtn.cancel`)}
         </Button>

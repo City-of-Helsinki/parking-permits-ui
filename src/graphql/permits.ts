@@ -26,6 +26,16 @@ export default gql`
       canExtendPermit
       maxExtensionMonthCount
       hasPendingExtensionRequest
+      endingRefundLines {
+        product
+        previousPrice
+        newPrice
+        priceChange
+        priceChangeVat
+        startDate
+        endDate
+        monthCount
+      }
       totalRefundAmount
       hasRefund
       vehicleChanged

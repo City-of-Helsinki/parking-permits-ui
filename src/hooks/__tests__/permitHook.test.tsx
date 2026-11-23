@@ -209,12 +209,6 @@ describe('usePermitState', () => {
         (r: Hook) => r.deletePermit('permit-1'),
         ['permit-1'],
       ],
-      [
-        'endValidPermits',
-        () => mocked.endPermits,
-        (r: Hook) => r.endValidPermits(['permit-1'], 'IMMEDIATELY', 'FI00TEST'),
-        [['permit-1'], 'IMMEDIATELY', 'FI00TEST'],
-      ],
     ])(
       '%s calls the client, then refetches permits',
       async (_name, getClientFn, invoke, expectedArgs) => {
@@ -235,6 +229,32 @@ describe('usePermitState', () => {
         await waitFor(() => expect(result.current.getStatus()).toBe('loaded'));
       }
     );
+
+    it('keeps permit ending pending through the mutation and permit refresh', async () => {
+      const { result } = await setup();
+      const mutation = Promise.withResolvers<boolean>();
+      const refresh = Promise.withResolvers<Permit[]>();
+      mocked.endPermits.mockReturnValueOnce(mutation.promise);
+      mocked.getAllPermits.mockClear().mockReturnValueOnce(refresh.promise);
+      const finished = vi.fn();
+
+      act(() => {
+        result.current
+          .endValidPermits(['permit-1'], 'IMMEDIATELY', '')
+          .then(finished);
+      });
+      expect(mocked.endPermits).toHaveBeenCalledWith(
+        ['permit-1'],
+        'IMMEDIATELY',
+        ''
+      );
+      expect(mocked.getAllPermits).not.toHaveBeenCalled();
+      await act(async () => mutation.resolve(true));
+      expect(mocked.getAllPermits).toHaveBeenCalledTimes(1);
+      expect(finished).not.toHaveBeenCalled();
+      await act(async () => refresh.resolve([]));
+      expect(finished).toHaveBeenCalledWith(true);
+    });
 
     it('sets error state when a mutation fails and clears it on request', async () => {
       const { result } = await setup();
