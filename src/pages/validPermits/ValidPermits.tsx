@@ -74,13 +74,18 @@ const ValidPermits = (): React.ReactElement => {
   };
 
   const address = getAddress();
-  const isProcessing = (permit: PermitModel) =>
-    (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
-      permit.talpaOrderId) ||
-    ((permit.status === PermitStatus.DRAFT ||
-      permit.status === PermitStatus.PRELIMINARY) &&
-      permit.isOrderConfirmed) ||
-    permit.hasPendingExtensionRequest;
+  const isProcessing = (permit: PermitModel) => {
+    const paymentInProgress =
+      permit.status === PermitStatus.PAYMENT_IN_PROGRESS && permit.talpaOrderId;
+    const confirmedDraft =
+      (permit.status === PermitStatus.DRAFT ||
+        permit.status === PermitStatus.PRELIMINARY) &&
+      permit.isOrderConfirmed;
+
+    return (
+      paymentInProgress || confirmedDraft || permit.hasPendingExtensionRequest
+    );
+  };
 
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
