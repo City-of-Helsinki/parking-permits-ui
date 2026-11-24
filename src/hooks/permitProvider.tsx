@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { PermitActions } from '../types';
-import usePermitState from './permitHook';
+import usePermitState from './usePermitState';
 
 export const PermitStateContext = React.createContext<PermitActions | null>(
   null
