@@ -206,14 +206,14 @@ const ChangeAddress = (): React.ReactElement | null => {
           priceChangesList={priceChangesList}
           isRefund={priceChangeTotal < 0}
           onCancel={() => setStep(ChangeAddressStep.ADDRESS)}
-          onConfirm={() => {
+          onConfirm={async () => {
             if (!selectedAddress) {
               setError(t(`${T_PATH}.errors.missingSelectedAddress`));
               return;
             }
             if (priceChangeTotal >= 0) {
               setError('');
-              return changeAddress(selectedAddress.id)
+              await changeAddress(selectedAddress.id)
                 .then(() => setStep(ChangeAddressStep.ORDER_REVIEW))
                 .catch(() => setError(t(`${T_PATH}.errors.failedRequest`)));
             } else if (priceChangeTotal < 0) {
@@ -227,13 +227,13 @@ const ChangeAddress = (): React.ReactElement | null => {
           refundTotal={-priceChangeTotal}
           refundTotalVat={-priceChangeVatTotal}
           onCancel={() => setStep(ChangeAddressStep.PRICE_PREVIEW)}
-          onConfirm={accountNumber => {
+          onConfirm={async accountNumber => {
             if (!selectedAddress) {
               setError(t(`${T_PATH}.errors.missingSelectedAddress`));
               return;
             }
             setError('');
-            return changeAddress(selectedAddress.id, accountNumber)
+            await changeAddress(selectedAddress.id, accountNumber)
               .then(() => setStep(ChangeAddressStep.ORDER_REVIEW))
               .catch(() => setError(t(`${T_PATH}.errors.failedRequest`)));
           }}
