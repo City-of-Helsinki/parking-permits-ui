@@ -1,22 +1,22 @@
-import { LoginProvider } from 'hds-react';
+import { LoginProvider as HDSLoginProvider } from 'hds-react';
 import React, { FC, useMemo } from 'react';
 
 import { getHDSClientConfig } from '.';
 import { createGraphQLClientModule } from '../hooks/graphqlClientModule';
 
-interface HDSLoginProviderProps {
+interface LoginProviderProps {
   children: React.ReactNode;
 }
 
-const HDSLoginProvider: FC<HDSLoginProviderProps> = ({ children }) => {
+const LoginProvider: FC<LoginProviderProps> = ({ children }) => {
   const loginProviderProps = getHDSClientConfig();
   const graphqlModule = useMemo(() => createGraphQLClientModule(), []);
 
   return (
-    <LoginProvider {...loginProviderProps} modules={[graphqlModule]}>
+    <HDSLoginProvider {...loginProviderProps} modules={[graphqlModule]}>
       {children}
-    </LoginProvider>
+    </HDSLoginProvider>
   );
 };
 
-export default HDSLoginProvider;
+export default LoginProvider;
