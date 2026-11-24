@@ -2,7 +2,7 @@ import { LoginProviderProps } from 'hds-react';
 import { getLocationBasedUri } from '.';
 import { getEnvValue } from '../utils';
 
-const HDSLoginConfig: LoginProviderProps = {
+const config: LoginProviderProps = {
   userManagerSettings: {
     authority: getEnvValue('REACT_APP_OIDC_REALM')
       ? `${getEnvValue('REACT_APP_OIDC_URL')}/auth/realms/${getEnvValue(
@@ -41,4 +41,4 @@ const HDSLoginConfig: LoginProviderProps = {
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 
-export default HDSLoginConfig;
+export default config;
