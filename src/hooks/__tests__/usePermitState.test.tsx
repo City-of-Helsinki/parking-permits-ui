@@ -9,7 +9,7 @@ import {
   UserAddress,
   UserProfile,
 } from '../../types';
-import usePermitState from '../permitHook';
+import usePermitState from '../usePermitState';
 import { UserProfileContext } from '../userProfileProvider';
 
 vi.mock('hds-react', async importOriginal => ({
