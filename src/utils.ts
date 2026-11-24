@@ -232,8 +232,8 @@ export const calcVatPrice = (grossPrice: number, vatRate: number): number =>
 
 export const calcProductUnitPrice = (
   product: Product,
-  isLowEmission?: boolean,
-  isVat?: boolean
+  isLowEmission = false,
+  isVat = false
 ): number => {
   // returns modified unit price if low-emission vehicle, otherwise returns full price
   const { basePrice, discountPrice, vat } = product;
@@ -245,7 +245,7 @@ export const calcProductUnitPrice = (
 
 export const calcProductUnitVatPrice = (
   product: Product,
-  isLowEmission?: boolean
+  isLowEmission = false
 ): number => calcProductUnitPrice(product, isLowEmission, true);
 
 export const getPermitStartDate = (
