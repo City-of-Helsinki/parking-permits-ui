@@ -110,7 +110,9 @@ const PriceChangePreview: React.FC<PriceChangePreviewProps> = ({
   const [isConfirming, setIsConfirming] = useState(false);
 
   const confirm = async () => {
-    if (confirming.current) return;
+    if (confirming.current) {
+      return;
+    }
 
     confirming.current = true;
     setIsConfirming(true);
