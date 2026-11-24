@@ -1,7 +1,8 @@
 import { ParkingContractType, ParkingStartType, PermitStatus } from './enums';
 import { UserAddress, Zone } from './user';
 
-export type MaybeDate = Date | string | undefined | null;
+export type DateValue = Date | string | null;
+export type MaybeDate = DateValue | undefined;
 export interface Product {
   name: string;
   vat: number;
@@ -36,8 +37,8 @@ export type Permit = {
   checkoutUrl: string;
   updateCardUrl: string;
   startType?: ParkingStartType;
-  startTime?: MaybeDate;
-  endTime?: MaybeDate;
+  startTime?: DateValue;
+  endTime?: DateValue;
   endType?: string;
   status: PermitStatus;
   primaryVehicle: boolean;
