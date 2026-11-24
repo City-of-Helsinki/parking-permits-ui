@@ -1,7 +1,7 @@
 import { FetchStatus } from '../client/types';
 import { UpdateLanguageResult } from './graphql';
-import { Permit, PermitPriceChanges } from './permits';
-import { UserAddress, UserProfile, Zone } from './user';
+import { Permit, PermitPriceChanges, PermitUpdatePayload } from './permits';
+import { UserAddress, UserProfile } from './user';
 
 export type ProfileActions = {
   getProfile: () => UserProfile;
@@ -30,7 +30,7 @@ export type PermitActions = {
   permitsHaveOutdatedAddresses: () => boolean;
   changeAddress: (addressId: string, iban?: string) => Promise<void>;
   updatePermit: (
-    payload: Partial<Permit> | Partial<Zone>,
+    payload: PermitUpdatePayload,
     permitId?: string
   ) => Promise<void>;
   createPermit: (registration: string) => Promise<void>;

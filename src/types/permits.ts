@@ -70,6 +70,11 @@ export type Permit = {
   addressApartmentSv: string;
 };
 
+export type PermitUpdatePayload =
+  | Partial<Permit>
+  | Partial<Zone>
+  | { addressId: string };
+
 export type Vehicle = {
   id: string;
   isLowEmission: boolean;

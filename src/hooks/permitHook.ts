@@ -16,8 +16,8 @@ import {
   Permit,
   PermitActions,
   PermitStatus,
+  PermitUpdatePayload,
   UserAddress,
-  Zone,
 } from '../types';
 import { formatErrors, dateAsNumber, getEnvValue } from '../utils';
 import { UserProfileContext } from './userProfileProvider';
@@ -60,10 +60,7 @@ const usePermitState = (): PermitActions => {
   }, [profileCtx, selectedAddress]);
 
   const updatePermit = useCallback(
-    async (
-      payload: Partial<Permit> | Partial<Zone>,
-      permitId: string | undefined
-    ) => {
+    async (payload: PermitUpdatePayload, permitId: string | undefined) => {
       setStatus('loading');
       updateDraftPermit(payload, permitId).then(fetchPermits).catch(onError);
     },

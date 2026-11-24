@@ -15,7 +15,7 @@ import {
   GetUpdateAddressPriceChangesResult,
   GetVehicleInformationQueryResult,
   GetVehiclePriceChangesResponse,
-  Permit,
+  PermitUpdatePayload,
   PermitQueryResult,
   RemoveTemporaryVehicleResult,
   UpdatePermitQueryResult,
@@ -110,7 +110,7 @@ export const createDraftPermit = (
 };
 
 export const updateDraftPermit = (
-  payload: Partial<Permit>,
+  payload: PermitUpdatePayload,
   permitId: string | undefined
 ): Promise<UpdatePermitQueryResult['updateParkingPermit']> => {
   const variables = { permitId, input: payload };
