@@ -51,22 +51,24 @@ const EndPermit = (): React.ReactElement => {
       </Notification>
     );
   }
-  const priceChangesList = permits.map(permit => ({
-    vehicle: permit.vehicle,
-    priceChanges:
-      permit.contractType === ParkingContractType.FIXED_PERIOD
-        ? permit.endingRefundLines
-        : canBeRefunded(permit)
-        ? upcomingProducts(permit).map(product => ({
-            product: product.name,
-            previousPrice: product.unitPrice,
-            newPrice: product.unitPrice,
-            priceChange: product.unitPrice,
-            priceChangeVat: calcVatPrice(product.unitPrice, product.vat),
-            ...calcProductDatesForRefund(product, permit),
-          }))
-        : [],
-  }));
+  const priceChangesList = permits.map(permit => {
+    let priceChanges = permit.endingRefundLines;
+    if (permit.contractType !== ParkingContractType.FIXED_PERIOD) {
+      priceChanges = [];
+      if (canBeRefunded(permit)) {
+        priceChanges = upcomingProducts(permit).map(product => ({
+          product: product.name,
+          previousPrice: product.unitPrice,
+          newPrice: product.unitPrice,
+          priceChange: product.unitPrice,
+          priceChangeVat: calcVatPrice(product.unitPrice, product.vat),
+          ...calcProductDatesForRefund(product, permit),
+        }));
+      }
+    }
+
+    return { vehicle: permit.vehicle, priceChanges };
+  });
 
   const refundTotal = getChangeTotal(priceChangesList, 'priceChange');
   const endPermits = async (accountNumber: string) => {
