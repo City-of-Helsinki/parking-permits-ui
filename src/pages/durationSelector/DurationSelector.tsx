@@ -283,7 +283,7 @@ const DurationSelector = (): React.ReactElement => {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                     updateMonthCount(
                       permit.id,
-                      parseInt(e.target.value || '0', 10)
+                      Number.parseInt(e.target.value || '0', 10)
                     );
                   }}
                   crossOrigin={undefined}
