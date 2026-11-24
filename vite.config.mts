@@ -46,6 +46,10 @@ export default defineConfig(({ mode }) => ({
       // Keep in sync with sonar.coverage.exclusions in sonar-project.properties
       exclude: [
         ...coverageConfigDefaults.exclude,
+        '**/*.scss',
+        '**/*.css',
+        '**/*.d.ts',
+        'src/assets/**/*',
         'src/setupTests.ts',
         'src/index.tsx',
         'src/reportWebVitals.ts',
