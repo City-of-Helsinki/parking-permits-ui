@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import App from './App';
 import './assets/styles/main.scss';
-import HDSLoginProvider from './client/LoginProvider';
+import LoginProvider from './client/LoginProvider';
 import { PermitProvider } from './hooks/permitProvider';
 import { UserProfileProvider } from './hooks/userProfileProvider';
 import './i18n/i18n';
@@ -43,7 +43,7 @@ const root = createRoot(container!);
 
 root.render(
   <BrowserRouter>
-    <HDSLoginProvider>
+    <LoginProvider>
       <UserProfileProvider>
         <PermitProvider>
           <VehicleChangeErrorProvider>
@@ -51,7 +51,7 @@ root.render(
           </VehicleChangeErrorProvider>
         </PermitProvider>
       </UserProfileProvider>
-    </HDSLoginProvider>
+    </LoginProvider>
   </BrowserRouter>
 );
 
