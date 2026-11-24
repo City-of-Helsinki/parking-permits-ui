@@ -107,12 +107,12 @@ const EndPermit = (): React.ReactElement => {
           priceChangesList={priceChangesList}
           isRefund
           onCancel={() => navigate(ROUTES.VALID_PERMITS)}
-          onConfirm={() => {
+          onConfirm={async () => {
             if (refundTotal > 0) {
               setEndPermitState(EndPermitStep.REFUND);
-            } else {
-              return endPermits('');
+              return;
             }
+            await endPermits('');
           }}
         />
       )}
