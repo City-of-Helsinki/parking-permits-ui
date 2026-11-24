@@ -26,6 +26,7 @@
   "common.address.Address.temporaryAddress": "Tilapäinen osoite",
   "common.addressLabel.permanentAddress": "Pysyvä osoite",
   "common.addressLabel.temporaryAddress": "Tilapäinen osoite",
+  "common.refundReviewRequired": "Ota yhteyttä pysäköintitunnusten asiakaspalveluun. Aiempi palautus on tarkistettava ennen tunnuksen päättämistä.",
   "common.genericError": "Jokin meni pieleen. Kokeile hetken kuluttua uudelleen.",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.cancel": "Peruuta",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.continue": "Jatka",

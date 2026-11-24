@@ -429,4 +429,4 @@ export const getVehicleRestrictions = (
     .filter(({ restrictions }) => restrictions.length > 0);
 
 export const canBeRefunded = (permit: Permit): boolean =>
-  permit.canBeRefunded && permit.totalRefundAmount > 0;
+  permit.canBeRefunded && (permit.totalRefundAmount ?? 0) > 0;

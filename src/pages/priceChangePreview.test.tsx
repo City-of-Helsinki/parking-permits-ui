@@ -188,3 +188,20 @@ it('shows the prepaid refund on both steps after a catalogue price change', asyn
   expect(screen.getByText('480.00 €')).toBeInTheDocument();
   expect(screen.getByText('96.00 €')).toBeInTheDocument();
 });
+
+it('directs an unresolved refund to customer service before submission', () => {
+  const permits = {
+    getValidPermits: () => [{ id: '1', totalRefundAmount: null }],
+  };
+  render(
+    <MemoryRouter initialEntries={['/?permitIds=1&endType=IMMEDIATELY']}>
+      <PermitStateContext.Provider value={permits as unknown as PermitActions}>
+        <EndPermit />
+      </PermitStateContext.Provider>
+    </MemoryRouter>
+  );
+  expect(screen.getByText('common.refundReviewRequired')).toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: /continue/ })
+  ).not.toBeInTheDocument();
+});
