@@ -16,7 +16,6 @@ import {
   ROUTES,
   UserProfile,
 } from '../../types';
-import './endPermit.scss';
 import {
   calcProductDatesForRefund,
   canBeRefunded,
