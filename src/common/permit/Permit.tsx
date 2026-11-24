@@ -162,10 +162,14 @@ const Permit = ({
 
   const getPermit = (permit: PermitModel) => {
     const activeTempVehicle = permit.activeTemporaryVehicle;
+    const activeTempVehicleLabel = activeTempVehicle
+      ? `${activeTempVehicle.vehicle.registrationNumber} ${activeTempVehicle.vehicle.manufacturer} ${activeTempVehicle.vehicle.model}`
+      : undefined;
     const { registrationNumber, manufacturer, model, updatedFromTraficomOn } =
       permit.vehicle;
     const permitTimes = getPermitTimes(permit);
     const contractType = getContractType(permit);
+
     return (
       <div className="pp-list" key={permit.vehicle.registrationNumber}>
         {activeTempVehicle && (
@@ -175,7 +179,9 @@ const Permit = ({
                 className={classNames('pp-list__title__icon document-icon')}>
                 <IconDocument className="icon" />
               </span>
-              <span className="pp-list__title__text">{`${activeTempVehicle.vehicle.registrationNumber} ${activeTempVehicle.vehicle.manufacturer} ${activeTempVehicle.vehicle.model}`}</span>
+              <span className="pp-list__title__text">
+                {activeTempVehicleLabel}
+              </span>
             </div>
             <div className="pp-list__subtitle">
               <span>
