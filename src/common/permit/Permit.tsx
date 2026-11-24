@@ -148,11 +148,13 @@ const Permit = ({
     const { contractType } = permit;
 
     if (contractType === ParkingContractType.OPEN_ENDED) {
-      return ` ${t(`${T_PATH}.contractTypeOpenEnded`)}`;
+      const contractTypeLabel = t(`${T_PATH}.contractTypeOpenEnded`);
+      return ` ${contractTypeLabel}`;
     }
 
     if (contractType === ParkingContractType.FIXED_PERIOD) {
-      return `  ${t(`${T_PATH}.contractTypeFixedPeriod`)}`;
+      const contractTypeLabel = t(`${T_PATH}.contractTypeFixedPeriod`);
+      return ` ${contractTypeLabel}`;
     }
 
     return '';
