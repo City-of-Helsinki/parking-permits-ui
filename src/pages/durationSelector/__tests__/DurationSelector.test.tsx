@@ -145,6 +145,14 @@ describe('DurationSelector', () => {
     expect(screen.queryByText(/permitCount/)).not.toBeInTheDocument();
   });
 
+  it('sets the duration step when entered from another step', () => {
+    const context = createContext([createPermit()]);
+    context.getStep.mockReturnValue(STEPPER.PERMIT_PRICES);
+    renderPage(context);
+
+    expect(context.setStep).toHaveBeenCalledWith(STEPPER.DURATION_SELECTOR);
+  });
+
   it('numbers multiple drafts and lists valid permits', () => {
     const primary = createPermit({ id: 'valid-1' });
     const context = createContext(
