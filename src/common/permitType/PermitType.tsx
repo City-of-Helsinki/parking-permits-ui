@@ -53,33 +53,32 @@ const PermitType = ({
     )
   );
 
-  const hasSecondPermitNotification = () => {
-    if (
-      primaryPermit.status === PermitStatus.VALID &&
-      primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
-    ) {
-      return (
-        <Notification label={t(`${T_PATH}.sameAsFirstPermitNotification`)} />
-      );
-    }
-    return <></>;
-  };
-  
+  const typeIsSetByPrimary =
+    primaryPermit.status === PermitStatus.VALID ||
+    primaryPermit.status === PermitStatus.PAYMENT_IN_PROGRESS;
+  const openEndedDisabled =
+    typeIsSetByPrimary &&
+    primaryPermit.contractType === ParkingContractType.FIXED_PERIOD;
+  const fixedPeriodDisabled =
+    typeIsSetByPrimary &&
+    primaryPermit.contractType === ParkingContractType.OPEN_ENDED;
+
   return (
     <Card className="permit-type-component">
       <div className="time-period with-bottom-border">
         <SelectionGroup label={t(`${T_PATH}.parkingDurationType.label`)}>
-          {hasSecondPermitNotification()}
+          {typeIsSetByPrimary && (
+            <Notification
+              label={t(`${T_PATH}.sameAsFirstPermitNotification`)}
+            />
+          )}
           <div className="radio-button">
             <RadioButton
               className="custom-radio-btn"
               id={uuidv4()}
               value={ParkingContractType.OPEN_ENDED}
               label={t(`${T_PATH}.openEnded`)}
-              disabled={
-                primaryPermit.status === PermitStatus.VALID &&
-                primaryPermit.contractType === ParkingContractType.FIXED_PERIOD
-              }
+              disabled={openEndedDisabled}
               checked={
                 mainPermitToUpdate.contractType ===
                   ParkingContractType.OPEN_ENDED && isContractTypeChecked
@@ -93,10 +92,7 @@ const PermitType = ({
             />
             <div
               className={classNames(`assistive-text`, {
-                disabled:
-                  primaryPermit.status === PermitStatus.VALID &&
-                  primaryPermit.contractType ===
-                    ParkingContractType.FIXED_PERIOD,
+                disabled: openEndedDisabled,
               })}>
               {t(`${T_PATH}.openEndedAssistiveText`)}
             </div>
@@ -106,6 +102,7 @@ const PermitType = ({
               className="custom-radio-btn"
               id={uuidv4()}
               value={ParkingContractType.FIXED_PERIOD}
+              disabled={fixedPeriodDisabled}
               label={t(`${T_PATH}.fixedPeriod`)}
               checked={
                 mainPermitToUpdate.contractType ===
