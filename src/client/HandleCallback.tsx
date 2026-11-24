@@ -24,7 +24,9 @@ const HandleCallback = (
 
   const onError = (error: OidcClientError | undefined) => {
     console.error(error);
-    if (!error) return;
+    if (!error) {
+      return;
+    }
     if (
       error.isSignInError &&
       error.message ===

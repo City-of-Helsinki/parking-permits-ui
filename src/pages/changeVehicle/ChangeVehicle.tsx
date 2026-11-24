@@ -69,10 +69,12 @@ const ChangeVehicle = (): React.ReactElement => {
     ).catch(() => {
       vehicleChangeErrorCtx.setError(t(`${T_PATH}.permitExistError`));
     });
-    if (!result) return;
+    if (!result) {
+      return;
+    }
 
     await permitCtx?.fetchPermits();
-    
+
     if (result.refundCreated) {
       setStep(ChangeVehicleStep.ORDER_REVIEW);
     } else if (

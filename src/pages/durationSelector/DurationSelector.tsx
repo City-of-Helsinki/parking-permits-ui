@@ -94,7 +94,9 @@ const DurationSelector = (): React.ReactElement => {
   const sendPurchaseOrderRequest = () => {
     const now = new Date();
     setPurchaseTime(now);
-    if (hasInvalidDates(now)) return;
+    if (hasInvalidDates(now)) {
+      return;
+    }
     permitCtx?.createOrderRequest();
     setOrderRequest(true);
   };
@@ -184,7 +186,7 @@ const DurationSelector = (): React.ReactElement => {
           now
         )
     );
-    
+
   const invalidDates = hasInvalidDates(purchaseTime);
 
   const updateMonthCount = (permitId: string, monthCount: number) =>
