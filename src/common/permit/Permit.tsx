@@ -73,11 +73,17 @@ const Permit = ({
     )
   );
 
-  const isProcessing = (permit: PermitModel) =>
-    (permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
-      permit.talpaOrderId) ||
-    (permit.status === (PermitStatus.DRAFT || PermitStatus.PRELIMINARY) &&
-      permit.isOrderConfirmed);
+  const isProcessing = (permit: PermitModel) => {
+    const paymentInProgress =
+      permit.status === PermitStatus.PAYMENT_IN_PROGRESS &&
+      !!permit.talpaOrderId;
+    const confirmedDraft =
+      (permit.status === PermitStatus.DRAFT ||
+        permit.status === PermitStatus.PRELIMINARY) &&
+      permit.isOrderConfirmed;
+
+    return paymentInProgress || confirmedDraft;
+  };
   const hasTemporaryVehicle = (permit: PermitModel) =>
     permit.activeTemporaryVehicle;
 
@@ -253,8 +259,15 @@ const Permit = ({
     permits.every(p => p.contractType === ParkingContractType.OPEN_ENDED) ||
     permits.every(p => p.contractType === ParkingContractType.FIXED_PERIOD);
 
-  const updateCardUrl = permits.filter(p => !!p.updateCardUrl)[0]
-    ?.updateCardUrl;
+  const canChangeAddress = () =>
+    bothPermitWithSameContractType && permitCtx?.permitsHaveStarted(permits);
+  const shouldDisableAddressChange = () =>
+    (!permitCtx?.permitsHaveOutdatedAddresses() &&
+      permits.some(hasTemporaryVehicle)) ||
+    permits.some(isProcessing) ||
+    !canChangeAddress();
+
+  const updateCardUrl = permits.find(p => !!p.updateCardUrl)?.updateCardUrl;
 
   return (
     <div className="permit-component">
@@ -286,13 +299,7 @@ const Permit = ({
               <Button
                 className="permit-actions-buttons"
                 variant={ButtonVariant.Supplementary}
-                disabled={
-                  (!permitCtx?.permitsHaveOutdatedAddresses() &&
-                    permits.some(hasTemporaryVehicle)) ||
-                  permits.some(isProcessing) ||
-                  !bothPermitWithSameContractType ||
-                  !permitCtx?.permitsHaveStarted(permits)
-                }
+                disabled={shouldDisableAddressChange()}
                 style={{ margin: 'var(--spacing-xs) 0' }}
                 iconStart={<IconAngleRight />}
                 onClick={() => navigate(ROUTES.CHANGE_ADDRESS)}>

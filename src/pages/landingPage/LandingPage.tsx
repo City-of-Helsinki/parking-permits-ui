@@ -23,13 +23,18 @@ const LandingPage = (): React.ReactElement => {
   const { login, logout, isAuthenticated } = useOidcClient();
   const permitCtx = useContext(PermitStateContext);
   const profileCtx = useContext(UserProfileContext);
+  const profileStatus = profileCtx?.getStatus();
   const permitStatus = permitCtx?.getStatus();
+  const profileAndPermitsLoaded =
+    profileStatus === 'loaded' && permitStatus === 'loaded';
   const validPermits = permitCtx?.getValidPermits();
   const authenticated = isAuthenticated();
   const profile = profileCtx?.getProfile();
   const allowedAgeLimit = getEnvValue('REACT_APP_ALLOWED_AGE_LIMIT') || 0;
+  const profileHasNoValidAddress = () =>
+    !profile?.primaryAddress?.zone && !profile?.otherAddress?.zone;
 
-  if (profileCtx?.getStatus() === 'error') {
+  if (profileStatus === 'error') {
     return (
       <Notification type="error">
         {profileCtx?.getErrorMessage() ?? ''}
@@ -54,10 +59,8 @@ const LandingPage = (): React.ReactElement => {
   }
 
   if (
-    profileCtx?.getStatus() === 'loaded' &&
-    !profile?.primaryAddress?.zone &&
-    !profile?.otherAddress?.zone &&
-    permitStatus === 'loaded' &&
+    profileAndPermitsLoaded &&
+    profileHasNoValidAddress() &&
     !validPermits?.length
   ) {
     return (
