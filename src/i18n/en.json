@@ -26,6 +26,7 @@
   "common.address.Address.temporaryAddress": "Temporary Address",
   "common.addressLabel.permanentAddress": "Permanent Address",
   "common.addressLabel.temporaryAddress": "Temporary Address",
+  "common.refundReviewRequired": "Contact parking permit customer service. They need to check a previous refund before you can end this permit.",
   "common.genericError": "Something went wrong. Try again later.",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.cancel": "Cancel",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.continue": "Continue",

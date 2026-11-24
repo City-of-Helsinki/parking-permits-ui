@@ -26,6 +26,7 @@
   "common.address.Address.temporaryAddress": "Tillfällig adress",
   "common.addressLabel.permanentAddress": "Permanent adress",
   "common.addressLabel.temporaryAddress": "Tillfällig adress",
+  "common.refundReviewRequired": "Kontakta kundtjänsten för parkeringstillstånd. En tidigare återbetalning behöver kontrolleras innan du kan avsluta tillståndet.",
   "common.genericError": "Något gick fel. Försök igen senare.",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.cancel": "Avbryt",
   "common.deleteTemporaryVehicleDialog.DeleteTemporaryVehicleDialog.actionBtn.continue": "Fortsätt",

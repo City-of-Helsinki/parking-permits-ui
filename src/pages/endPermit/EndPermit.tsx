@@ -45,6 +45,13 @@ const EndPermit = (): React.ReactElement => {
   const [displayRefundNotification, setDisplayRefundNotification] =
     useState(false);
 
+  if (permits.some(permit => permit.totalRefundAmount === null)) {
+    return (
+      <Notification type="info">
+        {t('common.refundReviewRequired')}
+      </Notification>
+    );
+  }
   const priceChangesList = permits.map(permit => ({
     vehicle: permit.vehicle,
     priceChanges:
