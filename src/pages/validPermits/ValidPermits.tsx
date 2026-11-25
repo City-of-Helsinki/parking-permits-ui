@@ -262,9 +262,7 @@ const ValidPermits = (): React.ReactElement => {
         </Button>
         <EndPermitDialog
           isOpen={openEndPermitDialog}
-          currentPeriodEndTime={
-            first(validPermits)?.currentPeriodEndTime as string
-          }
+          permits={validPermits}
           canEndAfterCurrentPeriod={canEndAfterCurrentPeriod}
           onCancel={() => setOpenEndPermitDialog(false)}
           onConfirm={(endType: PermitEndType) => confirmDeleteOrder(endType)}

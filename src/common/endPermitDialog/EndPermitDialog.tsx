@@ -7,7 +7,7 @@ import {
 } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PermitEndType } from '../../types';
+import { Permit, PermitEndType } from '../../types';
 import { formatDateTimeDisplay } from '../../utils';
 import './endPermitDialog.scss';
 
@@ -16,7 +16,7 @@ const T_PATH = 'common.endPermitDialog.EndPermitDialog';
 interface EndPermitDialogProps {
   isOpen: boolean;
   canEndAfterCurrentPeriod: boolean;
-  currentPeriodEndTime: string;
+  permits: Permit[];
   onCancel: () => void;
   onConfirm: (endType: PermitEndType) => void;
 }
@@ -24,7 +24,7 @@ interface EndPermitDialogProps {
 const EndPermitDialog = ({
   isOpen,
   canEndAfterCurrentPeriod,
-  currentPeriodEndTime,
+  permits,
   onCancel,
   onConfirm,
 }: EndPermitDialogProps): React.ReactElement => {
@@ -53,7 +53,12 @@ const EndPermitDialog = ({
           onChange={e => setEndType(e.target.value as PermitEndType)}
         />
         <div className="currentPeriodEndTime">
-          {formatDateTimeDisplay(currentPeriodEndTime)}
+          {permits.map(permit => (
+            <div key={permit.id}>
+              {permits.length > 1 && `${permit.vehicle.registrationNumber} `}
+              {formatDateTimeDisplay(permit.currentPeriodEndTime)}
+            </div>
+          ))}
         </div>
         <RadioButton
           id="endImmediately"

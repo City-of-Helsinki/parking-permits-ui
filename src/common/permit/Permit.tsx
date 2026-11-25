@@ -420,7 +420,7 @@ const Permit = ({
                 )}
                 <EndPermitDialog
                   isOpen={openEndPermitDialog[permit.id]}
-                  currentPeriodEndTime={permit.currentPeriodEndTime as string}
+                  permits={[permit]}
                   canEndAfterCurrentPeriod={permit.canEndAfterCurrentPeriod}
                   onCancel={() =>
                     setOpenEndPermitDialog({
