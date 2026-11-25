@@ -78,7 +78,7 @@ vi.mock('../../../common/editPermits/Refund', () => ({
       <div>
         Refund: {refundTotal}, VAT: {refundTotalVat}
       </div>
-      <button onClick={() => void onConfirm('FI2112345600000785')}>
+      <button onClick={() => void onConfirm('FI0000000000000000')}>
         Confirm refund
       </button>
     </div>
@@ -288,7 +288,7 @@ it('moves a price decrease to refund and submits the account number', async () =
 
   expect(changeAddress).toHaveBeenCalledWith(
     'address-other',
-    'FI2112345600000785'
+    'FI0000000000000000'
   );
   expect(await screen.findByText('Order review: refund')).toBeInTheDocument();
 });
