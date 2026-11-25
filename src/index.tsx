@@ -39,7 +39,10 @@ if (getEnvValue('REACT_APP_SENTRY_DSN')) {
 }
 
 const container = document.getElementById('root');
-const root = createRoot(container!);
+if (!container) {
+  throw new Error('Root element not found');
+}
+const root = createRoot(container);
 
 root.render(
   <BrowserRouter>
