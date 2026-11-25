@@ -54,6 +54,9 @@ export type Permit = {
   totalRefundAmount: number | null;
   endingRefundLines: PermitPriceChangeItem[];
   currentPeriodEndTime: Date | string;
+  isInRenewalPeriod?: boolean;
+  // The backend sets this date whenever isInRenewalPeriod is true.
+  changesAvailableFrom?: string | null;
   canEndImmediately: boolean;
   canExtendPermit: boolean;
   maxExtensionMonthCount: number;

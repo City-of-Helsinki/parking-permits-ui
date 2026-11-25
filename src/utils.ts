@@ -150,6 +150,25 @@ export function formatDateTimeDisplay(datetime: MaybeDate): string {
 export const formatDate = (date: MaybeDate): string =>
   format(normalizeDateValue(date), 'd.M.yyyy');
 
+export const getRenewalChangesAvailableFrom = (
+  permits: Pick<Permit, 'isInRenewalPeriod' | 'changesAvailableFrom'>[]
+): string | null =>
+  permits
+    .filter(permit => permit.isInRenewalPeriod && permit.changesAvailableFrom)
+    .map(permit => permit.changesAvailableFrom as string)
+    .sort((a, b) => a.localeCompare(b))
+    .at(-1) ?? null;
+
+export const formatRenewalChangesAvailableFrom = (
+  date: string | null | undefined
+): string => {
+  if (!date) {
+    return '';
+  }
+  const [year, month, day] = date.split('-').map(Number);
+  return format(new Date(year, month - 1, day), 'd.M.yyyy');
+};
+
 export const formatPrice = (price: number): string =>
   // ensure accurate rounding e.g. 90.955 -> 90.96
   (Math.round(price * PC_100) / PC_100).toFixed(2);

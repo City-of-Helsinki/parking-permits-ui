@@ -3,11 +3,14 @@ import {
   ButtonPresetTheme,
   ButtonVariant,
   Dialog,
+  Notification,
+  NotificationSize,
   RadioButton,
 } from 'hds-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PermitEditType } from '../../types';
+import { formatRenewalChangesAvailableFrom } from '../../utils';
 import './editPermitDialog.scss';
 
 const T_PATH = 'common.editPermitDialog.EditPermitDialog';
@@ -15,6 +18,8 @@ const T_PATH = 'common.editPermitDialog.EditPermitDialog';
 interface EndPermitDialogProps {
   isOpen: boolean;
   permitId: string;
+  isInRenewalPeriod?: boolean;
+  vehicleChangesAvailableFrom?: string | null;
   onCancel: () => void;
   onConfirm: (endType: PermitEditType, permitId: string) => void;
 }
@@ -22,6 +27,8 @@ interface EndPermitDialogProps {
 const EditPermitDialog = ({
   isOpen,
   permitId,
+  isInRenewalPeriod,
+  vehicleChangesAvailableFrom,
   onCancel,
   onConfirm,
 }: EndPermitDialogProps): React.ReactElement => {
@@ -34,15 +41,28 @@ const EditPermitDialog = ({
       isOpen={isOpen}>
       <Dialog.Header id="confirmEditPermit" title={t(`${T_PATH}.title`)} />
       <Dialog.Content>
-        <RadioButton
-          id="temporary-vehicle-permit"
-          name="temporaryVehicle"
-          className="temporary-vehicle-permit"
-          label={t(`${T_PATH}.newVehicle`)}
-          value={PermitEditType.TEMPORARY}
-          checked={endType === PermitEditType.TEMPORARY}
-          onChange={e => setEndType(e.target.value as PermitEditType)}
-        />
+        {isInRenewalPeriod ? (
+          <Notification
+            className="renewal-period-notice"
+            size={NotificationSize.Small}
+            style={{ marginBottom: 'var(--spacing-s)' }}>
+            {t(`${T_PATH}.renewalPeriodNotice`, {
+              date: formatRenewalChangesAvailableFrom(
+                vehicleChangesAvailableFrom
+              ),
+            })}
+          </Notification>
+        ) : (
+          <RadioButton
+            id="temporary-vehicle-permit"
+            name="temporaryVehicle"
+            className="temporary-vehicle-permit"
+            label={t(`${T_PATH}.newVehicle`)}
+            value={PermitEditType.TEMPORARY}
+            checked={endType === PermitEditType.TEMPORARY}
+            onChange={e => setEndType(e.target.value as PermitEditType)}
+          />
+        )}
         <RadioButton
           id="new-vehicle-permit"
           name="newVehicle"
