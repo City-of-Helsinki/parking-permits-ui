@@ -7,6 +7,8 @@ import {
   IconAngleRight,
   IconCheckCircle,
   IconDocument,
+  Notification,
+  NotificationSize,
 } from 'hds-react';
 import { orderBy } from 'lodash';
 import React, { useContext, useState } from 'react';
@@ -30,9 +32,14 @@ import EndPermitDialog from '../endPermitDialog/EndPermitDialog';
 import ParkingZonesMap from '../parkingZoneMap/ParkingZonesMap';
 import './permit.scss';
 import { PermitStateContext } from '../../hooks/permitProvider';
-import { formatDateTimeDisplay } from '../../utils';
+import {
+  formatDateTimeDisplay,
+  formatRenewalChangesAvailableFrom,
+  getRenewalChangesAvailableFrom,
+} from '../../utils';
 
 const T_PATH = 'common.permit.Permit';
+const PERMIT_ACTION_MARGIN = 'var(--spacing-xs) 0';
 
 export interface Props {
   address: UserAddress;
@@ -203,7 +210,7 @@ const Permit = ({
                 permits.some(isProcessing) ||
                 permitCtx?.permitsHaveOutdatedAddresses()
               }
-              style={{ margin: 'var(--spacing-xs) 0' }}
+              style={{ margin: PERMIT_ACTION_MARGIN }}
               iconStart={<IconAngleRight />}
               onClick={() => setDeleteTmpVehiclePermitId(permit.id)}>
               {t(`${T_PATH}.deleteTemporaryVehicle`)}
@@ -259,7 +266,23 @@ const Permit = ({
       </div>
     );
   };
-  const canEditAddress = () => showActionsButtons && showChangeAddressButtons;
+  const isAnyPermitInRenewalPeriod = permits.some(p => p.isInRenewalPeriod);
+  const addressChangesAvailableFrom = getRenewalChangesAvailableFrom(permits);
+  const canEditAddress = () =>
+    showActionsButtons &&
+    showChangeAddressButtons &&
+    !isAnyPermitInRenewalPeriod;
+  const showAddressRenewalNotice =
+    showActionsButtons &&
+    showChangeAddressButtons &&
+    isAnyPermitInRenewalPeriod;
+  const showPerPermitRenewalNotices =
+    showActionsButtons && (!showAddressRenewalNotice || permits.length > 1);
+
+  const editPermit = permits.find(p => p.id === editPermitId);
+  const editPermitChangesAvailableFrom = editPermit
+    ? getRenewalChangesAvailableFrom([editPermit])
+    : null;
 
   const hasAddressChanged = (permit: PermitModel) => permit.addressChanged;
 
@@ -302,13 +325,25 @@ const Permit = ({
             zoom={13}
             zone={permits[0].parkingZone}
           />
-          {showActionsButtons && showChangeAddressButtons && (
+          {showAddressRenewalNotice && (
+            <Notification
+              className="renewal-period-notice"
+              size={NotificationSize.Small}
+              style={{ margin: 'var(--spacing-xs) 0 var(--spacing-l)' }}>
+              {t(`${T_PATH}.renewalPeriodNotice`, {
+                date: formatRenewalChangesAvailableFrom(
+                  addressChangesAvailableFrom
+                ),
+              })}
+            </Notification>
+          )}
+          {canEditAddress() && (
             <div className="permit-action-btns">
               <Button
                 className="permit-actions-buttons"
                 variant={ButtonVariant.Supplementary}
                 disabled={shouldDisableAddressChange()}
-                style={{ margin: 'var(--spacing-xs) 0' }}
+                style={{ margin: PERMIT_ACTION_MARGIN }}
                 iconStart={<IconAngleRight />}
                 onClick={() => navigate(ROUTES.CHANGE_ADDRESS)}>
                 {t(`${T_PATH}.changeAddress`)}
@@ -331,6 +366,18 @@ const Permit = ({
             key={uuidv4()}
             style={{ marginTop: index > 0 ? 'var(--spacing-xs)' : '0' }}>
             {getPermit(permit)}
+            {showPerPermitRenewalNotices && permit.isInRenewalPeriod && (
+              <Notification
+                className="renewal-period-notice"
+                size={NotificationSize.Small}
+                style={{ margin: PERMIT_ACTION_MARGIN }}>
+                {t(`${T_PATH}.renewalPeriodNotice`, {
+                  date: formatRenewalChangesAvailableFrom(
+                    permit.changesAvailableFrom
+                  ),
+                })}
+              </Notification>
+            )}
             {showActionsButtons && (
               <div className="permit-action-btns">
                 {!permits.some(hasTemporaryVehicle) && (
@@ -410,6 +457,8 @@ const Permit = ({
         <EditPermitDialog
           isOpen={!!editPermitId}
           permitId={editPermitId}
+          isInRenewalPeriod={!!editPermit?.isInRenewalPeriod}
+          vehicleChangesAvailableFrom={editPermitChangesAvailableFrom}
           onCancel={() => setEditPermitId(null)}
           onConfirm={(editType: PermitEditType, permitId) => {
             setEditPermitId(null);

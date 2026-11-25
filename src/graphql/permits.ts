@@ -20,6 +20,8 @@ export default gql`
       monthCount
       monthsLeft
       currentPeriodEndTime
+      isInRenewalPeriod
+      changesAvailableFrom
       canBeRefunded
       canEndImmediately
       canEndAfterCurrentPeriod
