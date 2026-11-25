@@ -39,18 +39,21 @@ export function maxSecondaryMonths(
   start: Date | string,
   now = new Date()
 ): number {
-  if (
-    primary.contractType === 'OPEN_ENDED' &&
-    primary.endType !== 'AFTER_CURRENT_PERIOD'
-  ) {
+  const effectiveStart = new Date(
+    Math.max(new Date(start).getTime(), now.getTime())
+  );
+  if (primary.contractType === 'OPEN_ENDED') {
+    if (
+      primary.endType === 'AFTER_CURRENT_PERIOD' &&
+      (!primary.endTime || effectiveStart > new Date(primary.endTime))
+    ) {
+      return 0;
+    }
     return MAX_MONTHS;
   }
   if (!primary.endTime) {
     return 0;
   }
-  const effectiveStart = new Date(
-    Math.max(new Date(start).getTime(), now.getTime())
-  );
   const end = helsinkiDay(primary.endTime);
   let months = 0;
   for (let n = 1; n <= MAX_MONTHS; n++) {

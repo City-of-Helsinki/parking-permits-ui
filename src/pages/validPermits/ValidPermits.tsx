@@ -90,8 +90,6 @@ const ValidPermits = (): React.ReactElement => {
   const hasVehicleChanged = (permit: PermitModel) => permit.vehicleChanged;
   const hasTemporaryVehicle = (permit: PermitModel) =>
     !!permit.activeTemporaryVehicle;
-  const isOpenEndedPermit = (permit: PermitModel) =>
-    permit.contractType === ParkingContractType.OPEN_ENDED;
 
   const canEndAfterCurrentPeriod =
     first(validPermits)?.canEndAfterCurrentPeriod ?? false;
@@ -127,7 +125,9 @@ const ValidPermits = (): React.ReactElement => {
   );
 
   const canOrderSecond =
-    validPermits.length === 1 && !validPermits.some(isOpenEndedPermit);
+    validPermits.length === 1 &&
+    (validPermits[0].contractType === ParkingContractType.FIXED_PERIOD ||
+      (primary && primary.status === PermitStatus.VALID));
 
   const showActionsButtons =
     validPermits.some(isPermitEditable) && !isPaymentPending;
@@ -219,7 +219,13 @@ const ValidPermits = (): React.ReactElement => {
         />
       )}
       {canOrderSecond && cannotBuySecond && (
-        <Notification label={t('secondaryPermitDates')} />
+        <Notification
+          label={t(
+            primary?.contractType === ParkingContractType.OPEN_ENDED
+              ? 'secondarySubscriptionDates'
+              : 'secondaryPermitDates'
+          )}
+        />
       )}
       <div className="action-buttons">
         {canOrderSecond && (

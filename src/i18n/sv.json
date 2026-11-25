@@ -1,4 +1,5 @@
 {
+  "secondarySubscriptionDates": "Välj en startdag för det andra tillståndet då det första tillståndet är giltigt.",
   "secondaryPermitDates": "Det andra tillståndets hela giltighetstid måste rymmas inom det första tillståndets giltighetstid. Välj ett giltigt startdatum och en kortare period eller förläng det första tillståndet.",
   "common.PurchaseNotification.notification.alert-2.payment.label": "Den andra beställningen behandlas",
   "common.PurchaseNotification.notification.alert-2.payment.message": "När den andra beställningen är klar, får du ett e-postmeddelande som bekräftar att ditt parkeringstillstånd har aktiverats. Det är förbjudet att göra ändringar eller att lägga till fordon i tjänsten under handläggningstiden. Om det uppstår några oväntade förseningar i behandlingen, vänligen kontakta kundtjänsten.",

@@ -299,7 +299,15 @@ const DurationSelector = (): React.ReactElement => {
           </div>
         </div>
       ))}
-      {invalidDates && <Notification label={gt('secondaryPermitDates')} />}
+      {invalidDates && (
+        <Notification
+          label={gt(
+            primaryPermit?.contractType === ParkingContractType.OPEN_ENDED
+              ? 'secondarySubscriptionDates'
+              : 'secondaryPermitDates'
+          )}
+        />
+      )}
       <div className="action-buttons">
         <Button
           theme={ButtonPresetTheme.Black}
