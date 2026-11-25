@@ -298,8 +298,6 @@ const Permit = ({
     permits.some(isProcessing) ||
     !canChangeAddress();
 
-  const updateCardUrl = permits.find(p => !!p.updateCardUrl)?.updateCardUrl;
-
   return (
     <div className="permit-component">
       {!hideMap && (
@@ -440,11 +438,11 @@ const Permit = ({
                 />
               </div>
             )}
-            {updateCardUrl && permit.contractType !== 'FIXED_PERIOD' && (
+            {permit.updateCardUrl && permit.contractType !== 'FIXED_PERIOD' && (
               <div className="permit-action-btns">
                 <Button
                   variant={ButtonVariant.Supplementary}
-                  onClick={() => window.open(updateCardUrl, '_self')}
+                  onClick={() => window.open(permit.updateCardUrl, '_self')}
                   iconStart={<IconAngleRight />}>
                   {t(`${T_PATH}.updateCard`)}
                 </Button>
