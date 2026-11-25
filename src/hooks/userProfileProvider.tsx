@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ProfileActions } from '../types';
-import userProfileHook from './userProfileHook';
+import useProfile from './useProfile';
 
 export const UserProfileContext = React.createContext<ProfileActions | null>(
   null
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const UserProfileProvider: FC<Props> = ({ children }) => {
-  const actions = userProfileHook();
+  const actions = useProfile();
   return (
     <UserProfileContext.Provider value={actions}>
       {children}
