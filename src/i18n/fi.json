@@ -1,4 +1,5 @@
 {
+  "secondarySubscriptionDates": "Valitse toiselle tunnukselle alkamispäivä, jolloin ensimmäinen tunnus on voimassa.",
   "secondaryPermitDates": "Toisen luvan koko keston on mahduttava ensimmäisen luvan voimassaoloaikaan. Valitse sopiva alkamispäivä ja lyhyempi kesto tai jatka ensimmäistä lupaa.",
   "common.PurchaseNotification.notification.alert-2.payment.label": "2. tilaus on kesken",
   "common.PurchaseNotification.notification.alert-2.payment.message": "Kun 2. tilauksen käsittely on valmis, saat sähköpostiisi ilmoituksen tunnuksen onnistuneesta käyttöönotosta. Muutosten tekeminen tai ajoneuvojen lisääminen palvelussa on evätty käsittelyn ajan. Jos käsittely jostain syystä pitkittyy, olethan yhteydessä asiakaspalveluun.",
