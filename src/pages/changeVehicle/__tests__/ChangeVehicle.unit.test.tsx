@@ -104,7 +104,7 @@ vi.mock('../../../common/editPermits/Refund', () => ({
       <div>
         Refund: {refundTotal}, VAT: {refundTotalVat}
       </div>
-      <button onClick={() => void onConfirm('FI2112345600000785')}>
+      <button onClick={() => void onConfirm('FI0000000000000000')}>
         Confirm refund
       </button>
       <button onClick={onCancel}>Cancel refund</button>
@@ -306,7 +306,7 @@ it('collects refund account details for a price decrease', async () => {
       PERMIT_ID,
       selectedVehicle.id,
       false,
-      'FI2112345600000785'
+      'FI0000000000000000'
     )
   );
   expect(await screen.findByText('Success')).toBeInTheDocument();
