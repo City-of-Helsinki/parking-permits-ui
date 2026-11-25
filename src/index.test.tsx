@@ -50,7 +50,14 @@ async function loadSentryOptions() {
 beforeEach(() => {
   vi.resetModules();
   vi.clearAllMocks();
+  document.body.innerHTML = '<div id="root"></div>';
   sentryEnvKeys.forEach(key => setEnv(key, ''));
+});
+
+it('fails clearly when the root element is missing', async () => {
+  document.body.innerHTML = '';
+
+  await expect(import('./index')).rejects.toThrow('Root element not found');
 });
 
 it('does not initialize Sentry without a DSN', async () => {
